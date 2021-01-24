@@ -1,0 +1,22 @@
+.wrapper {
+  position: relative;
+  padding: 0 20px;
+  background-color: rgb(43, 42, 42);
+  border-bottom: 1px solid white;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  .item {
+    display: inline-block;
+    line-height: 40px;
+    padding: 0 20px;
+    a {
+      color: white;
+      text-decoration: none;
+      transition: .2s color;
+      text-shadow: 2px 2px 2px rgb(128, 128, 128);
+      &:hover {
+        color: rgb(170, 170, 170);
+      }
+    }
+  }
+}

@@ -1,9 +1,9 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import thunkMiddleware from 'redux-thunk';
-import { menuReducer } from './menuReducer';
+import { headerReducer } from './headerReducer';
 
 
 const reducers = combineReducers({
-  menu: menuReducer,
+  header: headerReducer,
 })
 export const store = createStore(reducers, applyMiddleware(thunkMiddleware))

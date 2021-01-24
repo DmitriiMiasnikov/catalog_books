@@ -1,7 +1,22 @@
-.wrapper {
-  background-color: #181818;
-  height: 100%;
-  color: white;
+.page {
+  position: relative;
+  background-color: #353535;
+  margin: 0px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  top: 0px;
+  box-sizing: border-box;
+  .wrapper {
+    background-color: #181818;
+    position: sticky;
+    margin: 0 auto;
+    width: 1200px;
+    height: 100%;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 3px #181818;
+    box-sizing: border-box;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
