@@ -1,21 +1,33 @@
+@import "./assets/MAIN_COLORS.scss";
+
 .page {
   position: relative;
-  background-color: #353535;
   margin: 0px;
   padding-top: 20px;
   padding-bottom: 20px;
   top: 0px;
   box-sizing: border-box;
   .wrapper {
-    background-color: #181818;
     position: sticky;
     margin: 0 auto;
     width: 1200px;
     height: 100%;
     color: white;
     border-radius: 8px;
-    box-shadow: 0 3px 3px #181818;
+    box-shadow: 3px 3px 3px 3px #2c2c2c;
     box-sizing: border-box;
+  }
+  &.black {
+    background-color: $bg-scene-black;
+    .wrapper {
+      background-color: $bg-wrapper-black;
+    }
+  }
+  &.white {
+    background-color: $bg-scene-white;
+    .wrapper {
+      background-color: $bg-wrapper-white;
+    }
   }
 }
 
