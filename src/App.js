@@ -5,6 +5,7 @@ import Header  from './components/Header/HeaderContainer';
 import { Main } from './components/Main/Main';
 import classnames from 'classnames';
 import { connect } from 'react-redux'
+import UserMenu from './components/UserMenu/UserMenuContainer';
 
 function App({ theme }) {
   return (
@@ -14,7 +15,7 @@ function App({ theme }) {
         <Header />
       </div>
       <div className={styles.menu}>
-        asd
+        <UserMenu />
       </div>
       <div className={styles.content}>
         <Redirect from='/' to='/main' />
