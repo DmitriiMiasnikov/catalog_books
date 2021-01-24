@@ -9,7 +9,7 @@ const UserContainer = ({ currentUserId, users, selectedUser }) => {
     setCurrentUserInfo(users.find(el => el.userId === selectedUser))
   }, [users, selectedUser])
   return (
-    <User currentUserInfo={currentUserInfo} selectedUserMine={selectedUserMine}/>
+    <User currentUserInfo={currentUserInfo} selectedUserMine={selectedUserMine} />
   )
 }
 

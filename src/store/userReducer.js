@@ -26,8 +26,8 @@ const stateDefault = {
 
 export const userReducer = (state = stateDefault, action) => {
   switch (action.type) {
-    case(GET_USER_ID): {
-      return {...state, selectedUser: action.id }
+    case (GET_USER_ID): {
+      return { ...state, selectedUser: action.id }
     }
     default: break
   }
@@ -35,5 +35,5 @@ export const userReducer = (state = stateDefault, action) => {
 }
 
 export const getUserId = (id) => {
-  return { type: GET_USER_ID, id}
+  return { type: GET_USER_ID, id }
 }

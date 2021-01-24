@@ -10,7 +10,7 @@ export const Header = ({ menuItems }) => {
           return (
             <div key={i} className={styles.item}>
               <NavLink to={el.link}>{el.item}</NavLink>
-              </div>
+            </div>
           )
         })
       }

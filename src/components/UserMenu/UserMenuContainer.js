@@ -8,13 +8,13 @@ const UserMenuContainer = ({ currentUserId, users, getUserId }) => {
   useEffect(() => {
     setCurrentUserInfo(users.find(el => el.userId === currentUserId))
   }, [users, currentUserId])
-  
+
   const openUserInfo = (id) => {
     getUserId(id);
   }
 
   return (
-    <UserMenu currentUserInfo={currentUserInfo} openUserInfo={openUserInfo}/>
+    <UserMenu currentUserInfo={currentUserInfo} openUserInfo={openUserInfo} />
   )
 }
 
