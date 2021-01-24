@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { UserMenu } from './UserMenu'
+import { UserMenu } from './UserMenu';
+import { getUserId } from './../../store/userReducer';
 
-const UserMenuContainer = ({ currentUserId, users }) => {
+const UserMenuContainer = ({ currentUserId, users, getUserId }) => {
   const [currentUserInfo, setCurrentUserInfo] = useState(null)
   useEffect(() => {
     setCurrentUserInfo(users.find(el => el.userId === currentUserId))
-  }, [])
+  }, [users, currentUserId])
+  
+  const openUserInfo = (id) => {
+    getUserId(id);
+  }
+
   return (
-    <UserMenu currentUserInfo={currentUserInfo} />
+    <UserMenu currentUserInfo={currentUserInfo} openUserInfo={openUserInfo}/>
   )
 }
 
@@ -19,4 +25,4 @@ const mapStatesToProps = (state) => {
   }
 }
 
-export default connect(mapStatesToProps, {})(UserMenuContainer)
+export default connect(mapStatesToProps, { getUserId })(UserMenuContainer)

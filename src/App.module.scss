@@ -26,9 +26,11 @@
     }
     .menu {
       grid-area: menu;
+      padding: 15px;
     }
     .content {
       grid-area: content;
+      padding: 15px;
     }
   }
   &.black {
