@@ -8,7 +8,12 @@
   top: 0px;
   box-sizing: border-box;
   .wrapper {
-    position: sticky;
+    display: grid;
+    grid-template-columns: 200px auto;
+    grid-template-rows: auto;
+    grid-template-areas: 
+      'header header'
+      'menu content';
     margin: 0 auto;
     width: 1200px;
     height: 100%;
@@ -16,6 +21,15 @@
     border-radius: 8px;
     box-shadow: 3px 3px 3px 3px #2c2c2c;
     box-sizing: border-box;
+    .header {
+      grid-area: header;
+    }
+    .menu {
+      grid-area: menu;
+    }
+    .content {
+      grid-area: content;
+    }
   }
   &.black {
     background-color: $bg-scene-black;
