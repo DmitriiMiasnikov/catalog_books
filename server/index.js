@@ -1,48 +1,51 @@
-const iconv = require("iconv-lite");
-var needle = require('needle');
+const needle = require('needle');
 const fs = require("fs");
 const xpath = require("xpath");
 const dom = require("xmldom").DOMParser;
-const URL = "http://www.world-art.ru/animation/animation.php?id=1";
-// const xmlString = `
-// <HTML>
-// <head>
-//   <title>Official game sheet</title>
-//   <custom>Here we are</custom>
-// <body class="sheet">
-// </BODY>
-// </HTML>`;
-needle.get(URL, function(err, res){
-  if (err) throw err;
-  path = "//title//text()";
-  const doc = new dom().parseFromString(res.body);
-  const tmp = xpath.select(path, doc);
-  fs.writeFile('json.json', `{
-    "name": "${tmp}"
-  }`, (err) => {
+
+const counter = 3;
+
+for (let i = 1; i <= counter; i++) {
+  const URL = `http://www.world-art.ru/animation/animation.php?id=${i}`;
+  needle.get(URL, function (err, res) {
     if (err) throw err;
-  })
-});
-
-// const { spawn } = require("child_process");
-// const curl = spawn("curl", [URL]);
-// let text = "";
-// curl.stdout.on("data", (data) => {
-//   text += data;
-// });
-// curl.stderr.on("data", (data) => {
-
-// });
-// curl.on('close', (code) => {
-//   text = iconv.decode(text, "utf8");
-//   path = "//title";
-//   const doc = new dom().parseFromString(text);
-//   const tmp = xpath.select(path, doc);
-//   fs.writeFile('json.json', `{
-//     "name": "${tmp}"
-//   }`, (err) => {
-//     if (err) throw err;
-//   })
-// });
-
-// /html/body/center/table[7]/tbody/tr/td/table/tbody/tr/td[5]/table[2]/tbody/tr[2]/td[3]/table[2]/tbody/tr/td[3]
+    const doc = new dom().parseFromString(res.body);
+    pathNameRu = ".//*[table/tr/td/b[contains(text(),'Название (ромадзи)')]]/table[1]//text()";
+    pathNameEng = ".//*[td/b[contains(text(),'Название (англ.)')]]/td[3]//text()";
+    pathNameRom = ".//*[td/b[contains(text(),'Название (ромадзи)')]]/td[3]//text()";
+    pathAuthor = ".//*[td/b[contains(text(),'Режиссёр')]]/td[3]//text()";
+    pathDate = ".//*[td/b[contains(text(),'Премьера')]]/td[3]//text()";
+    pathGenre = ".//*[td/b[contains(text(),'Жанр')]]/td[3]//text()";
+    pathType = ".//*[td/b[contains(text(),'Тип')]]/td[3]//text()";
+    pathAuditory = ".//*[td/b[contains(text(),'Целевая аудитория')]]/td[3]//text()";
+    pathSubscription = ".//*[table//font[contains(text(),'Краткое содержание')]]/table[6]//text()";
+    const tmpNameRu = xpath.select(pathNameRu, doc);
+    const tmpNameEng = xpath.select(pathNameEng, doc);
+    const tmpNameRom = xpath.select(pathNameRom, doc);
+    const tmpAuthor = xpath.select(pathAuthor, doc);
+    let tmpDate = xpath.select(pathDate, doc);
+    if (!tmpDate) {
+      pathDate = ".//*[td/b[contains(text(),'Выпуск')]]/td[3]//text()";
+      tmpDate = xpath.select(pathDate, doc);
+    }
+    const tmpGenre = xpath.select(pathGenre, doc);
+    const tmpType = xpath.select(pathType, doc);
+    const tmpAuditory = xpath.select(pathAuditory, doc);
+    const tmpSubscription = xpath.select(pathSubscription, doc);
+    fs.appendFileSync('data.json', 
+    `{
+      "animeId": "${i}",
+      "nameRu": "${tmpNameRu}",
+      "nameEng": "${tmpNameEng}",
+      "nameRom": "${tmpNameRom}",
+      "author": "${tmpAuthor}",
+      "date": "${tmpDate}",
+      "genre": "${tmpGenre}",
+      "type": "${tmpType}",
+      "auditory": "${tmpAuditory}",
+      "description": "${tmpSubscription}"
+    } ${i === counter ? '' : ','}`, (err) => {
+      if (err) throw err;
+    })
+  });
+}
