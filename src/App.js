@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import UserMenu from './components/UserMenu/UserMenuContainer';
 import User from './components/User/UserContainer';
 import Books from './components/Books/BooksContainer';
+import Authors from './components/Authors/AuthorsContainer';
 
 function App({ theme, selectedUser }) {
   return (
@@ -23,6 +24,7 @@ function App({ theme, selectedUser }) {
           <Redirect from='/' to='/main' />
           <Route exact path='/main' render={() => <Main />} />
           <Route exact path='/books' render={() => <Books />} />
+          <Route exact path='/authors' render={() => <Authors />} />
           <Route exact path={`/users/${selectedUser}`} render={() => <User />} />
         </div>
       </div>

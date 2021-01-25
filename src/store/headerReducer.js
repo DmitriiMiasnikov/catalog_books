@@ -2,7 +2,7 @@ const stateDefault = {
   menuItems: [
     {item: 'Главная', link: '/main'},
     {item: 'Книги', link: '/books'},
-    {item: 'Авторы', link: '/autors'},
+    {item: 'Авторы', link: '/authors'},
   ]
 
 }
