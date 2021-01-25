@@ -3,12 +3,14 @@ const stateDefault = {
     {
       bookId: 1,
       name: 'firstbook',
-      autor: 'nameautor'
+      authorId: 1,
+      year: 2000,
     },
     {
       bookId: 2,
       name: 'secondbook',
-      autor: 'nameautor'
+      authorId: 2,
+      year: 2010
     }
   ]
 }
