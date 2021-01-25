@@ -6,7 +6,7 @@ const stateDefault = {
       userId: 1,
       userName: 'Dmitrii',
       email: 'dmitriimiasnikov@gmail.com',
-      classes: ['admin', 'creator', 'user'],
+      rights: ['admin', 'creator', 'user'],
       booksRead: [1, 2, 3],
       booksToRead: [4],
     },
@@ -14,7 +14,7 @@ const stateDefault = {
       userId: 2,
       userName: 'Anton',
       email: 'anton@gmail.com',
-      classes: ['user'],
+      rights: ['user'],
       booksRead: [1, 2],
       booksToRead: [4],
     }
@@ -24,7 +24,7 @@ const stateDefault = {
   isAuth: true,
 }
 
-export const userReducer = (state = stateDefault, action) => {
+export const usersReducer = (state = stateDefault, action) => {
   switch (action.type) {
     case (GET_USER_ID): {
       return { ...state, selectedUser: action.id }

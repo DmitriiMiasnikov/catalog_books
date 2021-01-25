@@ -7,7 +7,8 @@ export const UserMenu = ({ currentUserInfo, openUserInfo }) => {
     <div>
       {currentUserInfo &&
         <div className={styles.wrapper}>
-          <div>Имя: <span className={styles.name}>{currentUserInfo.userName}</span></div>
+          <div className={styles.nameBlock}>Имя: <NavLink to={`/users/${currentUserInfo.userId}`}>
+            <span className={styles.name}>{currentUserInfo.userName}</span></NavLink></div>
           <div className={styles.books}>Книг прочитано: {currentUserInfo.booksRead.length} </div>
           <div className={styles.books}>Книг к прочтению: {currentUserInfo.booksToRead.length} </div>
           <div className={styles.buttons}>

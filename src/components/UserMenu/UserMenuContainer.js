@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { UserMenu } from './UserMenu';
-import { getUserId } from './../../store/userReducer';
+import { getUserId } from '../../store/usersReducer';
 
 const UserMenuContainer = ({ currentUserId, users, getUserId }) => {
   const [currentUserInfo, setCurrentUserInfo] = useState(null)

@@ -4,13 +4,13 @@ import { authorsReducer } from "./authorsReducer";
 import { booksReducer } from "./booksReducer";
 import { headerReducer } from './headerReducer';
 import { mainReducer } from './mainReducer';
-import { userReducer } from "./userReducer";
+import { usersReducer } from "./usersReducer";
 
 
 const reducers = combineReducers({
   header: headerReducer,
   main: mainReducer,
-  user: userReducer,
+  user: usersReducer,
   books: booksReducer,
   authors: authorsReducer
 })
