@@ -2,18 +2,21 @@ const needle = require('needle');
 const fs = require("fs");
 const xpath = require("xpath");
 const dom = require("xmldom").DOMParser;
-
+const anime = [];
 const counter = 3;
 for (let i = 1; i <= counter; i++) {
+  const obj = new Object();
   const URL = `http://www.world-art.ru/animation/animation.php?id=${i}`;
   needle.get(URL, function (err, res) {
     if (err) throw err;
     const doc = new dom({
       locator: {},
-      errorHandler: { warning: function (w) { }, 
-      error: function (e) { }, 
-      fatalError: function (e) { console.error(e) } }
-  }).parseFromString(res.body);
+      errorHandler: {
+        warning: function (w) { },
+        error: function (e) { },
+        fatalError: function (e) { console.error(e) }
+      }
+    }).parseFromString(res.body);
     pathNameRu = ".//*[table/tr/td/b[contains(text(),'Название (ромадзи)')]]/table[1]//text()";
     pathNameEng = ".//*[td/b[contains(text(),'Название (англ.)')]]/td[3]//text()";
     pathNameRom = ".//*[td/b[contains(text(),'Название (ромадзи)')]]/td[3]//text()";
@@ -33,24 +36,25 @@ for (let i = 1; i <= counter; i++) {
     const tmpAuditory = xpath.select(pathAuditory, doc);
     const tmpSubscription = xpath.select(pathSubscription, doc);
     if (!tmpDate.length) {
-      pathDate1 = ".//*[td/b[contains(text(),'Выпуск')]]/td[3]/a[position() <= 3]//text()";
-      pathDate2 = ".//*[td/b[contains(text(),'Выпуск')]]/td[3]/a[position() > 3]//text()";
-      tmpDate = `${xpath.select(pathDate1, doc)} - ${xpath.select(pathDate1, doc)}`;
+      pathDate1 = ".//*[td/b[contains(text(),'Выпуск')]]/td[3]/a//text()";
+      tmpDate = xpath.select(pathDate1, doc);
     }
-    fs.appendFileSync('data.json',
-      `{
-            "animeId": "${i}",
-            "nameRu": "${tmpNameRu}",
-            "nameEng": "${tmpNameEng}",
-            "nameRom": "${tmpNameRom}",
-            "author": "${tmpAuthor}",
-            "date": "${tmpDate}",
-            "genre": "${tmpGenre}",
-            "type": "${tmpType}",
-            "auditory": "${tmpAuditory}",
-            "description": "${tmpSubscription}"
-          }`, (err) => {
-      if (err) throw err;
-    })
+    obj['animeId'] = i;
+    tmpNameRu.length ? obj['nameRu'] = tmpNameRu[0].data : null;
+    tmpNameEng.length ? obj['nameEng'] = tmpNameEng[0].data : null;
+    tmpNameRom.length ? obj['nameRom'] = tmpNameRom[0].data : null;
+    tmpAuthor.length ? obj['author'] = tmpAuthor[0].data : null;
+    tmpDate.length ? obj['date'] = tmpDate.map(el => el.data) : null;
+    tmpGenre.length ? obj['genre'] = tmpGenre.map(el => el.data) : null;
+    tmpType.length ? obj['type'] = tmpType[0].data : null;
+    tmpAuditory.length ? obj['auditory'] = tmpAuditory[0].data : null;
+    tmpSubscription.length ? obj['description'] = tmpSubscription[0].data : null;
+    anime.push(obj);
+    if (!err && res.statusCode == 200 && anime.length === counter) {
+      fs.appendFileSync('data.json',
+        JSON.stringify(anime), (err) => {
+          if (err) throw err;
+        })
+    }
   });
 }
