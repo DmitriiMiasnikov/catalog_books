@@ -48,7 +48,7 @@ for (let i = 1; i <= counter; i++) {
     tmpGenre.length ? obj['genre'] = tmpGenre.map(el => el.data) : null;
     tmpType.length ? obj['type'] = tmpType[0].data : null;
     tmpAuditory.length ? obj['auditory'] = tmpAuditory[0].data : null;
-    tmpSubscription.length ? obj['description'] = tmpSubscription[0].data : null;
+    tmpSubscription.length ? obj['description'] = tmpSubscription[0].data.replace(/<\/?[^>]+(>|$)/g, "") : null;
     anime.push(obj);
     if (!err && res.statusCode == 200 && anime.length === counter) {
       fs.appendFileSync('data.json',
