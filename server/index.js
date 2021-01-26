@@ -8,7 +8,12 @@ for (let i = 1; i <= counter; i++) {
   const URL = `http://www.world-art.ru/animation/animation.php?id=${i}`;
   needle.get(URL, function (err, res) {
     if (err) throw err;
-    const doc = new dom().parseFromString(res.body);
+    const doc = new dom({
+      locator: {},
+      errorHandler: { warning: function (w) { }, 
+      error: function (e) { }, 
+      fatalError: function (e) { console.error(e) } }
+  }).parseFromString(res.body);
     pathNameRu = ".//*[table/tr/td/b[contains(text(),'Название (ромадзи)')]]/table[1]//text()";
     pathNameEng = ".//*[td/b[contains(text(),'Название (англ.)')]]/td[3]//text()";
     pathNameRom = ".//*[td/b[contains(text(),'Название (ромадзи)')]]/td[3]//text()";
@@ -44,7 +49,7 @@ for (let i = 1; i <= counter; i++) {
             "type": "${tmpType}",
             "auditory": "${tmpAuditory}",
             "description": "${tmpSubscription}"
-          }${i === counter ? '' : ', '}`, (err) => {
+          }`, (err) => {
       if (err) throw err;
     })
   });
