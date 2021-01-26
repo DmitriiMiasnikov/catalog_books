@@ -6,7 +6,7 @@ import { Animation } from './Animation'
 const AnimationContainer = ({ animation, getAnimation }) => {
   useEffect(() => {
     getAnimation()
-  }, [animation])
+  }, [getAnimation])
   return (
     <Animation animation={animation} />
   )

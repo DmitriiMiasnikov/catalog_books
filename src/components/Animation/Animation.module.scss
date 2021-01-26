@@ -1,0 +1,32 @@
+.wrapper {
+  position: relative;
+  .item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    box-sizing: border-box;
+    border: 1px solid rgb(153, 153, 153);
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 14px;
+    color:rgb(226, 226, 226);
+    box-shadow: 1px 1px 3px 0px rgb(82, 82, 82);
+    &:not(:first-child) {
+      margin-top: 15px;
+    }
+    .image {
+      width: 150px;
+      border-radius: 8px;
+    }
+    .info {
+      padding: 0px 0px 0px 30px;
+      .nameRu {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+      > div:not(:first-child) {
+        margin-left: 15px;
+      }
+    }
+  }
+}
