@@ -4,7 +4,6 @@ const xpath = require("xpath");
 const dom = require("xmldom").DOMParser;
 
 const counter = 3;
-
 for (let i = 1; i <= counter; i++) {
   const URL = `http://www.world-art.ru/animation/animation.php?id=${i}`;
   needle.get(URL, function (err, res) {
@@ -32,19 +31,19 @@ for (let i = 1; i <= counter; i++) {
     const tmpType = xpath.select(pathType, doc);
     const tmpAuditory = xpath.select(pathAuditory, doc);
     const tmpSubscription = xpath.select(pathSubscription, doc);
-    fs.appendFileSync('data.json', 
-    `{
-      "animeId": "${i}",
-      "nameRu": "${tmpNameRu}",
-      "nameEng": "${tmpNameEng}",
-      "nameRom": "${tmpNameRom}",
-      "author": "${tmpAuthor}",
-      "date": "${tmpDate}",
-      "genre": "${tmpGenre}",
-      "type": "${tmpType}",
-      "auditory": "${tmpAuditory}",
-      "description": "${tmpSubscription}"
-    } ${i === counter ? '' : ','}`, (err) => {
+    fs.appendFileSync('data.json',
+      `{
+            "animeId": "${i}",
+            "nameRu": "${tmpNameRu}",
+            "nameEng": "${tmpNameEng}",
+            "nameRom": "${tmpNameRom}",
+            "author": "${tmpAuthor}",
+            "date": "${tmpDate}",
+            "genre": "${tmpGenre}",
+            "type": "${tmpType}",
+            "auditory": "${tmpAuditory}",
+            "description": "${tmpSubscription}"
+          }${i === counter ? '' : ', '}`, (err) => {
       if (err) throw err;
     })
   });
