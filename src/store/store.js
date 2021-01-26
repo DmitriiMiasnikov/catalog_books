@@ -1,5 +1,6 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import thunkMiddleware from 'redux-thunk';
+import { animationReducer } from "./animationReducer";
 import { authorsReducer } from "./authorsReducer";
 import { booksReducer } from "./booksReducer";
 import { headerReducer } from './headerReducer';
@@ -12,6 +13,7 @@ const reducers = combineReducers({
   main: mainReducer,
   user: usersReducer,
   books: booksReducer,
-  authors: authorsReducer
+  authors: authorsReducer,
+  animation: animationReducer
 })
 export const store = createStore(reducers, applyMiddleware(thunkMiddleware))
