@@ -24,16 +24,12 @@ const AnimationFiltersContainer = ({ animation, getAnimationList }) => {
     setButtonsFilter(unique(auditoryItems).filter(el => el));
   }, [getAnimationList, animation])
   const openDropdown = (dropdownId) => {
-    setDropdowns(dropdowns => {
-      return dropdowns.map(el => {
+    setDropdowns(dropdowns.map(el => {
         if (el.id === dropdownId) {
-          console.log(el.closed);
-          console.log(el.id, dropdownId);
           el.closed ? el.closed = false : el.closed = true
           return el;
         } else return el;
-      })
-    })
+      }))
   }
   return (
     <AnimationFilters buttonsFilter={buttonsFilter} dropdowns={dropdowns} openDropdown={openDropdown} />

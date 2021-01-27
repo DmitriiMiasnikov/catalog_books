@@ -2,6 +2,7 @@
   position: relative;
   margin-top: 20px;
   .dropdown {
+    user-select: none;
     &.closed {
       .dropdownBlock {
         display: none;
