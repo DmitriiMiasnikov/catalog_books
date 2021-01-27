@@ -3,9 +3,24 @@ import styles from './Animation.module.scss';
 import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
 
-export const Animation = ({ animation, openAnimationInfo }) => {
+export const Animation = ({ animation, openAnimationInfo, buttonsSort, sortHandler }) => {
   return (
     <div className={styles.wrapper}>
+      <div className={styles.sort}>
+        <div className={classnames(styles.button, styles.sortBy)}>
+          Сортировать по:
+        </div>
+        {
+          buttonsSort.map((el, i) => {
+            return (
+              <div className={classnames(styles.button, { [styles.active]: buttonsSort[el.id].active })}
+                onClick={() => sortHandler(el.id)} key={i}>
+                {el.text}
+              </div>
+            )
+          })
+        }
+      </div>
       {
         animation && animation.map((el, i) => {
           return (
