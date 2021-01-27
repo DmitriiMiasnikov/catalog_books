@@ -10,7 +10,9 @@ export const Animation = ({ animation, openAnimationInfo }) => {
         animation && animation.map((el, i) => {
           return (
             <div key={i} className={styles.item}>
-              <img src={`/img/anime_cover_${i + 1}.jpg`} alt='img' className={styles.image} />
+              <NavLink to={`/animation/${el.animeId}`} onClick={() => openAnimationInfo(el)} className={styles.imgLink}>
+                <img src={`/img/anime_cover_${i + 1}.jpg`} alt='img' className={styles.image} />
+              </NavLink>
               <div className={styles.infoWrapper}>
                 {el.nameRu && <div className={styles.title}>
                   <NavLink to={`/animation/${el.animeId}`} onClick={() => openAnimationInfo(el)}>{el.nameRu}</NavLink></div>}
