@@ -26,7 +26,7 @@ function App({ theme, selectedUser }) {
           <Route exact path='/main' render={() => <Main />} />
           <Route exact path='/books' render={() => <Books />} />
           <Route exact path='/authors' render={() => <Authors />} />
-          <Route exact path='/animation' render={() => <Animation />} />
+          <Route exact path='/animation/:animationId?' render={() => <Animation />} />
           <Route exact path={`/users/${selectedUser}`} render={() => <User />} />
         </div>
       </div>

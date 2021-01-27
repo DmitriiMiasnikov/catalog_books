@@ -1,14 +1,27 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getAnimation } from '../../store/animationReducer';
-import { Animation } from './Animation'
+import { withRouter } from 'react-router-dom';
+import { Route } from 'react-router-dom'
+import { compose } from 'redux';
+import { getAnimationList, getAnimation } from '../../store/animationReducer';
+import { Animation } from './Animation';
+import AnimationDescription from './../AnimationDescription/AnimationDescriptionContainer';
 
-const AnimationContainer = ({ animation, getAnimation }) => {
+const AnimationContainer = ({ animation, getAnimationList, match }) => {
   useEffect(() => {
-    getAnimation()
-  }, [getAnimation])
+    getAnimationList()
+  }, [getAnimationList])
+  const openAnimationInfo = (info) => {
+    getAnimation(info);
+  }
+  if (match.params.animationId) {
+    return (
+      <Route exact path={`/animation/${match.params.animationId}`} 
+        render={() => <AnimationDescription animationId={match.params.animationId}/>} />
+    )
+  }
   return (
-    <Animation animation={animation} />
+    <Animation animation={animation} openAnimationInfo={openAnimationInfo}/>
   )
 }
 const mapStatesToProps = (state) => {
@@ -16,4 +29,7 @@ const mapStatesToProps = (state) => {
     animation: state.animation.animation,
   }
 }
-export default connect (mapStatesToProps, { getAnimation })(AnimationContainer);
+export default compose(
+  connect (mapStatesToProps, { getAnimationList, getAnimation }),
+  withRouter
+)(AnimationContainer);
