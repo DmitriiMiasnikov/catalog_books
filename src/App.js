@@ -10,6 +10,7 @@ import User from './components/User/UserContainer';
 import Books from './components/Books/BooksContainer';
 import Authors from './components/Authors/AuthorsContainer';
 import Animation from './components/Animation/AnimationContainer'
+import AnimationFilters from './components/AnimationFilters/AnimationFiltersContainer';
 
 function App({ theme, selectedUser }) {
   return (
@@ -20,6 +21,7 @@ function App({ theme, selectedUser }) {
         </div>
         <div className={styles.menu}>
           <UserMenu />
+          <Route exact path='/animation' render={() => <AnimationFilters />} />
         </div>
         <div className={styles.content}>
           <Redirect from='/' to='/main' />

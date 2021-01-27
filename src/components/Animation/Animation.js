@@ -34,7 +34,6 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortH
                 {el.nameEng && !el.nameRu && <div className={classnames(styles.nameEng, { [styles.title]: !el.nameRu })}>
                   <NavLink to={`/animation/${el.animeId}`} onClick={() => openAnimationInfo(el)}>{el.nameEng}</NavLink>
                 </div>}
-                {/* {el.nameRom && <div className={styles.nameRom}>{el.nameRom}</div>} */}
                 <div className={styles.date}>
                   {el.date.map((dateEl, j) => {
                     return (
@@ -69,4 +68,3 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortH
     </div>
   )
 }
-// C:\Users\EVANGELION\GitHub\catalog_books\src\assets\img\anime_cover_1.jpg
