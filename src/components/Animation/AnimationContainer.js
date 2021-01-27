@@ -8,6 +8,7 @@ import { Animation } from './Animation';
 import AnimationDescription from './../AnimationDescription/AnimationDescriptionContainer';
 
 const AnimationContainer = ({ animation, getAnimationList, match }) => {
+  const [animationList, setAnimationList] = useState([]);
   const [buttonsSort, setButtonsSort] = useState([
     {
       id: 0,
@@ -16,12 +17,16 @@ const AnimationContainer = ({ animation, getAnimationList, match }) => {
     },
     {
       id: 1,
-      text: 'по дате',
+      text: 'по дате (сначала старые)',
       active: false,
     }])
   useEffect(() => {
-    getAnimationList()
-  }, [getAnimationList])
+    const fetchData = async () => {
+      await getAnimationList();
+    }
+    fetchData();
+    setAnimationList(animation);
+  }, [getAnimationList, animation])
   const openAnimationInfo = (info) => {
     getAnimation(info);
   }
@@ -31,12 +36,28 @@ const AnimationContainer = ({ animation, getAnimationList, match }) => {
         if (el.id !== buttonId) {
           el.active = false
           return el
-         } else {
+        } else {
           el.active = true
           return el
-         }
+        }
       })
     })
+    if (buttonId === 0) {
+      setAnimationList(list => {
+        return list.sort((a, b) => (a.nameRu === b.nameRu) ? 0 : a.nameRu > b.nameRu ? 1 : -1)
+      })
+    } else if (buttonId === 1) {
+      setAnimationList(list => {
+        return list.sort((a, b) => {
+          if (a.date[a.date.length - 1] === b.date[b.date.length - 1]) {
+            return 0
+          } else if (a.date[a.date.length - 1] > b.date[b.date.length - 1]) {
+            return 1
+          } else return -1
+        })
+      })
+    }
+
   }
   if (match.params.animationId) {
     return (
@@ -45,7 +66,7 @@ const AnimationContainer = ({ animation, getAnimationList, match }) => {
     )
   }
   return (
-    <Animation animation={animation} openAnimationInfo={openAnimationInfo} 
+    <Animation animationList={animationList} openAnimationInfo={openAnimationInfo}
       buttonsSort={buttonsSort} sortHandler={sortHandler} />
   )
 }

@@ -9,6 +9,7 @@
       color: rgb(255, 255, 255);
       user-select: none;
       font-size: 14px;
+      transition: .2s background-color;
       &.sortBy {
         background-color: #464646;
       }
@@ -16,6 +17,7 @@
         margin-left: 10px;
         &:not(.active) {
           &:hover {
+            background-color: #ef4d6e;
             cursor: pointer;
           }
         }
