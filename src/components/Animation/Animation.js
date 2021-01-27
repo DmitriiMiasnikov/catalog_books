@@ -10,30 +10,36 @@ export const Animation = ({ animation }) => {
           return (
             <div key={i} className={styles.item}>
               <img src={`/img/anime_cover_${i + 1}.jpg`} alt='img' className={styles.image} />
-              <div className={styles.info}>
-                {el.nameRu && <div className={styles.nameRu}>{el.nameRu}</div>}
-                {el.nameEng && <div className={classnames(styles.nameEng, { [styles.nameRu]: !el.nameRu })}>{el.nameEng}</div>}
-                {el.nameRom && <div className={styles.nameRom}>{el.nameRom}</div>}
-                <div className={styles.date}>дата выхода: {el.date.map((dateEl, j) => {
-                  return (
-                    <span>
-                      {j === 3 && <span> - </span>}
-                      <span key={j} className={styles.n}>{dateEl}</span>
-                      {j !== el.date.length - 1 && j !== 2 && <span>.</span>}
-                    </span>
-                  )
-                })}</div>
-                <div className={styles.author}>автор: {el.author}</div>
-                <div className={styles.genre}>жанр: {el.genre.map((genreEl, j) => {
-                  return (
-                    <span>
-                    <span key={j} className={styles.n}>{genreEl}</span>
-                    {j !== el.date.length - 1 && <span>, </span>}
+              <div className={styles.infoWrapper}>
+                {el.nameRu && <div className={styles.title}>{el.nameRu}</div>}
+                {el.nameEng && !el.nameRu && <div className={classnames(styles.nameEng, { [styles.title]: !el.nameRu })}>{el.nameEng}</div>}
+                {/* {el.nameRom && <div className={styles.nameRom}>{el.nameRom}</div>} */}
+                <div className={styles.date}>
+                  {el.date.map((dateEl, j) => {
+                    return (
+                      <span>
+                        {j === 3 && <span> - </span>}
+                        <span key={j} className={styles.n}>{dateEl}</span>
+                        {j !== el.date.length - 1 && j !== 2 && <span>.</span>}
+                      </span>
+                    )
+                  })}
+                </div>
+                <div className={styles.line}>автор: <span className={styles.lineInfo}>{el.author}</span></div>
+                <div className={styles.line}>жанр:
+                <span className={styles.lineInfo}>
+                    {el.genre.map((genreEl, j) => {
+                      return (
+                        <span className={styles.info}>
+                          <span key={j} className={styles.n}>{genreEl}</span>
+                          {j !== el.genre.length - 1 && <span>, </span>}
+                        </span>
+                      )
+                    })}
                   </span>
-                  )
-                })}</div>
-                <div className={styles.type}>тип: {el.type}</div>
-                <div className={styles.auditory}>аудитория: {el.auditory}</div>
+                </div>
+                {el.type && <div className={styles.line}>тип: <span className={styles.lineInfo}>{el.type}</span></div>}
+                {el.auditory && <div className={styles.line}>аудитория: <span className={styles.lineInfo}>{el.auditory}</span></div>}
               </div>
             </div>
           )
