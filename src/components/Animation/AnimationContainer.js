@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Route } from 'react-router-dom'
 import { compose } from 'redux';
-import { getAnimationList, getAnimation } from '../../store/animationReducer';
+import { getAnimationList, getAnimation, getAnimationFilter } from '../../store/animationReducer';
 import { Animation } from './Animation';
 import AnimationDescription from './../AnimationDescription/AnimationDescriptionContainer';
 
-const AnimationContainer = ({ animation, getAnimationList, match, filterBy, getAnimation }) => {
+const AnimationContainer = ({ animation, getAnimationList, match, filterBy, getAnimation, getAnimationFilter }) => {
   const [animationList, setAnimationList] = useState([]);
   const [buttonsSort, setButtonsSort] = useState([
     {
@@ -35,6 +35,11 @@ const AnimationContainer = ({ animation, getAnimationList, match, filterBy, getA
       } else setAnimationList(animation.filter(el => el.auditory === filterBy));
     }
   }, [filterBy])
+  useEffect(() => {
+    return () => {
+      getAnimationFilter('');
+    }
+  }, [])
   const openAnimationInfo = (info) => {
     getAnimation(info);
   }
@@ -91,6 +96,6 @@ const mapStatesToProps = (state) => {
   }
 }
 export default compose(
-  connect(mapStatesToProps, { getAnimationList, getAnimation }),
+  connect(mapStatesToProps, { getAnimationList, getAnimation, getAnimationFilter }),
   withRouter
 )(AnimationContainer);

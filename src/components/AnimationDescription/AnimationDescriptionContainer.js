@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { AnimationDescription } from './AnimationDescription';
 import { getAnimation } from './../../store/animationReducer';
@@ -11,7 +11,7 @@ const AnimationDescriptionContainer = ({ animationId, selectedAnimation, getAnim
     fetchData();
   }, [animationId, getAnimation])
   return (
-    <AnimationDescription selectedAnimation={selectedAnimation}/>
+    <AnimationDescription selectedAnimation={selectedAnimation} />
   )
 }
 const mapStatesToProps = (state) => {
@@ -19,4 +19,4 @@ const mapStatesToProps = (state) => {
     selectedAnimation: state.animation.selectedAnimation,
   }
 }
-export default connect (mapStatesToProps, { getAnimation })(AnimationDescriptionContainer);
+export default connect(mapStatesToProps, { getAnimation })(AnimationDescriptionContainer);
