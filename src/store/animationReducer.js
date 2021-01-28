@@ -1,4 +1,4 @@
-import { getAnimationListApi } from './../api/api';
+import { getAnimationListApi, getAnimationApi } from './../api/api';
 
 const GET_ANIMATION_LIST = 'GET_ANIMATION_LIST';
 const GET_ANIMATION = 'GET_ANIMATION';
@@ -6,7 +6,6 @@ const GET_ANIMATION_FILTERED = 'GET_ANIMATION_FILTERED';
 
 let stateDefault = {
   animation: [],
-  selectedAnimationId: 1,
   selectedAnimation: null,
   filterBy: ''
 }
@@ -26,16 +25,15 @@ export const animationReducer = (state = stateDefault, action) => {
     case (GET_ANIMATION): {
       return {
         ...state,
-        selectedAnimation: action.selectedAnimation,
-        selectedAnimationId: action.selectedAnimationId
+        selectedAnimation: action.selectedAnimation
       }
     }
     default: break
   }
   return state;
 }
-export const getAnimation = (selectedAnimation, selectedAnimationId) => {
-  return { type: GET_ANIMATION, selectedAnimation, selectedAnimationId }
+export const getAnimationFunc = (selectedAnimation) => {
+  return { type: GET_ANIMATION, selectedAnimation }
 }
 export const getAnimationFilter = (filterBy) => {
   return { type: GET_ANIMATION_FILTERED, filterBy }
@@ -49,5 +47,12 @@ export const getAnimationList = () => {
   return async (dispatch) => {
     const res = await getAnimationListApi()
     dispatch(getAnimationListFunc(res))
+  }
+}
+
+export const getAnimation = (id) => {
+  return async (dispatch) => {
+    const res = await getAnimationApi(id)
+    dispatch(getAnimationFunc(res))
   }
 }

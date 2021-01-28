@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { AnimationDescription } from './AnimationDescription'
+import { AnimationDescription } from './AnimationDescription';
+import { getAnimation } from './../../store/animationReducer';
 
-const AnimationDescriptionContainer = ({ animationId, animation }) => {
-  const [currentAnimationInfo, setCurrentAnimationInfo] = useState(null);
+const AnimationDescriptionContainer = ({ animationId, selectedAnimation, getAnimation }) => {
   useEffect(() => {
-    setCurrentAnimationInfo(animation.find(el => el.animeId === Number(animationId)))
-  }, [animation, animationId])
+    const fetchData = async () => {
+      await getAnimation(animationId);
+    }
+    fetchData();
+  }, [animationId, getAnimation])
   return (
-    <AnimationDescription currentAnimationInfo={currentAnimationInfo}/>
+    <AnimationDescription selectedAnimation={selectedAnimation}/>
   )
 }
 const mapStatesToProps = (state) => {
   return {
-    animation: state.animation.animation,
+    selectedAnimation: state.animation.selectedAnimation,
   }
 }
-export default connect (mapStatesToProps, {  })(AnimationDescriptionContainer);
+export default connect (mapStatesToProps, { getAnimation })(AnimationDescriptionContainer);

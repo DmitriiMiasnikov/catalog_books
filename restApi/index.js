@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const config = require('config');
+const animationRoutes = require('./routes/animationRoutes');
 
 const app = express();
 
@@ -10,7 +11,7 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-app.use('/animation', require('./routes/animationRoutes'));
+app.use('/animation', animationRoutes);
 
 const start = async () => {
   try {

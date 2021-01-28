@@ -7,7 +7,7 @@ import { getAnimationList, getAnimation } from '../../store/animationReducer';
 import { Animation } from './Animation';
 import AnimationDescription from './../AnimationDescription/AnimationDescriptionContainer';
 
-const AnimationContainer = ({ animation, getAnimationList, match, filterBy }) => {
+const AnimationContainer = ({ animation, getAnimationList, match, filterBy, getAnimation }) => {
   const [animationList, setAnimationList] = useState([]);
   const [buttonsSort, setButtonsSort] = useState([
     {
