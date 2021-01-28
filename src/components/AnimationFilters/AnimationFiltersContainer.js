@@ -13,24 +13,40 @@ const AnimationFiltersContainer = ({ animation, getAnimationFilter }) => {
     }
   ])
   useEffect(() => {
-    const auditoryItems = animation.map(el => el.auditory);
+    const auditoryItems = animation.map(el => {
+      return el.auditory
+    });
     const unique = (arr) => Array.from(new Set(arr));
-    setButtonsFilter(['все'].concat(unique(auditoryItems).filter(el => el)));
-  }, [animation])
+    const filter = ['все'].concat(unique(auditoryItems).filter(el => el));
+    setButtonsFilter(filter.map((el, i) => {
+      return {
+        active: !i,
+        auditory: el
+      }
+    }));
+  }, [])
   const openDropdown = (dropdownId) => {
     setDropdowns(dropdowns.map(el => {
-        if (el.id === dropdownId) {
-          el.closed ? el.closed = false : el.closed = true
-          return el;
-        } else return el;
-      }))
+      if (el.id === dropdownId) {
+        el.closed ? el.closed = false : el.closed = true
+        return el;
+      } else return el;
+    }))
   }
-  const filterHandler = async (filterBy) => {
+  const filterHandler = (filterBy, indexButton) => {
     getAnimationFilter(filterBy);
+    setButtonsFilter((buttons) => {
+      return buttons.map((el, i) => {
+        if (i === indexButton) {
+          el.active = true
+        } else el.active = false
+        return el
+      })
+    })
   }
   return (
-    <AnimationFilters buttonsFilter={buttonsFilter} dropdowns={dropdowns} 
-      openDropdown={openDropdown} filterHandler={filterHandler}/>
+    <AnimationFilters buttonsFilter={buttonsFilter} dropdowns={dropdowns}
+      openDropdown={openDropdown} filterHandler={filterHandler} />
   )
 }
 

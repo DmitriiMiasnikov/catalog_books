@@ -40,6 +40,10 @@
           cursor: pointer;
           background-color: #686868;
         }
+        &.active {
+          pointer-events: none;
+          background-color: #686868;
+        }
       }
     }
   }

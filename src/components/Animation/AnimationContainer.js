@@ -29,8 +29,8 @@ const AnimationContainer = ({ animation, getAnimationList, match, filterBy }) =>
   }, [])
   useEffect(() => {
     if (filterBy) {
+      loadAnimation();
       if (filterBy === 'все') {
-        loadAnimation();
         setAnimationList(animation);
       } else setAnimationList(animation.filter(el => el.auditory === filterBy));
     }

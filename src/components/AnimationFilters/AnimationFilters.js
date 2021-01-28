@@ -16,8 +16,9 @@ export const AnimationFilters = ({ buttonsFilter, openDropdown, dropdowns, filte
                 {
                   buttonsFilter && buttonsFilter.map((el, i) => {
                     return (
-                      <div className={styles.dropdownButton} key={i} onClick={() => filterHandler(el)}>
-                        {el}
+                      <div className={classnames(styles.dropdownButton, { [styles.active]: el.active })}
+                        key={i} onClick={() => filterHandler(el.auditory, i)}>
+                        {el.auditory}
                       </div>
                     )
                   })
