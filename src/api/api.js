@@ -1,7 +1,10 @@
-import URLAnimation from './../assets/data.json';
+import * as axios from 'axios';
+
+const instance = axios.create({
+  baseURL: 'http://localhost:5000/'
+})
 
 export const getAnimationListApi = async () => {
-  // const res = await fetch(URLAnimation);
-  const res = URLAnimation;
-  return res;
+  const res = await instance.get('animation');
+  return res.data.animation;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Route } from 'react-router-dom'
@@ -20,24 +20,26 @@ const AnimationContainer = ({ animation, getAnimationList, match, filterBy }) =>
       text: 'по дате (сначала старые)',
       active: false,
     }])
+  const loadAnimation = useCallback(async () => {
+    await getAnimationList();
+  }, [getAnimationList])
   useEffect(() => {
-    const fetchData = async () => {
-      await getAnimationList();
-    }
-    fetchData();
+    loadAnimation();
     setAnimationList(animation);
-  }, [getAnimationList, animation])
+  }, [])
   useEffect(() => {
     if (filterBy) {
       if (filterBy === 'все') {
+        loadAnimation();
         setAnimationList(animation);
       } else setAnimationList(animation.filter(el => el.auditory === filterBy));
     }
-  }, [filterBy, animation])
+  }, [filterBy])
   const openAnimationInfo = (info) => {
     getAnimation(info);
   }
   const sortHandler = (buttonId) => {
+    loadAnimation();
     setButtonsSort(buttons => {
       return buttons.map(el => {
         if (el.id !== buttonId) {
