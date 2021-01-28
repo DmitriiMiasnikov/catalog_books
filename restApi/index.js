@@ -1,8 +1,27 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const config = require('config');
 
-const PORT = process.env.PORT || 5000;
 const app = express();
 
-app.listen(PORT, () => {
-  console.log('server started...')
-})
+app.use(express.json({ extended: true }))
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+const start = async () => {
+  try {
+    await mongoose.connect(config.get('mongoUri'), {
+      useNewUrlParser: true,
+      useFindAndModify: false
+    })
+    app.listen(config.get('port'), () => {
+      console.log('server started...')
+    })
+  } catch (e) {
+    console.log(e);
+  }
+}
+start();
