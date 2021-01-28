@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { getAnimationList } from './../../store/animationReducer';
+import { getAnimationList, getAnimationFilter } from './../../store/animationReducer';
 import { AnimationFilters } from './AnimationFilters';
 
-const AnimationFiltersContainer = ({ animation, getAnimationList }) => {
-  // const [animationList, setAnimationList] = useState([]);
+const AnimationFiltersContainer = ({ animation, getAnimationFilter }) => {
   const [buttonsFilter, setButtonsFilter] = useState([]);
   const [dropdowns, setDropdowns] = useState([
     {
@@ -14,15 +13,10 @@ const AnimationFiltersContainer = ({ animation, getAnimationList }) => {
     }
   ])
   useEffect(() => {
-    // const fetchData = async () => {
-    //   !animation && await getAnimationList();
-    // }
-    // fetchData();
-    // setAnimationList(animation);
     const auditoryItems = animation.map(el => el.auditory);
     const unique = (arr) => Array.from(new Set(arr));
-    setButtonsFilter(unique(auditoryItems).filter(el => el));
-  }, [getAnimationList, animation])
+    setButtonsFilter(['все'].concat(unique(auditoryItems).filter(el => el)));
+  }, [animation])
   const openDropdown = (dropdownId) => {
     setDropdowns(dropdowns.map(el => {
         if (el.id === dropdownId) {
@@ -31,8 +25,12 @@ const AnimationFiltersContainer = ({ animation, getAnimationList }) => {
         } else return el;
       }))
   }
+  const filterHandler = async (filterBy) => {
+    getAnimationFilter(filterBy);
+  }
   return (
-    <AnimationFilters buttonsFilter={buttonsFilter} dropdowns={dropdowns} openDropdown={openDropdown} />
+    <AnimationFilters buttonsFilter={buttonsFilter} dropdowns={dropdowns} 
+      openDropdown={openDropdown} filterHandler={filterHandler}/>
   )
 }
 
@@ -42,4 +40,4 @@ const mapStatesToProps = (state) => {
   }
 }
 
-export default connect(mapStatesToProps, { getAnimationList })(AnimationFiltersContainer);
+export default connect(mapStatesToProps, { getAnimationList, getAnimationFilter })(AnimationFiltersContainer);

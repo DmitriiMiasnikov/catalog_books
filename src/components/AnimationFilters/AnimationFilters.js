@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './AnimationFilters.module.scss';
 import classnames from 'classnames';
 
-export const AnimationFilters = ({ buttonsFilter, openDropdown, dropdowns }) => {
+export const AnimationFilters = ({ buttonsFilter, openDropdown, dropdowns, filterHandler }) => {
   return (
     <div className={styles.wrapper}>
       {
@@ -16,7 +16,7 @@ export const AnimationFilters = ({ buttonsFilter, openDropdown, dropdowns }) => 
                 {
                   buttonsFilter && buttonsFilter.map((el, i) => {
                     return (
-                      <div className={styles.dropdownButton} key={i}>
+                      <div className={styles.dropdownButton} key={i} onClick={() => filterHandler(el)}>
                         {el}
                       </div>
                     )

@@ -7,7 +7,7 @@ import { getAnimationList, getAnimation } from '../../store/animationReducer';
 import { Animation } from './Animation';
 import AnimationDescription from './../AnimationDescription/AnimationDescriptionContainer';
 
-const AnimationContainer = ({ animation, getAnimationList, match }) => {
+const AnimationContainer = ({ animation, getAnimationList, match, filterBy }) => {
   const [animationList, setAnimationList] = useState([]);
   const [buttonsSort, setButtonsSort] = useState([
     {
@@ -27,6 +27,13 @@ const AnimationContainer = ({ animation, getAnimationList, match }) => {
     fetchData();
     setAnimationList(animation);
   }, [getAnimationList, animation])
+  useEffect(() => {
+    if (filterBy) {
+      if (filterBy === 'все') {
+        setAnimationList(animation);
+      } else setAnimationList(animation.filter(el => el.auditory === filterBy));
+    }
+  }, [filterBy, animation])
   const openAnimationInfo = (info) => {
     getAnimation(info);
   }
@@ -78,6 +85,7 @@ const AnimationContainer = ({ animation, getAnimationList, match }) => {
 const mapStatesToProps = (state) => {
   return {
     animation: state.animation.animation,
+    filterBy: state.animation.filterBy
   }
 }
 export default compose(

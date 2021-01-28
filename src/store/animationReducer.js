@@ -2,11 +2,13 @@ import { getAnimationListApi } from './../api/api';
 
 const GET_ANIMATION_LIST = 'GET_ANIMATION_LIST';
 const GET_ANIMATION = 'GET_ANIMATION';
+const GET_ANIMATION_FILTERED = 'GET_ANIMATION_FILTERED';
 
 let stateDefault = {
   animation: [],
   selectedAnimationId: 1,
   selectedAnimation: null,
+  filterBy: ''
 }
 
 export const animationReducer = (state = stateDefault, action) => {
@@ -14,6 +16,11 @@ export const animationReducer = (state = stateDefault, action) => {
     case (GET_ANIMATION_LIST): {
       return {
         ...state, animation: action.animation
+      }
+    }
+    case (GET_ANIMATION_FILTERED): {
+      return {
+        ...state, filterBy: action.filterBy
       }
     }
     case (GET_ANIMATION): {
@@ -29,6 +36,9 @@ export const animationReducer = (state = stateDefault, action) => {
 }
 export const getAnimation = (selectedAnimation, selectedAnimationId) => {
   return { type: GET_ANIMATION, selectedAnimation, selectedAnimationId }
+}
+export const getAnimationFilter = (filterBy) => {
+  return { type: GET_ANIMATION_FILTERED, filterBy }
 }
 
 const getAnimationListFunc = (animation) => {
