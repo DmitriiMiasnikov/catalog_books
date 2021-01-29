@@ -3,30 +3,36 @@ import { connect } from 'react-redux';
 import { getAnimationList, setFilterBy } from './../../store/animationReducer';
 import { AnimationFilters } from './AnimationFilters';
 
-const AnimationFiltersContainer = ({ setFilterBy, filters }) => {
-  const [buttonsFilter, setButtonsFilter] = useState([]);
+const AnimationFiltersContainer = ({ setFilterBy, filters, filterBy }) => {
+  const [buttonsFilter, setButtonsFilter] = useState({});
   const [dropdowns, setDropdowns] = useState([
     {
       id: 0,
       text: 'Аудитория',
+      type: 'auditory',
       closed: true,
     },
     {
       id: 1,
       text: 'Жанр',
+      type: 'genre',
       closed: true,
     }
   ])
   useEffect(() => {
-    if (filters) {
-      setButtonsFilter(filters.auditory.map((el, i) => {
-        return {
-          active: !i,
-          auditory: el
-        }
-      }));
+    if (filters && filterBy === 'все') {
+      const filtersCopy = {};
+      dropdowns.forEach((el, i) => {
+        filtersCopy[el.type] = filters[el.type].map((item, j) => {
+          return {
+            active: !j,
+            [el.type]: item
+          }
+        })
+      })
+      setButtonsFilter(filtersCopy);
     }
-  }, [])
+  }, [filters, dropdowns])
   const openDropdown = (dropdownId) => {
     setDropdowns(dropdowns.map(el => {
       if (el.id === dropdownId) {
@@ -37,15 +43,26 @@ const AnimationFiltersContainer = ({ setFilterBy, filters }) => {
       return el;
     }))
   }
-  const filterHandler = (filterBy, indexButton) => {
+  const filterHandler = (dropdown, filterBy, indexButton) => {
     setFilterBy(filterBy);
     setButtonsFilter((buttons) => {
-      return buttons.map((el, i) => {
-        if (i === indexButton) {
-          el.active = true
-        } else el.active = false
-        return el
+      const obj = {};
+      Object.keys(buttons).forEach((el, i) => {
+        obj[el] = buttons[el];
+        if (dropdown === el) {
+          obj[el].map((item, j) => {
+            if (j === indexButton) {
+              item.active = true
+            } else item.active = false
+            return item;
+          })
+        } else obj[el].map((item, j) => {
+          item.active = false
+          return item;
+        })
       })
+      
+      return obj;
     })
   }
   return (
@@ -57,7 +74,8 @@ const AnimationFiltersContainer = ({ setFilterBy, filters }) => {
 const mapStatesToProps = (state) => {
   return {
     animation: state.animation.animation,
-    filters: state.animation.filters
+    filters: state.animation.filters,
+    filterBy: state.animation.filterBy,
   }
 }
 

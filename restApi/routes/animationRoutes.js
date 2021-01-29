@@ -18,8 +18,18 @@ router.get(
       const unique = (arr) => Array.from(new Set(arr));
       return ['все'].concat(unique(auditoryItems).filter(el => el));
     }
+    const genreFilters = () => {
+      let genreItems = [];
+      animationJson.forEach(el => {
+        genreItems.push(el.genre);
+      });
+      genreItems = genreItems.flat(1)
+      const unique = (arr) => Array.from(new Set(arr));
+      return ['все'].concat(unique(genreItems).filter(el => el));
+    }
     const filters = {
-      auditory: auditoryFilters()
+      'auditory': auditoryFilters(),
+      'genre': genreFilters()
     }
     try {
       let animation;
