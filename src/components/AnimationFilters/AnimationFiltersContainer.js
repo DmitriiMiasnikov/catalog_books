@@ -10,6 +10,11 @@ const AnimationFiltersContainer = ({ setFilterBy, filters }) => {
       id: 0,
       text: 'Аудитория',
       closed: true,
+    },
+    {
+      id: 1,
+      text: 'Жанр',
+      closed: true,
     }
   ])
   useEffect(() => {
@@ -26,8 +31,10 @@ const AnimationFiltersContainer = ({ setFilterBy, filters }) => {
     setDropdowns(dropdowns.map(el => {
       if (el.id === dropdownId) {
         el.closed ? el.closed = false : el.closed = true
-        return el;
-      } else return el;
+      } else {
+        el.closed = true;
+      }
+      return el;
     }))
   }
   const filterHandler = (filterBy, indexButton) => {
