@@ -12,11 +12,13 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
     {
       id: 0,
       text: 'по названию',
+      sort: 'name',
       active: false,
     },
     {
       id: 1,
       text: 'по дате (сначала старые)',
+      sort: 'date',
       active: false,
     }])
   const [pagesButtons, setPagesButtons] = useState([]);
@@ -68,8 +70,12 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   const openAnimationInfo = (info) => {
     getAnimation(info);
   }
-  const sortHandler = (buttonId) => {
-    loadAnimation();
+  const sortHandler = (buttonId, sortType) => {
+    const fetchData = async () => {
+      await getAnimationList(currentPage, sortType);
+    }
+    fetchData();
+    openPage(1);
     setButtonsSort(buttons => {
       return buttons.map(el => {
         if (el.id !== buttonId) {
@@ -80,17 +86,6 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
         return el
       })
     })
-    if (buttonId === 0) {
-      const fetchData = async () => {
-        await getAnimationList(currentPage, 'name');
-      }
-      fetchData();
-    } else if (buttonId === 1) {
-      const fetchData = async () => {
-        await getAnimationList(currentPage, 'date');
-      }
-      fetchData();
-    }
   }
   return (
     <Animation animationList={animationList} openAnimationInfo={openAnimationInfo} buttonsSort={buttonsSort}

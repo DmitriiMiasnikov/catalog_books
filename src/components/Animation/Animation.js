@@ -15,7 +15,7 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortH
           buttonsSort.map((el, i) => {
             return (
               <div className={classnames(styles.button, { [styles.active]: el.active })}
-                onClick={() => sortHandler(el.id)} key={i}>
+                onClick={() => sortHandler(el.id, el.sort)} key={i}>
                 {el.text}
               </div>
             )
