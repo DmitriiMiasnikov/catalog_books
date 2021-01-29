@@ -1,13 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Route } from 'react-router-dom'
 import { compose } from 'redux';
-import { getAnimationList, getAnimation, getAnimationFilter } from '../../store/animationReducer';
+import { getAnimationList, getAnimation, getAnimationFilter, setPage } from '../../store/animationReducer';
 import { Animation } from './Animation';
-import AnimationDescription from './../AnimationDescription/AnimationDescriptionContainer';
 
-const AnimationContainer = ({ animation, getAnimationList, match, filterBy, getAnimation, getAnimationFilter }) => {
+const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimation, getAnimationFilter,
+  currentPage }) => {
   const [animationList, setAnimationList] = useState([]);
   const [buttonsSort, setButtonsSort] = useState([
     {
@@ -21,12 +20,12 @@ const AnimationContainer = ({ animation, getAnimationList, match, filterBy, getA
       active: false,
     }])
   const loadAnimation = useCallback(async () => {
-    await getAnimationList();
-  }, [getAnimationList])
+    await getAnimationList(currentPage);
+  }, [getAnimationList, currentPage])
   useEffect(() => {
     loadAnimation();
     setAnimationList(animation);
-  }, [])
+  }, []);
   useEffect(() => {
     if (filterBy) {
       loadAnimation();
@@ -78,24 +77,25 @@ const AnimationContainer = ({ animation, getAnimationList, match, filterBy, getA
       })
     }
   }
-  if (match.params.animationId) {
-    return (
-      <Route exact path={`/animation/${match.params.animationId}`}
-        render={() => <AnimationDescription animationId={match.params.animationId} />} />
-    )
+  const openPage = (page) => {
+    getAnimationList(page);
   }
   return (
     <Animation animationList={animationList} openAnimationInfo={openAnimationInfo}
-      buttonsSort={buttonsSort} sortHandler={sortHandler} />
+      buttonsSort={buttonsSort} sortHandler={sortHandler} openPage={openPage} />
   )
 }
 const mapStatesToProps = (state) => {
   return {
     animation: state.animation.animation,
-    filterBy: state.animation.filterBy
+    filterBy: state.animation.filterBy,
+    showBy: state.animation.showBy,
+    currentPage: state.animation.currentPage,
+    selectedAnimation: state.animation.selectedAnimation,
+    countAllAnimation: state.animation.countAllAnimation
   }
 }
 export default compose(
-  connect(mapStatesToProps, { getAnimationList, getAnimation, getAnimationFilter }),
+  connect(mapStatesToProps, { getAnimationList, getAnimation, getAnimationFilter, setPage }),
   withRouter
 )(AnimationContainer);

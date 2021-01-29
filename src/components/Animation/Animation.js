@@ -3,7 +3,7 @@ import styles from './Animation.module.scss';
 import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
 
-export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortHandler }) => {
+export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortHandler, openPage }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.sort}>
@@ -21,18 +21,31 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortH
           })
         }
       </div>
+      <div className={styles.pages}>
+        {
+          [1, 2].map((el, i) => {
+            return (
+              <NavLink to={`/animation/list/${el}`} key={i}>
+              <div className={styles.pageButton} onClick={() => openPage(el)}>
+                {el}
+              </div>
+            </NavLink>
+            )
+          }) 
+        }
+      </div>
       {
         animationList && animationList.map((el, i) => {
           return (
             <div key={i} className={styles.item}>
-              <NavLink to={`/animation/${el.animeId}`} onClick={() => openAnimationInfo(el)} className={styles.imgLink}>
+              <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)} className={styles.imgLink}>
                 <img src={`/img/anime_cover_${el.animeId}.jpg`} alt='img' className={styles.image} />
               </NavLink>
               <div className={styles.infoWrapper}>
                 {el.nameRu && <div className={styles.title}>
-                  <NavLink to={`/animation/${el.animeId}`} onClick={() => openAnimationInfo(el)}>{el.nameRu}</NavLink></div>}
+                  <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)}>{el.nameRu}</NavLink></div>}
                 {el.nameEng && !el.nameRu && <div className={classnames(styles.nameEng, { [styles.title]: !el.nameRu })}>
-                  <NavLink to={`/animation/${el.animeId}`} onClick={() => openAnimationInfo(el)}>{el.nameEng}</NavLink>
+                  <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)}>{el.nameEng}</NavLink>
                 </div>}
                 <div className={styles.date}>
                   {el.date.map((dateEl, j) => {

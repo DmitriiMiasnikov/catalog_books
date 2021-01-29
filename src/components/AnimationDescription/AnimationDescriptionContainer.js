@@ -1,15 +1,20 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { AnimationDescription } from './AnimationDescription';
-import { getAnimation } from './../../store/animationReducer';
+import { getAnimation, getAnimationFunc } from './../../store/animationReducer';
+import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
 
-const AnimationDescriptionContainer = ({ animationId, selectedAnimation, getAnimation }) => {
+const AnimationDescriptionContainer = ({ getAnimation, getAnimationFunc, match, selectedAnimation }) => {
   useEffect(() => {
     const fetchData = async () => {
-      await getAnimation(animationId);
+      await getAnimation(match.params.animationId);
     }
     fetchData();
-  }, [animationId, getAnimation])
+  }, [getAnimation, match])
+  useEffect(() => {
+    return () => getAnimationFunc(null)
+  }, [])
   return (
     <AnimationDescription selectedAnimation={selectedAnimation} />
   )
@@ -19,4 +24,7 @@ const mapStatesToProps = (state) => {
     selectedAnimation: state.animation.selectedAnimation,
   }
 }
-export default connect(mapStatesToProps, { getAnimation })(AnimationDescriptionContainer);
+export default compose(
+  connect(mapStatesToProps, { getAnimation, getAnimationFunc }),
+  withRouter
+) (AnimationDescriptionContainer);
