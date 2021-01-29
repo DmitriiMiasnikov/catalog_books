@@ -34,7 +34,8 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortH
           })
         }
         <div className={styles.pagesCounter}>
-          {countInPage * currentPage - 9}-{countInPage * currentPage} из {countAllAnimation}
+          {countInPage * currentPage - 9}-{countAllAnimation < (countInPage * currentPage) ? 
+            countAllAnimation : (countInPage * currentPage)} из {countAllAnimation}
         </div>
       </div>
       {

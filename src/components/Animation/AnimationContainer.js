@@ -34,8 +34,10 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   }
   useEffect(() => {
     setAnimationList(animation);
-    if (!pagesButtons.length) setPagesFunc(currentPage);
   }, [animation, currentPage, pagesButtons.length, setPagesFunc])
+  useEffect(() => {
+    if (countAllAnimation) setPagesFunc(currentPage);
+  }, [countAllAnimation])
   useEffect(() => {
     const fetchData = async () => {
       await getAnimationList(currentPage, sortBy, filterBy);
