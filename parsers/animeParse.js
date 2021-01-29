@@ -4,13 +4,13 @@ const xpath = require("xpath");
 const dom = require("xmldom").DOMParser;
 const anime = [];
 
-const counter = 20;
+const counter = 10750;
 const arr = [];
 for (let i = 1; i <= counter; i++) {
   arr.push(i);
 }
 function delay() {
-  return new Promise(resolve => setTimeout(resolve, 500));
+  return new Promise(resolve => setTimeout(resolve, 1000));
 }
 async function delayedLog(item) {
   await delay();
