@@ -6,38 +6,64 @@ const animationJson = require('./../data/animation.json');
 router.get(
   '/list/:page',
   async (req, res) => {
-    let showBy = 10;
+    let countInPage = 10;
     let page = Number(req.params.page) || 1;
     let sort = req.query.sort;
+    let filter = req.query.filter;
     let countAnimation = animationJson.length;
+    const auditoryFilters = () => {
+      const auditoryItems = animationJson.map(el => {
+        return el.auditory
+      });
+      const unique = (arr) => Array.from(new Set(arr));
+      return ['все'].concat(unique(auditoryItems).filter(el => el));
+    }
+    const filters = {
+      auditory: auditoryFilters()
+    }
     try {
-      if (sort === 'default') {
-        const animation = animationJson
-          .filter((el, i) => i >= (showBy * page - 9) && i <= (showBy * page));
-        res.status(200).json({ animation, page, showBy, countAnimation });
+      let animation;
+      if (sort === 'default' && filter === filters.auditory[0]) {
+        animation = animationJson
       } else {
-        page = 1;
-        if (sort === 'name') {
-          const animation = animationJson.sort((a, b) => {
-            if (a.nameRu === b.nameRu) {
-              return 0
-            } else if (a.nameRu > b.nameRu || !a.nameRu) {
-              return 1
-            } else return -1
-          }).filter((el, i) => i >= (showBy * page - 9) && i <= (showBy * page));
-          res.status(200).json({ animation, page, showBy, countAnimation });
-        } else if (sort === 'date') {
-          const animation = animationJson.sort((a, b) => {
-            if (a.date[a.date.length - 1] === b.date[b.date.length - 1]) {
-              return 0
-            } else if (a.date[a.date.length - 1] > b.date[b.date.length - 1] || !a.date) {
-              return 1
-            } else return -1
-          }).filter((el, i) => i >= (showBy * page - 9) && i <= (showBy * page));
-          res.status(200).json({ animation, page, showBy, countAnimation });
+        if (sort !== 'default') {
+          switch (sort) {
+            case ('name'): {
+              animation = animationJson.sort((a, b) => {
+                if (a.nameRu === b.nameRu) {
+                  return 0
+                } else if (a.nameRu > b.nameRu || !a.nameRu) {
+                  return 1
+                } else return -1
+              })
+              break;
+            }
+            case ('date'): {
+              animation = animationJson.sort((a, b) => {
+                if (a.date[a.date.length - 1] === b.date[b.date.length - 1]) {
+                  return 0
+                } else if (a.date[a.date.length - 1] > b.date[b.date.length - 1] || !a.date) {
+                  return 1
+                } else return -1
+              })
+              break;
+            }
+            default: {
+              animation = animationJson;
+              break;
+            }
+          }
+        }
+        if (filters.auditory.slice(1).includes(filter) && filter !== 'все') {
+          if (sort === 'default') animation = animationJson;
+          animation = animation.filter(el => {
+            return el.auditory === filter
+          });
+          countAnimation = animation.length;
         }
       }
-
+      animation = animation.filter((el, i) => i >= (countInPage * page - 9) && i <= (countInPage * page));
+      res.status(200).json({ animation, page, countInPage, countAnimation, filters });
     } catch (e) {
       console.log(e)
     }

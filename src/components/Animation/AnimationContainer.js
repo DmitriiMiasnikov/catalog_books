@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-import { getAnimationList, getAnimation, getAnimationFilter, setPage } from '../../store/animationReducer';
+import { getAnimationList, getAnimation, setFilterBy, setPage, setSortBy } from '../../store/animationReducer';
 import { Animation } from './Animation';
 
-const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimation, getAnimationFilter,
-  currentPage, setPage, countAllAnimation, showBy }) => {
+const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimation, setFilterBy,
+  currentPage, setPage, countAllAnimation, countInPage, setSortBy, sortBy }) => {
   const [animationList, setAnimationList] = useState([]);
   const [buttonsSort, setButtonsSort] = useState([
     {
@@ -24,7 +24,7 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   const [pagesButtons, setPagesButtons] = useState([]);
   const setPagesFunc = (currentPage) => {
     const pages = [];
-    let pagesCount = Math.ceil(countAllAnimation / showBy);
+    let pagesCount = Math.ceil(countAllAnimation / countInPage);
     for (let i = currentPage > 3 ? currentPage - 3 : 1;
       i >= pagesCount - 3 ? i <= pagesCount : i <= pagesCount + 3;
       i++) {
@@ -34,25 +34,18 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   }
   useEffect(() => {
     setAnimationList(animation);
-  }, [animation])
-  const loadAnimation = useCallback(async () => {
-    await getAnimationList(currentPage);
-  }, [getAnimationList, currentPage])
+    if (!pagesButtons.length) setPagesFunc(currentPage);
+  }, [animation, currentPage, pagesButtons.length, setPagesFunc])
   useEffect(() => {
-    loadAnimation();
-  }, [currentPage]);
-  useEffect(() => {
-    if (filterBy) {
-      loadAnimation();
-      if (filterBy === 'все') {
-        setAnimationList(animation);
-      } else setAnimationList(animation.filter(el => el.auditory === filterBy));
+    const fetchData = async () => {
+      await getAnimationList(currentPage, sortBy, filterBy);
     }
-    setPagesFunc(currentPage);
-  }, [filterBy])
+    fetchData();
+  }, [currentPage, sortBy, filterBy, getAnimationList]);
   useEffect(() => {
     return () => {
-      getAnimationFilter('');
+      setFilterBy('все');
+      setSortBy('default');
     }
   }, [])
   const openPage = async (page) => {
@@ -70,12 +63,9 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   const openAnimationInfo = (info) => {
     getAnimation(info);
   }
-  const sortHandler = (buttonId, sortType) => {
-    const fetchData = async () => {
-      await getAnimationList(currentPage, sortType);
-    }
-    fetchData();
-    openPage(1);
+  const sortHandler = (buttonId, sort) => {
+    setSortBy(sort);
+    if (currentPage !== 1) openPage(1);
     setButtonsSort(buttons => {
       return buttons.map(el => {
         if (el.id !== buttonId) {
@@ -89,7 +79,7 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   }
   return (
     <Animation animationList={animationList} openAnimationInfo={openAnimationInfo} buttonsSort={buttonsSort}
-      sortHandler={sortHandler} openPage={openPage} countAllAnimation={countAllAnimation} showBy={showBy}
+      sortHandler={sortHandler} openPage={openPage} countAllAnimation={countAllAnimation} countInPage={countInPage}
       currentPage={currentPage} pagesButtons={pagesButtons} />
   )
 }
@@ -97,13 +87,14 @@ const mapStatesToProps = (state) => {
   return {
     animation: state.animation.animation,
     filterBy: state.animation.filterBy,
-    showBy: state.animation.showBy,
+    countInPage: state.animation.countInPage,
     currentPage: state.animation.currentPage,
     selectedAnimation: state.animation.selectedAnimation,
-    countAllAnimation: state.animation.countAllAnimation
+    countAllAnimation: state.animation.countAllAnimation,
+    sortBy: state.animation.sortBy,
   }
 }
 export default compose(
-  connect(mapStatesToProps, { getAnimationList, getAnimation, getAnimationFilter, setPage }),
+  connect(mapStatesToProps, { getAnimationList, getAnimation, setFilterBy, setPage, setSortBy }),
   withRouter
 )(AnimationContainer);

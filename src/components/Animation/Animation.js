@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
 
 export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortHandler, openPage,
-  countAllAnimation, showBy, currentPage, pagesButtons }) => {
+  countAllAnimation, countInPage, currentPage, pagesButtons }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.sort}>
@@ -34,7 +34,7 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortH
           })
         }
         <div className={styles.pagesCounter}>
-          {showBy * currentPage - 9}-{showBy * currentPage} из {countAllAnimation}
+          {countInPage * currentPage - 9}-{countInPage * currentPage} из {countAllAnimation}
         </div>
       </div>
       {

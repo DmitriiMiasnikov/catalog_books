@@ -2,18 +2,22 @@ import { getAnimationListApi, getAnimationApi } from './../api/api';
 
 const GET_ANIMATION_LIST = 'GET_ANIMATION_LIST';
 const GET_ANIMATION = 'GET_ANIMATION';
-const GET_ANIMATION_FILTERED = 'GET_ANIMATION_FILTERED';
+const SET_FILTER_BY = 'SET_FILTER_BY';
 const SET_PAGE = 'SET_PAGE';
-const SET_SHOWBY = 'SET_SHOWBY';
+const SET_COUNT_IN_PAGE = 'SET_COUNT_IN_PAGE';
+const SET_SORT_BY = 'SET_SORT_BY';
 const SET_COUNT_ALL_ANIMATION = 'SET_COUNT_ALL_ANIMATION';
+const SET_FILTERS = 'SET_FILTERS';
 
 let stateDefault = {
   animation: [],
   selectedAnimation: null,
-  filterBy: '',
+  filterBy: 'все',
+  sortBy: 'default',
   currentPage: 1,
-  showBy: 10,
-  countAllAnimation: null
+  countInPage: 10,
+  countAllAnimation: null,
+  filters: null,
 }
 
 export const animationReducer = (state = stateDefault, action) => {
@@ -23,9 +27,15 @@ export const animationReducer = (state = stateDefault, action) => {
         ...state, animation: action.animation
       }
     }
-    case (GET_ANIMATION_FILTERED): {
+    case (SET_FILTER_BY): {
       return {
         ...state, filterBy: action.filterBy
+      }
+    }
+    case (SET_FILTERS): {
+      return {
+        ...state,
+        filters: action.filters
       }
     }
     case (GET_ANIMATION): {
@@ -40,10 +50,16 @@ export const animationReducer = (state = stateDefault, action) => {
         currentPage: action.page
       }
     }
-    case (SET_SHOWBY): {
+    case (SET_COUNT_IN_PAGE): {
       return {
         ...state,
-        showBy: action.showBy
+        countInPage: action.countInPage
+      }
+    }
+    case (SET_SORT_BY): {
+      return {
+        ...state,
+        sortBy: action.sortBy
       }
     }
     case (SET_COUNT_ALL_ANIMATION): {
@@ -59,14 +75,20 @@ export const animationReducer = (state = stateDefault, action) => {
 export const getAnimationFunc = (selectedAnimation) => {
   return { type: GET_ANIMATION, selectedAnimation }
 }
-export const getAnimationFilter = (filterBy) => {
-  return { type: GET_ANIMATION_FILTERED, filterBy }
+export const setFilterBy = (filterBy) => {
+  return { type: SET_FILTER_BY, filterBy }
+}
+const setFilters = (filters) => {
+  return { type: SET_FILTERS, filters }
 }
 export const setPage = (page) => {
   return { type: SET_PAGE, page }
 }
-export const setShowBy = (showBy) => {
-  return { type: SET_SHOWBY, showBy }
+export const setCountInPage = (countInPage) => {
+  return { type: SET_COUNT_IN_PAGE, countInPage }
+}
+export const setSortBy = (sortBy) => {
+  return { type: SET_SORT_BY, sortBy }
 }
 export const setCounterAllAnimation = (count) => {
   return { type: SET_COUNT_ALL_ANIMATION, count }
@@ -76,13 +98,14 @@ const getAnimationListFunc = (animation) => {
   return { type: GET_ANIMATION_LIST, animation }
 }
 
-export const getAnimationList = (page, sort = 'default') => {
+export const getAnimationList = (page, sort, filter) => {
   return async (dispatch) => {
-    const res = await getAnimationListApi(page, sort);
+    const res = await getAnimationListApi(page, sort, filter);
     dispatch(getAnimationListFunc(res.data.animation));
     dispatch(setPage(Number(res.data.page)));
     dispatch(setCounterAllAnimation(Number(res.data.countAnimation)));
-    dispatch(setShowBy(Number(res.data.showBy)));
+    dispatch(setCountInPage(Number(res.data.countInPage)));
+    dispatch(setFilters(res.data.filters));
   }
 }
 export const getAnimation = (id) => {

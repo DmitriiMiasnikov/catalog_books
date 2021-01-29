@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { getAnimationList, getAnimationFilter } from './../../store/animationReducer';
+import { getAnimationList, setFilterBy } from './../../store/animationReducer';
 import { AnimationFilters } from './AnimationFilters';
 
-const AnimationFiltersContainer = ({ animation, getAnimationFilter }) => {
+const AnimationFiltersContainer = ({ setFilterBy, filters }) => {
   const [buttonsFilter, setButtonsFilter] = useState([]);
   const [dropdowns, setDropdowns] = useState([
     {
@@ -13,17 +13,14 @@ const AnimationFiltersContainer = ({ animation, getAnimationFilter }) => {
     }
   ])
   useEffect(() => {
-    const auditoryItems = animation.map(el => {
-      return el.auditory
-    });
-    const unique = (arr) => Array.from(new Set(arr));
-    const filter = ['все'].concat(unique(auditoryItems).filter(el => el));
-    setButtonsFilter(filter.map((el, i) => {
-      return {
-        active: !i,
-        auditory: el
-      }
-    }));
+    if (filters) {
+      setButtonsFilter(filters.auditory.map((el, i) => {
+        return {
+          active: !i,
+          auditory: el
+        }
+      }));
+    }
   }, [])
   const openDropdown = (dropdownId) => {
     setDropdowns(dropdowns.map(el => {
@@ -34,7 +31,7 @@ const AnimationFiltersContainer = ({ animation, getAnimationFilter }) => {
     }))
   }
   const filterHandler = (filterBy, indexButton) => {
-    getAnimationFilter(filterBy);
+    setFilterBy(filterBy);
     setButtonsFilter((buttons) => {
       return buttons.map((el, i) => {
         if (i === indexButton) {
@@ -52,8 +49,9 @@ const AnimationFiltersContainer = ({ animation, getAnimationFilter }) => {
 
 const mapStatesToProps = (state) => {
   return {
-    animation: state.animation.animation
+    animation: state.animation.animation,
+    filters: state.animation.filters
   }
 }
 
-export default connect(mapStatesToProps, { getAnimationList, getAnimationFilter })(AnimationFiltersContainer);
+export default connect(mapStatesToProps, { getAnimationList, setFilterBy })(AnimationFiltersContainer);
