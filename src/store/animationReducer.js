@@ -76,20 +76,15 @@ const getAnimationListFunc = (animation) => {
   return { type: GET_ANIMATION_LIST, animation }
 }
 
-export const getAnimationList = (page) => {
+export const getAnimationList = (page, sort = 'default') => {
   return async (dispatch) => {
-    const res = await getAnimationListApi(page);
+    const res = await getAnimationListApi(page, sort);
     dispatch(getAnimationListFunc(res.data.animation));
     dispatch(setPage(Number(res.data.page)));
     dispatch(setCounterAllAnimation(Number(res.data.countAnimation)));
     dispatch(setShowBy(Number(res.data.showBy)));
   }
 }
-// export const getAnimationListSorted = (sortType) => {
-//   return async (dispatch) => {
-//     const res = await getAnimationListApi(page)
-//   }
-// }
 export const getAnimation = (id) => {
   return async (dispatch) => {
     const res = await getAnimationApi(id)

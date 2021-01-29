@@ -81,25 +81,15 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
       })
     })
     if (buttonId === 0) {
-      setAnimationList(list => {
-        return list.sort((a, b) => {
-          if (a.nameRu === b.nameRu) {
-            return 0
-          } else if (a.nameRu > b.nameRu || !a.nameRu) {
-            return 1
-          } else return -1
-        })
-      })
+      const fetchData = async () => {
+        await getAnimationList(currentPage, 'name');
+      }
+      fetchData();
     } else if (buttonId === 1) {
-      setAnimationList(list => {
-        return list.sort((a, b) => {
-          if (a.date[a.date.length - 1] === b.date[b.date.length - 1]) {
-            return 0
-          } else if (a.date[a.date.length - 1] > b.date[b.date.length - 1] || !a.date) {
-            return 1
-          } else return -1
-        })
-      })
+      const fetchData = async () => {
+        await getAnimationList(currentPage, 'date');
+      }
+      fetchData();
     }
   }
   return (

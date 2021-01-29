@@ -8,11 +8,34 @@ router.get(
   async (req, res) => {
     const showBy = 10;
     const page = Number(req.params.page) || 1;
+    const sort = req.query.sort;
     try {
-      const countAnimation = animationJson.length;
-      const animation = animationJson
-        .filter((el, i) => el.animeId >= (showBy * page - 9) && el.animeId <= (showBy * page));
-      res.status(200).json({ animation, page, showBy, countAnimation });
+      if (sort === 'default') {
+        const countAnimation = animationJson.length;
+        const animation = animationJson
+          .filter((el, i) => i >= (showBy * page - 9) && i <= (showBy * page));
+        res.status(200).json({ animation, page, showBy, countAnimation });
+      } else if (sort === 'name') {
+        const countAnimation = animationJson.length;
+        const animation = animationJson.sort((a, b) => {
+          if (a.nameRu === b.nameRu) {
+            return 0
+          } else if (a.nameRu > b.nameRu || !a.nameRu) {
+            return 1
+          } else return -1
+        }).filter((el, i) => i >= (showBy * page - 9) && i <= (showBy * page));
+        res.status(200).json({ animation, page, showBy, countAnimation });
+      } else if (sort === 'date') {
+        const countAnimation = animationJson.length;
+        const animation = animationJson.sort((a, b) => {
+          if (a.date[a.date.length - 1] === b.date[b.date.length - 1]) {
+            return 0
+          } else if (a.date[a.date.length - 1] > b.date[b.date.length - 1] || !a.date) {
+            return 1
+          } else return -1
+        }).filter((el, i) => i >= (showBy * page - 9) && i <= (showBy * page));
+        res.status(200).json({ animation, page, showBy, countAnimation });
+      }
     } catch (e) {
       console.log(e)
     }
