@@ -6,7 +6,7 @@ import { getAnimationList, getAnimation, getAnimationFilter, setPage } from '../
 import { Animation } from './Animation';
 
 const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimation, getAnimationFilter,
-  currentPage }) => {
+  currentPage, setPage }) => {
   const [animationList, setAnimationList] = useState([]);
   const [buttonsSort, setButtonsSort] = useState([
     {
@@ -25,7 +25,7 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   useEffect(() => {
     loadAnimation();
     setAnimationList(animation);
-  }, []);
+  }, [currentPage]);
   useEffect(() => {
     if (filterBy) {
       loadAnimation();
@@ -39,6 +39,9 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
       getAnimationFilter('');
     }
   }, [])
+  const openPage = async (page) => {
+    setPage(page);
+  }
   const openAnimationInfo = (info) => {
     getAnimation(info);
   }
@@ -76,9 +79,6 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
         })
       })
     }
-  }
-  const openPage = (page) => {
-    getAnimationList(page);
   }
   return (
     <Animation animationList={animationList} openAnimationInfo={openAnimationInfo}

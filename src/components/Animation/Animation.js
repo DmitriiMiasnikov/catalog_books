@@ -23,15 +23,16 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortH
       </div>
       <div className={styles.pages}>
         {
-          [1, 2].map((el, i) => {
+          [1, 2, 3, 4].map((el, i) => {
             return (
-              <NavLink to={`/animation/list/${el}`} key={i}>
-              <div className={styles.pageButton} onClick={() => openPage(el)}>
-                {el}
+              <div key={i} onClick={() => openPage(el)} className={styles.pageButton}>
+                <NavLink to={`/animation/list/${el}`}  className={styles.link}>
+                  {el}
+                </NavLink>
               </div>
-            </NavLink>
+
             )
-          }) 
+          })
         }
       </div>
       {

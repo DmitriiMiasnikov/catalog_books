@@ -11,7 +11,7 @@ router.get(
     try {
       const countAnimation = animationJson.length;
       const animation = animationJson
-        .filter((el, i) => i >= (showBy - 10) * page && i < showBy * page);
+        .filter((el, i) => el.animeId >= (showBy * page - 9) && el.animeId <= (showBy * page));
       res.status(200).json({ animation, page, showBy, countAnimation });
     } catch (e) {
       console.log(e)

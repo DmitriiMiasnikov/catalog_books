@@ -23,7 +23,7 @@ function App({ theme, selectedUser }) {
         </div>
         <div className={styles.menu}>
           <UserMenu />
-          <Route exact path='/animation/list' render={() => <AnimationFilters />} />
+          <Route path='/animation/list' render={() => <AnimationFilters />} />
         </div>
         <div className={styles.content}>
           <Redirect from='/' to='/main' />
