@@ -64,10 +64,14 @@ router.get(
             }
           }
         }
-        if (filters.auditory.slice(1).includes(filter) && filter !== 'все') {
+        if (Object.keys(filters).some(el => filters[el].slice(1).includes(filter))) {
           if (sort === 'default') animation = animationJson;
           animation = animation.filter(el => {
-            return el.auditory === filter
+            if (filters['auditory'].includes(filter)) {
+              return el.auditory === filter
+            } else if (filters['genre'].includes(filter)) {
+              return el.genre.includes(filter)
+            }
           });
           countAnimation = animation.length;
         }
