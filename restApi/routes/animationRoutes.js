@@ -7,7 +7,7 @@ router.get(
   '/list/:page',
   async (req, res) => {
     const showBy = 10;
-    const page = req.params.page || 1;
+    const page = Number(req.params.page) || 1;
     try {
       const countAnimation = animationJson.length;
       const animation = animationJson

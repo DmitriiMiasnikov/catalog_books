@@ -6,7 +6,7 @@ import { getAnimationList, getAnimation, getAnimationFilter, setPage } from '../
 import { Animation } from './Animation';
 
 const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimation, getAnimationFilter,
-  currentPage, setPage }) => {
+  currentPage, setPage, countAllAnimation, showBy }) => {
   const [animationList, setAnimationList] = useState([]);
   const [buttonsSort, setButtonsSort] = useState([
     {
@@ -19,12 +19,25 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
       text: 'по дате (сначала старые)',
       active: false,
     }])
+  const [pagesButtons, setPagesButtons] = useState([]);
+  const setPagesFunc = (currentPage) => {
+    const pages = [];
+    let pagesCount = Math.ceil(countAllAnimation / showBy);
+    for (let i = currentPage > 3 ? currentPage - 3 : 1;
+      i >= pagesCount - 3 ? i <= pagesCount : i <= pagesCount + 3;
+      i++) {
+      pages.push({ page: i, active: i === 1 })
+    }
+    setPagesButtons(pages);
+  }
+  useEffect(() => {
+    setAnimationList(animation);
+  }, [animation])
   const loadAnimation = useCallback(async () => {
     await getAnimationList(currentPage);
   }, [getAnimationList, currentPage])
   useEffect(() => {
     loadAnimation();
-    setAnimationList(animation);
   }, [currentPage]);
   useEffect(() => {
     if (filterBy) {
@@ -33,6 +46,7 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
         setAnimationList(animation);
       } else setAnimationList(animation.filter(el => el.auditory === filterBy));
     }
+    setPagesFunc(currentPage);
   }, [filterBy])
   useEffect(() => {
     return () => {
@@ -41,6 +55,15 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   }, [])
   const openPage = async (page) => {
     setPage(page);
+    setPagesButtons(pagesButtons.map((el, i) => {
+      if (el.page === page) {
+        el.active = true;
+        return el;
+      } else {
+        el.active = false;
+        return el;
+      }
+    }))
   }
   const openAnimationInfo = (info) => {
     getAnimation(info);
@@ -51,11 +74,10 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
       return buttons.map(el => {
         if (el.id !== buttonId) {
           el.active = false
-          return el
         } else {
           el.active = true
-          return el
         }
+        return el
       })
     })
     if (buttonId === 0) {
@@ -81,8 +103,9 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
     }
   }
   return (
-    <Animation animationList={animationList} openAnimationInfo={openAnimationInfo}
-      buttonsSort={buttonsSort} sortHandler={sortHandler} openPage={openPage} />
+    <Animation animationList={animationList} openAnimationInfo={openAnimationInfo} buttonsSort={buttonsSort}
+      sortHandler={sortHandler} openPage={openPage} countAllAnimation={countAllAnimation} showBy={showBy}
+      currentPage={currentPage} pagesButtons={pagesButtons} />
   )
 }
 const mapStatesToProps = (state) => {

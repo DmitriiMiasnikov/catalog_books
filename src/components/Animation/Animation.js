@@ -3,7 +3,8 @@ import styles from './Animation.module.scss';
 import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
 
-export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortHandler, openPage }) => {
+export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortHandler, openPage,
+  countAllAnimation, showBy, currentPage, pagesButtons }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.sort}>
@@ -13,7 +14,7 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortH
         {
           buttonsSort.map((el, i) => {
             return (
-              <div className={classnames(styles.button, { [styles.active]: buttonsSort[el.id].active })}
+              <div className={classnames(styles.button, { [styles.active]: el.active })}
                 onClick={() => sortHandler(el.id)} key={i}>
                 {el.text}
               </div>
@@ -23,17 +24,18 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortH
       </div>
       <div className={styles.pages}>
         {
-          [1, 2, 3, 4].map((el, i) => {
+          pagesButtons.map((el, i) => {
             return (
-              <div key={i} onClick={() => openPage(el)} className={styles.pageButton}>
-                <NavLink to={`/animation/list/${el}`}  className={styles.link}>
-                  {el}
-                </NavLink>
+              <div key={i} onClick={() => openPage(el.page)}
+                className={classnames(styles.pageButton, { [styles.active]: el.active })}>
+                {el.page}
               </div>
-
             )
           })
         }
+        <div className={styles.pagesCounter}>
+          {showBy * currentPage - 9}-{showBy * currentPage} из {countAllAnimation}
+        </div>
       </div>
       {
         animationList && animationList.map((el, i) => {

@@ -78,14 +78,18 @@ const getAnimationListFunc = (animation) => {
 
 export const getAnimationList = (page) => {
   return async (dispatch) => {
-    const res = await getAnimationListApi(page)
+    const res = await getAnimationListApi(page);
     dispatch(getAnimationListFunc(res.data.animation));
-    dispatch(setPage(res.data.page));
-    dispatch(setCounterAllAnimation(res.data.countAnimation));
-    dispatch(setShowBy(res.data.showBy));
+    dispatch(setPage(Number(res.data.page)));
+    dispatch(setCounterAllAnimation(Number(res.data.countAnimation)));
+    dispatch(setShowBy(Number(res.data.showBy)));
   }
 }
-
+// export const getAnimationListSorted = (sortType) => {
+//   return async (dispatch) => {
+//     const res = await getAnimationListApi(page)
+//   }
+// }
 export const getAnimation = (id) => {
   return async (dispatch) => {
     const res = await getAnimationApi(id)
