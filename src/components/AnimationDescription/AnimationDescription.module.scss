@@ -3,7 +3,7 @@
 
   .infoWrap {
     display: grid;
-    grid-template-columns: auto 350px;
+    grid-template-columns: auto 400px;
     grid-template-rows: auto;
     grid-template-areas: 
       'info image'
@@ -44,6 +44,7 @@
     flex-direction: column;
     user-select: none;
     font-size: 14px;
+    border-left: 1px solid #616161;
     .image {
       width: 320px;
       display: inline-block;
@@ -53,26 +54,44 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-top: 10px;
+      margin-top: 15px;
+      margin-bottom: 15px;
       .button {
         background-color: #3e3e3e;
+        &.added {
+          background-color: brown;
+        }
         &.star {
           width: 33px;
           height: 33px;
           display: flex;
           justify-content: center;
           align-items: center;
-          font-size: 28px;
+          margin-right: 7px;
+          font-size: 38px;
           background-color: transparent;
+          &.added {
+            color: #d6ab0e;
+          }
         }
       }
       > div:not(:first-child) {
         padding: 8px 12px;
-        margin-left: 5px;
+        margin-left: 10px;
       }
     }
   }
-  .description {
+  .descriptionWrap {
     grid-area: desc;
+    border-top: 1px solid #616161;
+    padding: 15px;
+    .title {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    .text {
+      margin-left: 10px;
+      line-height: 22px;
+    }
   }
 }

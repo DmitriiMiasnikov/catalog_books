@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './AnimationDescription.module.scss';
 import classnames from 'classnames';
 
-export const AnimationDescription = ({ selectedAnimation, buttonsControl }) => {
+export const AnimationDescription = ({ selectedAnimation, buttonsControl, userInfoAnimation }) => {
   return (
     <div className={styles.wrapper}>
       {selectedAnimation && <div className={styles.infoWrap}>
@@ -52,18 +52,26 @@ export const AnimationDescription = ({ selectedAnimation, buttonsControl }) => {
         <div className={styles.imageWrap}>
           <img src={`/img/anime_cover_${selectedAnimation.animeId}.jpg`} alt='img' className={styles.image} />
           <div className={styles.buttons}>
-                <div className={classnames(styles.star, styles.button)}>
-                  {<span>&#9733;</span>}
-                </div>
-              {
-                buttonsControl.map((el, i) => {
-                  return (
-                    <div key={i} className={styles.button}>
-                      {el.text}
-                    </div>
-                  )
-                })
-              }
+            <div className={classnames(styles.star, styles.button, { [styles.added]: userInfoAnimation['selected'] })}>
+              {userInfoAnimation['selected'] ? <span>&#9733;</span> : <span>&#9734;</span>}
+            </div>
+            {
+              buttonsControl.map((el, i) => {
+                return (
+                  <div key={i} className={classnames(styles.button, { [styles.added]: userInfoAnimation[el.type] })}>
+                    {el.text}
+                  </div>
+                )
+              })
+            }
+          </div>
+        </div>
+        <div className={styles.descriptionWrap}>
+          <div className={styles.title}>
+            Описание:
+          </div>
+          <div className={styles.text}>
+            {selectedAnimation.description}
           </div>
         </div>
       </div>}

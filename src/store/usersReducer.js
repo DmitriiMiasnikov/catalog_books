@@ -14,7 +14,8 @@ const stateDefault = {
       },
       animation: {
         queue: [4],
-        viewed: [1, 2, 3]
+        viewed: [1, 2, 3],
+        selected: [5, 3, 2]
       }
     },
     {
@@ -28,8 +29,9 @@ const stateDefault = {
         selected: [5, 3, 2]
       },
       animation: {
-        queue: [4],
-        viewed: [1, 2, 3]
+        queue: [4, 1, 6, 3],
+        viewed: [1, 2, 3],
+        selected: [5, 3, 2]
       }
     }
   ],
