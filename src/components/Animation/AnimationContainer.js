@@ -47,7 +47,7 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
       }
       return page;
     }
-    for (let i = startWith(currentPage); endWith(currentPage);
+    for (let i = startWith(currentPage); i <= endWith(currentPage);
       i++) {
       pages.push({ page: i, active: i === currentPage })
     }
@@ -64,7 +64,6 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
       await getAnimationList(currentPage, sortBy, filterBy);
     }
     fetchData();
-    console.log('asdasd')
   }, [currentPage, sortBy, filterBy, getAnimationList]);
   useEffect(() => {
     return () => {

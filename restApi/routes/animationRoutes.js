@@ -32,49 +32,41 @@ router.get(
       'genre': genreFilters()
     }
     try {
-      let animation;
-      if (sort === 'default' && filter === filters.auditory[0]) {
-        animation = animationJson
-      } else {
-        if (sort !== 'default') {
-          switch (sort) {
-            case ('name'): {
-              animation = animationJson.sort((a, b) => {
-                if (a.nameRu === b.nameRu) {
-                  return 0
-                } else if (a.nameRu > b.nameRu || !a.nameRu) {
-                  return 1
-                } else return -1
-              })
-              break;
-            }
-            case ('date'): {
-              animation = animationJson.sort((a, b) => {
-                if (a.date[a.date.length - 1] === b.date[b.date.length - 1]) {
-                  return 0
-                } else if (a.date[a.date.length - 1] > b.date[b.date.length - 1] || !a.date) {
-                  return 1
-                } else return -1
-              })
-              break;
-            }
-            default: {
-              animation = animationJson;
-              break;
-            }
+      let animation = animationJson;
+      if (sort !== 'default') {
+        switch (sort) {
+          case ('name'): {
+            animation = animation.sort((a, b) => {
+              if (a.nameRu === b.nameRu) {
+                return 0
+              } else if (a.nameRu > b.nameRu || !a.nameRu) {
+                return 1
+              } else return -1
+            })
+            break;
           }
+          case ('date'): {
+            animation = animation.sort((a, b) => {
+              if (a.date[a.date.length - 1] === b.date[b.date.length - 1]) {
+                return 0
+              } else if (a.date[a.date.length - 1] > b.date[b.date.length - 1] || !a.date) {
+                return 1
+              } else return -1
+            })
+            break;
+          }
+          default: break;
         }
-        if (Object.keys(filters).some(el => filters[el].slice(1).includes(filter))) {
-          if (sort === 'default') animation = animationJson;
-          animation = animation.filter(el => {
-            if (filters['auditory'].includes(filter)) {
-              return el.auditory === filter
-            } else if (filters['genre'].includes(filter)) {
-              return el.genre.includes(filter)
-            }
-          });
-          countAnimation = animation.length;
-        }
+      }
+      if (Object.keys(filters).some(el => filters[el].slice(1).includes(filter))) {
+        animation = animation.filter((el, i) => {
+          if (filters['auditory'].includes(filter) && el.auditory) {
+            return el.auditory === filter
+          } else if (filters['genre'].includes(filter) && el.genre) {
+            return el.genre.some(item => item === filter)
+          }
+        });
+        countAnimation = animation.length;
       }
       animation = animation.filter((el, i) => i >= (countInPage * page - 9) && i <= (countInPage * page));
       res.status(200).json({ animation, page, countInPage, countAnimation, filters });
