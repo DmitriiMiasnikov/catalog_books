@@ -2,11 +2,10 @@ import React from 'react';
 import styles from './AnimationDescription.module.scss';
 import classnames from 'classnames';
 
-export const AnimationDescription = ({ selectedAnimation }) => {
+export const AnimationDescription = ({ selectedAnimation, buttonsControl }) => {
   return (
     <div className={styles.wrapper}>
       {selectedAnimation && <div className={styles.infoWrap}>
-        <img src={`/img/anime_cover_${selectedAnimation.animeId}.jpg`} alt='img' className={styles.image} />
         <div className={styles.info}>
           {selectedAnimation.nameRu && <div className={styles.title}>
             {selectedAnimation.nameRu}</div>}
@@ -49,6 +48,23 @@ export const AnimationDescription = ({ selectedAnimation }) => {
           {selectedAnimation.auditory && <div className={styles.line}>аудитория: <span className={styles.lineInfo}>
             {selectedAnimation.auditory}
           </span></div>}
+        </div>
+        <div className={styles.imageWrap}>
+          <img src={`/img/anime_cover_${selectedAnimation.animeId}.jpg`} alt='img' className={styles.image} />
+          <div className={styles.buttons}>
+                <div className={classnames(styles.star, styles.button)}>
+                  {<span>&#9733;</span>}
+                </div>
+              {
+                buttonsControl.map((el, i) => {
+                  return (
+                    <div key={i} className={styles.button}>
+                      {el.text}
+                    </div>
+                  )
+                })
+              }
+          </div>
         </div>
       </div>}
     </div>

@@ -1,11 +1,15 @@
 .wrapper {
   position: relative;
+
   .infoWrap {
-    .image {
-      float: right;
-      width: 320px;
-    }
+    display: grid;
+    grid-template-columns: auto 350px;
+    grid-template-rows: auto;
+    grid-template-areas: 
+      'info image'
+      'desc desc';
     .info {
+      grid-area: info;
       padding: 0px 0px 0px 30px;
       display: flex;
       flex-direction: column;
@@ -33,5 +37,42 @@
         font-weight: bold;
       }
     }
+  }
+  .imageWrap {
+    grid-area: image;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+    font-size: 14px;
+    .image {
+      width: 320px;
+      display: inline-block;
+      margin: 0 auto;
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+      .button {
+        background-color: #3e3e3e;
+        &.star {
+          width: 33px;
+          height: 33px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 28px;
+          background-color: transparent;
+        }
+      }
+      > div:not(:first-child) {
+        padding: 8px 12px;
+        margin-left: 5px;
+      }
+    }
+  }
+  .description {
+    grid-area: desc;
   }
 }

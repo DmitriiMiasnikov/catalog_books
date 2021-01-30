@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-import { getAnimationList, getAnimation, setFilterBy, setPage, setSortBy, setCountInPage, clearStates } from '../../store/animationReducer';
+import { getAnimationList, setFilterBy, setPage, setSortBy, setCountInPage, clearStates } from '../../store/animationReducer';
+import { getAnimation } from './../../store/animationDescriptionReducer';
 import { Animation } from './Animation';
 
 const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimation, clearStates,
@@ -140,7 +141,6 @@ const mapStatesToProps = (state) => {
     filterBy: state.animation.filterBy,
     countInPage: state.animation.countInPage,
     currentPage: state.animation.currentPage,
-    selectedAnimation: state.animation.selectedAnimation,
     countAllAnimation: state.animation.countAllAnimation,
     sortBy: state.animation.sortBy,
   }

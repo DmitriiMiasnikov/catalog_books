@@ -1,7 +1,6 @@
-import { getAnimationListApi, getAnimationApi } from './../api/api';
+import { getAnimationListApi } from './../api/api';
 
 const GET_ANIMATION_LIST = 'GET_ANIMATION_LIST';
-const GET_ANIMATION = 'GET_ANIMATION';
 const SET_FILTER_BY = 'SET_FILTER_BY';
 const SET_PAGE = 'SET_PAGE';
 const SET_COUNT_IN_PAGE = 'SET_COUNT_IN_PAGE';
@@ -12,7 +11,6 @@ const CLEAR_STATES = 'CLEAR_STATES';
 
 let stateDefault = {
   animation: [],
-  selectedAnimation: null,
   filterBy: 'все',
   sortBy: 'default',
   currentPage: 1,
@@ -37,12 +35,6 @@ export const animationReducer = (state = stateDefault, action) => {
       return {
         ...state,
         filters: action.filters
-      }
-    }
-    case (GET_ANIMATION): {
-      return {
-        ...state,
-        selectedAnimation: action.selectedAnimation
       }
     }
     case (SET_PAGE): {
@@ -82,9 +74,6 @@ export const animationReducer = (state = stateDefault, action) => {
   }
   return state;
 }
-export const getAnimationFunc = (selectedAnimation) => {
-  return { type: GET_ANIMATION, selectedAnimation }
-}
 export const setFilterBy = (filterBy) => {
   return { type: SET_FILTER_BY, filterBy }
 }
@@ -118,11 +107,5 @@ export const getAnimationList = (page, counter, sort, filter) => {
     dispatch(setPage(Number(res.data.page)));
     dispatch(setCounterAllAnimation(Number(res.data.countAnimation)));
     dispatch(setFilters(res.data.filters));
-  }
-}
-export const getAnimation = (id) => {
-  return async (dispatch) => {
-    const res = await getAnimationApi(id)
-    dispatch(getAnimationFunc(res))
   }
 }
