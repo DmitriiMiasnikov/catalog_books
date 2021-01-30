@@ -10,9 +10,14 @@ router.get(
     let page = Number(req.params.page) || 1;
     let sort = req.query.sort;
     let filter = req.query.filter;
-    let countAnimation = animationJson.length;
+    let animation = animationJson.filter((el, i) => {
+      if (el.genre) {
+        return !el.genre.includes('хентай');
+      } else return el
+    });
+    let countAnimation = animation.length;
     const auditoryFilters = () => {
-      const auditoryItems = animationJson.map(el => {
+      const auditoryItems = animation.map(el => {
         return el.auditory
       });
       const unique = (arr) => Array.from(new Set(arr));
@@ -20,7 +25,7 @@ router.get(
     }
     const genreFilters = () => {
       let genreItems = [];
-      animationJson.forEach(el => {
+      animation.forEach(el => {
         genreItems.push(el.genre);
       });
       genreItems = genreItems.flat(1)
@@ -32,7 +37,6 @@ router.get(
       'genre': genreFilters()
     }
     try {
-      let animation = animationJson;
       if (sort !== 'default') {
         switch (sort) {
           case ('name'): {
