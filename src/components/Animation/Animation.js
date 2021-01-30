@@ -34,8 +34,9 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortH
           })
         }
         <div className={styles.pagesCounter}>
-          {countInPage * currentPage - 9}-{countAllAnimation < (countInPage * currentPage) ? 
-            countAllAnimation : (countInPage * currentPage)} из {countAllAnimation}
+          {countInPage * currentPage - 9}-{countAllAnimation < (countInPage * currentPage) ?
+            countAllAnimation : (countInPage * currentPage)} из {countAllAnimation} ({Math.ceil(countAllAnimation
+              / countInPage )} стр.)
         </div>
       </div>
       {
@@ -51,7 +52,7 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortH
                 {el.nameEng && !el.nameRu && <div className={classnames(styles.nameEng, { [styles.title]: !el.nameRu })}>
                   <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)}>{el.nameEng}</NavLink>
                 </div>}
-                <div className={styles.date}>
+                {el.date && <div className={styles.date}>
                   {el.date.map((dateEl, j) => {
                     return (
                       <span key={j}>
@@ -61,9 +62,9 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortH
                       </span>
                     )
                   })}
-                </div>
-                <div className={styles.line}>автор: <span className={styles.lineInfo}>{el.author}</span></div>
-                <div className={styles.line}>жанр:
+                </div>}
+                {el.author && <div className={styles.line}>автор: <span className={styles.lineInfo}>{el.author}</span></div>}
+                {el.genre && <div className={styles.line}>жанр:
                 <span className={styles.lineInfo}>
                     {el.genre.map((genreEl, j) => {
                       return (
@@ -74,7 +75,7 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortH
                       )
                     })}
                   </span>
-                </div>
+                </div>}
                 {el.type && <div className={styles.line}>тип: <span className={styles.lineInfo}>{el.type}</span></div>}
                 {el.auditory && <div className={styles.line}>аудитория: <span className={styles.lineInfo}>{el.auditory}</span></div>}
               </div>

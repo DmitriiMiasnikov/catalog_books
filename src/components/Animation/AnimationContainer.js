@@ -22,32 +22,55 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
       active: false,
     }])
   const [pagesButtons, setPagesButtons] = useState([]);
-  const setPagesFunc = (currentPage) => {
+  const setPagesCounterFunc = (currentPage) => {
     const pages = [];
     let pagesCount = Math.ceil(countAllAnimation / countInPage);
-    for (let i = currentPage > 3 ? currentPage - 3 : 1;
-      i >= pagesCount - 3 ? i <= pagesCount : i <= pagesCount + 3;
+    const startWith = (currentPage) => {
+      let page;
+      switch(currentPage) {
+        case (pagesCount): page = currentPage - 4; break
+        case (pagesCount - 1): page = currentPage - 3; break
+        case (1): page = 1; break
+        case (2): page = 1; break
+        default: page = currentPage - 2; break
+      }
+      return page;
+    }
+    const endWith = (currentPage) => {
+      let page;
+      switch(currentPage) {
+        case (pagesCount): page = pagesCount; break
+        case (pagesCount - 1): page = pagesCount + 1; break
+        case (1): page = currentPage + 4; break
+        case (2): page = currentPage + 3; break
+        default: page = currentPage + 2; break
+      }
+      return page;
+    }
+    for (let i = startWith(currentPage); endWith(currentPage);
       i++) {
-      pages.push({ page: i, active: i === 1 })
+      pages.push({ page: i, active: i === currentPage })
     }
     setPagesButtons(pages);
   }
   useEffect(() => {
     setAnimationList(animation);
-  }, [animation, currentPage, pagesButtons.length, setPagesFunc])
+  }, [animation, currentPage, pagesButtons.length])
   useEffect(() => {
-    if (countAllAnimation) setPagesFunc(currentPage);
-  }, [countAllAnimation])
+    if (countAllAnimation) setPagesCounterFunc(currentPage);
+  }, [currentPage, countAllAnimation]);
   useEffect(() => {
     const fetchData = async () => {
       await getAnimationList(currentPage, sortBy, filterBy);
     }
     fetchData();
+    console.log('asdasd')
   }, [currentPage, sortBy, filterBy, getAnimationList]);
   useEffect(() => {
     return () => {
       setFilterBy('все');
       setSortBy('default');
+      setPage(1);
     }
   }, [])
   const openPage = async (page) => {
