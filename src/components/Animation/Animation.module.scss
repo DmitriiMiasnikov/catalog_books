@@ -8,7 +8,7 @@
       background-color: #464646;
       color: rgb(255, 255, 255);
       user-select: none;
-      font-size: 14px;
+      font-size: 13px;
       transition: 0.2s background-color;
       &.sortBy {
         background-color: #464646;
@@ -29,36 +29,76 @@
     }
   }
   .pages {
+    position: relative;
     margin-top: 15px;
     width: 100%;
     text-align: center;
-    font-size: 13px;
+    font-size: 12px;
     user-select: none;
-    .pageButton {
+    .pageButtonsWrap {
       position: relative;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      width: 30px;
-      height: 30px;
-      margin: 0 3px;
-      box-sizing: border-box;
-      background-color: rgb(99, 99, 99);
-      transition: 0.2s background-color;
-      &:hover {
-        cursor: pointer;
-        background-color: rgb(59, 59, 59);
+      display: inline-block;
+      .pageButton {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        margin: 0 3px;
+        box-sizing: border-box;
+        background-color: rgb(99, 99, 99);
+        transition: 0.2s background-color;
+        &:hover {
+          cursor: pointer;
+          background-color: rgb(59, 59, 59);
+        }
+        text-decoration: none;
+        color: white;
+        &.active {
+          background-color: #ef4d6e;
+          pointer-events: none;
+        }
       }
-      text-decoration: none;
-      color: white;
-      &.active {
-        background-color: #ef4d6e;
-        pointer-events: none;
+      .pagesCounter {
+        position: absolute;
+        left: 188px;
+        flex-direction: row;
+        display: flex;
+        width: max-content;
+        top: 7px;
       }
     }
-    .pagesCounter {
-      margin-left: 10px;
-      display: inline-block;
+
+    .buttonSwitchCounter {
+      position: absolute;
+      right: 2px;
+      top: 3px;
+      display: flex;
+      flex-direction: row;
+      .text {
+        position: absolute;
+        top: -17px;
+        left: 3px;
+        font-size: 12px;
+      }
+      .button {
+        width: 30px;
+        height: 25px;
+        background-color: #636363;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 3px;
+        transition: 0.2s background-color;
+        &:hover {
+          cursor: pointer;
+          background-color: rgb(61, 61, 61);
+        }
+        &.active {
+          background-color: #ef4d6e;
+          pointer-events: none;
+        }
+      }
     }
   }
   .item {

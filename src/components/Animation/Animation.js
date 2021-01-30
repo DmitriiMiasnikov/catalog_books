@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
 
 export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortHandler, openPage,
-  countAllAnimation, countInPage, currentPage, pagesButtons }) => {
+  countAllAnimation, countInPage, currentPage, pagesButtons, buttonsSwitchCounter }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.sort}>
@@ -21,22 +21,39 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortH
             )
           })
         }
+
       </div>
       <div className={styles.pages}>
-        {
-          pagesButtons.map((el, i) => {
-            return (
-              <div key={i} onClick={() => openPage(el.page)}
-                className={classnames(styles.pageButton, { [styles.active]: el.active })}>
-                {el.page}
-              </div>
-            )
-          })
-        }
-        <div className={styles.pagesCounter}>
-          {countInPage * currentPage - 9}-{countAllAnimation < (countInPage * currentPage) ?
-            countAllAnimation : (countInPage * currentPage)} из {countAllAnimation} ({Math.ceil(countAllAnimation
-              / countInPage )} стр.)
+        <div className={styles.pageButtonsWrap}>
+          {
+            pagesButtons.map((el, i) => {
+              return (
+                <div key={i} onClick={() => openPage(el.page)}
+                  className={classnames(styles.pageButton, { [styles.active]: el.active })}>
+                  {el.page}
+                </div>
+              )
+            })
+          }
+          <div className={styles.pagesCounter}>
+            {countInPage * currentPage - 9}-{countAllAnimation < (countInPage * currentPage) ?
+              countAllAnimation : (countInPage * currentPage)} из {countAllAnimation}
+            {/* ({Math.ceil(countAllAnimation / countInPage)} стр.) */}
+          </div>
+        </div>
+        <div className={styles.buttonSwitchCounter}>
+          {
+            buttonsSwitchCounter.map((el, i) => {
+              return (
+                <div key={i} className={classnames(styles.button, { [styles.active]: el.active })}>
+                  {el.text}
+                </div>
+              )
+            })
+          }
+          <div className={styles.text}>
+            Показывать по:
+          </div>
         </div>
       </div>
       {

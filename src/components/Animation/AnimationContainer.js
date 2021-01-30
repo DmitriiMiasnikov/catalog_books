@@ -21,6 +21,23 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
       sort: 'date',
       active: false,
     }])
+  const [buttonsSwitchCounter, setButtonsSwitchCounter] = useState([
+    {
+      id: 0,
+      text: 10,
+      active: true,
+    },
+    {
+      id: 1,
+      text: 25,
+      active: false,
+    },
+    {
+      id: 2,
+      text: 100,
+      active: false,
+    }
+  ])
   const [pagesButtons, setPagesButtons] = useState([]);
   const setPagesCounterFunc = (currentPage) => {
     const pages = [];
@@ -40,7 +57,7 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
       let page;
       switch(currentPage) {
         case (pagesCount): page = pagesCount; break
-        case (pagesCount - 1): page = pagesCount + 1; break
+        case (pagesCount - 1): page = pagesCount; break
         case (1): page = currentPage + 4; break
         case (2): page = currentPage + 3; break
         default: page = currentPage + 2; break
@@ -104,7 +121,7 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   return (
     <Animation animationList={animationList} openAnimationInfo={openAnimationInfo} buttonsSort={buttonsSort}
       sortHandler={sortHandler} openPage={openPage} countAllAnimation={countAllAnimation} countInPage={countInPage}
-      currentPage={currentPage} pagesButtons={pagesButtons} />
+      currentPage={currentPage} pagesButtons={pagesButtons} buttonsSwitchCounter={buttonsSwitchCounter} />
   )
 }
 const mapStatesToProps = (state) => {
