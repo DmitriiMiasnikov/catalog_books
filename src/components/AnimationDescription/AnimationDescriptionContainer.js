@@ -34,6 +34,8 @@ const AnimationDescriptionContainer = ({ getAnimation, getAnimationFunc, match, 
 const mapStatesToProps = (state) => {
   return {
     selectedAnimation: state.animationDescription.selectedAnimation,
+    users: state.users.users,
+    currentUserId: state.users.users,
   }
 }
 export default compose(

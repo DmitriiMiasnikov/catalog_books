@@ -12,7 +12,7 @@ import { animationDescriptionReducer } from './animationDescriptionReducer';
 const reducers = combineReducers({
   header: headerReducer,
   main: mainReducer,
-  user: usersReducer,
+  users: usersReducer,
   books: booksReducer,
   authors: authorsReducer,
   animation: animationReducer,

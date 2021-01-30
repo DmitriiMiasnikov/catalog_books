@@ -7,16 +7,30 @@ const stateDefault = {
       userName: 'Dmitrii',
       email: 'dmitriimiasnikov@gmail.com',
       rights: ['admin', 'creator', 'user'],
-      booksRead: [1, 2, 3],
-      booksToRead: [4],
+      books: {
+        queue: [4],
+        read: [1, 2, 3],
+        selected: [5, 3, 2]
+      },
+      animation: {
+        queue: [4],
+        viewed: [1, 2, 3]
+      }
     },
     {
       userId: 2,
       userName: 'Anton',
       email: 'anton@gmail.com',
       rights: ['user'],
-      booksRead: [1, 2],
-      booksToRead: [4],
+      books: {
+        queue: [4],
+        read: [1, 2, 3],
+        selected: [5, 3, 2]
+      },
+      animation: {
+        queue: [4],
+        viewed: [1, 2, 3]
+      }
     }
   ],
   currentUserId: 1,

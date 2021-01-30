@@ -14,8 +14,8 @@ export const UserMenu = ({ currentUserInfo, openUserInfo }) => {
               </span>
             </NavLink>
           </div>
-          <div className={styles.books}>Книг прочитано: {currentUserInfo.booksRead.length} </div>
-          <div className={styles.books}>Книг к прочтению: {currentUserInfo.booksToRead.length} </div>
+          <div className={styles.books}>Книг прочитано: {currentUserInfo.books.read.length} </div>
+          <div className={styles.books}>Книг к прочтению: {currentUserInfo.books.queue.length} </div>
           <div className={styles.buttons}>
             <NavLink to={`/users/${currentUserInfo.userId}`}>
               <div className={styles.button} onClick={() => openUserInfo(currentUserInfo.userId)}>

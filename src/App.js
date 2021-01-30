@@ -33,7 +33,7 @@ function App({ theme, selectedUser }) {
             <Route exact path='/authors' render={() => <Authors />} />
             <Route exact path='/animation/list/:page?' render={() => <Animation />} />
             <Route exact path={`/animation/id/:animationId?`} render={() => <AnimationDescription />} />
-            <Route exact path={`/users/${selectedUser}`} render={() => <User />} />
+            <Route exact path={`/users/:userId`} render={() => <User />} />
           </Switch>
         </div>
       </div>
@@ -44,7 +44,7 @@ function App({ theme, selectedUser }) {
 const mapStatesToProps = (state) => {
   return {
     theme: state.main.theme,
-    selectedUser: state.user.selectedUser,
+    selectedUser: state.users.selectedUser,
     selectedAnimation: state.animation.selectedAnimation,
   }
 }

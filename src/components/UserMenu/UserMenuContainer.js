@@ -20,8 +20,8 @@ const UserMenuContainer = ({ currentUserId, users, getUserId }) => {
 
 const mapStatesToProps = (state) => {
   return {
-    currentUserId: state.user.currentUserId,
-    users: state.user.users
+    currentUserId: state.users.currentUserId,
+    users: state.users.users
   }
 }
 
