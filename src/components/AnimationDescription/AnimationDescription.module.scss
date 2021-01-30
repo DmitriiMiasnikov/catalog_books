@@ -1,0 +1,37 @@
+.wrapper {
+  position: relative;
+  .infoWrap {
+    .image {
+      float: right;
+      width: 320px;
+    }
+    .info {
+      padding: 0px 0px 0px 30px;
+      display: flex;
+      flex-direction: column;
+      > div {
+        width: max-content;
+      }
+      > div:not(:first-child) {
+        margin-left: 15px;
+        margin-top: 8px;
+      }
+      .title {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+      .line {
+        color: #a0a0a0;
+        .lineInfo {
+          color: rgb(255, 255, 255);
+          font-weight: bold;
+          margin-left: 8px;
+        }
+      }
+      .date {
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+      }
+    }
+  }
+}

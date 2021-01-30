@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import styles from './App.module.scss';
 import Header from './components/Header/HeaderContainer';
 import { Main } from './components/Main/Main';
@@ -26,13 +26,15 @@ function App({ theme, selectedUser }) {
           <Route path='/animation/list' render={() => <AnimationFilters />} />
         </div>
         <div className={styles.content}>
-          <Redirect from='/' to='/main' />
-          <Route exact path='/main' render={() => <Main />} />
-          <Route exact path='/books' render={() => <Books />} />
-          <Route exact path='/authors' render={() => <Authors />} />
-          <Route exact path='/animation/list/:page?' render={() => <Animation />} />
-          <Route exact path={`/animation/id/:animationId?`} render={() => <AnimationDescription />} />
-          <Route exact path={`/users/${selectedUser}`} render={() => <User />} />
+          <Switch>
+            <Redirect exact from='/' to='/main' />
+            <Route exact path='/main' render={() => <Main />} />
+            <Route exact path='/books' render={() => <Books />} />
+            <Route exact path='/authors' render={() => <Authors />} />
+            <Route exact path='/animation/list/:page?' render={() => <Animation />} />
+            <Route exact path={`/animation/id/:animationId?`} render={() => <AnimationDescription />} />
+            <Route exact path={`/users/${selectedUser}`} render={() => <User />} />
+          </Switch>
         </div>
       </div>
     </div>
