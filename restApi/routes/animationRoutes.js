@@ -6,7 +6,7 @@ const animationJson = require('./../data/animation.json');
 router.get(
   '/list/:page',
   async (req, res) => {
-    let countInPage = 10;
+    let countInPage = req.query.counter;
     let page = Number(req.params.page) || 1;
     let sort = req.query.sort;
     let filter = req.query.filter;
@@ -68,7 +68,7 @@ router.get(
         });
         countAnimation = animation.length;
       }
-      animation = animation.filter((el, i) => i >= (countInPage * page - 9) && i <= (countInPage * page));
+      animation = animation.filter((el, i) => i >= (countInPage * page - (countInPage - 1)) && i <= (countInPage * page));
       res.status(200).json({ animation, page, countInPage, countAnimation, filters });
     } catch (e) {
       console.log(e)

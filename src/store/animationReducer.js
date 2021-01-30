@@ -8,6 +8,7 @@ const SET_COUNT_IN_PAGE = 'SET_COUNT_IN_PAGE';
 const SET_SORT_BY = 'SET_SORT_BY';
 const SET_COUNT_ALL_ANIMATION = 'SET_COUNT_ALL_ANIMATION';
 const SET_FILTERS = 'SET_FILTERS';
+const CLEAR_STATES = 'CLEAR_STATES';
 
 let stateDefault = {
   animation: [],
@@ -68,6 +69,15 @@ export const animationReducer = (state = stateDefault, action) => {
         countAllAnimation: action.count
       }
     }
+    case (CLEAR_STATES): {
+      return {
+        ...state,
+        filterBy: 'все',
+        sortBy: 'default',
+        currentPage: 1,
+        countInPage: 10,
+      }
+    }
     default: break
   }
   return state;
@@ -93,18 +103,21 @@ export const setSortBy = (sortBy) => {
 export const setCounterAllAnimation = (count) => {
   return { type: SET_COUNT_ALL_ANIMATION, count }
 }
+export const clearStates = () => {
+  return { type: CLEAR_STATES }
+}
 
 const getAnimationListFunc = (animation) => {
   return { type: GET_ANIMATION_LIST, animation }
 }
 
-export const getAnimationList = (page, sort, filter) => {
+export const getAnimationList = (page, counter, sort, filter) => {
   return async (dispatch) => {
-    const res = await getAnimationListApi(page, sort, filter);
+    const res = await getAnimationListApi(page, counter, sort, filter);
     dispatch(getAnimationListFunc(res.data.animation));
     dispatch(setPage(Number(res.data.page)));
     dispatch(setCounterAllAnimation(Number(res.data.countAnimation)));
-    dispatch(setCountInPage(Number(res.data.countInPage)));
+    // dispatch(setCountInPage(Number(res.data.countInPage)));
     dispatch(setFilters(res.data.filters));
   }
 }

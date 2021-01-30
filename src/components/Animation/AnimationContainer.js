@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-import { getAnimationList, getAnimation, setFilterBy, setPage, setSortBy } from '../../store/animationReducer';
+import { getAnimationList, getAnimation, setFilterBy, setPage, setSortBy, setCountInPage, clearStates } from '../../store/animationReducer';
 import { Animation } from './Animation';
 
-const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimation, setFilterBy,
-  currentPage, setPage, countAllAnimation, countInPage, setSortBy, sortBy }) => {
+const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimation, clearStates,
+  currentPage, setPage, countAllAnimation, countInPage, setSortBy, sortBy, setCountInPage }) => {
   const [animationList, setAnimationList] = useState([]);
   const [buttonsSort, setButtonsSort] = useState([
     {
@@ -24,17 +24,17 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   const [buttonsSwitchCounter, setButtonsSwitchCounter] = useState([
     {
       id: 0,
-      text: 10,
+      counter: 10,
       active: true,
     },
     {
       id: 1,
-      text: 25,
+      counter: 25,
       active: false,
     },
     {
       id: 2,
-      text: 100,
+      counter: 100,
       active: false,
     }
   ])
@@ -42,6 +42,7 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   const setPagesCounterFunc = (currentPage) => {
     const pages = [];
     let pagesCount = Math.ceil(countAllAnimation / countInPage);
+    console.log(pagesCount);
     const startWith = (currentPage) => {
       let page;
       switch(currentPage) {
@@ -78,15 +79,13 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   }, [currentPage, countAllAnimation]);
   useEffect(() => {
     const fetchData = async () => {
-      await getAnimationList(currentPage, sortBy, filterBy);
+      await getAnimationList(currentPage, countInPage, sortBy, filterBy);
     }
     fetchData();
-  }, [currentPage, sortBy, filterBy, getAnimationList]);
+  }, [currentPage, sortBy, filterBy, countInPage, getAnimationList]);
   useEffect(() => {
     return () => {
-      setFilterBy('все');
-      setSortBy('default');
-      setPage(1);
+      clearStates()
     }
   }, [])
   const openPage = async (page) => {
@@ -94,11 +93,22 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
     setPagesButtons(pagesButtons.map((el, i) => {
       if (el.page === page) {
         el.active = true;
-        return el;
       } else {
         el.active = false;
-        return el;
       }
+      return el;
+    }))
+  }
+  const switchCounter = (counter, id) => {
+    setCountInPage(counter);
+    setPage(1);
+    setButtonsSwitchCounter(buttonsSwitchCounter.map((el, i) => {
+      if (el.id === id) {
+        el.active = true;
+      } else {
+        el.active = false;
+      }
+      return el;
     }))
   }
   const openAnimationInfo = (info) => {
@@ -121,7 +131,8 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   return (
     <Animation animationList={animationList} openAnimationInfo={openAnimationInfo} buttonsSort={buttonsSort}
       sortHandler={sortHandler} openPage={openPage} countAllAnimation={countAllAnimation} countInPage={countInPage}
-      currentPage={currentPage} pagesButtons={pagesButtons} buttonsSwitchCounter={buttonsSwitchCounter} />
+      currentPage={currentPage} pagesButtons={pagesButtons} buttonsSwitchCounter={buttonsSwitchCounter} 
+      switchCounter={switchCounter} />
   )
 }
 const mapStatesToProps = (state) => {
@@ -136,6 +147,6 @@ const mapStatesToProps = (state) => {
   }
 }
 export default compose(
-  connect(mapStatesToProps, { getAnimationList, getAnimation, setFilterBy, setPage, setSortBy }),
+  connect(mapStatesToProps, { getAnimationList, getAnimation, setFilterBy, setPage, setSortBy, setCountInPage, clearStates }),
   withRouter
 )(AnimationContainer);
