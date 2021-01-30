@@ -121,7 +121,8 @@
         box-shadow: 0px 0px 2px 3px #525252;
       }
       .image {
-        width: 130px;
+        max-width: 175px;
+        max-height: 235px;
         border-radius: 8px;
         display: block;
       }

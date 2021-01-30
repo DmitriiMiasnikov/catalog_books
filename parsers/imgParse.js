@@ -3,13 +3,13 @@ const needle = require('needle');
 const xpath = require("xpath");
 const dom = require("xmldom").DOMParser;
 
-const counter = 20;
+const counter = 10750;
 const arr = [];
-for (let i = 1; i <= counter; i++) {
+for (let i = 5001; i <= counter; i++) {
   arr.push(i);
 }
 function delay() {
-  return new Promise(resolve => setTimeout(resolve, 500));
+  return new Promise(resolve => setTimeout(resolve, 1000));
 }
 async function delayedLog(item) {
   await delay();
@@ -26,12 +26,14 @@ async function delayedLog(item) {
     }).parseFromString(res.body);
     pathImg = ".//*[table//a[contains(text(),'все')]]/table[1]//img/@src";
     console.log(item, doc.toString().length);
-    if (pathImg) {
+    if (doc.toString().length > 1000) {
       const tmpImg = xpath.select(pathImg, doc);
-      const curl = spawn('curl', ['-o', `./img/anime_cover_${item}.jpg`, `http://www.world-art.ru/animation/${tmpImg[0].value}`]);
-      curl.stdout.on('data', (data) => {
-        console.log(`stdout: ${data}`);
-      });
+      if (tmpImg.length) {
+        const curl = spawn('curl', ['-o', `./img/animation_cover_${item}.jpg`, `http://www.world-art.ru/animation/${tmpImg[0].value}`]);
+        curl.stdout.on('data', (data) => {
+          console.log(`stdout: ${data}`);
+        });
+      }
     }
   })
 }

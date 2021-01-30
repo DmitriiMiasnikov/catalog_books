@@ -62,7 +62,7 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortH
           return (
             <div key={i} className={styles.item}>
               <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)} className={styles.imgLink}>
-                <img src={`/img/anime_cover_${el.animeId}.jpg`} alt='img' className={styles.image} />
+                <img src={`/img/animation_cover_${el.animeId}.jpg`} alt='img' className={styles.image} />
               </NavLink>
               <div className={styles.infoWrapper}>
                 {el.nameRu && <div className={styles.title}>
