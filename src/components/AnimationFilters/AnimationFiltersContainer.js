@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { getAnimationList, setFilterBy } from './../../store/animationReducer';
+import { getAnimationList, setFilterBy, setPage } from './../../store/animationReducer';
 import { AnimationFilters } from './AnimationFilters';
 
-const AnimationFiltersContainer = ({ setFilterBy, filters, filterBy }) => {
+const AnimationFiltersContainer = ({ setFilterBy, filters, filterBy,setPage }) => {
   const [buttonsFilter, setButtonsFilter] = useState({});
   const [dropdowns, setDropdowns] = useState([
     {
@@ -45,6 +45,7 @@ const AnimationFiltersContainer = ({ setFilterBy, filters, filterBy }) => {
   }
   const filterHandler = (dropdown, filterBy, indexButton) => {
     setFilterBy(filterBy);
+    setPage(1);
     setButtonsFilter((buttons) => {
       const obj = {};
       Object.keys(buttons).forEach((el, i) => {
@@ -79,4 +80,4 @@ const mapStatesToProps = (state) => {
   }
 }
 
-export default connect(mapStatesToProps, { getAnimationList, setFilterBy })(AnimationFiltersContainer);
+export default connect(mapStatesToProps, { getAnimationList, setFilterBy, setPage })(AnimationFiltersContainer);

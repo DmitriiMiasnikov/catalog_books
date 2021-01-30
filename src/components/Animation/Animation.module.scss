@@ -39,6 +39,7 @@
       position: relative;
       display: inline-block;
       .pageButton {
+        position: relative;
         display: inline-flex;
         justify-content: center;
         align-items: center;
@@ -59,12 +60,13 @@
           pointer-events: none;
         }
       }
-    }
-    .pagesCounter {
-      position: absolute;
-      left: 575px;
-      width: max-content;
-      top: 7px;
+      .pagesCounter {
+        pointer-events: none;
+        position: absolute;
+        left: 40px;
+        width: max-content;
+        top: 7px;
+      }
     }
     .buttonSwitchCounter {
       position: absolute;

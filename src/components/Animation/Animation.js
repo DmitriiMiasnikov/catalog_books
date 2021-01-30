@@ -31,15 +31,16 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortH
                 <div key={i} onClick={() => openPage(el.page)}
                   className={classnames(styles.pageButton, { [styles.active]: el.active })}>
                   {el.page}
+                  {i === pagesButtons.length - 1 && <div className={styles.pagesCounter}>
+                    {countInPage * currentPage - (countInPage - 1)}-{countAllAnimation < (countInPage * currentPage) ?
+                      countAllAnimation : (countInPage * currentPage)} из {countAllAnimation}
+                  </div>
+                  }
                 </div>
               )
             })
           }
         </div>
-        <div className={styles.pagesCounter}>
-            {countInPage * currentPage - (countInPage - 1)}-{countAllAnimation < (countInPage * currentPage) ?
-              countAllAnimation : (countInPage * currentPage)} из {countAllAnimation}
-          </div>
         <div className={styles.buttonSwitchCounter}>
           {
             buttonsSwitchCounter.map((el, i) => {

@@ -42,14 +42,13 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   const setPagesCounterFunc = (currentPage) => {
     const pages = [];
     let pagesCount = Math.ceil(countAllAnimation / countInPage);
-    console.log(pagesCount);
     const startWith = (currentPage) => {
       let page;
       switch(currentPage) {
-        case (pagesCount): page = currentPage - 4; break
-        case (pagesCount - 1): page = currentPage - 3; break
         case (1): page = 1; break
         case (2): page = 1; break
+        case (pagesCount): pagesCount < 5 ? page = 1 : page = currentPage - 4; break
+        case (pagesCount - 1): pagesCount < 5 ? page = 1 : page = currentPage - 3; break
         default: page = currentPage - 2; break
       }
       return page;
@@ -57,11 +56,11 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
     const endWith = (currentPage) => {
       let page;
       switch(currentPage) {
-        case (pagesCount): page = pagesCount; break
+        case (1): pagesCount < 5 ? page = pagesCount : page = (currentPage + 4); break
+        case (2): pagesCount < 5 ? page = pagesCount : page = (currentPage + 3); break
+        case (pagesCount): pagesCount < 5 ? page = pagesCount : page = pagesCount; break
         case (pagesCount - 1): page = pagesCount; break
-        case (1): page = currentPage + 4; break
-        case (2): page = currentPage + 3; break
-        default: page = currentPage + 2; break
+        default: page = (currentPage + 2); break
       }
       return page;
     }
@@ -76,13 +75,13 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   }, [animation, currentPage, pagesButtons.length])
   useEffect(() => {
     if (countAllAnimation) setPagesCounterFunc(currentPage);
-  }, [currentPage, countAllAnimation]);
+  }, [currentPage, countAllAnimation, countInPage]);
   useEffect(() => {
     const fetchData = async () => {
       await getAnimationList(currentPage, countInPage, sortBy, filterBy);
     }
     fetchData();
-  }, [currentPage, sortBy, filterBy, countInPage, getAnimationList]);
+  }, [currentPage, filterBy, sortBy, countInPage, getAnimationList]);
   useEffect(() => {
     return () => {
       clearStates()
