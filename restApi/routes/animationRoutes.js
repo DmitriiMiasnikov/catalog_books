@@ -49,23 +49,25 @@ router.get(
     try {
       if (sort !== 'default') {
         switch (sort) {
+          case ('name_reverse'): {}
           case ('name'): {
             animation = animation.sort((a, b) => {
               if (a.nameRu === b.nameRu) {
                 return 0
               } else if (a.nameRu > b.nameRu || !a.nameRu) {
-                return 1
-              } else return -1
+                return sort === 'name' ? 1 : -1
+              } else return sort === 'name' ? -1 : 1
             })
             break;
           }
+          case('date_reverse'): {}
           case ('date'): {
             animation = animation.sort((a, b) => {
               if (a.date[a.date.length - 1] === b.date[b.date.length - 1]) {
                 return 0
               } else if (a.date[a.date.length - 1] > b.date[b.date.length - 1] || !a.date) {
-                return 1
-              } else return -1
+                return sort === 'date' ? 1 : -1
+              } else return sort === 'date' ? -1 : 1
             })
             break;
           }

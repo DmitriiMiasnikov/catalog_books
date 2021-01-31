@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom';
 const AnimationDescriptionContainer = ({ getAnimation, getAnimationFunc, match, selectedAnimation,
   currentUserId, users }) => {
   const currentAnimationId = Number(match.params.animationId);
-  const [buttonsControl, setButtonsControl] = useState([
+  const [buttonsControl] = useState([
     {
       id: 1,
       text: 'хочу посмотреть',
@@ -26,7 +26,7 @@ const AnimationDescriptionContainer = ({ getAnimation, getAnimationFunc, match, 
       await getAnimation(currentAnimationId);
     }
     fetchData();
-  }, [getAnimation, match])
+  }, [getAnimation, match, currentAnimationId])
   useEffect(() => {
     setUsersInfoAnimation({
       'queue': users[currentUserId].animation.queue.includes(currentAnimationId),
@@ -34,7 +34,7 @@ const AnimationDescriptionContainer = ({ getAnimation, getAnimationFunc, match, 
       'selected': users[currentUserId].animation.selected.includes(currentAnimationId),
     })
     return () => getAnimationFunc(null)
-  }, [])
+  }, [currentAnimationId, currentUserId, setUsersInfoAnimation, getAnimationFunc, users])
   return (
     <AnimationDescription selectedAnimation={selectedAnimation} buttonsControl={buttonsControl}
       userInfoAnimation={userInfoAnimation}/>

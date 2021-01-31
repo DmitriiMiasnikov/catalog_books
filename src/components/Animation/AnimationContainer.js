@@ -12,19 +12,21 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   const [buttonsSort, setButtonsSort] = useState([
     {
       id: 0,
-      text: 'по названию',
+      text: 'названию',
       sort: 'name',
       active: false,
+      direction: 'direct'
     },
     {
       id: 1,
-      text: 'по дате (сначала старые)',
+      text: 'дате',
       sort: 'date',
       active: false,
+      direction: 'direct'
     }])
   useEffect(() => {
     setAnimationList(animation);
-  }, [animation, currentPage])
+  }, [animation, currentPage, setAnimationList])
   useEffect(() => {
     const fetchData = async () => {
       await getAnimationList(currentPage, countInPage, sortBy, filterBy);
@@ -36,23 +38,25 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
     return () => {
       clearStates()
     }
-  }, [])
+  }, [clearStates])
   const openAnimationInfo = (info) => {
     getAnimation(info);
   }
   const sortHandler = (buttonId, sort) => {
-    setSortBy(sort);
-    if (currentPage !== 1) setPage(1);
-    setButtonsSort(buttons => {
-      return buttons.map(el => {
+    setButtonsSort(buttonsSort.map(el => {
         if (el.id !== buttonId) {
           el.active = false
+          el.direction = 'direct'
+          el.sort = el.sort.split('_')[0]
         } else {
+          el.sort = el.sort.split('_').length === 1 && el.active ? `${el.sort}_reverse` : el.sort.split('_')[0]
+          el.direction = el.direction === 'direct' && el.active ? 'reverse' : 'direct'
           el.active = true
         }
         return el
-      })
-    })
+      }))
+      setSortBy(sort);
+      if (currentPage !== 1) setPage(1);
   }
   return (
     <Animation animationList={animationList} openAnimationInfo={openAnimationInfo} buttonsSort={buttonsSort}

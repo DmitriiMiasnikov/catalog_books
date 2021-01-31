@@ -3,6 +3,7 @@ import styles from './Animation.module.scss';
 import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import PagesCounterContainer from './PagesCounter/PagesCounterContainer';
+import arrow from './../../assets/Images/arrow.svg';
 
 export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortHandler }) => {
   return (
@@ -16,12 +17,12 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortH
             return (
               <div className={classnames(styles.button, { [styles.active]: el.active })}
                 onClick={() => sortHandler(el.id, el.sort)} key={i}>
-                {el.text}
+                <div className={styles.text}>{el.text}</div>
+                <img src={arrow} alt='arrow' className={classnames(styles.arrow, {[styles.reverse]: el.direction !== 'direct' })}/>
               </div>
             )
           })
         }
-
       </div>
       <PagesCounterContainer />
       {

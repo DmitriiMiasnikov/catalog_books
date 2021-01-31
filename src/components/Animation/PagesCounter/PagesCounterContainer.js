@@ -5,23 +5,13 @@ import { setPage, setCountInPage } from './../../../store/animationReducer';
 
 const PagesCounterContainer = ({ countInPage, currentPage, countAllAnimation, setPage, setCountInPage }) => {
   const [pagesButtons, setPagesButtons] = useState([]);
-  const [buttonsSwitchCounter, setButtonsSwitchCounter] = useState([
-    {
-      id: 0,
-      counter: 10,
-      active: true,
-    },
-    {
-      id: 1,
-      counter: 25,
-      active: false,
-    },
-    {
-      id: 2,
-      counter: 100,
-      active: false,
+  const [buttonsSwitchCounter, setButtonsSwitchCounter] = useState([10, 25, 100].map((el, i) => {
+    return {
+      id: i,
+      active: !i,
+      counter: el
     }
-  ])
+  }))
   const setPagesCounterFunc = (currentPage) => {
     const pages = [];
     let pagesCount = Math.ceil(countAllAnimation / countInPage);

@@ -32,7 +32,7 @@ const AnimationFiltersContainer = ({ setFilterBy, filters, filterBy,setPage }) =
       })
       setButtonsFilter(filtersCopy);
     }
-  }, [filters, dropdowns])
+  }, [filters, dropdowns, filterBy])
   const openDropdown = (dropdownId) => {
     setDropdowns(dropdowns.map(el => {
       if (el.id === dropdownId) {
