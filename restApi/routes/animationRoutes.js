@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const fs = require('fs');
 const router = Router();
 const animationJson = require('./../data/animation.json');
 
@@ -15,6 +16,15 @@ router.get(
         return !el.genre.includes('хентай');
       } else return el
     });
+    try {
+      animation = animation.filter((el, i) => {
+        if (fs.existsSync(`./../public/img/animation_cover_${el.animeId}.jpg`)) {
+          return true
+        } else return false
+      })
+    } catch(err) {
+      console.log(err);
+    }
     let countAnimation = animation.length;
     const auditoryFilters = () => {
       const auditoryItems = animation.map(el => {
