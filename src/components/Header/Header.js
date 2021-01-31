@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import SearchContainer from '../Search/SearchContainer';
 import styles from './Header.module.scss'
 
 export const Header = ({ menuItems }) => {
@@ -8,12 +9,11 @@ export const Header = ({ menuItems }) => {
       {
         menuItems.map((el, i) => {
           return (
-            <div key={i} className={styles.item}>
-              <NavLink to={el.link}>{el.item}</NavLink>
-            </div>
+              <NavLink to={el.link} key={i} className={styles.item}>{el.item}</NavLink>
           )
         })
       }
+      <SearchContainer />
     </div>
   )
 }

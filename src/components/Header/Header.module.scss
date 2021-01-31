@@ -1,16 +1,15 @@
 .wrapper {
   position: relative;
-  padding: 0 20px;
   background-color: rgb(43, 42, 42);
   border-bottom: 1px solid rgb(156, 156, 156);
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   user-select: none;
+  height: inherit;
   .item {
     display: inline-block;
-    line-height: 40px;
+    line-height: 50px;
     padding: 0 20px;
-    a {
       color: white;
       text-decoration: none;
       transition: .2s color;
@@ -18,6 +17,8 @@
       &:hover {
         color: rgb(170, 170, 170);
       }
-    }
+  }
+  .item:not(:first-child) {
+    border-left: 1px solid #313131;
   }
 }

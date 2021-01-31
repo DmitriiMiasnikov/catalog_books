@@ -1,0 +1,33 @@
+.wrapper {
+  position: absolute;
+  right: 65px;
+  top: 6px;
+  .inputBlock {
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(68, 68, 68);
+    border-radius: 10px;
+    input {
+      padding: 11px 0 11px 20px;
+      font-size: 13px;
+      border: 0px solid black;
+      background-color: transparent;
+      width: 350px;
+      color: white;
+      &:focus {
+        outline: transparent;
+      }
+    }
+    .searchButton {
+      width: 45px;
+      height: 37px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        width: 22px;
+        height: 22px;
+      }
+    }
+  }
+}
