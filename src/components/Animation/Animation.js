@@ -2,14 +2,14 @@ import React from 'react';
 import styles from './Animation.module.scss';
 import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
-import PagesCounterContainer from './PagesCounter/PagesCounterContainer';
+import PagesCounter from './PagesCounter/PagesCounter';
 import ListSorters from './../ListSorters/ListSorters';
 
-export const Animation = ({ animationList, openAnimationInfo, buttonsSortAnimation }) => {
+export const Animation = ({ animationList, openAnimationInfo, buttonsSortAnimation, countAllAnimation }) => {
   return (
     <div className={styles.wrapper}>
       <ListSorters buttons={buttonsSortAnimation}/>
-      <PagesCounterContainer />
+      <PagesCounter countAll={countAllAnimation}/>
       {
         animationList && animationList.map((el, i) => {
           console.log()
@@ -55,7 +55,7 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSortAnimati
           )
         })
       }
-      <PagesCounterContainer />
+      <PagesCounter countAll={countAllAnimation}/>
     </div>
   )
 }

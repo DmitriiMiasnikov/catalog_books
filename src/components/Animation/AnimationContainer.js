@@ -7,7 +7,7 @@ import { getAnimation } from './../../store/animationDescriptionReducer';
 import { Animation } from './Animation';
 
 const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimation, clearStates,
-  currentPage, countInPage, sortBy }) => {
+  currentPage, sortBy, countAllAnimation, countInPage }) => {
   const [animationList, setAnimationList] = useState([]);
   const buttonsSortAnimation = [
     {
@@ -39,14 +39,15 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
     getAnimation(info);
   }
   return (
-    <Animation animationList={animationList} openAnimationInfo={openAnimationInfo} 
-      buttonsSortAnimation={buttonsSortAnimation} countInPage={countInPage} currentPage={currentPage} />
+    <Animation animationList={animationList} openAnimationInfo={openAnimationInfo} countAllAnimation={countAllAnimation}
+      buttonsSortAnimation={buttonsSortAnimation} currentPage={currentPage} />
   )
 }
 const mapStatesToProps = (state) => {
   return {
     animation: state.animation.animation,
     filterBy: state.animation.filterBy,
+    countAllAnimation: state.animation.countAllAnimation,
     countInPage: state.animation.countInPage,
     currentPage: state.animation.currentPage,
     sortBy: state.animation.sortBy,
