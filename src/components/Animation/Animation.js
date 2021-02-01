@@ -3,27 +3,12 @@ import styles from './Animation.module.scss';
 import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import PagesCounterContainer from './PagesCounter/PagesCounterContainer';
-import arrow from './../../assets/Images/arrow.svg';
+import ListSorters from './../ListSorters/ListSorters';
 
-export const Animation = ({ animationList, openAnimationInfo, buttonsSort, sortHandler }) => {
+export const Animation = ({ animationList, openAnimationInfo, buttonsSortAnimation }) => {
   return (
     <div className={styles.wrapper}>
-      <div className={styles.sort}>
-        <div className={classnames(styles.button, styles.sortBy)}>
-          Сортировать по:
-        </div>
-        {
-          buttonsSort.map((el, i) => {
-            return (
-              <div className={classnames(styles.button, { [styles.active]: el.active })}
-                onClick={() => sortHandler(el.id, el.sort)} key={i}>
-                <div className={styles.text}>{el.text}</div>
-                <img src={arrow} alt='arrow' className={classnames(styles.arrow, {[styles.reverse]: el.direction !== 'direct' })}/>
-              </div>
-            )
-          })
-        }
-      </div>
+      <ListSorters buttons={buttonsSortAnimation}/>
       <PagesCounterContainer />
       {
         animationList && animationList.map((el, i) => {
