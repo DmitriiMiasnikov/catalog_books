@@ -8,6 +8,7 @@ const SET_SORT_BY = 'SET_SORT_BY';
 const SET_COUNT_ALL_ANIMATION = 'SET_COUNT_ALL_ANIMATION';
 const SET_FILTERS = 'SET_FILTERS';
 const CLEAR_STATES = 'CLEAR_STATES';
+const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';
 
 let stateDefault = {
   animation: [],
@@ -17,6 +18,7 @@ let stateDefault = {
   countInPage: 10,
   countAllAnimation: null,
   filters: null,
+  searchValue: ''
 }
 
 export const animationReducer = (state = stateDefault, action) => {
@@ -41,6 +43,12 @@ export const animationReducer = (state = stateDefault, action) => {
       return {
         ...state,
         currentPage: action.page
+      }
+    }
+    case (SET_SEARCH_VALUE): {
+      return {
+        ...state,
+        searchValue: action.searchValue
       }
     }
     case (SET_COUNT_IN_PAGE): {
@@ -82,6 +90,9 @@ const setFilters = (filters) => {
 }
 export const setPage = (page) => {
   return { type: SET_PAGE, page }
+}
+export const setSearchValue = (searchValue) => {
+  return { type: SET_SEARCH_VALUE, searchValue }
 }
 export const setCountInPage = (countInPage) => {
   return { type: SET_COUNT_IN_PAGE, countInPage }

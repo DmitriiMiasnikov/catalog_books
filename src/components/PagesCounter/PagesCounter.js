@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { PagesCounterDom } from './PagesCounterDom';
-import { setPage, setCountInPage } from '../../../store/animationReducer';
+import { setPage, setCountInPage } from '../../store/animationReducer';
 
 const PagesCounter = ({ countInPage, currentPage, countAll, setPage, setCountInPage }) => {
   const [pagesButtons, setPagesButtons] = useState([]);

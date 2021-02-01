@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Animation.module.scss';
 import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
-import PagesCounter from './PagesCounter/PagesCounter';
+import PagesCounter from '../PagesCounter/PagesCounter';
 import ListSorters from './../ListSorters/ListSorters';
 
 export const Animation = ({ animationList, openAnimationInfo, buttonsSortAnimation, countAllAnimation }) => {

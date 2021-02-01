@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import SearchContainer from '../Search/SearchContainer';
+import Search from '../Search/Search';
 import styles from './Header.module.scss'
 
 export const Header = ({ menuItems }) => {
@@ -13,7 +13,7 @@ export const Header = ({ menuItems }) => {
           )
         })
       }
-      <SearchContainer />
+      <Search />
     </div>
   )
 }

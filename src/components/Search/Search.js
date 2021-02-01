@@ -1,19 +1,25 @@
-import React from 'react';
-import styles from './Search.module.scss';
-import searchIcon from './../../assets/Images/search.svg';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { SearchDom } from './SearchDom';
+import { setSearchValue } from './../../store/animationReducer';
 
-export const Search = ({ searchHandler, searchValue }) => {
+const Search = ({ setSearchValue }) => {
+  const [value, setValue] = useState('');
+  const searchHandler = (value) => {
+    setSearchValue(value);
+  }
+  const setValueFunc = (value) => {
+    setValue(value);
+  }
   return (
-    <div className={styles.wrapper}>
-      <form>
-        <div className={styles.inputBlock}>
-          <input placeholder={'название, автор'} type={'text'} value={searchValue} 
-            onChange={e => searchHandler(e.target.value)} />
-          <div className={styles.searchButton}>
-            <img src={searchIcon} alt='search'/>
-          </div>
-        </div>
-      </form>
-    </div>
+    <SearchDom searchHandler={searchHandler} value={value} setValueFunc={setValueFunc} />
   )
 }
+
+const mapStatesToProps = (state) => {
+  return {
+
+  }
+}
+
+export default connect(mapStatesToProps, { setSearchValue })(Search);
