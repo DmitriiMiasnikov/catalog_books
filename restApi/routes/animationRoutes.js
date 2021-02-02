@@ -23,7 +23,7 @@ router.get(
           return true
         } else return false
       })
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
     let countAnimation = animation.length;
@@ -50,7 +50,7 @@ router.get(
     try {
       if (sort !== 'default' && !search) {
         switch (sort) {
-          case ('name_reverse'): {}
+          case ('name_reverse'): { }
           case ('name'): {
             animation = animation.sort((a, b) => {
               if (a.nameRu === b.nameRu) {
@@ -61,7 +61,7 @@ router.get(
             })
             break;
           }
-          case('date_reverse'): {}
+          case ('date_reverse'): { }
           case ('date'): {
             animation = animation.sort((a, b) => {
               if (a.date[a.date.length - 1] === b.date[b.date.length - 1]) {
@@ -88,12 +88,21 @@ router.get(
         animation = animation.filter((el, i) => {
           if (el.nameRu) {
             const name = el.nameRu.toLowerCase();
-            return name.includes(search);
+            if (name.includes(search)) return true
+          }
+          if (el.nameEng) {
+            const name = el.nameEng.toLowerCase();
+            if (name.includes(search)) return true
+          }
+          if (el.nameRom) {
+            const name = el.nameRom.toLowerCase();
+            if (name.includes(search)) return true
           }
           if (el.author) {
             const author = el.author.toLowerCase();
-            return author.includes(search);
+            if (author.includes(search)) return true
           }
+          return false
         });
       }
       countAnimation = animation.length;
