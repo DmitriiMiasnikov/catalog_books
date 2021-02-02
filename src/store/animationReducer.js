@@ -117,6 +117,5 @@ export const getAnimationList = (page, counter, sort, filter, search) => {
     dispatch(getAnimationListFunc(res.data.animation));
     dispatch(setCounterAllAnimation(Number(res.data.countAnimation)));
     dispatch(setFilters(res.data.filters));
-    // dispatch(setSearchValue(''));
   }
 }

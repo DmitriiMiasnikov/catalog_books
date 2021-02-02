@@ -3,7 +3,7 @@ import styles from './AnimationFilters.module.scss';
 import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
 
-export const AnimationFilters = ({ buttonsFilter, openDropdown, dropdowns, filterHandler }) => {
+export const AnimationFilters = ({ buttonsFilter, openDropdown, dropdowns, filterHandler, parametres }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>
@@ -24,7 +24,7 @@ export const AnimationFilters = ({ buttonsFilter, openDropdown, dropdowns, filte
                       return (
                         <div className={classnames(styles.dropdownButton, { [styles.active]: el.active })}
                           key={i} onClick={() => filterHandler(dropdownType, el[dropdownType], i)}>
-                            <NavLink to={`/animation/list/1`}>
+                            <NavLink to={`/animation/list/1${parametres}`}>
                             {el[dropdownType]}   
                             </NavLink>
                         </div>
