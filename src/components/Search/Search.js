@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { SearchDom } from './SearchDom';
 import { setSearchValue } from './../../store/animationReducer';
+import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
 
 const Search = ({ setSearchValue, searchValue }) => {
   const [value, setValue] = useState('');
-  const searchHandler = (value) => {
-    console.log(value);
+  const searchHandler = (value, event) => {
+    event.preventDefault();
     setSearchValue(value);
     setValue('');
   }
@@ -24,4 +26,7 @@ const mapStatesToProps = (state) => {
   }
 }
 
-export default connect(mapStatesToProps, { setSearchValue })(Search);
+export default compose(
+  connect(mapStatesToProps, { setSearchValue }),
+  withRouter
+) (Search);

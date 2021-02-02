@@ -76,6 +76,7 @@ export const animationReducer = (state = stateDefault, action) => {
         sortBy: 'default',
         currentPage: 1,
         countInPage: 10,
+        searchValue: ''
       }
     }
     default: break

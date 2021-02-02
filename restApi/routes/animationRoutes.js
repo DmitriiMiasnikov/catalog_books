@@ -75,7 +75,7 @@ router.get(
           default: break;
         }
       }
-      if (Object.keys(filters).some(el => filters[el].slice(1).includes(filter)) && !search) {
+      if (Object.keys(filters).some(el => filters[el].slice(1).includes(filter))) {
         animation = animation.filter((el, i) => {
           if (filters['auditory'].includes(filter) && el.auditory) {
             return el.auditory === filter
@@ -83,18 +83,20 @@ router.get(
             return el.genre.some(item => item === filter)
           }
         });
-        countAnimation = animation.length;
       }
       if (search) {
         animation = animation.filter((el, i) => {
           if (el.nameRu) {
-            return el.nameRu.includes(search);
+            const name = el.nameRu.toLowerCase();
+            return name.includes(search);
           }
           if (el.author) {
-            return el.author.includes(search);
+            const author = el.author.toLowerCase();
+            return author.includes(search);
           }
         });
       }
+      countAnimation = animation.length;
       animation = animation.filter((el, i) => i >= (countInPage * page - (countInPage - 1)) && i <= (countInPage * page));
       res.status(200).json({ animation, page, countInPage, countAnimation, filters });
     } catch (e) {

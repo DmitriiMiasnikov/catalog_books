@@ -12,7 +12,6 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSortAnimati
       <PagesCounter countAll={countAllAnimation}/>
       {
         animationList && animationList.map((el, i) => {
-          console.log()
           return (
             <div key={i} className={styles.item}>
               <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)} className={styles.imgLink}>
