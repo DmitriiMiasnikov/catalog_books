@@ -10,11 +10,7 @@
     display: inline-block;
     .pageButton {
       position: relative;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      width: 30px;
-      height: 30px;
+      display: inline-block;
       margin: 0 3px;
       box-sizing: border-box;
       background-color: rgb(99, 99, 99);
@@ -28,6 +24,15 @@
       &.active {
         background-color: #ef4d6e;
         pointer-events: none;
+      }
+      a {
+        width: 30px;
+        height: 30px;
+        text-decoration: none;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
     .pagesCounter {
@@ -51,12 +56,7 @@
       font-size: 12px;
     }
     .button {
-      width: 30px;
-      height: 25px;
       background-color: #636363;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       margin: 0 3px;
       transition: 0.2s background-color;
       &:hover {
@@ -66,6 +66,15 @@
       &.active {
         background-color: #ef4d6e;
         pointer-events: none;
+      }
+      a {
+        text-decoration: none;
+        color: white;
+        width: 30px;
+        height: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
   }

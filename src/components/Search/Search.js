@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import { SearchDom } from './SearchDom';
 import { setSearchValue } from './../../store/animationReducer';
 
-const Search = ({ setSearchValue }) => {
+const Search = ({ setSearchValue, searchValue }) => {
   const [value, setValue] = useState('');
   const searchHandler = (value) => {
+    console.log(value);
     setSearchValue(value);
+    setValue('');
   }
   const setValueFunc = (value) => {
     setValue(value);
@@ -18,7 +20,7 @@ const Search = ({ setSearchValue }) => {
 
 const mapStatesToProps = (state) => {
   return {
-
+    searchValue: state.animation.searchValue
   }
 }
 

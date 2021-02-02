@@ -11,6 +11,7 @@ router.get(
     let page = Number(req.params.page) || 1;
     let sort = req.query.sort;
     let filter = req.query.filter;
+    let search = req.query.search;
     let animation = animationJson.filter((el, i) => {
       if (el.genre) {
         return !el.genre.includes('хентай');
@@ -47,7 +48,7 @@ router.get(
       'genre': genreFilters()
     }
     try {
-      if (sort !== 'default') {
+      if (sort !== 'default' && !search) {
         switch (sort) {
           case ('name_reverse'): {}
           case ('name'): {
@@ -74,7 +75,7 @@ router.get(
           default: break;
         }
       }
-      if (Object.keys(filters).some(el => filters[el].slice(1).includes(filter))) {
+      if (Object.keys(filters).some(el => filters[el].slice(1).includes(filter)) && !search) {
         animation = animation.filter((el, i) => {
           if (filters['auditory'].includes(filter) && el.auditory) {
             return el.auditory === filter
@@ -83,6 +84,16 @@ router.get(
           }
         });
         countAnimation = animation.length;
+      }
+      if (search) {
+        animation = animation.filter((el, i) => {
+          if (el.nameRu) {
+            return el.nameRu.includes(search);
+          }
+          if (el.author) {
+            return el.author.includes(search);
+          }
+        });
       }
       animation = animation.filter((el, i) => i >= (countInPage * page - (countInPage - 1)) && i <= (countInPage * page));
       res.status(200).json({ animation, page, countInPage, countAnimation, filters });

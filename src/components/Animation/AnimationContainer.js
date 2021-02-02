@@ -7,7 +7,8 @@ import { getAnimation } from './../../store/animationDescriptionReducer';
 import { Animation } from './Animation';
 
 const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimation, clearStates,
-  currentPage, sortBy, countAllAnimation, countInPage }) => {
+  currentPage, sortBy, countAllAnimation, countInPage, searchValue, match }) => {
+  const page = match.params.page || 1;
   const [animationList, setAnimationList] = useState([]);
   const buttonsSortAnimation = [
     {
@@ -22,14 +23,14 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
     }];
   useEffect(() => {
     setAnimationList(animation);
-  }, [animation, currentPage, setAnimationList])
+  }, [animation, setAnimationList])
   useEffect(() => {
     const fetchData = async () => {
-      await getAnimationList(currentPage, countInPage, sortBy, filterBy);
+      await getAnimationList(page, countInPage, sortBy, filterBy, searchValue);
     }
     window.scroll(0, 0);
     fetchData();
-  }, [currentPage, filterBy, sortBy, countInPage, getAnimationList]);
+  }, [page, filterBy, sortBy, countInPage, getAnimationList, searchValue]);
   useEffect(() => {
     return () => {
       clearStates()
@@ -51,6 +52,7 @@ const mapStatesToProps = (state) => {
     countInPage: state.animation.countInPage,
     currentPage: state.animation.currentPage,
     sortBy: state.animation.sortBy,
+    searchValue: state.animation.searchValue
   }
 }
 export default compose(

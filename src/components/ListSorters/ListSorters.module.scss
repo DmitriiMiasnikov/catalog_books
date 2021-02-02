@@ -1,19 +1,15 @@
 .wrapper {
   display: flex;
   flex-direction: row;
-  .button {
-    display: flex;
-    flex-direction: row;
+  .sortBy {
     padding: 8px;
+  }
+  .button {
     background-color: #464646;
     color: rgb(255, 255, 255);
     user-select: none;
     font-size: 13px;
     transition: 0.2s background-color;
-    .arrow {
-      width: 16px;
-      height: 16px;
-    }
     &.sortBy {
       background-color: #464646;
     }
@@ -32,5 +28,16 @@
         transform: rotate(180deg);
       }
     }
+  a {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+    .arrow {
+      width: 16px;
+      height: 16px;
+    }
+  }
   }
 }

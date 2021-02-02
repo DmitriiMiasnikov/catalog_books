@@ -111,12 +111,12 @@ const getAnimationListFunc = (animation) => {
   return { type: GET_ANIMATION_LIST, animation }
 }
 
-export const getAnimationList = (page, counter, sort, filter) => {
+export const getAnimationList = (page, counter, sort, filter, search) => {
   return async (dispatch) => {
-    const res = await getAnimationListApi(page, counter, sort, filter);
+    const res = await getAnimationListApi(page, counter, sort, filter, search);
     dispatch(getAnimationListFunc(res.data.animation));
-    dispatch(setPage(Number(res.data.page)));
     dispatch(setCounterAllAnimation(Number(res.data.countAnimation)));
     dispatch(setFilters(res.data.filters));
+    // dispatch(setSearchValue(''));
   }
 }

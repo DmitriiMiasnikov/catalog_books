@@ -14,7 +14,7 @@ import Animation from './components/Animation/AnimationContainer'
 import AnimationFilters from './components/AnimationFilters/AnimationFiltersContainer';
 import AnimationDescription from './components/AnimationDescription/AnimationDescriptionContainer';
 
-function App({ theme, selectedUser }) {
+function App({ theme }) {
   return (
     <div className={classnames(styles.page, { [styles.black]: theme === 'black', [styles.white]: theme === 'white' })}>
       <div className={styles.wrapper}>
@@ -44,8 +44,6 @@ function App({ theme, selectedUser }) {
 const mapStatesToProps = (state) => {
   return {
     theme: state.main.theme,
-    selectedUser: state.users.selectedUser,
-    selectedAnimation: state.animation.selectedAnimation,
   }
 }
 export default compose(

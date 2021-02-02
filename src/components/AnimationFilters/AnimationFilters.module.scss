@@ -35,12 +35,13 @@
       }
       .dropdownBlock {
         left: 0px;
-        top: 45px;
+        top: 0px;
+        position: relative;
         .dropdownButton {
+          display: flex;
+          flex-direction: column;
           font-size: 14px;
           background-color: #464646;
-          padding: 8px 0px 8px 35px;
-          padding-left: 30px;
           transition: .2s background-color;
           &:not(:last-child) {
             border-bottom: 1px solid grey;
@@ -56,6 +57,12 @@
           &.active {
             pointer-events: none;
             background-color: #ef4d6e;
+          }
+          a {
+            text-decoration: none;
+            color: white;
+            padding: 8px 0px 8px 35px;
+            padding-left: 30px;
           }
         }
       }
