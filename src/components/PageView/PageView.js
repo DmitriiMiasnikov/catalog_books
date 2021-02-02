@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { PageViewDom } from './PageViewDom'
+import { PageViewDom } from './PageViewDom';
+import { setPageView } from './../../store/animationReducer';
 
-const PageView = () => {
-  const [pageView, setPageView] = useState(['small','medium', 'large'].map((el, i) => {
+const PageView = ({ setPageView, pageView }) => {
+  const [pageViewButtons, setPageViewButtons] = useState(['small','medium', 'large'].map((el, i) => {
     return {
       id: i,
       type: el,
-      active: i === 2
+      active: el === pageView
     }
   }))
-  const pageViewHandler = (id) => {
-    setPageView(pageView.map((el, i) => {
+  const pageViewHandler = (type, id) => {
+    setPageView(type);
+    setPageViewButtons(pageViewButtons.map((el, i) => {
       if (el.id === id) {
         el.active = true;
       } else {
@@ -21,14 +23,14 @@ const PageView = () => {
     }))
   }
   return (
-    <PageViewDom pageView={pageView} pageViewHandler={pageViewHandler}/>
+    <PageViewDom pageViewButtons={pageViewButtons} pageViewHandler={pageViewHandler}/>
   )
 }
 
 const mapStatesToProps = (state) => {
   return {
-
+    pageView: state.animation.pageView
   }
 }
 
-export default connect(mapStatesToProps, {})(PageView);
+export default connect(mapStatesToProps, { setPageView })(PageView);

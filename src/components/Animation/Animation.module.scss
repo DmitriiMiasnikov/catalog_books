@@ -36,68 +36,124 @@
       }
     }
   }
-  .item {
+  .animationList {
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    box-sizing: border-box;
-    border: 1px solid rgb(153, 153, 153);
-    border-radius: 8px;
-    padding: 15px;
-    font-size: 15px;
-    color: rgb(226, 226, 226);
-    box-shadow: 1px 1px 3px 0px rgb(82, 82, 82);
-    &:not(:first-child) {
-      margin-top: 15px;
-    }
-    .imgLink {
-      transition: 0.2s box-shadow;
-      border-radius: 8px;
+    flex-direction: column;
+    margin-top: 15px;
+    .item {
+      background-color: #272727;
+      border-radius: 4px;
+      &:not(:first-child) {
+        margin-top: 15px;
+      }
+      transition: .2s background-color;
       &:hover {
-        box-shadow: 0px 0px 2px 3px #525252;
+       background-color: #2c2c2c;   
       }
-      .image {
-        max-width: 175px;
-        max-height: 235px;
-        border-radius: 8px;
-        display: block;
-      }
-    }
-    .infoWrapper {
-      padding: 0px 0px 0px 30px;
-      display: flex;
-      flex-direction: column;
-
-      .title {
-        font-size: 24px;
-        margin-bottom: 10px;
-        width: fit-content;
-        a {
-          text-decoration: none;
-          color: rgb(255, 255, 255);
-          transition: 0.2s color;
+      .itemInner {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        box-sizing: border-box;
+        padding: 15px;
+        font-size: 15px;
+        color: #e2e2e2;
+        .imgLink {
+          transition: 0.2s box-shadow;
+          border-radius: 8px;
           &:hover {
-            color: rgb(170, 170, 170);
+            box-shadow: 0px 0px 2px 3px #525252;
+          }
+          .image {
+            max-width: 175px;
+            max-height: 235px;
+            border-radius: 4px;
+            display: block;
+          }
+        }
+        .infoWrapper {
+          padding: 0px 0px 0px 30px;
+          display: flex;
+          flex-direction: column;
+          .title {
+            font-size: 24px;
+            margin-bottom: 10px;
+            width: fit-content;
+            a {
+              text-decoration: none;
+              color: rgb(255, 255, 255);
+              transition: 0.2s color;
+              &:hover {
+                color: rgb(170, 170, 170);
+              }
+            }
+          }
+          .date {
+            color: rgb(255, 255, 255);
+            font-weight: bold;
+            width: fit-content;
+          }
+          .line {
+            color: #a0a0a0;
+            width: fit-content;
+            .lineInfo {
+              color: rgb(255, 255, 255);
+              font-weight: bold;
+              margin-left: 8px;
+            }
+          }
+          > div:not(:first-child) {
+            margin-left: 15px;
+            margin-top: 8px;
           }
         }
       }
-      .date {
-        color: rgb(255, 255, 255);
-        font-weight: bold;
-        width: fit-content;
-      }
-      .line {
-        color: #a0a0a0;
-        width: fit-content;
-        .lineInfo {
-          color: rgb(255, 255, 255);
-          font-weight: bold;
-          margin-left: 8px;
+    }
+    &.small {
+      .item {
+        .itemInner {
+          .image {
+            max-width: 95px;
+            max-height: 135px;
+          }
         }
       }
-      > div:not(:first-child) {
-        margin-left: 15px;
-        margin-top: 8px;
+
+    }
+    &.large {
+      flex-direction: row;
+      flex-wrap: wrap;
+      .item {
+        margin-left: 25px;
+        margin-top: 25px;
+        width: 325px;
+        height: fit-content;
+        .itemInner {
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-decoration: none;
+          color: white;
+          .image {
+            max-width: 270px;
+            max-height: 395px;
+          }
+          .infoWrapper {
+            padding: 0px;
+            margin-top: 10px;
+            max-width: 350px;
+            align-items: center;
+            .title {
+              text-align: center;
+              font-size: 17px;
+              margin-bottom: 0px;
+            }
+            > div:not(:first-child) {
+              margin-left: 0px;
+              margin-top: 0px;
+            }
+          }
+        }
       }
     }
   }

@@ -7,7 +7,7 @@ import { getAnimation } from './../../store/animationDescriptionReducer';
 import { Animation } from './Animation';
 
 const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimation, clearStates,
-  currentPage, sortBy, countAllAnimation, countInPage, searchValue, match, setShouldRedirect }) => {
+  currentPage, sortBy, countAllAnimation, countInPage, searchValue, match, setShouldRedirect, pageView }) => {
   const page = Number(match.params.page) || 1;
   const [fetching, setFetching] = useState(true);
   const [animationList, setAnimationList] = useState([]);
@@ -47,7 +47,7 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   }
   return (
     <Animation animationList={animationList} openAnimationInfo={openAnimationInfo} countAllAnimation={countAllAnimation}
-      buttonsSortAnimation={buttonsSortAnimation} currentPage={page} fetching={fetching} />
+      buttonsSortAnimation={buttonsSortAnimation} currentPage={page} fetching={fetching} pageView={pageView} />
   )
 }
 const mapStatesToProps = (state) => {
@@ -58,7 +58,8 @@ const mapStatesToProps = (state) => {
     countInPage: state.animation.countInPage,
     currentPage: state.animation.currentPage,
     sortBy: state.animation.sortBy,
-    searchValue: state.animation.searchValue
+    searchValue: state.animation.searchValue,
+    pageView: state.animation.pageView
   }
 }
 export default compose(
