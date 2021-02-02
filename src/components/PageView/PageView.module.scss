@@ -1,0 +1,56 @@
+.wrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  right: 10px;
+  top: 0px;
+  > div:not(:first-child) {
+    margin-left: 10px;
+  }
+  .pageViewButton {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    .pageViewItem {
+      background-color: #464646;
+    }
+    &:not(.active) {
+      cursor: pointer;
+    }
+    &.active {
+      pointer-events: none;
+      .pageViewItem {
+        background-color: #ef4d6e;
+      }
+    }
+    &.small {
+      flex-direction: column;
+      :not(:first-child) {
+        margin-top: 2px;
+      }
+      .pageViewItem {
+        width: 100%;
+        height: 6px;
+      }
+    }
+    &.medium {
+      flex-direction: row;
+      flex-wrap: wrap;
+      .pageViewItem {
+        width: 13px;
+        height: 13px;
+        &:nth-child(n + 3) {
+          margin-top: 3px;
+        }
+      }
+    }
+    &.large {
+      flex-direction: column;
+      .pageViewItem {
+        width: 100%;
+        height: 13px;
+      }
+    }
+  }
+}

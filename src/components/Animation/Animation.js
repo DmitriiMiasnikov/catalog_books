@@ -4,11 +4,14 @@ import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import PagesCounter from '../PagesCounter/PagesCounter';
 import ListSorters from './../ListSorters/ListSorters';
+import PageView from './../PageView/PageView';
 import loading from './../../assets/Images/loading.svg';
 
-export const Animation = ({ animationList, openAnimationInfo, buttonsSortAnimation, countAllAnimation, fetching }) => {
+export const Animation = ({ animationList, openAnimationInfo, buttonsSortAnimation, countAllAnimation, 
+  fetching }) => {
   return (
     <div className={styles.wrapper}>
+      <PageView />
       <ListSorters buttons={buttonsSortAnimation} />
       <PagesCounter countAll={countAllAnimation} />
       {!fetching && !animationList.length ? (
