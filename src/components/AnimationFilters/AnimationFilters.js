@@ -24,7 +24,7 @@ export const AnimationFilters = ({ buttonsFilter, openDropdown, dropdowns, filte
                       return (
                         <div className={classnames(styles.dropdownButton, { [styles.active]: el.active })}
                           key={i} onClick={() => filterHandler(dropdownType, el[dropdownType], i)}>
-                            <NavLink to={`/animation/list/1${parametres}`}>
+                            <NavLink to={`/animation/list/1`}>
                             {el[dropdownType]}   
                             </NavLink>
                         </div>

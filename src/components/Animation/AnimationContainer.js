@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, useLocation } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { getAnimationList, setFilterBy, clearStates } from '../../store/animationReducer';
 import { getAnimation } from './../../store/animationDescriptionReducer';
@@ -8,11 +8,7 @@ import { Animation } from './Animation';
 
 const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimation, clearStates,
   currentPage, sortBy, countAllAnimation, countInPage, searchValue, match }) => {
-    const useQuery = () => {
-      return new URLSearchParams(useLocation().search);
-    }
-  const countBy = useQuery().get('countBy') || 10;
-  const page = match.params.page || 1;
+  const page = Number(match.params.page) || 1;
   const [animationList, setAnimationList] = useState([]);
   const buttonsSortAnimation = [
     {
@@ -30,11 +26,11 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   }, [animation, setAnimationList])
   useEffect(() => {
     const fetchData = async () => {
-      await getAnimationList(page, countBy, sortBy, filterBy, searchValue);
+      await getAnimationList(page, countInPage, sortBy, filterBy, searchValue);
     }
     window.scroll(0, 0);
     fetchData();
-  }, [page, filterBy, sortBy, countInPage, getAnimationList, searchValue]);
+  }, [currentPage, filterBy, sortBy, countInPage, getAnimationList, searchValue]);
   useEffect(() => {
     return () => {
       clearStates()
@@ -45,7 +41,7 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   }
   return (
     <Animation animationList={animationList} openAnimationInfo={openAnimationInfo} countAllAnimation={countAllAnimation}
-      buttonsSortAnimation={buttonsSortAnimation} currentPage={currentPage} />
+      buttonsSortAnimation={buttonsSortAnimation} currentPage={page} />
   )
 }
 const mapStatesToProps = (state) => {

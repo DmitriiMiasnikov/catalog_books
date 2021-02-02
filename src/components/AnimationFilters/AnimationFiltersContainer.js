@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import { getAnimationList, setFilterBy, setPage } from './../../store/animationReducer';
 import { AnimationFilters } from './AnimationFilters';
 
@@ -20,7 +19,6 @@ const AnimationFiltersContainer = ({ setFilterBy, filters, filterBy,setPage }) =
       closed: true,
     }
   ])
-  const parametres = useLocation().search;
   useEffect(() => {
     if (filters && filterBy === 'все') {
       const filtersCopy = {};
@@ -70,7 +68,7 @@ const AnimationFiltersContainer = ({ setFilterBy, filters, filterBy,setPage }) =
   }
   return (
     <AnimationFilters buttonsFilter={buttonsFilter} dropdowns={dropdowns}
-      openDropdown={openDropdown} filterHandler={filterHandler} parametres={parametres}/>
+      openDropdown={openDropdown} filterHandler={filterHandler}/>
   )
 }
 
