@@ -7,16 +7,23 @@ import { withRouter } from 'react-router-dom';
 
 const Search = ({ setSearchValue, searchValue }) => {
   const [value, setValue] = useState('');
+  const maxLength = 25;
   const searchHandler = (value, event) => {
     event.preventDefault();
     setSearchValue(value);
     setValue('');
   }
   const setValueFunc = (value) => {
-    setValue(value);
+    if (value.length <= maxLength) {
+      setValue(value);
+    }
+  }
+  const cancelSeach = () => {
+    setSearchValue('');
   }
   return (
-    <SearchDom searchHandler={searchHandler} value={value} setValueFunc={setValueFunc} />
+    <SearchDom searchHandler={searchHandler} value={value} setValueFunc={setValueFunc} searchValue={searchValue} 
+    cancelSeach={cancelSeach} />
   )
 }
 

@@ -41,7 +41,7 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   }
   return (
     <Animation animationList={animationList} openAnimationInfo={openAnimationInfo} countAllAnimation={countAllAnimation}
-      buttonsSortAnimation={buttonsSortAnimation} currentPage={page} />
+      buttonsSortAnimation={buttonsSortAnimation} currentPage={page}/>
   )
 }
 const mapStatesToProps = (state) => {

@@ -1,7 +1,30 @@
 .wrapper {
   position: absolute;
+  display: flex;
+  align-items: center;
   right: 65px;
   top: 6px;
+  .searchItem {
+    background-color: #464646;
+    padding: 7px 10px 7px 15px;;
+    margin-right: 10px;
+    border-radius: 7px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    &.hide {
+      opacity: 0;
+      display: none;
+    }
+    .cancelButton {
+      width: 17px;
+      height: 17px;
+      margin-left: 10px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
   .inputBlock {
     display: flex;
     flex-direction: row;
