@@ -7,7 +7,6 @@ import ListSorters from './../ListSorters/ListSorters';
 import loading from './../../assets/Images/loading.svg';
 
 export const Animation = ({ animationList, openAnimationInfo, buttonsSortAnimation, countAllAnimation, fetching }) => {
-  console.log(fetching, animationList.length);
   return (
     <div className={styles.wrapper}>
       <ListSorters buttons={buttonsSortAnimation} />
