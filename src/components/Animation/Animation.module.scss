@@ -21,10 +21,10 @@
       }
       &:not(:first-child) {
         margin-left: 10px;
-          &:hover {
-            background-color: #ef4d6e;
-            cursor: pointer;
-          }
+        &:hover {
+          background-color: #ef4d6e;
+          cursor: pointer;
+        }
       }
       &.active {
         background-color: #ef4d6e;
@@ -101,11 +101,31 @@
       }
     }
   }
-  .warning {
+  .warning,
+  .loading {
     height: 100px;
     font-size: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .loading {
+    img {
+      width: 40px;
+      height: 40px;
+      animation-name: rotation;
+      animation-duration: 1.5s;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+    }
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

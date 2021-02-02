@@ -9,6 +9,7 @@ import { Animation } from './Animation';
 const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimation, clearStates,
   currentPage, sortBy, countAllAnimation, countInPage, searchValue, match, setShouldRedirect }) => {
   const page = Number(match.params.page) || 1;
+  const [fetching, setFetching] = useState(true);
   const [animationList, setAnimationList] = useState([]);
   const buttonsSortAnimation = [
     {
@@ -23,8 +24,10 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
     }];
   useEffect(() => {
     setAnimationList(animation);
+    setFetching(false);
   }, [animation, setAnimationList])
   useEffect(() => {
+    setFetching(true);
     const fetchData = async () => {
       await getAnimationList(page, countInPage, sortBy, filterBy, searchValue);
     }
@@ -44,7 +47,7 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   }
   return (
     <Animation animationList={animationList} openAnimationInfo={openAnimationInfo} countAllAnimation={countAllAnimation}
-      buttonsSortAnimation={buttonsSortAnimation} currentPage={page}/>
+      buttonsSortAnimation={buttonsSortAnimation} currentPage={page} fetching={fetching}/>
   )
 }
 const mapStatesToProps = (state) => {

@@ -10,7 +10,7 @@ export const SearchDom = ({ searchHandler, value, setValueFunc, searchValue, can
     <div className={styles.wrapper}>
       <div className={classnames(styles.searchItem, { [styles.hide]: !searchValue })}>
         <span>{searchValue}</span>
-        <img src={close} className={styles.cancelButton} onClick={() => cancelSeach()}/>
+        <img src={close} alt='close' className={styles.cancelButton} onClick={() => cancelSeach()}/>
       </div>
       <form onSubmit={e => searchHandler(refInput.current.value, e)}>
         <div className={styles.inputBlock}>

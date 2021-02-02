@@ -30,7 +30,7 @@ const AnimationDescriptionContainer = ({ getAnimation, getAnimationFunc, match, 
   useEffect(() => {
     setUsersInfoAnimation({
       'queue': users[currentUserId].animation.queue.includes(currentAnimationId),
-      'viewed': users[currentUserId].animation.viewed.includes(currentAnimationId),
+      'viewed': users[currentUserId].animation.done.includes(currentAnimationId),
       'selected': users[currentUserId].animation.selected.includes(currentAnimationId),
     })
     return () => getAnimationFunc(null)

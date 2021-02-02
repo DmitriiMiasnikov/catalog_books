@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import styles from './App.module.scss';
 import Header from './components/Header/HeaderContainer';
@@ -6,7 +6,7 @@ import { Main } from './components/Main/Main';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import UserMenu from './components/UserMenu/UserMenuContainer';
+import UserMenu from './components/UserMenu/UserMenu';
 import User from './components/User/UserContainer';
 import Books from './components/Books/BooksContainer';
 import Authors from './components/Authors/AuthorsContainer';

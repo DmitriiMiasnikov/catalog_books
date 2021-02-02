@@ -9,12 +9,12 @@ const stateDefault = {
       rights: ['admin', 'creator', 'user'],
       books: {
         queue: [4],
-        read: [1, 2, 3],
+        done: [1, 2, 3],
         selected: [5, 3, 2]
       },
       animation: {
-        queue: [4],
-        viewed: [1, 2, 3],
+        queue: [4, 8, 10],
+        done: [1, 2, 3, 12, 9, 4],
         selected: [5, 3, 2]
       }
     },
@@ -25,12 +25,12 @@ const stateDefault = {
       rights: ['user'],
       books: {
         queue: [4],
-        read: [1, 2, 3],
+        done: [1, 2, 3],
         selected: [5, 3, 2]
       },
       animation: {
         queue: [4, 1, 6, 3],
-        viewed: [1, 2, 3],
+        done: [1, 2, 3],
         selected: [5, 3, 2]
       }
     }
