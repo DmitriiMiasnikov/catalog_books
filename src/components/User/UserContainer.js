@@ -8,7 +8,6 @@ const UserContainer = ({ currentUserId, users, match }) => {
   const [selectedUser] = useState(match.params.userId);
   const [currentUserInfo, setCurrentUserInfo] = useState(null)
   const [selectedUserMine] = useState(currentUserId === selectedUser);
-  console.log(selectedUser);
   useEffect(() => {
     setCurrentUserInfo(users.find(el => el.userId === Number(selectedUser)))
   }, [users, selectedUser])

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import styles from './App.module.scss';
 import Header from './components/Header/HeaderContainer';
 import { Main } from './components/Main/Main';
@@ -14,7 +14,8 @@ import Animation from './components/Animation/AnimationContainer'
 import AnimationFilters from './components/AnimationFilters/AnimationFiltersContainer';
 import AnimationDescription from './components/AnimationDescription/AnimationDescriptionContainer';
 
-function App({ theme }) {
+function App({ theme, searchValue, shouldRedirect }) {
+  const currentRoute = useLocation().pathname === '/animation/list/';
   return (
     <div className={classnames(styles.page, { [styles.black]: theme === 'black', [styles.white]: theme === 'white' })}>
       <div className={styles.wrapper}>
@@ -27,6 +28,7 @@ function App({ theme }) {
         </div>
         <div className={styles.content}>
           <Switch>
+            {searchValue && !currentRoute && shouldRedirect && <Redirect from='/' to='/animation/list/' />}
             <Redirect exact from='/' to='/main' />
             <Route exact path='/main' render={() => <Main />} />
             <Route exact path='/books' render={() => <Books />} />
@@ -44,6 +46,8 @@ function App({ theme }) {
 const mapStatesToProps = (state) => {
   return {
     theme: state.main.theme,
+    searchValue: state.animation.searchValue,
+    shouldRedirect: state.animation.shouldRedirect
   }
 }
 export default compose(

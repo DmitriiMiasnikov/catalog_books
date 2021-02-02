@@ -9,6 +9,7 @@ const SET_COUNT_ALL_ANIMATION = 'SET_COUNT_ALL_ANIMATION';
 const SET_FILTERS = 'SET_FILTERS';
 const CLEAR_STATES = 'CLEAR_STATES';
 const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';
+const SET_SHOULD_REDIRECT = 'SET_SHOULD_REDIRECT';
 
 let stateDefault = {
   animation: [],
@@ -18,7 +19,8 @@ let stateDefault = {
   countInPage: 10,
   countAllAnimation: null,
   filters: null,
-  searchValue: ''
+  searchValue: '',
+  shouldRedirect: true,
 }
 
 export const animationReducer = (state = stateDefault, action) => {
@@ -43,6 +45,12 @@ export const animationReducer = (state = stateDefault, action) => {
       return {
         ...state,
         currentPage: action.page
+      }
+    }
+    case (SET_SHOULD_REDIRECT): {
+      return {
+        ...state,
+        shouldRedirect: !state.shouldRedirect
       }
     }
     case (SET_SEARCH_VALUE): {
@@ -76,7 +84,8 @@ export const animationReducer = (state = stateDefault, action) => {
         sortBy: 'default',
         currentPage: 1,
         countInPage: 10,
-        searchValue: ''
+        searchValue: '',
+        shouldRedirect: true
       }
     }
     default: break
@@ -91,6 +100,9 @@ const setFilters = (filters) => {
 }
 export const setPage = (page) => {
   return { type: SET_PAGE, page }
+}
+export const setShouldRedirect = () => {
+  return { type: SET_SHOULD_REDIRECT }
 }
 export const setSearchValue = (searchValue) => {
   return { type: SET_SEARCH_VALUE, searchValue }

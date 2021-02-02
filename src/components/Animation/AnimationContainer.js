@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-import { getAnimationList, setFilterBy, clearStates } from '../../store/animationReducer';
+import { getAnimationList, setFilterBy, clearStates, setShouldRedirect } from '../../store/animationReducer';
 import { getAnimation } from './../../store/animationDescriptionReducer';
 import { Animation } from './Animation';
 
 const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimation, clearStates,
-  currentPage, sortBy, countAllAnimation, countInPage, searchValue, match }) => {
+  currentPage, sortBy, countAllAnimation, countInPage, searchValue, match, setShouldRedirect }) => {
   const page = Number(match.params.page) || 1;
   const [animationList, setAnimationList] = useState([]);
   const buttonsSortAnimation = [
@@ -36,6 +36,9 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
       clearStates()
     }
   }, [clearStates])
+  useEffect(() => {
+    setShouldRedirect(false);
+  }, [setShouldRedirect])
   const openAnimationInfo = (info) => {
     getAnimation(info);
   }
@@ -56,6 +59,6 @@ const mapStatesToProps = (state) => {
   }
 }
 export default compose(
-  connect(mapStatesToProps, { getAnimationList, getAnimation, setFilterBy, clearStates }),
+  connect(mapStatesToProps, { getAnimationList, getAnimation, setFilterBy, clearStates, setShouldRedirect }),
   withRouter
 )(AnimationContainer);
