@@ -20,6 +20,6 @@ export const getUserApi = async (userId) => {
 }
 
 export const getUsersAnimationListApi = async (userId) => {
-  const res = await instance.get(`users/animation/${userId}`);
+  const res = await instance.get(`users/id/animation/${userId}`);
   return res;
 }

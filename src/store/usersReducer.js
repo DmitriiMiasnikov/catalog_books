@@ -22,19 +22,19 @@ export const usersReducer = (state = stateDefault, action) => {
       return { ...state, selectedUser: action.id }
     }
     case (GET_USERS_ANIMATION_LIST): {
-      return { ...state, usersAnimationList: action.id }
+      return { ...state, usersAnimationList: action.animation }
     }
     default: break
   }
   return state;
 }
 
-const getUserFunc = (userInfo) => {
-  return { type: GET_USER, userInfo }
-}
-
 export const selectUser = (id) => {
   return { type: SELECT_USER, id }
+}
+
+const getUserFunc = (userInfo) => {
+  return { type: GET_USER, userInfo }
 }
 
 const getUsersAnimationListFunc = (animation) => {

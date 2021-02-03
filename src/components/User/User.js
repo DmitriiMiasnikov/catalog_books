@@ -3,29 +3,31 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { UserDom } from './UserDom';
-import { getUser } from './../../store/usersReducer';
+import { getUser, getUsersAnimationList } from './../../store/usersReducer';
 
-const User = ({ currentUserId, match, getUser, userInfo }) => {
-  const selectedUserId = Number(match.params.userId) 
+const User = ({ currentUserId, match, getUser, userInfo, getUsersAnimationList, usersAnimationList }) => {
+  const selectedUserId = Number(match.params.userId)
   const selectedUserMine = currentUserId === selectedUserId;
   useEffect(() => {
     const fetchData = async () => {
-      await getUser(selectedUserId)
+      await getUser(selectedUserId);
+      await getUsersAnimationList(selectedUserId);
     }
     fetchData()
-  }, [selectedUserId, getUser])
+  }, [selectedUserId, getUser, getUsersAnimationList])
   return (
-    <UserDom userInfo={userInfo} selectedUserMine={selectedUserMine} />
+    <UserDom userInfo={userInfo} selectedUserMine={selectedUserMine} usersAnimationList={usersAnimationList}/>
   )
 }
 
 const mapStatesToProps = (state) => {
   return {
     currentUserId: state.users.currentUserId,
-    userInfo: state.users.userInfo
+    userInfo: state.users.userInfo,
+    usersAnimationList: state.users.usersAnimationList
   }
 }
 export default compose(
-  connect(mapStatesToProps, { getUser }),
+  connect(mapStatesToProps, { getUser, getUsersAnimationList }),
   withRouter
-) (User);
+)(User);
