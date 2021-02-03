@@ -2,5 +2,56 @@
   color: rgb(219, 219, 219);
   .name {
     font-size: 22px;
+    margin-bottom: 15px;
+  }
+  .animationTitle {
+    border-top: 1px solid #2f2f2f;
+    margin-top: 20px;
+  }
+  .animationSubTitle {
+    margin: 10px 0px 10px 10px;
+  }
+  .animationWrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .animationItem {
+      border: 1px solid transparent;
+      border-radius: 4px;
+      width: 162px;
+      height: 220px;
+      transition: .2s border, .1s width, .1s height;
+      &:hover {
+        border: 1px solid #888888;
+      }
+      &:not(:first-child) {
+        margin-left: 15px;
+      }
+      .image {
+        width: inherit;
+        height: inherit;
+        border-radius: 4px;
+      }
+    }
+  }
+}
+@media (max-width: 1325px) {
+  .wrapper {
+    .animationWrap {
+      .animationItem {
+        width: 140px;
+        height: 195px;
+      }
+    }
+  }
+}
+@media (max-width: 1194px) {
+  .wrapper {
+    .animationWrap {
+      .animationItem {
+        width: 118px;
+        height: 165px;
+      }
+    }
   }
 }
