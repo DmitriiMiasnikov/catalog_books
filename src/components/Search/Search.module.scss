@@ -2,8 +2,8 @@
   position: absolute;
   display: flex;
   align-items: center;
-  right: 65px;
-  top: 6px;
+  right: 10px;
+  top: 10px;
   .searchItem {
     background-color: #464646;
     padding: 7px 10px 7px 15px;;
@@ -61,6 +61,16 @@
       }
       &:not(.active) {
         pointer-events: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .wrapper {
+    .inputBlock {
+      input {
+        width: 230px;
       }
     }
   }
