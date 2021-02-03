@@ -26,7 +26,6 @@ router.get(
     } catch (err) {
       console.log(err);
     }
-    let countAnimation = animation.length;
     const auditoryFilters = () => {
       const auditoryItems = animation.map(el => {
         return el.auditory
@@ -105,7 +104,7 @@ router.get(
           return false
         });
       }
-      countAnimation = animation.length;
+      let countAnimation = animation.length;
       animation = animation.filter((el, i) => i >= (countInPage * page - (countInPage - 1)) && i <= (countInPage * page));
       res.status(200).json({ animation, page, countInPage, countAnimation, filters });
     } catch (e) {

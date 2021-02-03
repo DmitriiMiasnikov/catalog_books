@@ -24,8 +24,11 @@ router.get(
     const userId = Number(req.params.userId) || 1;
     try {
       const user = users.find(el => el.userId === userId);
-      let animation = animationJson.filter(el => user.animation.done.includes(el.animeId))
-      res.status(200).json({ animation });
+      let animation = animationJson.filter(el => user.animation.done.includes(el.animeId));
+      rest = animation.slice(5).length;
+      animationFive = animation.slice(0,5);
+      let countAnimation = animation.length;
+      res.status(200).json({ animationFive, animation, rest, countAnimation });
     } catch (e) {
       console.log(e)
     }

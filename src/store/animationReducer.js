@@ -22,7 +22,7 @@ let stateDefault = {
   filters: null,
   searchValue: '',
   shouldRedirect: true,
-  pageView: 'medium'
+  pageView: 'small'
 }
 
 export const animationReducer = (state = stateDefault, action) => {

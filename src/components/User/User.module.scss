@@ -33,12 +33,33 @@
         border-radius: 4px;
       }
     }
+    .restAnimation {
+      background-color: #272727;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      border-radius: 4px;
+      width: 162px;
+      height: 220px;
+      margin-left: 15px;
+      color: #969696;
+      text-decoration: none;
+      transition: .2s background-color, .1s width, .1s height;
+      &:hover {
+        background-color: #313131;
+      }
+    }
   }
 }
 @media (max-width: 1325px) {
   .wrapper {
     .animationWrap {
       .animationItem {
+        width: 140px;
+        height: 195px;
+      }
+      .restAnimation {
         width: 140px;
         height: 195px;
       }
@@ -49,6 +70,10 @@
   .wrapper {
     .animationWrap {
       .animationItem {
+        width: 118px;
+        height: 165px;
+      }
+      .restAnimation {
         width: 118px;
         height: 165px;
       }

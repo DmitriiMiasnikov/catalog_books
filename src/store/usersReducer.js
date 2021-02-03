@@ -1,8 +1,11 @@
-import { getUserApi, getUsersAnimationListApi } from './../api/api'
+import { getUserApi, getUsersAnimationListApi } from './../api/api';
+import { setCounterAllAnimation } from './animationReducer';
 
 const SELECT_USER = 'SELECT_USER';
 const GET_USER = 'GET_USER';
 const GET_USERS_ANIMATION_LIST = 'GET_USERS_ANIMATION_LIST';
+const GET_REST_COUNT_ANIMATION = 'GET_REST_COUNT_ANIMATION';
+const GET_USERS_ALL_ANIMATION_LIST = 'GET_USERS_ALL_ANIMATION_LIST';
 
 const stateDefault = {
   usersList: [],
@@ -10,7 +13,9 @@ const stateDefault = {
   currentUserId: 1,
   selectedUser: 1,
   isAuth: true,
-  usersAnimationList: []
+  usersAnimationList: [],
+  usersAllAnimationList: [],
+  restCountAnimation: 0,
 }
 
 export const usersReducer = (state = stateDefault, action) => {
@@ -21,8 +26,14 @@ export const usersReducer = (state = stateDefault, action) => {
     case (SELECT_USER): {
       return { ...state, selectedUser: action.id }
     }
+    case (GET_REST_COUNT_ANIMATION): {
+      return { ...state, restCountAnimation: action.rest }
+    }
     case (GET_USERS_ANIMATION_LIST): {
       return { ...state, usersAnimationList: action.animation }
+    }
+    case (GET_USERS_ALL_ANIMATION_LIST): {
+      return { ...state, usersAllAnimationList: action.animation }
     }
     default: break
   }
@@ -36,18 +47,24 @@ export const selectUser = (id) => {
 const getUserFunc = (userInfo) => {
   return { type: GET_USER, userInfo }
 }
-
+const getRestCountAnimation = (rest) => {
+  return { type: GET_REST_COUNT_ANIMATION, rest }
+}
 const getUsersAnimationListFunc = (animation) => {
   return { type: GET_USERS_ANIMATION_LIST, animation }
 }
-
+const getUsersAllAnimationListFunc = (animation) => {
+  return { type: GET_USERS_ALL_ANIMATION_LIST, animation }
+}
 export const getUsersAnimationList = (id) => {
   return async (dispatch) => {
     const res = await getUsersAnimationListApi(id);
-    dispatch(getUsersAnimationListFunc(res.data.animation));
+    dispatch(getUsersAllAnimationListFunc(res.data.animation));
+    dispatch(getUsersAnimationListFunc(res.data.animationFive));
+    dispatch(getRestCountAnimation(res.data.rest));
+    dispatch(setCounterAllAnimation(Number(res.data.countAnimation)));
   }
 }
-
 export const getUser = (id) => {
   return async (dispatch) => {
     const res = await getUserApi(id);

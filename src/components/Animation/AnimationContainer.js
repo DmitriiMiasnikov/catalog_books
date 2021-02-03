@@ -10,7 +10,7 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   currentPage, sortBy, countAllAnimation, countInPage, searchValue, match, setShouldRedirect, pageView }) => {
   const page = Number(match.params.page) || 1;
   const [fetching, setFetching] = useState(true);
-  const [animationList, setAnimationList] = useState([]);
+  const [animationList, setAnimationList] = useState(animation);
   const buttonsSortAnimation = [
     {
       text: 'названию',
