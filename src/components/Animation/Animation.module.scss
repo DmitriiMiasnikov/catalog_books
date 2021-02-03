@@ -61,12 +61,14 @@
         .imgLink {
           transition: 0.2s box-shadow;
           border-radius: 8px;
+          max-width: 175px;
+          max-height: 235px;
           &:hover {
             box-shadow: 0px 0px 2px 3px #525252;
           }
           .image {
-            max-width: 175px;
-            max-height: 235px;
+            max-width: inherit;
+            max-height: inherit;
             border-radius: 4px;
             display: block;
           }
@@ -112,9 +114,13 @@
     &.small {
       .item {
         .itemInner {
-          .image {
+          .imgLink {
             max-width: 95px;
             max-height: 135px;
+          }
+          .image {
+            max-width: inherit;
+            max-height: inherit;
           }
         }
       }

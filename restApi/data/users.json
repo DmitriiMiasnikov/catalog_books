@@ -1,0 +1,18 @@
+[
+  {
+    "userId": 1,
+    "userName": "Dmitrii",
+    "email": "dmitriimiasnikov@gmail.com",
+    "rights": ["admin", "creator", "user"],
+    "books": {
+      "queue": [4],
+      "done": [1, 2, 3],
+      "selected": [5, 3, 2]
+    },
+    "animation": {
+      "queue": [4, 8, 10],
+      "done": [1, 2, 3, 12, 9, 4],
+      "selected": [5, 3, 2]
+    }
+  }
+]

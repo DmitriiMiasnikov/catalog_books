@@ -1,55 +1,56 @@
-const GET_USER_ID = 'GET_USER_ID';
+import { getUserApi, getUsersAnimationListApi } from './../api/api'
+
+const SELECT_USER = 'SELECT_USER';
+const GET_USER = 'GET_USER';
+const GET_USERS_ANIMATION_LIST = 'GET_USERS_ANIMATION_LIST';
 
 const stateDefault = {
-  users: [
-    {
-      userId: 1,
-      userName: 'Dmitrii',
-      email: 'dmitriimiasnikov@gmail.com',
-      rights: ['admin', 'creator', 'user'],
-      books: {
-        queue: [4],
-        done: [1, 2, 3],
-        selected: [5, 3, 2]
-      },
-      animation: {
-        queue: [4, 8, 10],
-        done: [1, 2, 3, 12, 9, 4],
-        selected: [5, 3, 2]
-      }
-    },
-    {
-      userId: 2,
-      userName: 'Anton',
-      email: 'anton@gmail.com',
-      rights: ['user'],
-      books: {
-        queue: [4],
-        done: [1, 2, 3],
-        selected: [5, 3, 2]
-      },
-      animation: {
-        queue: [4, 1, 6, 3],
-        done: [1, 2, 3],
-        selected: [5, 3, 2]
-      }
-    }
-  ],
+  usersList: [],
+  userInfo: null,
   currentUserId: 1,
-  selectedUser: 2,
+  selectedUser: 1,
   isAuth: true,
+  usersAnimationList: []
 }
 
 export const usersReducer = (state = stateDefault, action) => {
   switch (action.type) {
-    case (GET_USER_ID): {
+    case (GET_USER): {
+      return { ...state, userInfo: action.userInfo }
+    }
+    case (SELECT_USER): {
       return { ...state, selectedUser: action.id }
+    }
+    case (GET_USERS_ANIMATION_LIST): {
+      return { ...state, usersAnimationList: action.id }
     }
     default: break
   }
   return state;
 }
 
-export const getUserId = (id) => {
-  return { type: GET_USER_ID, id }
+const getUserFunc = (userInfo) => {
+  return { type: GET_USER, userInfo }
+}
+
+export const selectUser = (id) => {
+  return { type: SELECT_USER, id }
+}
+
+const getUsersAnimationListFunc = (animation) => {
+  return { type: GET_USERS_ANIMATION_LIST, animation }
+}
+
+export const getUsersAnimationList = (id) => {
+  return async (dispatch) => {
+    const res = await getUsersAnimationListApi(id);
+    dispatch(getUsersAnimationListFunc(res.data.animation));
+  }
+}
+
+export const getUser = (id) => {
+  return async (dispatch) => {
+    const res = await getUserApi(id);
+    dispatch(getUserFunc(res.data.user));
+  }
 }

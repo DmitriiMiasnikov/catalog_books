@@ -13,3 +13,13 @@ export const getAnimationApi = async (animeId) => {
   const res = await instance.get(`animation/id/${animeId}`);
   return res.data.selectedAnimation;
 }
+
+export const getUserApi = async (userId) => {
+  const res = await instance.get(`users/id/${userId}`);
+  return res;
+}
+
+export const getUsersAnimationListApi = async (userId) => {
+  const res = await instance.get(`users/animation/${userId}`);
+  return res;
+}

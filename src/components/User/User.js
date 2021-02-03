@@ -1,14 +1,31 @@
-import React from 'react';
-import styles from  './User.module.scss';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
+import { UserDom } from './UserDom';
+import { getUser } from './../../store/usersReducer';
 
-export const User = ({ currentUserInfo, selectedUserMine }) => {
+const User = ({ currentUserId, match, getUser, userInfo }) => {
+  const selectedUserId = Number(match.params.userId) 
+  const selectedUserMine = currentUserId === selectedUserId;
+  useEffect(() => {
+    const fetchData = async () => {
+      await getUser(selectedUserId)
+    }
+    fetchData()
+  }, [selectedUserId, getUser])
   return (
-    <div>
-      {currentUserInfo && 
-      <div className={styles.wrapper}>
-        <div className={styles.name}>{currentUserInfo.userName} {selectedUserMine && <span>(Мой профиль)</span>}</div>
-        <div className={styles.books}>книжная полка:</div>
-      </div>}
-    </div>
+    <UserDom userInfo={userInfo} selectedUserMine={selectedUserMine} />
   )
 }
+
+const mapStatesToProps = (state) => {
+  return {
+    currentUserId: state.users.currentUserId,
+    userInfo: state.users.userInfo
+  }
+}
+export default compose(
+  connect(mapStatesToProps, { getUser }),
+  withRouter
+) (User);

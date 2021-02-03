@@ -7,7 +7,7 @@ import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import UserMenu from './components/UserMenu/UserMenu';
-import User from './components/User/UserContainer';
+import User from './components/User/User';
 import Books from './components/Books/BooksContainer';
 import Authors from './components/Authors/AuthorsContainer';
 import Animation from './components/Animation/AnimationContainer'

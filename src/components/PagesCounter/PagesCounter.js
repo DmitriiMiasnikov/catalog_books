@@ -49,7 +49,7 @@ const PagesCounter = ({ countInPage, currentPage, countAll, setPage, setCountInP
   useEffect(() => {
     if (countAll) {
       setPagesCounterFunc(pageRoute);
-      setButtonsSwitchCounter(buttonsSwitchCounter.map((el, i) => {
+      setButtonsSwitchCounter(buttonsSwitchCounter => buttonsSwitchCounter.map((el, i) => {
         if (el.counter === countInPage) {
           el.active = true;
         } else {
@@ -58,7 +58,7 @@ const PagesCounter = ({ countInPage, currentPage, countAll, setPage, setCountInP
         return el;
       }))
     }
-  }, [currentPage, countAll, countInPage]);
+  }, [currentPage, countAll, countInPage, pageRoute]);
   const openPage = async (page) => {
     setPage(page);
     setPagesButtons(pagesButtons.map((el, i) => {

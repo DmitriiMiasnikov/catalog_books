@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const config = require('config');
 const animationRoutes = require('./routes/animationRoutes');
+const usersRoutes = require('./routes/usersRoutes');
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use('/animation', animationRoutes);
+app.use('/users', usersRoutes);
 
 const start = async () => {
   try {
