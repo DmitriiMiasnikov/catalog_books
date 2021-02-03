@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { UserDom } from './UserDom';
-import { getUser, getUsersAnimationList } from './../../store/usersReducer';
+import { getUser, getUsersAnimationList, selectUser } from './../../store/usersReducer';
 import { getAnimation } from './../../store/animationDescriptionReducer';
 
 const User = ({ currentUserId, match, getUser, userInfo, getUsersAnimationList, usersAnimationList, getAnimation,
-  restCountAnimation }) => {
+  restCountAnimation, selectUser }) => {
   const selectedUserId = Number(match.params.userId)
   const selectedUserMine = currentUserId === selectedUserId;
   useEffect(() => {
@@ -21,6 +21,7 @@ const User = ({ currentUserId, match, getUser, userInfo, getUsersAnimationList, 
     getAnimation(info);
   }
   const openAnimationList = () => {
+    selectUser(selectedUserId);
   }
   return (
     <UserDom userInfo={userInfo} selectedUserMine={selectedUserMine} usersAnimationList={usersAnimationList}
@@ -38,6 +39,6 @@ const mapStatesToProps = (state) => {
   }
 }
 export default compose(
-  connect(mapStatesToProps, { getUser, getUsersAnimationList, getAnimation }),
+  connect(mapStatesToProps, { getUser, getUsersAnimationList, getAnimation, selectUser }),
   withRouter
 )(User);

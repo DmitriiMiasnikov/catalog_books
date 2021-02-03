@@ -5,7 +5,7 @@ import { setPage, setCountInPage } from '../../store/animationReducer';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 
-const PagesCounter = ({ countInPage, currentPage, countAll, setPage, setCountInPage, match }) => {
+const PagesCounter = ({ countInPage, countAll, setPage, setCountInPage, match }) => {
   const [pagesButtons, setPagesButtons] = useState([]);
   const pageRoute = Number(match.params.page) || 1;
   const [buttonsSwitchCounter, setButtonsSwitchCounter] = useState([10, 25, 100].map((el, i) => {
@@ -91,7 +91,6 @@ const PagesCounter = ({ countInPage, currentPage, countAll, setPage, setCountInP
 
 const mapStatesToProps = (state) => {
   return {
-    currentPage: state.animation.currentPage,
     countInPage: state.animation.countInPage
   }
 }
