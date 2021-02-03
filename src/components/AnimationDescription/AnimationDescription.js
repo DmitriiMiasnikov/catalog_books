@@ -51,7 +51,7 @@ export const AnimationDescription = ({ selectedAnimation, buttonsControl, userIn
         </div>
         <div className={styles.imageWrap}>
           <img src={`/img/animation_cover_${selectedAnimation.animeId}.jpg`} alt='img' className={styles.image} />
-          <div className={styles.buttons}>
+          {userInfoAnimation && <div className={styles.buttons}>
             <div className={classnames(styles.star, styles.button, { [styles.added]: userInfoAnimation['selected'] })}>
               {userInfoAnimation['selected'] ? <span>&#9733;</span> : <span>&#9734;</span>}
             </div>
@@ -64,7 +64,7 @@ export const AnimationDescription = ({ selectedAnimation, buttonsControl, userIn
                 )
               })
             }
-          </div>
+          </div>}
         </div>
         <div className={styles.descriptionWrap}>
           <div className={styles.title}>

@@ -58,7 +58,7 @@ const PagesCounter = ({ countInPage, currentPage, countAll, setPage, setCountInP
         return el;
       }))
     }
-  }, [currentPage, countAll, countInPage, pageRoute]);
+  }, [countAll, countInPage, pageRoute]);
   const openPage = async (page) => {
     setPage(page);
     setPagesButtons(pagesButtons.map((el, i) => {

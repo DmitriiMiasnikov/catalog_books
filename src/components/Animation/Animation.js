@@ -20,7 +20,7 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSortAnimati
         </div>
       ) : fetching ? (
         <div className={styles.loading}>
-          <img src={loading} />
+          <img src={loading} alt=''/>
         </div>
       ) : (
             <div className={classnames(styles.animationList, styles[pageView])}>
