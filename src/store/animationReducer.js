@@ -101,7 +101,6 @@ export const animationReducer = (state = stateDefault, action) => {
         currentPage: 1,
         countInPage: 10,
         searchValue: '',
-        shouldRedirect: true,
       }
     }
     default: break
@@ -122,9 +121,6 @@ export const setPage = (page) => {
 }
 export const setPageView = (pageView) => {
   return { type: SET_PAGE_VIEW, pageView }
-}
-export const setShouldRedirect = () => {
-  return { type: SET_SHOULD_REDIRECT }
 }
 export const setSearchValue = (searchValue) => {
   return { type: SET_SEARCH_VALUE, searchValue }

@@ -14,7 +14,7 @@ import Animation from './components/Animation/AnimationContainer'
 import AnimationFilters from './components/AnimationFilters/AnimationFiltersContainer';
 import AnimationDescription from './components/AnimationDescription/AnimationDescriptionContainer';
 
-function App({ theme, searchValue, shouldRedirect }) {
+function App({ theme }) {
   const currentRoute = useLocation().pathname === '/animation/list/';
   return (
     <div className={classnames(styles.page, { [styles.black]: theme === 'black', [styles.white]: theme === 'white' })}>
@@ -28,7 +28,6 @@ function App({ theme, searchValue, shouldRedirect }) {
         </div>
         <div className={styles.content}>
           <Switch>
-            {searchValue && !currentRoute && shouldRedirect && <Redirect from='/' to='/animation/list/' />}
             <Redirect exact from='/' to='/main' />
             <Route exact path='/main' render={() => <Main />} />
             <Route exact path='/books' render={() => <Books />} />
@@ -45,9 +44,7 @@ function App({ theme, searchValue, shouldRedirect }) {
 
 const mapStatesToProps = (state) => {
   return {
-    theme: state.main.theme,
-    searchValue: state.animation.searchValue,
-    shouldRedirect: state.animation.shouldRedirect
+    theme: state.main.theme
   }
 }
 export default compose(

@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-import { getAnimationList, setFilterBy, clearStates, setShouldRedirect } from '../../store/animationReducer';
+import { getAnimationList, setFilterBy, clearStates } from '../../store/animationReducer';
 import { getAnimation } from './../../store/animationDescriptionReducer';
 import { selectUser } from './../../store/usersReducer';
 import { Animation } from './Animation';
 
 const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimation, clearStates,
-  currentPage, sortBy, countAllAnimation, countInPage, searchValue, match, setShouldRedirect, pageView,
+  currentPage, sortBy, countAllAnimation, countInPage, searchValue, match, pageView,
   selectedUser, selectUser, userInfo }) => {
-  const page = Number(match.params.page) || 1;
+  let page = Number(match.params.page) || 1;
   const [fetching, setFetching] = useState(true);
   const [animationList, setAnimationList] = useState(animation);
   const buttonsSortAnimation = [
@@ -41,9 +41,6 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
       clearStates();
     }
   }, [clearStates])
-  useEffect(() => {
-    setShouldRedirect(false);
-  }, [setShouldRedirect])
   const openAnimationInfo = (info) => {
     getAnimation(info);
   }
@@ -71,6 +68,6 @@ const mapStatesToProps = (state) => {
   }
 }
 export default compose(
-  connect(mapStatesToProps, { getAnimationList, getAnimation, setFilterBy, clearStates, setShouldRedirect, selectUser }),
+  connect(mapStatesToProps, { getAnimationList, getAnimation, setFilterBy, clearStates, selectUser }),
   withRouter
 )(AnimationContainer);

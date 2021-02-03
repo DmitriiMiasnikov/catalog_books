@@ -5,13 +5,14 @@ import { setSearchValue } from './../../store/animationReducer';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 
-const Search = ({ setSearchValue, searchValue }) => {
+const Search = ({ setSearchValue, searchValue, history }) => {
   const [value, setValue] = useState('');
   const maxLength = 25;
   const searchHandler = (value, event) => {
     event.preventDefault();
     setSearchValue(value);
     setValue('');
+    history.push(`/animation/list/1`);
   }
   const setValueFunc = (value) => {
     if (value.length <= maxLength) {
