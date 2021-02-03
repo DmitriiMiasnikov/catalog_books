@@ -23,7 +23,7 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSortAnimati
           <NavLink className={styles.name} to={`/users/${userInfo.userId}`}>
             {userInfo.userName}
           </NavLink>
-          <img src={close} className={styles.cancelButton} onClick={() => closeUsersList()} />
+          <img src={close} className={styles.cancelButton} onClick={() => closeUsersList()} alt=''/>
         </div>
       </div>
       }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getAnimationList, setFilterBy, setPage } from './../../store/animationReducer';
 import { AnimationFilters } from './AnimationFilters';
 
-const AnimationFiltersContainer = ({ setFilterBy, filters, filterBy,setPage }) => {
+const AnimationFiltersContainer = ({ setFilterBy, filters, filterBy, setPage }) => {
   const [buttonsFilter, setButtonsFilter] = useState({});
   const [dropdowns, setDropdowns] = useState([
     {
@@ -32,7 +32,7 @@ const AnimationFiltersContainer = ({ setFilterBy, filters, filterBy,setPage }) =
       })
       setButtonsFilter(filtersCopy);
     }
-  }, [filters, dropdowns, filterBy])
+  }, [filters, dropdowns, filterBy]);
   const openDropdown = (dropdownId) => {
     setDropdowns(dropdowns.map(el => {
       if (el.id === dropdownId) {
@@ -62,13 +62,12 @@ const AnimationFiltersContainer = ({ setFilterBy, filters, filterBy,setPage }) =
           return item;
         })
       })
-      
       return obj;
     })
   }
   return (
     <AnimationFilters buttonsFilter={buttonsFilter} dropdowns={dropdowns}
-      openDropdown={openDropdown} filterHandler={filterHandler}/>
+      openDropdown={openDropdown} filterHandler={filterHandler} />
   )
 }
 

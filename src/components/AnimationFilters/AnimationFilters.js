@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import styles from './AnimationFilters.module.scss';
 import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
 
-export const AnimationFilters = ({ buttonsFilter, openDropdown, dropdowns, filterHandler, parametres }) => {
+export const AnimationFilters = ({ buttonsFilter, openDropdown, dropdowns, filterHandler }) => {
+  const refDropdown = useRef(null);
+  const handleMouseClick = (e) => {
+    if (!e.path.includes(refDropdown.current)) {
+      openDropdown(-1);
+    }
+  }
+  useEffect(() => {
+    document.addEventListener('click', handleMouseClick, true)
+  })
+  useEffect(() => {
+    return () => document.removeEventListener('click', handleMouseClick, true)
+  })
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>
         Отфильтровать по:
       </div>
-      <div className={styles.dropdownsWrap}>
+      <div className={styles.dropdownsWrap} ref={refDropdown}>
         {
           dropdowns.map((dropdown, j) => {
             const dropdownType = dropdown.type;
@@ -24,9 +36,9 @@ export const AnimationFilters = ({ buttonsFilter, openDropdown, dropdowns, filte
                       return (
                         <div className={classnames(styles.dropdownButton, { [styles.active]: el.active })}
                           key={i} onClick={() => filterHandler(dropdownType, el[dropdownType], i)}>
-                            <NavLink to={`/animation/list/1`}>
-                            {el[dropdownType]}   
-                            </NavLink>
+                          <NavLink to={`/animation/list/1`}>
+                            {el[dropdownType]}
+                          </NavLink>
                         </div>
                       )
                     }) : null

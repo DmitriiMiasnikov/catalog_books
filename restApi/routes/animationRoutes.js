@@ -111,7 +111,7 @@ router.get(
         });
       }
       let countAnimation = animation.length;
-      animation = animation.filter((el, i) => i >= (countInPage * page - (countInPage - 1)) && i <= (countInPage * page));
+      animation = animation.filter((el, i) => i + 1 >= (countInPage * page - (countInPage - 1)) && i + 1 <= (countInPage * page));
       res.status(200).json({ animation, page, countInPage, countAnimation, filters });
     } catch (e) {
       console.log(e)
