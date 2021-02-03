@@ -2,16 +2,18 @@ import { getUserApi, getUsersAnimationListApi } from './../api/api';
 import { setCounterAllAnimation } from './animationReducer';
 
 const SELECT_USER = 'SELECT_USER';
-const GET_USER = 'GET_USER';
+const GET_MY_USER_INFO = 'GET_MY_USER_INFO';
+const GET_USER_INFO = 'GET_USER_INFO';
 const GET_USERS_ANIMATION_LIST = 'GET_USERS_ANIMATION_LIST';
 const GET_REST_COUNT_ANIMATION = 'GET_REST_COUNT_ANIMATION';
 const GET_USERS_ALL_ANIMATION_LIST = 'GET_USERS_ALL_ANIMATION_LIST';
 
 const stateDefault = {
   usersList: [],
+  myUserInfo: null,
   userInfo: null,
   currentUserId: 1,
-  selectedUser: 1,
+  selectedUser: 0,
   isAuth: true,
   usersAnimationList: [],
   usersAllAnimationList: [],
@@ -20,7 +22,10 @@ const stateDefault = {
 
 export const usersReducer = (state = stateDefault, action) => {
   switch (action.type) {
-    case (GET_USER): {
+    case (GET_MY_USER_INFO): {
+      return { ...state, myUserInfo: action.myUserInfo }
+    }
+    case (GET_USER_INFO): {
       return { ...state, userInfo: action.userInfo }
     }
     case (SELECT_USER): {
@@ -43,9 +48,11 @@ export const usersReducer = (state = stateDefault, action) => {
 export const selectUser = (id) => {
   return { type: SELECT_USER, id }
 }
-
-const getUserFunc = (userInfo) => {
-  return { type: GET_USER, userInfo }
+const getMyUserInfoFunc = (myUserInfo) => {
+  return { type: GET_MY_USER_INFO, myUserInfo }
+}
+const getUserInfoFunc = (userInfo) => {
+  return { type: GET_USER_INFO, userInfo }
 }
 const getRestCountAnimation = (rest) => {
   return { type: GET_REST_COUNT_ANIMATION, rest }
@@ -65,9 +72,15 @@ export const getUsersAnimationList = (id) => {
     dispatch(setCounterAllAnimation(Number(res.data.countAnimation)));
   }
 }
+export const getMyUserInfo = (id) => {
+  return async (dispatch) => {
+    const res = await getUserApi(id);
+    dispatch(getMyUserInfoFunc(res.data.user));
+  }
+}
 export const getUser = (id) => {
   return async (dispatch) => {
     const res = await getUserApi(id);
-    dispatch(getUserFunc(res.data.user));
+    dispatch(getUserInfoFunc(res.data.user));
   }
 }

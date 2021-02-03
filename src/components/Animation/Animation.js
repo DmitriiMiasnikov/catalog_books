@@ -6,21 +6,34 @@ import PagesCounter from '../PagesCounter/PagesCounter';
 import ListSorters from './../ListSorters/ListSorters';
 import PageView from './../PageView/PageView';
 import loading from './../../assets/Images/loading.svg';
+import close from './../../assets/Images/close.svg';
 
 export const Animation = ({ animationList, openAnimationInfo, buttonsSortAnimation, countAllAnimation,
-  fetching, pageView }) => {
+  fetching, pageView, closeUsersList, userInfo, selectedUser }) => {
   return (
     <div className={styles.wrapper}>
       <PageView />
       <ListSorters buttons={buttonsSortAnimation} />
       <PagesCounter countAll={countAllAnimation} />
+      {Boolean(selectedUser) && <div className={styles.listOwnerBlock}>
+        <div className={styles.titleListOwner}>
+          просмотренные:
+        </div>
+        <div className={styles.userBittonClose}>
+          <NavLink className={styles.name} to={`/users/${userInfo.userId}`}>
+            {userInfo.userName}
+          </NavLink>
+          <img src={close} className={styles.cancelButton} onClick={() => closeUsersList()} />
+        </div>
+      </div>
+      }
       {!fetching && !animationList.length ? (
         <div className={styles.warning}>
           не найдено по текущему запросу
         </div>
       ) : fetching ? (
         <div className={styles.loading}>
-          <img src={loading} alt=''/>
+          <img src={loading} alt='' />
         </div>
       ) : (
             <div className={classnames(styles.animationList, styles[pageView])}>
@@ -112,16 +125,16 @@ export const Animation = ({ animationList, openAnimationInfo, buttonsSortAnimati
                       }
                       {
                         pageView === 'large' && (
-                            <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)} 
-                              key={i} className={styles.itemInner}>
-                              <img src={`/img/animation_cover_${el.animeId}.jpg`} alt='img' className={styles.image} />
-                              <div className={styles.infoWrapper}>
-                                {el.nameRu && <div className={styles.title}>{el.nameRu}</div>}
-                                {el.nameEng && !el.nameRu && <div className={classnames(styles.nameEng, { [styles.title]: !el.nameRu })}>
-                                  {el.nameEng}
-                                </div>}
-                              </div>
-                            </NavLink>
+                          <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)}
+                            key={i} className={styles.itemInner}>
+                            <img src={`/img/animation_cover_${el.animeId}.jpg`} alt='img' className={styles.image} />
+                            <div className={styles.infoWrapper}>
+                              {el.nameRu && <div className={styles.title}>{el.nameRu}</div>}
+                              {el.nameEng && !el.nameRu && <div className={classnames(styles.nameEng, { [styles.title]: !el.nameRu })}>
+                                {el.nameEng}
+                              </div>}
+                            </div>
+                          </NavLink>
                         )
                       }
                     </div>

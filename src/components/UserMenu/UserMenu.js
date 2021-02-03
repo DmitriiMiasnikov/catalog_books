@@ -1,28 +1,28 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { UserMenuDom } from './UserMenuDom';
-import { getUser, selectUser } from '../../store/usersReducer';
+import { getMyUserInfo, selectUser } from '../../store/usersReducer';
 
-const UserMenu = ({ currentUserId, getUser, userInfo, selectUser }) => {
+const UserMenu = ({ currentUserId, getMyUserInfo, myUserInfo, selectUser }) => {
   useEffect(() => {
     const fetchData = async () => {
-      await getUser(currentUserId)
+      await getMyUserInfo(currentUserId)
     }
     fetchData()
-  }, [currentUserId, getUser])
+  }, [currentUserId, getMyUserInfo])
   const openUserInfo = (id) => {
     selectUser(id);
   }
   return (
-    <UserMenuDom userInfo={userInfo} openUserInfo={openUserInfo} />
+    <UserMenuDom myUserInfo={myUserInfo} openUserInfo={openUserInfo} />
   )
 }
 
 const mapStatesToProps = (state) => {
   return {
     currentUserId: state.users.currentUserId,
-    userInfo: state.users.userInfo
+    myUserInfo: state.users.myUserInfo
   }
 }
 
-export default connect(mapStatesToProps, { getUser, selectUser })(UserMenu)
+export default connect(mapStatesToProps, { getMyUserInfo, selectUser })(UserMenu)

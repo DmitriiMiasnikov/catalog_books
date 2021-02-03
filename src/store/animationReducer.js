@@ -11,6 +11,7 @@ const CLEAR_STATES = 'CLEAR_STATES';
 const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';
 const SET_SHOULD_REDIRECT = 'SET_SHOULD_REDIRECT';
 const SET_PAGE_VIEW = 'SET_PAGE_VIEW';
+const SET_TYPE_REQUEST = 'SET_TYPE_REQUEST';
 
 let stateDefault = {
   animation: [],
@@ -22,7 +23,8 @@ let stateDefault = {
   filters: null,
   searchValue: '',
   shouldRedirect: true,
-  pageView: 'small'
+  pageView: 'small',
+  typeRequest: 'all',
 }
 
 export const animationReducer = (state = stateDefault, action) => {
@@ -41,6 +43,12 @@ export const animationReducer = (state = stateDefault, action) => {
       return {
         ...state,
         filters: action.filters
+      }
+    }
+    case (SET_TYPE_REQUEST): {
+      return {
+        ...state,
+        typeRequest: action.typeRequest
       }
     }
     case (SET_PAGE): {
@@ -106,6 +114,9 @@ export const setFilterBy = (filterBy) => {
 const setFilters = (filters) => {
   return { type: SET_FILTERS, filters }
 }
+export const setTypeRequest = (typeRequest) => {
+  return { type: SET_TYPE_REQUEST, typeRequest }
+}
 export const setPage = (page) => {
   return { type: SET_PAGE, page }
 }
@@ -135,9 +146,9 @@ const getAnimationListFunc = (animation) => {
   return { type: GET_ANIMATION_LIST, animation }
 }
 
-export const getAnimationList = (page, counter, sort, filter, search) => {
+export const getAnimationList = (page, counter, sort, filter, search, userId) => {
   return async (dispatch) => {
-    const res = await getAnimationListApi(page, counter, sort, filter, search);
+    const res = await getAnimationListApi(page, counter, sort, filter, search, userId);
     dispatch(getAnimationListFunc(res.data.animation));
     dispatch(setCounterAllAnimation(Number(res.data.countAnimation)));
     dispatch(setFilters(res.data.filters));

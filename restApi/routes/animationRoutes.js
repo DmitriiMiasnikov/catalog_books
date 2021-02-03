@@ -2,6 +2,7 @@ const { Router } = require('express');
 const fs = require('fs');
 const router = Router();
 const animationJson = require('./../data/animation.json');
+const users = require('./../data/users.json');
 
 // /animation/list/:page
 router.get(
@@ -12,11 +13,16 @@ router.get(
     let sort = req.query.sort;
     let filter = req.query.filter;
     let search = req.query.search;
+    let userId = Number(req.query.userId);
+    const user = users.find(el => el.userId === userId);
     let animation = animationJson.filter((el, i) => {
       if (el.genre) {
         return !el.genre.includes('хентай');
       } else return el
     });
+    if (userId) {
+      animation = animation.filter(el => user.animation.done.includes(el.animeId));
+    }
     try {
       animation = animation.filter((el, i) => {
         if (fs.existsSync(`./../public/img/animation_cover_${el.animeId}.jpg`)) {

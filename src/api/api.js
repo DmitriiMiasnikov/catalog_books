@@ -4,8 +4,9 @@ const instance = axios.create({
   baseURL: 'http://localhost:5000/'
 })
 
-export const getAnimationListApi = async (page, counter, sort, filter, search) => {
-  const res = await instance.get(`animation/list/${page}?counter=${counter}&sort=${sort}&filter=${filter}&search=${search}`);
+export const getAnimationListApi = async (page, counter, sort, filter, search, userId) => {
+  const res = await instance.get(`animation/list/${page}?counter=${counter}&sort=${sort}
+    &filter=${filter}&search=${search}&userId=${userId}`);
   return res;
 }
 
