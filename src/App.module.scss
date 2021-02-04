@@ -8,6 +8,7 @@
   top: 0px;
   font-family: 'verdana','ms sans serif',Tahoma,"Source Sans Pro", sans-serif;
   box-sizing: border-box;
+  user-select: none;
   .wrapper {
     display: grid;
     grid-template-columns: 220px auto;

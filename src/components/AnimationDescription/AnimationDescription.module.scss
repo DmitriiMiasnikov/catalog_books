@@ -41,8 +41,7 @@
   .imageWrap {
     grid-area: image;
     display: flex;
-    flex-direction: column;
-    user-select: none;
+    flex-direction: column;   
     font-size: 14px;
     border-left: 1px solid #616161;
     .image {

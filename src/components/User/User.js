@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
@@ -10,10 +10,13 @@ const User = ({ currentUserId, match, getUser, userInfo, getUsersAnimationList, 
   restCountAnimation, selectUser }) => {
   const selectedUserId = Number(match.params.userId)
   const selectedUserMine = currentUserId === selectedUserId;
+  const [fetching, setFetching] = useState(true);
   useEffect(() => {
+    setFetching(true);
     const fetchData = async () => {
       await getUser(selectedUserId);
       await getUsersAnimationList(selectedUserId);
+      setFetching(false);
     }
     fetchData()
   }, [selectedUserId, getUser, getUsersAnimationList])
@@ -25,7 +28,8 @@ const User = ({ currentUserId, match, getUser, userInfo, getUsersAnimationList, 
   }
   return (
     <UserDom userInfo={userInfo} selectedUserMine={selectedUserMine} usersAnimationList={usersAnimationList}
-    openAnimationInfo={openAnimationInfo} restCountAnimation={restCountAnimation} openAnimationList={openAnimationList}/>
+    openAnimationInfo={openAnimationInfo} restCountAnimation={restCountAnimation} openAnimationList={openAnimationList}
+    fetching={fetching}/>
   )
 }
 

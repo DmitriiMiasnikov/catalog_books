@@ -88,6 +88,7 @@ export const getUser = (id) => {
 export const setUsersAnimation = (userId, animationId, type) => {
   return async dispatch => {
     const res = await setUsersAnimationApi(userId, animationId, type);
+    dispatch(getMyUserInfoFunc(res.data.user));
     dispatch(getUserInfoFunc(res.data.user));
   }
 }
