@@ -6,7 +6,7 @@ export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth }) => {
   return (
     <div className={styles.wrapper}>
       {
-        isAuth ? (
+        !isAuth ? (
           <div className={styles.loginBlock}>
             <form>
               <input placeholder={'имя'} />

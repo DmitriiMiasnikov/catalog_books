@@ -1,4 +1,7 @@
-import { getUserApi, getUsersAnimationListApi, setUsersAnimationApi, userRegistrationApi } from './../api/api';
+import {
+  getUserApi, getUsersAnimationListApi, setUsersAnimationApi,
+  userRegistrationApi, userAuthorizationApi
+} from './../api/api';
 import { setCounterAllAnimation } from './animationReducer';
 
 const SELECT_USER = 'SELECT_USER';
@@ -7,14 +10,16 @@ const GET_USER_INFO = 'GET_USER_INFO';
 const GET_USERS_ANIMATION_LIST = 'GET_USERS_ANIMATION_LIST';
 const GET_REST_COUNT_ANIMATION = 'GET_REST_COUNT_ANIMATION';
 const GET_USERS_ALL_ANIMATION_LIST = 'GET_USERS_ALL_ANIMATION_LIST';
+const IS_AUTH = 'IS_AUTH';
+const SET_CURRENT_USER_ID = 'SET_CURRENT_USER_ID';
 
 const stateDefault = {
   usersList: [],
   myUserInfo: null,
   userInfo: null,
-  currentUserId: 1,
+  currentUserId: null,
   selectedUser: 0,
-  isAuth: true,
+  isAuth: false,
   usersAnimationList: [],
   usersAllAnimationList: [],
   restCountAnimation: 0,
@@ -30,6 +35,12 @@ export const usersReducer = (state = stateDefault, action) => {
     }
     case (SELECT_USER): {
       return { ...state, selectedUser: action.id }
+    }
+    case (IS_AUTH): {
+      return { ...state, isAuth: action.isAuth }
+    }
+    case (SET_CURRENT_USER_ID): {
+      return { ...state, currentUserId: action.id }
     }
     case (GET_REST_COUNT_ANIMATION): {
       return { ...state, restCountAnimation: action.rest }
@@ -47,6 +58,12 @@ export const usersReducer = (state = stateDefault, action) => {
 
 export const selectUser = (id) => {
   return { type: SELECT_USER, id }
+}
+export const setIsAuth = (isAuth) => {
+  return { type: IS_AUTH, isAuth }
+}
+export const setCurrentUserId = (id) => {
+  return { type: SET_CURRENT_USER_ID, id }
 }
 const getMyUserInfoFunc = (myUserInfo) => {
   return { type: GET_MY_USER_INFO, myUserInfo }
@@ -96,5 +113,15 @@ export const setUsersAnimation = (userId, animationId, type) => {
 export const userRegistration = (userName, password, email) => {
   return async dispatch => {
     const res = await userRegistrationApi(userName, password, email);
+    dispatch(setIsAuth(true));
+    dispatch(setCurrentUserId(res.data.user['_id']))
+  }
+}
+
+export const userAuthorization = (userName, password) => {
+  return async dispatch => {
+    const res = await userAuthorizationApi(userName, password);
+    dispatch(setIsAuth(true));
+    dispatch(setCurrentUserId(res.data.user['_id']))
   }
 }

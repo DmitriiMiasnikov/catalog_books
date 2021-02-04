@@ -23,10 +23,18 @@ router.post(
       password: req.query.password,
       email: req.query.email,
     })
-    console.log(user);
     await user.save();
-    // const users = await Users.find({});
-    // res.status(200).json({ users })
+    res.status(200).json({ user })
+  }
+)
+
+// /users/authorization
+router.get(
+  '/authorization',
+  async (req, res) => {
+    const user = await Users.findOne({ userName: req.query.userName, password: req.query.password })
+    console.log(user);
+    res.status(200).json({ user })
   }
 )
 

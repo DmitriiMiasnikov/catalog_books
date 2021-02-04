@@ -33,3 +33,8 @@ export const userRegistrationApi = async (userName, password, email) => {
   const res = await instance.post(`users/registration/?userName=${userName}&password=${password}&email=${email}`);
   return res;
 }
+
+export const userAuthorizationApi = async (userName, password) => {
+  const res = await instance.get(`users/authorization/?userName=${userName}&password=${password}`);
+  return res;
+}
