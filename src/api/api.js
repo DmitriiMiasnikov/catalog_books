@@ -28,3 +28,8 @@ export const setUsersAnimationApi = async (userId, animationId, type) => {
   const res = await instance.put(`users/id/animation/${userId}?animationId=${animationId}&type=${type}`);
   return res;
 }
+
+export const userRegistrationApi = async (userName, password, email) => {
+  const res = await instance.post(`users/registration/?userName=${userName}&password=${password}&email=${email}`);
+  return res;
+}

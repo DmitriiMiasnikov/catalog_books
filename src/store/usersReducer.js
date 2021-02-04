@@ -1,4 +1,4 @@
-import { getUserApi, getUsersAnimationListApi, setUsersAnimationApi } from './../api/api';
+import { getUserApi, getUsersAnimationListApi, setUsersAnimationApi, userRegistrationApi } from './../api/api';
 import { setCounterAllAnimation } from './animationReducer';
 
 const SELECT_USER = 'SELECT_USER';
@@ -90,5 +90,11 @@ export const setUsersAnimation = (userId, animationId, type) => {
     const res = await setUsersAnimationApi(userId, animationId, type);
     dispatch(getMyUserInfoFunc(res.data.user));
     dispatch(getUserInfoFunc(res.data.user));
+  }
+}
+
+export const userRegistration = (userName, password, email) => {
+  return async dispatch => {
+    const res = await userRegistrationApi(userName, password, email);
   }
 }

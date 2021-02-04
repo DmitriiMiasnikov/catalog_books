@@ -14,16 +14,16 @@ router.get(
   }
 )
 
-// /users/create
+// /users/registration
 router.post(
-  '/create',
+  '/registration',
   async (req, res) => {
     const user = new User({
       userName: req.query.userName,
       password: req.query.password,
       email: req.query.email,
     })
-
+    console.log(user);
     await user.save();
     // const users = await Users.find({});
     // res.status(200).json({ users })

@@ -13,6 +13,7 @@ import Authors from './components/Authors/AuthorsContainer';
 import Animation from './components/Animation/AnimationContainer'
 import AnimationFilters from './components/AnimationFilters/AnimationFiltersContainer';
 import AnimationDescription from './components/AnimationDescription/AnimationDescriptionContainer';
+import Registration from './components/Registration/Registration';
 
 function App({ theme }) {
   return (
@@ -34,6 +35,7 @@ function App({ theme }) {
             <Route exact path='/animation/list/:page?' render={() => <Animation />} />
             <Route exact path={`/animation/id/:animationId?`} render={() => <AnimationDescription />} />
             <Route exact path={`/users/:userId`} render={() => <User />} />
+            <Route exact path={`/registration`} render={() => <Registration />} />
           </Switch>
         </div>
       </div>
