@@ -3,7 +3,7 @@ const router = Router();
 const users = require('./../data/users.json');
 const animationJson = require('./../data/animation.json');
 const fs = require('fs');
-const User = require('./../models/User');
+const Users = require('./../models/User');
 
 // /users/
 router.get(
@@ -18,13 +18,13 @@ router.get(
 router.post(
   '/registration',
   async (req, res) => {
-    const user = new User({
+    const user = new Users({
       userName: req.query.userName,
       password: req.query.password,
       email: req.query.email,
     })
     await user.save();
-    res.status(200).json({ user })
+    res.status(200).json({ user, isAuth: true })
   }
 )
 
@@ -32,9 +32,16 @@ router.post(
 router.get(
   '/authorization',
   async (req, res) => {
-    const user = await Users.findOne({ userName: req.query.userName, password: req.query.password })
-    console.log(user);
-    res.status(200).json({ user })
+    try {
+      const user = await Users.findOne({ userName: req.query.userName, password: req.query.password })
+      if (user) {
+        res.status(200).json({ user, isAuth: true })
+      } else {
+        res.status(200).json({ isAuth: false })
+      }
+    } catch (e) {
+      console.log(e)
+    }
   }
 )
 
@@ -43,9 +50,9 @@ router.get(
 router.get(
   '/id/:userId',
   async (req, res) => {
-    const userId = Number(req.params.userId) || 1;
+    const userId = req.params.userId;
     try {
-      const user = users.find(el => el.userId === userId);
+      const user = await Users.findOne({ _id: userId })
       res.status(200).json({ user });
     } catch (e) {
       console.log(e)

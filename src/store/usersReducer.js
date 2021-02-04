@@ -12,6 +12,7 @@ const GET_REST_COUNT_ANIMATION = 'GET_REST_COUNT_ANIMATION';
 const GET_USERS_ALL_ANIMATION_LIST = 'GET_USERS_ALL_ANIMATION_LIST';
 const IS_AUTH = 'IS_AUTH';
 const SET_CURRENT_USER_ID = 'SET_CURRENT_USER_ID';
+const SET_IS_WRONG_AUTHORIZATION = 'SET_IS_WRONG_AUTHORIZATION';
 
 const stateDefault = {
   usersList: [],
@@ -23,6 +24,7 @@ const stateDefault = {
   usersAnimationList: [],
   usersAllAnimationList: [],
   restCountAnimation: 0,
+  isWrongAuthorization: false
 }
 
 export const usersReducer = (state = stateDefault, action) => {
@@ -38,6 +40,9 @@ export const usersReducer = (state = stateDefault, action) => {
     }
     case (IS_AUTH): {
       return { ...state, isAuth: action.isAuth }
+    }
+    case (SET_IS_WRONG_AUTHORIZATION): {
+      return { ...state, isWrongAuthorization: action.isWrongAuthorization }
     }
     case (SET_CURRENT_USER_ID): {
       return { ...state, currentUserId: action.id }
@@ -61,6 +66,9 @@ export const selectUser = (id) => {
 }
 export const setIsAuth = (isAuth) => {
   return { type: IS_AUTH, isAuth }
+}
+export const setIsWrongAuthorization = (isWrongAuthorization) => {
+  return { type: SET_IS_WRONG_AUTHORIZATION, isWrongAuthorization }
 }
 export const setCurrentUserId = (id) => {
   return { type: SET_CURRENT_USER_ID, id }
@@ -113,15 +121,22 @@ export const setUsersAnimation = (userId, animationId, type) => {
 export const userRegistration = (userName, password, email) => {
   return async dispatch => {
     const res = await userRegistrationApi(userName, password, email);
-    dispatch(setIsAuth(true));
+    dispatch(setIsAuth(res.data.isAuth));
     dispatch(setCurrentUserId(res.data.user['_id']))
   }
 }
 
 export const userAuthorization = (userName, password) => {
   return async dispatch => {
+    dispatch(setIsWrongAuthorization(false));
     const res = await userAuthorizationApi(userName, password);
-    dispatch(setIsAuth(true));
-    dispatch(setCurrentUserId(res.data.user['_id']))
+    dispatch(setIsAuth(res.data.isAuth));
+    if (res.data.isAuth) {
+      dispatch(setCurrentUserId(res.data.user['_id']));
+      dispatch(getMyUserInfoFunc(res.data.user));
+    } else {
+      console.log(res.data);
+      dispatch(setIsWrongAuthorization(true));
+    }
   }
 }

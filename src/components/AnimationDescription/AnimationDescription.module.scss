@@ -47,13 +47,12 @@
     .image {
       width: 320px;
       display: inline-block;
-      margin: 0 auto;
+      margin: 0 auto 25px;
     }
     .buttons {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-top: 15px;
       margin-bottom: 15px;
       .button {
         background-color: #3e3e3e;
