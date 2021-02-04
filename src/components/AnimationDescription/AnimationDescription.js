@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './AnimationDescription.module.scss';
 import classnames from 'classnames';
 
-export const AnimationDescription = ({ selectedAnimation, buttonsControl, userInfoAnimation }) => {
+export const AnimationDescription = ({ selectedAnimation, buttonsControl, userInfoAnimation, userInfoAnimationHandler }) => {
   return (
     <div className={styles.wrapper}>
       {selectedAnimation && <div className={styles.infoWrap}>
@@ -52,13 +52,15 @@ export const AnimationDescription = ({ selectedAnimation, buttonsControl, userIn
         <div className={styles.imageWrap}>
           <img src={`/img/animation_cover_${selectedAnimation.animeId}.jpg`} alt='img' className={styles.image} />
           {userInfoAnimation && <div className={styles.buttons}>
-            <div className={classnames(styles.star, styles.button, { [styles.added]: userInfoAnimation['selected'] })}>
+            <div className={classnames(styles.star, styles.button, { [styles.added]: userInfoAnimation['selected'] })}
+              onClick={() => userInfoAnimationHandler('selected')}>
               {userInfoAnimation['selected'] ? <span>&#9733;</span> : <span>&#9734;</span>}
             </div>
             {
               buttonsControl.map((el, i) => {
                 return (
-                  <div key={i} className={classnames(styles.button, { [styles.added]: userInfoAnimation[el.type] })}>
+                  <div key={i} className={classnames(styles.button, { [styles.added]: userInfoAnimation[el.type] })}
+                    onClick={() => userInfoAnimationHandler(el.type)}>
                     {el.text}
                   </div>
                 )

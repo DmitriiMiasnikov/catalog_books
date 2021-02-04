@@ -2,6 +2,7 @@ const { Router } = require('express');
 const router = Router();
 const users = require('./../data/users.json');
 const animationJson = require('./../data/animation.json');
+const fs = require('fs');
 
 // /users/id/:id
 router.get(
@@ -26,9 +27,43 @@ router.get(
       const user = users.find(el => el.userId === userId);
       let animation = animationJson.filter(el => user.animation.done.includes(el.animeId));
       rest = animation.slice(5).length;
-      animationFive = animation.slice(0,5);
+      animationFive = animation.slice(0, 5);
       let countAnimation = animation.length;
       res.status(200).json({ animationFive, animation, rest, countAnimation });
+    } catch (e) {
+      console.log(e)
+    }
+  }
+)
+
+// users/id/animation/:id
+router.put(
+  '/id/animation/:userId',
+  async (req, res) => {
+    const userId = Number(req.params.userId) || 1;
+    const animationId = Number(req.query.animationId) || 1;
+    const typeButton = req.query.type;
+    try {
+      const changeUsersJson = () => {
+          const usersData = users.map(el => {
+            if (el.userId === userId) {
+              let arr = el.animation[typeButton];
+              if (arr.includes(animationId)) {
+                arr.splice(arr.indexOf(animationId), 1);
+              } else {
+                arr.push(animationId);
+              }
+            }
+            return el;
+          });
+          fs.writeFile('./data/users.json', JSON.stringify(usersData), 'utf-8', (err) => {
+            if (err) throw err;
+          })
+          const user = users.find(el => el.userId === userId);
+          res.status(200).json({ user });
+      }
+      changeUsersJson();
+
     } catch (e) {
       console.log(e)
     }

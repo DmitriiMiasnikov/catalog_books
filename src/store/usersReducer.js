@@ -1,4 +1,4 @@
-import { getUserApi, getUsersAnimationListApi } from './../api/api';
+import { getUserApi, getUsersAnimationListApi, setUsersAnimationApi } from './../api/api';
 import { setCounterAllAnimation } from './animationReducer';
 
 const SELECT_USER = 'SELECT_USER';
@@ -81,6 +81,13 @@ export const getMyUserInfo = (id) => {
 export const getUser = (id) => {
   return async (dispatch) => {
     const res = await getUserApi(id);
+    dispatch(getUserInfoFunc(res.data.user));
+  }
+}
+
+export const setUsersAnimation = (userId, animationId, type) => {
+  return async dispatch => {
+    const res = await setUsersAnimationApi(userId, animationId, type);
     dispatch(getUserInfoFunc(res.data.user));
   }
 }

@@ -24,3 +24,8 @@ export const getUsersAnimationListApi = async (userId) => {
   const res = await instance.get(`users/id/animation/${userId}`);
   return res;
 }
+
+export const setUsersAnimationApi = async (userId, animationId, type) => {
+  const res = await instance.put(`users/id/animation/${userId}?animationId=${animationId}&type=${type}`);
+  return res;
+}

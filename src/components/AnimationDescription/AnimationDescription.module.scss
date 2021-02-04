@@ -58,8 +58,16 @@
       margin-bottom: 15px;
       .button {
         background-color: #3e3e3e;
+        transition: .2s background-color;
         &.added {
           background-color: brown;
+        }
+        &:hover {
+          cursor: pointer;
+          background-color: #555555;
+          &.added {
+            background-color: rgb(139, 36, 36);
+          }
         }
         &.star {
           width: 33px;
@@ -70,8 +78,16 @@
           margin-right: 7px;
           font-size: 38px;
           background-color: transparent;
+          transition: .2s color;
           &.added {
             color: #d6ab0e;
+          }
+          &:hover {
+            background-color: transparent;
+            color: #8f8954;
+            &.added {
+              color: #927a24;
+            }
           }
         }
       }

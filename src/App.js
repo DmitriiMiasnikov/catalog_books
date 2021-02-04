@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import styles from './App.module.scss';
 import Header from './components/Header/HeaderContainer';
 import { Main } from './components/Main/Main';
@@ -15,7 +15,6 @@ import AnimationFilters from './components/AnimationFilters/AnimationFiltersCont
 import AnimationDescription from './components/AnimationDescription/AnimationDescriptionContainer';
 
 function App({ theme }) {
-  const currentRoute = useLocation().pathname === '/animation/list/';
   return (
     <div className={classnames(styles.page, { [styles.black]: theme === 'black', [styles.white]: theme === 'white' })}>
       <div className={styles.wrapper}>

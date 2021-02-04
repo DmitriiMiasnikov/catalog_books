@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { AnimationDescription } from './AnimationDescription';
 import { getAnimation, getAnimationFunc } from './../../store/animationDescriptionReducer';
-import { getUser } from './../../store/usersReducer';
+import { getUser, setUsersAnimation } from './../../store/usersReducer';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 
 const AnimationDescriptionContainer = ({ getAnimation, getAnimationFunc, match, selectedAnimation,
-  currentUserId, userInfo, getUser }) => {
+  currentUserId, userInfo, getUser, setUsersAnimation }) => {
   const currentAnimationId = Number(match.params.animationId);
   const [buttonsControl] = useState([
     {
@@ -18,7 +18,7 @@ const AnimationDescriptionContainer = ({ getAnimation, getAnimationFunc, match, 
     {
       id: 2,
       text: 'просмотрено',
-      type: 'viewed'
+      type: 'done'
     }
   ])
   const [userInfoAnimation, setUsersInfoAnimation] = useState(null);
@@ -38,7 +38,7 @@ const AnimationDescriptionContainer = ({ getAnimation, getAnimationFunc, match, 
     if (userInfo) {
       setUsersInfoAnimation({
         'queue': userInfo.animation.queue.includes(currentAnimationId),
-        'viewed': userInfo.animation.done.includes(currentAnimationId),
+        'done': userInfo.animation.done.includes(currentAnimationId),
         'selected': userInfo.animation.selected.includes(currentAnimationId),
       })
     }
@@ -46,9 +46,12 @@ const AnimationDescriptionContainer = ({ getAnimation, getAnimationFunc, match, 
   useEffect(() => {
     return () => getAnimationFunc(null)
   }, [getAnimationFunc])
+  const userInfoAnimationHandler = (type) => {
+    setUsersAnimation(currentUserId, currentAnimationId, type);
+  }
   return (
     <AnimationDescription selectedAnimation={selectedAnimation} buttonsControl={buttonsControl}
-      userInfoAnimation={userInfoAnimation}/>
+      userInfoAnimation={userInfoAnimation} userInfoAnimationHandler={userInfoAnimationHandler}/>
   )
 }
 const mapStatesToProps = (state) => {
@@ -59,6 +62,6 @@ const mapStatesToProps = (state) => {
   }
 }
 export default compose(
-  connect(mapStatesToProps, { getAnimation, getAnimationFunc, getUser }),
+  connect(mapStatesToProps, { getAnimation, getAnimationFunc, getUser, setUsersAnimation }),
   withRouter
 ) (AnimationDescriptionContainer);
