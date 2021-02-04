@@ -13,6 +13,7 @@ const GET_USERS_ALL_ANIMATION_LIST = 'GET_USERS_ALL_ANIMATION_LIST';
 const IS_AUTH = 'IS_AUTH';
 const SET_CURRENT_USER_ID = 'SET_CURRENT_USER_ID';
 const SET_IS_WRONG_AUTHORIZATION = 'SET_IS_WRONG_AUTHORIZATION';
+const CLEAR_CURRENT_USER_INFO = 'CLEAR_CURRENT_USER_INFO';
 
 const stateDefault = {
   usersList: [],
@@ -41,6 +42,9 @@ export const usersReducer = (state = stateDefault, action) => {
     case (IS_AUTH): {
       return { ...state, isAuth: action.isAuth }
     }
+    case (CLEAR_CURRENT_USER_INFO): {
+      return { ...state, isAuth: false, myUserInfo: null, currentUserId: null }
+    }
     case (SET_IS_WRONG_AUTHORIZATION): {
       return { ...state, isWrongAuthorization: action.isWrongAuthorization }
     }
@@ -67,16 +71,19 @@ export const selectUser = (id) => {
 export const setIsAuth = (isAuth) => {
   return { type: IS_AUTH, isAuth }
 }
+export const clearCurrentUserInfo = () => {
+  return { type: CLEAR_CURRENT_USER_INFO }
+}
 export const setIsWrongAuthorization = (isWrongAuthorization) => {
   return { type: SET_IS_WRONG_AUTHORIZATION, isWrongAuthorization }
 }
 export const setCurrentUserId = (id) => {
   return { type: SET_CURRENT_USER_ID, id }
 }
-const getMyUserInfoFunc = (myUserInfo) => {
+const setMyUserInfoFunc = (myUserInfo) => {
   return { type: GET_MY_USER_INFO, myUserInfo }
 }
-const getUserInfoFunc = (userInfo) => {
+const setUserInfoFunc = (userInfo) => {
   return { type: GET_USER_INFO, userInfo }
 }
 const getRestCountAnimation = (rest) => {
@@ -100,21 +107,21 @@ export const getUsersAnimationList = (id) => {
 export const getMyUserInfo = (id) => {
   return async (dispatch) => {
     const res = await getUserApi(id);
-    dispatch(getMyUserInfoFunc(res.data.user));
+    dispatch(setMyUserInfoFunc(res.data.user));
   }
 }
 export const getUser = (id) => {
   return async (dispatch) => {
     const res = await getUserApi(id);
-    dispatch(getUserInfoFunc(res.data.user));
+    dispatch(setUserInfoFunc(res.data.user));
   }
 }
 
 export const setUsersAnimation = (userId, animationId, type) => {
   return async dispatch => {
     const res = await setUsersAnimationApi(userId, animationId, type);
-    dispatch(getMyUserInfoFunc(res.data.user));
-    dispatch(getUserInfoFunc(res.data.user));
+    dispatch(setMyUserInfoFunc(res.data.user));
+    dispatch(setUserInfoFunc(res.data.user));
   }
 }
 
@@ -133,9 +140,8 @@ export const userAuthorization = (userName, password) => {
     dispatch(setIsAuth(res.data.isAuth));
     if (res.data.isAuth) {
       dispatch(setCurrentUserId(res.data.user['_id']));
-      dispatch(getMyUserInfoFunc(res.data.user));
+      dispatch(setMyUserInfoFunc(res.data.user));
     } else {
-      console.log(res.data);
       dispatch(setIsWrongAuthorization(true));
     }
   }

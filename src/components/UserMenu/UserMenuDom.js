@@ -5,7 +5,7 @@ import { Field, Form } from 'react-final-form';
 import classnames from 'classnames';
 
 export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, authorizationHandler, inputs, validate,
-  isWrongAuthorization }) => {
+  isWrongAuthorization, leftUser }) => {
   return (
     <div className={styles.wrapper}>
       {
@@ -71,7 +71,7 @@ export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, authorizationHan
                   профиль
                   </div>
               </NavLink>
-              <div className={styles.button}>
+              <div className={styles.button} onClick={() => leftUser()}>
                 выйти
                 </div>
             </div>

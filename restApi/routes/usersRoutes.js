@@ -3,7 +3,7 @@ const router = Router();
 const users = require('./../data/users.json');
 const animationJson = require('./../data/animation.json');
 const fs = require('fs');
-const Users = require('./../models/User');
+const Users = require('./../models/Users');
 
 // /users/
 router.get(
@@ -18,7 +18,9 @@ router.get(
 router.post(
   '/registration',
   async (req, res) => {
+    const AllUsers = await Users.find({});
     const user = new Users({
+      userId: AllUsers.length + 1,
       userName: req.query.userName,
       password: req.query.password,
       email: req.query.email,
@@ -52,7 +54,7 @@ router.get(
   async (req, res) => {
     const userId = req.params.userId;
     try {
-      const user = await Users.findOne({ _id: userId })
+      const user = await Users.findOne({ userId: userId })
       res.status(200).json({ user });
     } catch (e) {
       console.log(e)

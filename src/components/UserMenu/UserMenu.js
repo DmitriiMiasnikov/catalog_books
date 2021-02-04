@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { UserMenuDom } from './UserMenuDom';
-import { getMyUserInfo, userAuthorization } from '../../store/usersReducer';
+import { getMyUserInfo, userAuthorization, clearCurrentUserInfo } from '../../store/usersReducer';
 
 const UserMenu = ({ currentUserId, getMyUserInfo, myUserInfo, isAuth, userAuthorization, isWrongAuthorization }) => {
   const inputs = [
@@ -11,11 +11,7 @@ const UserMenu = ({ currentUserId, getMyUserInfo, myUserInfo, isAuth, userAuthor
   const validate = (data) => {
     const err = {};
     // if (!data.name) err.name = 'Введите имя';
-    // if (data.name && data.name.length < 6) err.name = 'Мин. длина имени 6 знаков';
-
     // if (!data.password) err.password = 'Введите пароль';
-    // if (data.password && data.password.length < 6) err.password = 'Мин. пароль 6 знаков';
-    // if (data.password && data.password.length > 15) err.password = 'Макс. пароль 15 знаков';
 
     return err
   }
@@ -32,9 +28,12 @@ const UserMenu = ({ currentUserId, getMyUserInfo, myUserInfo, isAuth, userAuthor
   const authorizationHandler = (data) => {
     userAuthorization(data.name, data.password);
   }
+  const leftUser = () => {
+    clearCurrentUserInfo();
+  }
   return (
     <UserMenuDom myUserInfo={myUserInfo} openUserInfo={openUserInfo} isAuth={isAuth} inputs={inputs} validate={validate}
-      authorizationHandler={authorizationHandler} isWrongAuthorization={isWrongAuthorization}/>
+      authorizationHandler={authorizationHandler} isWrongAuthorization={isWrongAuthorization} leftUser={leftUser}/>
   )
 }
 
@@ -47,4 +46,4 @@ const mapStatesToProps = (state) => {
   }
 }
 
-export default connect(mapStatesToProps, { getMyUserInfo, userAuthorization })(UserMenu)
+export default connect(mapStatesToProps, { getMyUserInfo, userAuthorization, clearCurrentUserInfo })(UserMenu)
