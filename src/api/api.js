@@ -5,8 +5,7 @@ const instance = axios.create({
 })
 
 export const getAnimationListApi = async (page, counter, sort, filter, search, userId) => {
-  const res = await instance.get(`animation/list/${page}?counter=${counter}&sort=${sort}
-    &filter=${filter}&search=${search}&userId=${userId}`);
+  const res = await instance.get(`animation/list/${page}?counter=${counter}&sort=${sort}&filter=${filter}&search=${search}&userId=${userId}`);
   return res;
 }
 

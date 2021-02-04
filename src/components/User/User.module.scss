@@ -15,11 +15,11 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    width: 100%;
     .animationItem {
       border: 1px solid transparent;
       border-radius: 4px;
-      width: 162px;
-      height: 220px;
+      width: 14.5%;
       transition: .2s border, .1s width, .1s height;
       &:hover {
         border: 1px solid #888888;
@@ -28,8 +28,8 @@
         margin-left: 15px;
       }
       .image {
-        width: inherit;
-        height: inherit;
+        width: 100%;
+        height: 100%;
         border-radius: 4px;
       }
     }
@@ -40,8 +40,7 @@
       align-items: center;
       flex-direction: column;
       border-radius: 4px;
-      width: 162px;
-      height: 220px;
+      width: 14.5%;
       margin-left: 15px;
       color: #969696;
       text-decoration: none;
@@ -75,34 +74,5 @@
   }
   100% {
     transform: rotate(360deg);
-  }
-}
-
-@media (max-width: 1325px) {
-  .wrapper {
-    .animationWrap {
-      .animationItem {
-        width: 140px;
-        height: 195px;
-      }
-      .restAnimation {
-        width: 140px;
-        height: 195px;
-      }
-    }
-  }
-}
-@media (max-width: 1194px) {
-  .wrapper {
-    .animationWrap {
-      .animationItem {
-        width: 118px;
-        height: 165px;
-      }
-      .restAnimation {
-        width: 118px;
-        height: 165px;
-      }
-    }
   }
 }

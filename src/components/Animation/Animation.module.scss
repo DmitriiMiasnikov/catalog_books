@@ -134,11 +134,12 @@
     &.large {
       flex-direction: row;
       flex-wrap: wrap;
+      width: 100%;
       .item {
         transition: 0.1s width, 0.1s height;
         margin-left: 25px;
         margin-top: 25px;
-        width: 325px;
+        width: 22%;
         height: fit-content;
         .itemInner {
           flex-direction: column;
@@ -148,8 +149,8 @@
           color: white;
           .image {
             transition: 0.1s max-width, 0.1s max-height;
-            max-width: 270px;
-            max-height: 395px;
+            max-width: 90%;
+            max-height: 90%;
           }
           .infoWrapper {
             padding: 0px;
@@ -196,63 +197,5 @@
   }
   100% {
     transform: rotate(360deg);
-  }
-}
-
-@media (max-width: 1310px) {
-  .wrapper {
-    .animationList {
-      &.large {
-        .item {
-          margin-left: 15px;
-          margin-top: 15px;
-          width: 230px;
-          .itemInner {
-            .image {
-              max-width: 200px;
-              max-height: 300px;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-@media (max-width: 1240px) {
-  .wrapper {
-    .animationList {
-      &.large {
-        .item {
-          margin-left: 10px;
-          margin-top: 10px;
-          width: 170px;
-          .itemInner {
-            .image {
-              max-width: 140px;
-              max-height: 210px;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-@media (max-width: 1170px) {
-  .wrapper {
-    .animationList {
-      &.large {
-        .item {
-          margin-left: 10px;
-          margin-top: 10px;
-          width: 150px;
-          .itemInner {
-            .image {
-              max-width: 120px;
-              max-height: 160px;
-            }
-          }
-        }
-      }
-    }
   }
 }

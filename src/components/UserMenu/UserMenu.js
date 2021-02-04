@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { UserMenuDom } from './UserMenuDom';
 import { getMyUserInfo } from '../../store/usersReducer';
 
-const UserMenu = ({ currentUserId, getMyUserInfo, myUserInfo }) => {
+const UserMenu = ({ currentUserId, getMyUserInfo, myUserInfo, isAuth }) => {
   useEffect(() => {
     const fetchData = async () => {
       await getMyUserInfo(currentUserId)
@@ -13,14 +13,15 @@ const UserMenu = ({ currentUserId, getMyUserInfo, myUserInfo }) => {
   const openUserInfo = () => {
   }
   return (
-    <UserMenuDom myUserInfo={myUserInfo} openUserInfo={openUserInfo} />
+    <UserMenuDom myUserInfo={myUserInfo} openUserInfo={openUserInfo} isAuth={isAuth} />
   )
 }
 
 const mapStatesToProps = (state) => {
   return {
     currentUserId: state.users.currentUserId,
-    myUserInfo: state.users.myUserInfo
+    myUserInfo: state.users.myUserInfo,
+    isAuth: state.users.isAuth
   }
 }
 
