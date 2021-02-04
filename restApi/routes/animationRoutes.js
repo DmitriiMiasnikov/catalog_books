@@ -53,7 +53,8 @@ router.get(
       'genre': genreFilters()
     }
     try {
-      if (sort !== 'default' && !search) {
+      // sorting
+      if (sort !== 'default') {
         switch (sort) {
           case ('name_reverse'): { }
           case ('name'): {
@@ -80,6 +81,7 @@ router.get(
           default: break;
         }
       }
+      // filters
       if (Object.keys(filters).some(el => filters[el].slice(1).includes(filter))) {
         animation = animation.filter((el, i) => {
           if (filters['auditory'].includes(filter) && el.auditory) {
@@ -89,6 +91,7 @@ router.get(
           }
         });
       }
+      // search
       if (search) {
         animation = animation.filter((el, i) => {
           if (el.nameRu) {
