@@ -9,11 +9,15 @@ import { getAnimation } from './../../store/animationDescriptionReducer';
 const User = ({ currentUserId, match, getUser, userInfo, getUsersAnimationList, usersAnimationList, getAnimation,
   restCountAnimation, selectUser }) => {
   const selectedUserId = Number(match.params.userId);
-  const listNamesAnimation = [
-    {name: 'done', text: 'Просмотренное'},
-    {name: 'queue', text: 'В очереди'},
-    {name: 'selected', text: 'Избранное'}
-]
+  const [buttonsMain, setButtonsMain] = useState([
+    {name: 'books', text: 'Книги', active: true},
+    {name: 'animation', text: 'Аниме', active: true},
+  ])
+  const [buttonsAnimation, setButtonsAnimation] = useState([
+    {name: 'done', text: 'Просмотренное', active: true},
+    {name: 'queue', text: 'В очереди', active: true},
+    {name: 'selected', text: 'Избранное', active: true}
+])
   const selectedUserMine = currentUserId === selectedUserId;
   const [fetching, setFetching] = useState(true);
   useEffect(() => {
@@ -31,10 +35,23 @@ const User = ({ currentUserId, match, getUser, userInfo, getUsersAnimationList, 
   const openAnimationList = () => {
     selectUser(selectedUserId);
   }
+  const ButtonsMainHandler = (target) => {
+    setButtonsMain(buttonsMain.map(el => {
+      if (el.name === target) el.active = !el.active
+      return el
+    }))
+  }
+  const ButtonsAnimationHandler = (target) => {
+    setButtonsAnimation(buttonsAnimation.map(el => {
+      if (el.name === target) el.active = !el.active
+      return el
+    }))
+  }
   return (
     <UserDom userInfo={userInfo} selectedUserMine={selectedUserMine} usersAnimationList={usersAnimationList}
     openAnimationInfo={openAnimationInfo} restCountAnimation={restCountAnimation} openAnimationList={openAnimationList}
-    fetching={fetching} listNamesAnimation={listNamesAnimation}/>
+    fetching={fetching} buttonsAnimation={buttonsAnimation} buttonsMain={buttonsMain} ButtonsMainHandler={ButtonsMainHandler}
+    ButtonsAnimationHandler={ButtonsAnimationHandler}/>
   )
 }
 

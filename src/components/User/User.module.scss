@@ -4,73 +4,131 @@
     font-size: 22px;
     margin-bottom: 15px;
   }
+  .animationTitle,
+  .animationSubTitle,
+  .animationWrap {
+    display: inline-block;
+    width: 100%;
+    background-color: #292929;
+    padding: 10px 10px;
+    border-bottom: 1px solid #2f2f2f;
+    box-sizing: border-box;
+  }
   .animationTitle {
-    border-top: 1px solid #2f2f2f;
     margin-top: 20px;
   }
-  .animationSubTitle {
-    margin: 10px 0px 10px 10px;
+  .animationSubTitle,
+  .animationTitle {
+    transition: 0.2s background-color;
+    &:hover {
+      cursor: pointer;
+      background-color: #2e2e2e;
+    }
   }
-  .animationWrap {
-    width: 100%;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #2f2f2f;
-    .animationListWrap {
+  .animationBlock {
+    transition: 0.2s visibility, 0.2s opacity, 0.3s height;
+    opacity: 1;
+    visibility: visible;
+    .animationInnerBlock {
       display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      .animationItem {
-        border: 1px solid transparent;
-        border-radius: 4px;
-        width: 14.5%;
-        transition: .2s border, .1s width, .1s height;
-        &:hover {
-          border: 1px solid #888888;
-        }
-        &:not(:first-child) {
-          margin-left: 15px;
-        }
-        .image {
-          width: 100%;
-          height: 100%;
+      flex-direction: column;
+      margin-bottom: 5px;
+    }
+    .animationWrap {
+      transition: 0.2s visibility, 0.2s opacity, 0.3s height,
+        0.3s padding-bottom;
+        opacity: 1;
+        visibility: visible;
+        height: 100%;
+      .animationListWrap {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        .animationItem {
+          border: 1px solid transparent;
           border-radius: 4px;
+          overflow: hidden;
+          width: 14.5%;
+          height: 200px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          transition: 0.2s border, 0.3s height;
+          &:hover {
+            border: 1px solid #888888;
+          }
+          &:not(:first-child) {
+            margin-left: 15px;
+          }
+          .image {
+            min-width: 100%;
+            min-height: 100%;
+            border-radius: 4px;
+          }
+        }
+        .restAnimation {
+          background-color: #272727;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          border-radius: 4px;
+          width: 14.5%;
+          margin-left: 15px;
+          color: #969696;
+          text-decoration: none;
+          transition: 0.2s background-color, 0.1s width, 0.1s height;
+          &:hover {
+            background-color: #313131;
+          }
         }
       }
-      .restAnimation {
-        background-color: #272727;
+      .loading {
+        height: 100px;
+        width: 100%;
+        font-size: 18px;
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
-        border-radius: 4px;
-        width: 14.5%;
-        margin-left: 15px;
-        color: #969696;
-        text-decoration: none;
-        transition: .2s background-color, .1s width, .1s height;
-        &:hover {
-          background-color: #313131;
+        img {
+          width: 40px;
+          height: 40px;
+          animation-name: rotation;
+          animation-duration: 1.5s;
+          animation-iteration-count: infinite;
+          animation-timing-function: ease-in-out;
+        }
+      }
+      .noItems {
+        margin-left: 30px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        transition: .3s height;
+      }
+      &.hide {
+        opacity: 0;
+        visibility: hidden;
+        height: 0px;
+        padding: 0px 10px;
+        .animationListWrap {
+          .animationItem {
+            height: 0px;
+            img {
+              height: 0px;
+            }
+          }
+        }
+        .noItems {
+          height: 0px;
         }
       }
     }
-    .loading {
-      height: 100px;
-      width: 100%;
-      font-size: 18px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      img {
-        width: 40px;
-        height: 40px;
-        animation-name: rotation;
-        animation-duration: 1.5s;
-        animation-iteration-count: infinite;
-        animation-timing-function: ease-in-out;
-      }
-    }
-    .noItems {
-      margin-left: 30px;
+    &.hide {
+      opacity: 0;
+      visibility: hidden;
+      height: 0px;
     }
   }
 }
