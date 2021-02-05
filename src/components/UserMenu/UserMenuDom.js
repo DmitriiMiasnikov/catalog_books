@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 import styles from './UserMenu.module.scss';
 import { Field, Form } from 'react-final-form';
 import classnames from 'classnames';
+import logout from './../../assets/Images/logout.svg';
+import userinfo from './../../assets/Images/userinfo.svg';
 
 export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, authorizationHandler, inputs, validate,
   isWrongAuthorization, leftUser }) => {
@@ -68,13 +70,13 @@ export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, authorizationHan
             <div className={styles.line}><span>избранное:</span> <span>{myUserInfo.animation.selected.length}</span> </div>
             <div className={styles.buttons}>
               <NavLink to={`/users/${myUserInfo.userId}`}>
-                <div className={styles.button} onClick={() => openUserInfo(myUserInfo.userId)}>
-                  профиль
-                  </div>
-              </NavLink>
-              <div className={styles.button} onClick={() => leftUser()}>
-                выйти
+                <div className={styles.button} onClick={() => openUserInfo(myUserInfo.userId)} title={'пользователь'}>
+                  <img src={userinfo} alt='' />
                 </div>
+              </NavLink>
+              <div className={styles.button} onClick={() => leftUser()} title={'выход'}>
+                <img src={logout} alt='' />
+              </div>
             </div>
           </div>
       }

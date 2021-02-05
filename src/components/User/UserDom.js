@@ -18,7 +18,7 @@ export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAn
             <span>{buttonsMain.find(el => el.name === 'animation').text}</span>
             <img src={angle} className={classnames(styles.angle, {
               [styles.reverse]: !buttonsMain.find(el => el.name === 'animation').active
-            })} />
+            })} alt=''/>
           </div>
           <div className={classnames(styles.animationBlock, {
             [styles.hide]: !buttonsMain.find(el => el.name === 'animation').active
@@ -31,7 +31,7 @@ export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAn
                       <span>{buttonsAnimation.find(el => el.name === listName).text}</span>
                       <img src={angle} className={classnames(styles.angle, {
                         [styles.reverse]: !buttonsAnimation.find(el => el.name === listName).active
-                      })} />
+                      })} alt=''/>
                     </div>
                     <div className={classnames(styles.animationWrap, {
                       [styles.hide]: !buttonsAnimation.find(el => el.name === listName).active,
