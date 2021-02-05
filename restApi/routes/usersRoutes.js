@@ -10,7 +10,7 @@ const Users = require('./../models/Users');
 router.get(
   '/',
   async (req, res) => {
-    const users = await Users.find({}, 'animation userName');
+    const users = await Users.find({}, 'animation userName userId');
     res.status(200).json({ users })
   }
 )
@@ -20,8 +20,8 @@ router.get(
 router.get(
   '/menu',
   async (req, res) => {
-    const usersAll = await Users.find({}, 'animation userName');
-    const users = usersAll.slice(0, 5);
+    const usersAll = await Users.find({}, 'animation userName userId');
+    let users = [].concat(usersAll.slice(0, 5))
     res.status(200).json({ users })
   }
 )
