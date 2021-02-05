@@ -4,9 +4,7 @@ import { NavLink } from 'react-router-dom';
 import loading from './../../assets/Images/loading.svg';
 
 export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAnimationInfo,
-  restCountAnimation, openAnimationList, fetching }) => {
-  const fetchingBlock = fetching;
-  const animationListBlock = Boolean(usersAnimationList.length) && usersAnimationList && !fetchingBlock;
+  restCountAnimation, openAnimationList, fetching, listNamesAnimation }) => {
   return (
     <div>
       {userInfo &&
@@ -14,37 +12,54 @@ export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAn
           <div className={styles.name}>{userInfo.userName} {selectedUserMine && <span>(Мой профиль)</span>}</div>
           <div className={styles.books}>книжная полка:</div>
           <div className={styles.animationTitle}>Аниме:</div>
-          {animationListBlock && <div className={styles.animationSubTitle}>Просмотрено:</div>}
-          <div className={styles.animationWrap}>
-            {
-              fetchingBlock && (
-                <div className={styles.loading}>
-                  <img src={loading} alt='' />
-                </div>
-              )
-            }
-            {
-              animationListBlock && (
-                <div className={styles.animationListWrap}>
-                  {
-                    usersAnimationList.map((el, i) => {
-                      return (
-                        <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)}
-                          className={styles.animationItem} key={i} >
-                          <img src={`/img/animation_cover_${el.animeId}.jpg`} alt='img' className={styles.image}
-                            title={el.nameRu || el.nameEng} />
-                        </NavLink>
+          {
+            Object.keys(usersAnimationList).map((listName, j) => {
+              return (
+                <div className={styles.animationStatus} key={j}>
+                  <div className={styles.animationSubTitle}>
+                    {listNamesAnimation.find(el => el.name === listName).text}
+                  </div>
+                  <div className={styles.animationWrap}>
+                    {
+                      fetching && (
+                        <div className={styles.loading}>
+                          <img src={loading} alt='' />
+                        </div>
                       )
-                    })
-                  }
-                  <NavLink to={`/animation/list`} onClick={() => openAnimationList()}
-                    className={styles.restAnimation}>
-                    еще {restCountAnimation} <span>показать все</span>
-                  </NavLink>
+                    }
+                    {
+                      !fetching && Boolean(usersAnimationList[listName].length) && (
+                        <div className={styles.animationListWrap}>
+                          {
+                            usersAnimationList[listName].map((el, i) => {
+                              return (
+                                <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)}
+                                  className={styles.animationItem} key={i} >
+                                  <img src={`/img/animation_cover_${el.animeId}.jpg`} alt='img' className={styles.image}
+                                    title={el.nameRu || el.nameEng} />
+                                </NavLink>
+                              )
+                            })
+                          }
+                          {Boolean(restCountAnimation) && <NavLink to={`/animation/list`} onClick={() => openAnimationList()}
+                            className={styles.restAnimation}>
+                            еще {restCountAnimation} <span>показать все</span>
+                          </NavLink>}
+                        </div>
+                      )
+                    }
+                    {
+                      !fetching && !Boolean(usersAnimationList[listName].length) && (
+                        <div className={styles.noItems}>
+                          список пуст
+                        </div>
+                      )
+                    }
+                  </div>
                 </div>
               )
-            }
-          </div>
+            })
+          }
         </div>}
     </div >
   )

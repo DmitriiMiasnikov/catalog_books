@@ -83,9 +83,14 @@ router.get(
     const userId = req.params.userId || 0;
     try {
       const user = await Users.findOne({ userId: userId })
-      let animation = animationJson.filter(el => user.animation.done.includes(el.animeId));
-      rest = animation.slice(5).length;
-      animationFive = animation.slice(0, 5);
+      let animation = {};
+      let animationFive = {};
+      let rest;
+      Object.keys(user.animation).forEach(el => {
+        animation[el] = animationJson.filter(item => user.animation[el].includes(item.animeId))
+        rest = animation[el].slice(5).length
+        animationFive[el] = animation[el].slice(0, 5);
+      })
       let countAnimation = animation.length;
       res.status(200).json({ animationFive, animation, rest, countAnimation });
     } catch (e) {

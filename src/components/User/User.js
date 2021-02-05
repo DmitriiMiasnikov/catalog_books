@@ -8,7 +8,12 @@ import { getAnimation } from './../../store/animationDescriptionReducer';
 
 const User = ({ currentUserId, match, getUser, userInfo, getUsersAnimationList, usersAnimationList, getAnimation,
   restCountAnimation, selectUser }) => {
-  const selectedUserId = Number(match.params.userId)
+  const selectedUserId = Number(match.params.userId);
+  const listNamesAnimation = [
+    {name: 'done', text: 'Просмотренное'},
+    {name: 'queue', text: 'В очереди'},
+    {name: 'selected', text: 'Избранное'}
+]
   const selectedUserMine = currentUserId === selectedUserId;
   const [fetching, setFetching] = useState(true);
   useEffect(() => {
@@ -29,7 +34,7 @@ const User = ({ currentUserId, match, getUser, userInfo, getUsersAnimationList, 
   return (
     <UserDom userInfo={userInfo} selectedUserMine={selectedUserMine} usersAnimationList={usersAnimationList}
     openAnimationInfo={openAnimationInfo} restCountAnimation={restCountAnimation} openAnimationList={openAnimationList}
-    fetching={fetching}/>
+    fetching={fetching} listNamesAnimation={listNamesAnimation}/>
   )
 }
 

@@ -25,8 +25,8 @@ const stateDefault = {
   currentUserId: null,
   selectedUser: 0,
   isAuth: false,
-  usersAnimationList: [],
-  usersAllAnimationList: [],
+  usersAnimationList: {},
+  usersAllAnimationList: {},
   restCountAnimation: 0,
   isWrongAuthorization: false,
 }
