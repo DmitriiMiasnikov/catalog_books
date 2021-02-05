@@ -7,22 +7,52 @@
   .animationTitle,
   .animationSubTitle,
   .animationWrap {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    height: 42px;
     width: 100%;
     background-color: #292929;
-    padding: 10px 10px;
+    padding: 0px 10px;
     border-bottom: 1px solid #2f2f2f;
     box-sizing: border-box;
   }
   .animationTitle {
     margin-top: 20px;
+    margin-bottom: 5px;
+    height: 52px;
+    span {
+      font-size: 25px;
+    }
+    .angle {
+      width: 30px;
+    }
+  }
+  .animationSubTitle {
+    font-size: 15px;
+    padding-left: 30px;
+    span {
+      font-size: 18px;
+    }
+    .angle {
+      width: 20px;
+    }
   }
   .animationSubTitle,
   .animationTitle {
-    transition: 0.2s background-color;
+    transition: 0.2s background-color, 0.3s height;
+    opacity: 1;
+    visibility: visible;
     &:hover {
       cursor: pointer;
       background-color: #2e2e2e;
+    }
+    .angle {
+      margin-left: 10px;
+      transition: .3s transform;
+      transform: rotate(0deg);
+      &.reverse {
+        transform: rotate(-180deg);
+      }
     }
   }
   .animationBlock {
@@ -33,17 +63,20 @@
       display: flex;
       flex-direction: column;
       margin-bottom: 5px;
+      transition: 0.3s height;
     }
     .animationWrap {
-      transition: 0.2s visibility, 0.2s opacity, 0.3s height,
-        0.3s padding-bottom;
-        opacity: 1;
-        visibility: visible;
-        height: 100%;
+      transition: 0.2s visibility, 0.2s opacity, 0.3s height;
+      opacity: 1;
+      visibility: visible;
+      display: flex;
+      align-items: center;
+      height: 220px;
       .animationListWrap {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        width: 100%;
         .animationItem {
           border: 1px solid transparent;
           border-radius: 4px;
@@ -105,13 +138,15 @@
         height: 50px;
         display: flex;
         align-items: center;
-        transition: .3s height;
+        transition: 0.3s height;
+      }
+      &.empty {
+        height: 80px;
       }
       &.hide {
         opacity: 0;
         visibility: hidden;
         height: 0px;
-        padding: 0px 10px;
         .animationListWrap {
           .animationItem {
             height: 0px;
@@ -128,7 +163,30 @@
     &.hide {
       opacity: 0;
       visibility: hidden;
-      height: 0px;
+      .animationInnerBlock {
+        height: 0px;
+        .animationSubTitle {
+          opacity: 0;
+          visibility: hidden;
+        }
+        .animationWrap {
+          opacity: 0;
+          visibility: hidden;
+          height: 0px;
+          .animationListWrap {
+            .animationItem {
+              height: 0px;
+              img {
+                height: 0px;
+                min-height: auto;
+              }
+            }
+          }
+          .noItems {
+            height: 0px;
+          }
+        }
+      }
     }
   }
 }

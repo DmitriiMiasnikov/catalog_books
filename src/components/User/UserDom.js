@@ -3,6 +3,7 @@ import styles from './User.module.scss';
 import { NavLink } from 'react-router-dom';
 import loading from './../../assets/Images/loading.svg';
 import classnames from 'classnames';
+import angle from './../../assets/Images/angle.svg';
 
 export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAnimationInfo,
   restCountAnimation, openAnimationList, fetching, buttonsAnimation, buttonsMain, ButtonsMainHandler,
@@ -14,7 +15,10 @@ export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAn
           <div className={styles.name}>{userInfo.userName} {selectedUserMine && <span>(Мой профиль)</span>}</div>
           <div className={styles.books}>{buttonsMain.find(el => el.name === 'books').text}:</div>
           <div className={styles.animationTitle} onClick={() => ButtonsMainHandler('animation')}>
-            {buttonsMain.find(el => el.name === 'animation').text}:
+            <span>{buttonsMain.find(el => el.name === 'animation').text}</span>
+            <img src={angle} className={classnames(styles.angle, {
+              [styles.reverse]: !buttonsMain.find(el => el.name === 'animation').active
+            })} />
           </div>
           <div className={classnames(styles.animationBlock, {
             [styles.hide]: !buttonsMain.find(el => el.name === 'animation').active
@@ -24,10 +28,14 @@ export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAn
                 return (
                   <div key={j} className={styles.animationInnerBlock}>
                     <div className={styles.animationSubTitle} onClick={() => ButtonsAnimationHandler(listName)}>
-                      {buttonsAnimation.find(el => el.name === listName).text}
+                      <span>{buttonsAnimation.find(el => el.name === listName).text}</span>
+                      <img src={angle} className={classnames(styles.angle, {
+                        [styles.reverse]: !buttonsAnimation.find(el => el.name === listName).active
+                      })} />
                     </div>
                     <div className={classnames(styles.animationWrap, {
-                      [styles.hide]: !buttonsAnimation.find(el => el.name === listName).active
+                      [styles.hide]: !buttonsAnimation.find(el => el.name === listName).active,
+                      [styles.empty]: !usersAnimationList[listName].length
                     })}>
                       {
                         fetching && (
