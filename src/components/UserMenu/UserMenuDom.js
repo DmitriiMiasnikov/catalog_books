@@ -35,16 +35,6 @@ export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, authorizationHan
                       )
                     })
                   }
-                  <div className={classnames(styles.buttons)}>
-                    <button type='submit' disabled={submitting} className={styles.button}>
-                      <img src={auth} alt='' title='вход'/>
-                    </button>
-                    <NavLink to={`/registration`}>
-                      <div className={styles.button}>
-                        <img src={registration} alt='' title='регистрация'/>
-                      </div>
-                    </NavLink>
-                  </div>
                   {
                     isWrongAuthorization && (
                       <div className={classnames(styles.wrongAuth)}>
@@ -52,6 +42,22 @@ export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, authorizationHan
                       </div>
                     )
                   }
+                  <div className={classnames(styles.buttons)}>
+                    <button type='submit' disabled={submitting} className={styles.button}>
+                      <img src={auth} alt='' />
+                      <div className={styles.text}>
+                        вход
+                      </div>
+                    </button>
+                    <NavLink to={`/registration`}>
+                      <div className={styles.button}>
+                        <img src={registration} alt='' />
+                        <div className={styles.text}>
+                          регистрация
+                        </div>
+                      </div>
+                    </NavLink>
+                  </div>
                 </form>
               )}
             />
@@ -74,12 +80,18 @@ export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, authorizationHan
             <div className={styles.line}><span>избранное:</span> <span>{myUserInfo.animation.selected.length}</span> </div>
             <div className={styles.buttons}>
               <NavLink to={`/users/${myUserInfo.userId}`}>
-                <div className={styles.button} onClick={() => openUserInfo(myUserInfo.userId)} title={'пользователь'}>
+                <div className={styles.button} onClick={() => openUserInfo(myUserInfo.userId)}>
                   <img src={userinfo} alt='' />
+                  <div className={styles.text}>
+                    пользователь
+                </div>
                 </div>
               </NavLink>
-              <div className={styles.button} onClick={() => leftUser()} title={'выход'}>
+              <div className={styles.button} onClick={() => leftUser()}>
                 <img src={logout} alt='' />
+                <div className={styles.text}>
+                  выход
+                </div>
               </div>
             </div>
           </div>
