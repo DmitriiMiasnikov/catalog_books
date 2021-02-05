@@ -18,15 +18,15 @@ const GET_USERS_LIST = 'GET_USERS_LIST';
 const GET_USERS_LIST_MENU = 'GET_USERS_LIST_MENU';
 
 const stateDefault = {
-  usersList: [],
-  usersListMenu: [],
+  usersList: null,
+  usersListMenu: null,
   myUserInfo: null,
   userInfo: null,
   currentUserId: null,
   selectedUser: 0,
   isAuth: false,
-  usersAnimationList: {},
-  usersAllAnimationList: {},
+  usersAnimationList: null,
+  usersAllAnimationList: null,
   restCountAnimation: 0,
   isWrongAuthorization: false,
 }

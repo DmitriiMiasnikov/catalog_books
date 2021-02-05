@@ -6,7 +6,7 @@ export const UsersMenuDom = ({ usersListMenu, stars, currentUserId }) => {
   return (
     <div className={styles.wrapper}>
       {
-        Boolean(usersListMenu.length) ? usersListMenu.map((el, i) => {
+        usersListMenu ? usersListMenu.map((el, i) => {
           return (
             <div className={styles.user} key={i}>
               <div className={styles.number}>
@@ -24,6 +24,11 @@ export const UsersMenuDom = ({ usersListMenu, stars, currentUserId }) => {
           )
         }) : <div className={styles.wrongLoad}>ошибка загрузки</div>
       }
+      <div className={styles.allUsersLink}>
+        <NavLink to={'/users'}>
+          все пользователи
+        </NavLink>
+      </div>
     </div>
   )
 }

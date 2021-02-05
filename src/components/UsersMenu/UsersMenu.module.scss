@@ -18,6 +18,10 @@
       a {
         text-decoration: none;
         color: white;
+        transition: .2s color;
+        &:hover {
+          color: rgb(180, 180, 180);
+        }
       }
     }
     .stars {
@@ -27,5 +31,18 @@
   .wrongLoad {
     text-align: center;
     color: rgb(112, 34, 34);
+  }
+  .allUsersLink {
+    border-top: 1px solid #3b3b3b;
+    margin-top: 10px;
+    padding-top: 5px;
+    a {
+      text-decoration: none;
+      color: white;
+      transition: .2s color;
+      &:hover {
+        color: rgb(180, 180, 180);
+      }
+    }
   }
 }

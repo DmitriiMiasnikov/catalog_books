@@ -8,12 +8,14 @@ const UsersMenu = ({ usersListMenu, getUsersListMenu, currentUserId }) => {
   const [stars, setStars] = useState([]);
   useEffect(() => {
     getUsersListMenu()
-  }, [getUsersListMenu])
+  }, [getUsersListMenu, usersListMenu])
   useEffect(() => {
-    setStars(usersListMenu.map(el => {
-      const stars = el.animation.done.length * 5 + el.animation.selected.length * 3 + el.animation.queue.length * 1;
-      return stars;
-    }))
+    if (usersListMenu) {
+      setStars(usersListMenu.map(el => {
+        const stars = el.animation.done.length * 5 + el.animation.selected.length * 3 + el.animation.queue.length * 1;
+        return stars;
+      }))
+    }
   }, [usersListMenu])
   return (
     <UsersMenuDom usersListMenu={usersListMenu} stars={stars} currentUserId = {currentUserId}/>

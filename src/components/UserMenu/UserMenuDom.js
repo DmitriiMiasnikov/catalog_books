@@ -65,6 +65,7 @@ export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, authorizationHan
             <div className={styles.title}>Аниме</div>
             <div className={styles.line}><span>просмотрено:</span> <span>{myUserInfo.animation.done.length}</span></div>
             <div className={styles.line}><span>в очереди:</span> <span>{myUserInfo.animation.queue.length}</span> </div>
+            <div className={styles.line}><span>избранное:</span> <span>{myUserInfo.animation.selected.length}</span> </div>
             <div className={styles.buttons}>
               <NavLink to={`/users/${myUserInfo.userId}`}>
                 <div className={styles.button} onClick={() => openUserInfo(myUserInfo.userId)}>

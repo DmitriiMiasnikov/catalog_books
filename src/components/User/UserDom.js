@@ -13,7 +13,7 @@ export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAn
           <div className={styles.books}>книжная полка:</div>
           <div className={styles.animationTitle}>Аниме:</div>
           {
-            Object.keys(usersAnimationList).map((listName, j) => {
+            usersAnimationList && Object.keys(usersAnimationList).map((listName, j) => {
               return (
                 <div className={styles.animationStatus} key={j}>
                   <div className={styles.animationSubTitle}>
@@ -28,7 +28,7 @@ export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAn
                       )
                     }
                     {
-                      !fetching && Boolean(usersAnimationList[listName].length) && (
+                      !fetching && usersAnimationList[listName] && (
                         <div className={styles.animationListWrap}>
                           {
                             usersAnimationList[listName].map((el, i) => {
@@ -49,7 +49,7 @@ export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAn
                       )
                     }
                     {
-                      !fetching && !Boolean(usersAnimationList[listName].length) && (
+                      !fetching && !usersAnimationList[listName] && (
                         <div className={styles.noItems}>
                           список пуст
                         </div>
