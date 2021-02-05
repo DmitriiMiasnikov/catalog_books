@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import styles from './UsersMenu.module.scss';
 
 export const UsersMenuDom = ({ usersListMenu, stars }) => {
-  console.log(usersListMenu);
   return (
     <div className={styles.wrapper}>
       {

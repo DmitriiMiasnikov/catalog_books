@@ -19,7 +19,7 @@ export const AnimationFilters = ({ buttonsFilter, openDropdown, dropdowns, filte
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>
-        Отфильтровать по:
+        Фильтры:
       </div>
       <div className={styles.dropdownsWrap} ref={refDropdown}>
         {
