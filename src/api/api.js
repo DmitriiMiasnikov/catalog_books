@@ -14,6 +14,15 @@ export const getAnimationApi = async (animeId) => {
   return res.data.selectedAnimation;
 }
 
+export const getUsersListApi = async () => {
+  const res = await instance.get(`users/`);
+  return res;
+}
+export const getUsersListMenuApi = async () => {
+  const res = await instance.get(`users/menu/`);
+  return res;
+}
+
 export const getUserApi = async (userId) => {
   const res = await instance.get(`users/id/${userId}`);
   return res;

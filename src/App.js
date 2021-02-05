@@ -7,6 +7,7 @@ import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import UserMenu from './components/UserMenu/UserMenu';
+import Users from './components/Users/Users';
 import User from './components/User/User';
 import Books from './components/Books/BooksContainer';
 import Authors from './components/Authors/AuthorsContainer';
@@ -14,6 +15,7 @@ import Animation from './components/Animation/AnimationContainer'
 import AnimationFilters from './components/AnimationFilters/AnimationFiltersContainer';
 import AnimationDescription from './components/AnimationDescription/AnimationDescriptionContainer';
 import Registration from './components/Registration/Registration';
+import UsersMenu from './components/UsersMenu/UsersMenu';
 
 function App({ theme }) {
   return (
@@ -25,6 +27,7 @@ function App({ theme }) {
         <div className={styles.menu}>
           <UserMenu />
           <Route path='/animation/list' render={() => <AnimationFilters />} />
+          <UsersMenu />
         </div>
         <div className={styles.content}>
           <Switch>
@@ -36,6 +39,7 @@ function App({ theme }) {
             <Route exact path={`/animation/id/:animationId?`} render={() => <AnimationDescription />} />
             <Route exact path={`/users/:userId`} render={() => <User />} />
             <Route exact path={`/registration`} render={() => <Registration />} />
+            <Route exact path={`/users`} render={() => <Users />} />
           </Switch>
         </div>
       </div>

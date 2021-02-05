@@ -5,15 +5,28 @@ const animationJson = require('./../data/animation.json');
 const fs = require('fs');
 const Users = require('./../models/Users');
 
+// получить всех пользователей
 // /users/
 router.get(
   '/',
   async (req, res) => {
-    const users = await Users.find({});
+    const users = await Users.find({}, 'animation userName');
     res.status(200).json({ users })
   }
 )
 
+// получить первых 5 пользователей для меня
+// /users/menu
+router.get(
+  '/menu',
+  async (req, res) => {
+    const usersAll = await Users.find({}, 'animation userName');
+    const users = usersAll.slice(0, 5);
+    res.status(200).json({ users })
+  }
+)
+
+// регистрация нового пользователя
 // /users/registration
 router.post(
   '/registration',
@@ -30,6 +43,7 @@ router.post(
   }
 )
 
+// авторизация пользователя
 // /users/authorization
 router.get(
   '/authorization',
@@ -47,7 +61,7 @@ router.get(
   }
 )
 
-
+// получить информация о выбранном пользователе
 // /users/id/:id
 router.get(
   '/id/:userId',
@@ -62,6 +76,7 @@ router.get(
   }
 )
 
+// получить списки аниме по выбранному пользователю
 // users/id/animation/:id
 router.get(
   '/id/animation/:userId',
@@ -80,6 +95,7 @@ router.get(
   }
 )
 
+// добавить/убрать аниме в избраное/просмотренное/в очереди
 // users/id/animation/:id
 router.put(
   '/id/animation/:userId',

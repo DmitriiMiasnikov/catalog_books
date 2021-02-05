@@ -1,6 +1,6 @@
 import {
   getUserApi, getUsersAnimationListApi, setUsersAnimationApi,
-  userRegistrationApi, userAuthorizationApi
+  userRegistrationApi, userAuthorizationApi, getUsersListApi, getUsersListMenuApi
 } from './../api/api';
 import { setCounterAllAnimation } from './animationReducer';
 
@@ -14,9 +14,12 @@ const IS_AUTH = 'IS_AUTH';
 const SET_CURRENT_USER_ID = 'SET_CURRENT_USER_ID';
 const SET_IS_WRONG_AUTHORIZATION = 'SET_IS_WRONG_AUTHORIZATION';
 const CLEAR_CURRENT_USER_INFO = 'CLEAR_CURRENT_USER_INFO';
+const GET_USERS_LIST = 'GET_USERS_LIST';
+const GET_USERS_LIST_MENU = 'GET_USERS_LIST_MENU';
 
 const stateDefault = {
   usersList: [],
+  usersListMenu: [],
   myUserInfo: null,
   userInfo: null,
   currentUserId: null,
@@ -26,11 +29,16 @@ const stateDefault = {
   usersAllAnimationList: [],
   restCountAnimation: 0,
   isWrongAuthorization: false,
-
 }
 
 export const usersReducer = (state = stateDefault, action) => {
   switch (action.type) {
+    case (GET_USERS_LIST): {
+      return { ...state, usersList: action.users }
+    }
+    case (GET_USERS_LIST_MENU): {
+      return { ...state, usersListMenu: action.users }
+    }
     case (GET_MY_USER_INFO): {
       return { ...state, myUserInfo: action.myUserInfo }
     }
@@ -66,6 +74,12 @@ export const usersReducer = (state = stateDefault, action) => {
   return state;
 }
 
+const getUsersListFunc = (users) => {
+  return { type: GET_USERS_LIST, users }
+}
+const getUsersListMenuFunc = (users) => {
+  return { type: GET_USERS_LIST_MENU, users }
+}
 export const selectUser = (id) => {
   return { type: SELECT_USER, id }
 }
@@ -96,6 +110,21 @@ const getUsersAnimationListFunc = (animation) => {
 const getUsersAllAnimationListFunc = (animation) => {
   return { type: GET_USERS_ALL_ANIMATION_LIST, animation }
 }
+
+export const getUsersList = () => {
+  return async (dispatch) => {
+    const res = await getUsersListApi();
+    dispatch(getUsersListFunc(res.data.users));
+  }
+}
+
+export const getUsersListMenu = () => {
+  return async (dispatch) => {
+    const res = await getUsersListMenuApi();
+    dispatch(getUsersListMenuFunc(res.data.users));
+  }
+}
+
 export const getUsersAnimationList = (id) => {
   return async (dispatch) => {
     const res = await getUsersAnimationListApi(id);
