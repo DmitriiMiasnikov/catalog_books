@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { RegistrationDom } from './RegistrationDom';
 import { userRegistration } from './../../store/usersReducer';
+import { Redirect } from 'react-router-dom';
 
-const Registration = ({ userRegistration }) => {
+const Registration = ({ userRegistration, isAuth }) => {
   const inputs = [
     {name: 'name', text: 'имя'},
     {name: 'password', text: 'пароль'},
@@ -29,7 +30,12 @@ const Registration = ({ userRegistration }) => {
     return err
   }
   const registrationHandler = (data) => {
-    userRegistration(data.name, data.password, data.email);
+    userRegistration(data.name, data.password, data.email); 
+  }
+  if (isAuth) {
+    return (
+      <Redirect to='/' />
+    )
   }
   return (
     <RegistrationDom registrationHandler={registrationHandler} inputs={inputs} validate={validate}/>
@@ -38,7 +44,7 @@ const Registration = ({ userRegistration }) => {
 
 const mapStatesToProps = (state) => {
   return {
-
+    isAuth: state.users.isAuth
   }
 }
 

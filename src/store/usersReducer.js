@@ -25,7 +25,8 @@ const stateDefault = {
   usersAnimationList: [],
   usersAllAnimationList: [],
   restCountAnimation: 0,
-  isWrongAuthorization: false
+  isWrongAuthorization: false,
+
 }
 
 export const usersReducer = (state = stateDefault, action) => {
@@ -129,7 +130,7 @@ export const userRegistration = (userName, password, email) => {
   return async dispatch => {
     const res = await userRegistrationApi(userName, password, email);
     dispatch(setIsAuth(res.data.isAuth));
-    dispatch(setCurrentUserId(res.data.user['_id']))
+    dispatch(setCurrentUserId(res.data.user.userId))
   }
 }
 
@@ -139,7 +140,7 @@ export const userAuthorization = (userName, password) => {
     const res = await userAuthorizationApi(userName, password);
     dispatch(setIsAuth(res.data.isAuth));
     if (res.data.isAuth) {
-      dispatch(setCurrentUserId(res.data.user['_id']));
+      dispatch(setCurrentUserId(res.data.user.userId));
       dispatch(setMyUserInfoFunc(res.data.user));
     } else {
       dispatch(setIsWrongAuthorization(true));

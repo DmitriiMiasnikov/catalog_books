@@ -66,9 +66,9 @@ router.get(
 router.get(
   '/id/animation/:userId',
   async (req, res) => {
-    const userId = Number(req.params.userId) || 1;
+    const userId = req.params.userId || 0;
     try {
-      const user = users.find(el => el.userId === userId);
+      const user = await Users.findOne({ userId: userId })
       let animation = animationJson.filter(el => user.animation.done.includes(el.animeId));
       rest = animation.slice(5).length;
       animationFive = animation.slice(0, 5);
@@ -84,30 +84,20 @@ router.get(
 router.put(
   '/id/animation/:userId',
   async (req, res) => {
-    const userId = Number(req.params.userId) || 1;
+    const userId = req.params.userId || 1;
     const animationId = Number(req.query.animationId) || 1;
     const typeButton = req.query.type;
     try {
-      const changeUsersJson = () => {
-          const usersData = users.map(el => {
-            if (el.userId === userId) {
-              let arr = el.animation[typeButton];
-              if (arr.includes(animationId)) {
-                arr.splice(arr.indexOf(animationId), 1);
-              } else {
-                arr.push(animationId);
-              }
-            }
-            return el;
-          });
-          fs.writeFile('./data/users.json', JSON.stringify(usersData), 'utf-8', (err) => {
-            if (err) throw err;
-          })
-          const user = users.find(el => el.userId === userId);
-          res.status(200).json({ user });
+      const userToUpdate = await Users.findOne({ userId: userId });
+      let animationUpdate = userToUpdate.animation;
+      if (animationUpdate[typeButton].includes(animationId)) {
+        animationUpdate[typeButton].splice(animationUpdate[typeButton].indexOf(animationId), 1);
+      } else {
+        animationUpdate[typeButton].push(animationId);
       }
-      changeUsersJson();
-
+      await Users.updateOne({ animation: animationUpdate })
+      const user = await Users.findOne({ userId: userId });
+      res.status(200).json({ user });
     } catch (e) {
       console.log(e)
     }
