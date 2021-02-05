@@ -4,8 +4,8 @@ import { compose } from 'redux';
 import { UsersMenuDom } from './UsersMenuDom';
 import { getUsersListMenu } from './../../store/usersReducer';
 
-const UsersMenu = ({ usersListMenu, getUsersListMenu }) => {
-  const [stars, setStars] = useState([]); 
+const UsersMenu = ({ usersListMenu, getUsersListMenu, currentUserId }) => {
+  const [stars, setStars] = useState([]);
   useEffect(() => {
     getUsersListMenu()
   }, [getUsersListMenu])
@@ -16,13 +16,14 @@ const UsersMenu = ({ usersListMenu, getUsersListMenu }) => {
     }))
   }, [usersListMenu])
   return (
-    <UsersMenuDom usersListMenu={usersListMenu} stars={stars}/>
+    <UsersMenuDom usersListMenu={usersListMenu} stars={stars} currentUserId = {currentUserId}/>
   )
 }
 
 const mapStatesToProps = (state) => {
   return {
-    usersListMenu: state.users.usersListMenu
+    usersListMenu: state.users.usersListMenu,
+    currentUserId: state.users.currentUserId
   }
 }
 

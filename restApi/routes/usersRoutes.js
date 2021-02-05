@@ -1,8 +1,7 @@
 const { Router } = require('express');
 const router = Router();
-const users = require('./../data/users.json');
+const sha256= require('js-sha256');
 const animationJson = require('./../data/animation.json');
-const fs = require('fs');
 const Users = require('./../models/Users');
 
 // получить всех пользователей
@@ -35,7 +34,7 @@ router.post(
     const user = new Users({
       userId: AllUsers.length + 1,
       userName: req.query.userName,
-      password: req.query.password,
+      password: sha256(req.query.password),
       email: req.query.email,
     })
     await user.save();
@@ -49,7 +48,7 @@ router.get(
   '/authorization',
   async (req, res) => {
     try {
-      const user = await Users.findOne({ userName: req.query.userName, password: req.query.password })
+      const user = await Users.findOne({ userName: req.query.userName, password: sha256(req.query.password) })
       if (user) {
         res.status(200).json({ user, isAuth: true })
       } else {

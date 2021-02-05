@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { UserMenuDom } from './UserMenuDom';
 import { getMyUserInfo, userAuthorization, clearCurrentUserInfo } from '../../store/usersReducer';
 
-const UserMenu = ({ currentUserId, getMyUserInfo, myUserInfo, isAuth, userAuthorization, isWrongAuthorization }) => {
+const UserMenu = ({ currentUserId, getMyUserInfo, myUserInfo, isAuth, userAuthorization, 
+    isWrongAuthorization, clearCurrentUserInfo }) => {
   const inputs = [
     { name: 'name', text: 'имя' },
     { name: 'password', text: 'пароль' },
