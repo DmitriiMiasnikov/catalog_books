@@ -85,10 +85,10 @@ router.get(
       const user = await Users.findOne({ userId: userId })
       let animation = {};
       let animationFive = {};
-      let rest;
+      let rest = {};
       Object.keys(user.animation).forEach(el => {
         animation[el] = animationJson.filter(item => user.animation[el].includes(item.animeId))
-        rest = animation[el].slice(5).length
+        rest[el] = animation[el].slice(5).length
         animationFive[el] = animation[el].slice(0, 5);
       })
       let countAnimation = animation.length;

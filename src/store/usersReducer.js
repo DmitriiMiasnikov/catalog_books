@@ -27,7 +27,7 @@ const stateDefault = {
   isAuth: false,
   usersAnimationList: null,
   usersAllAnimationList: null,
-  restCountAnimation: 0,
+  restCountAnimation: null,
   isWrongAuthorization: false,
 }
 

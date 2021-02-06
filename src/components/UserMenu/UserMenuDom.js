@@ -5,8 +5,6 @@ import { Field, Form } from 'react-final-form';
 import classnames from 'classnames';
 import logout from './../../assets/Images/logout.svg';
 import userinfo from './../../assets/Images/userinfo.svg';
-import auth from './../../assets/Images/auth.svg';
-import registration from './../../assets/Images/registration.svg';
 
 export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, authorizationHandler, inputs, validate,
   isWrongAuthorization, leftUser }) => {
@@ -44,14 +42,12 @@ export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, authorizationHan
                   }
                   <div className={classnames(styles.buttons)}>
                     <button type='submit' disabled={submitting} className={styles.button}>
-                      <img src={auth} alt='' />
                       <div className={styles.text}>
                         вход
                       </div>
                     </button>
                     <NavLink to={`/registration`}>
                       <div className={styles.button}>
-                        <img src={registration} alt='' />
                         <div className={styles.text}>
                           регистрация
                         </div>

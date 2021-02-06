@@ -30,12 +30,13 @@ export const AnimationFilters = ({ buttonsFilter, openDropdown, dropdowns, filte
                 <div className={styles.button} onClick={() => openDropdown(dropdown.id)}>
                   {dropdown.text}:  {dropdown.closed ? <div>&#9660;</div> : <div>&#9650;</div>}
                 </div>
-                <div className={styles.dropdownBlock}>
+                <div className={styles.dropdownBlock} 
+                  style={{ height: dropdown.closed ? 0 : buttonsFilter[dropdownType].length * 30 + 20 }}>
                   {
                     Object.keys(buttonsFilter).length ? buttonsFilter[dropdownType].map((el, i) => {
                       return (
                         <div className={classnames(styles.dropdownButton, { [styles.active]: el.active })}
-                          key={i} onClick={() => filterHandler(dropdownType, el[dropdownType], i)}>
+                          key={i} onClick={() => filterHandler(dropdownType, el[dropdownType], i)} >
                           <NavLink to={`/animation/list/1`}>
                             {el[dropdownType]}
                           </NavLink>

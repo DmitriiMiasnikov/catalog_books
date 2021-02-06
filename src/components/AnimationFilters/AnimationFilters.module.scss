@@ -18,7 +18,6 @@
     .dropdown {
       &.closed {
         .dropdownBlock {
-          display: none;
         }
       }
       .button {
@@ -42,9 +41,12 @@
         left: 0px;
         top: 0px;
         position: relative;
+        transition: .3s height;
+        overflow: hidden;
         .dropdownButton {
           display: flex;
-          flex-direction: column;
+          align-items: center;
+          height: 30px;
           font-size: 13px;
           background-color: #3a3a3a;
           transition: .2s background-color;
@@ -62,7 +64,6 @@
           a {
             text-decoration: none;
             color: white;
-            padding: 8px 0px 8px 35px;
             padding-left: 20px;
           }
         }

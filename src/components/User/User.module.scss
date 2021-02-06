@@ -101,7 +101,7 @@
           }
         }
         .restAnimation {
-          background-color: #272727;
+          background-color: #313131;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -113,7 +113,7 @@
           text-decoration: none;
           transition: 0.2s background-color, 0.1s width, 0.1s height;
           &:hover {
-            background-color: #313131;
+            background-color: #3f3f3f;
           }
         }
       }
