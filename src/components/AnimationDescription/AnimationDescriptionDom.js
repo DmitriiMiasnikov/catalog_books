@@ -50,7 +50,7 @@ export const AnimationDescriptionDom = ({ selectedAnimation, buttonsControl, use
           </span></div>}
         </div>
         <div className={styles.imageWrap}>
-          <img src={`/img/animation_cover_${selectedAnimation.animeId}.jpg`} alt='img' className={styles.image} />
+          <img src={`/img/animation_cover_${selectedAnimation.animationId}.jpg`} alt='img' className={styles.image} />
           {userInfoAnimation && <div className={styles.buttons}>
             <div className={classnames(styles.star, styles.button, { [styles.added]: userInfoAnimation['selected'] })}
               onClick={() => userInfoAnimationHandler('selected')}>

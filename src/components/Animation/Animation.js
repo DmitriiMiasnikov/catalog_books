@@ -57,7 +57,8 @@ const mapStatesToProps = (state) => {
     currentPage: state.animation.currentPage,
     sortBy: state.animation.sortBy,
     searchValue: state.animation.searchValue,
-    pageView: state.animation.pageView
+    pageView: state.animation.pageView,
+    selectedUser: state.users.selectedUser
   }
 }
 export default compose(

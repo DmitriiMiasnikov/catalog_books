@@ -9,8 +9,8 @@ export const getAnimationListApi = async (page, counter, sort, filter, search, u
   return res;
 }
 
-export const getAnimationApi = async (animeId) => {
-  const res = await instance.get(`animation/id/${animeId}`);
+export const getAnimationApi = async (animationId) => {
+  const res = await instance.get(`animation/id/${animationId}`);
   return res.data.selectedAnimation;
 }
 

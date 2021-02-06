@@ -1,10 +1,8 @@
 const { Router } = require('express');
 const router = Router();
 const sha256= require('js-sha256');
-const animationJson = require('./../data/animation.json');
 const Users = require('./../models/Users');
 const Animation = require('./../models/Animation');
-const { aggregate } = require('./../models/Animation');
 
 // получить всех пользователей
 // /users/
@@ -67,7 +65,7 @@ router.get(
 router.get(
   '/id/:userId',
   async (req, res) => {
-    const userId = req.params.userId;
+    const userId = req.params.userId || 0;
     try {
       const user = await Users.findOne({ userId: userId }, 'animation userName userId')
       res.status(200).json({ user });

@@ -31,14 +31,14 @@ export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnim
                       {
                         pageView === 'small' && (
                           <div key={i} className={styles.itemInner}>
-                            <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)} className={styles.imgLink}>
-                              <img src={`/img/animation_cover_${el.animeId}.jpg`} alt='img' className={styles.image} />
+                            <NavLink to={`/animation/id/${el.animationId}`} onClick={() => openAnimationInfo(el.animationId)} className={styles.imgLink}>
+                              <img src={`/img/animation_cover_${el.animationId}.jpg`} alt='img' className={styles.image} />
                             </NavLink>
                             <div className={styles.infoWrapper}>
                               {el.nameRu && <div className={styles.title}>
-                                <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)}>{el.nameRu}</NavLink></div>}
+                                <NavLink to={`/animation/id/${el.animationId}`} onClick={() => openAnimationInfo(el.animationId)}>{el.nameRu}</NavLink></div>}
                               {el.nameEng && !el.nameRu && <div className={classnames(styles.nameEng, { [styles.title]: !el.nameRu })}>
-                                <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)}>{el.nameEng}</NavLink>
+                                <NavLink to={`/animation/id/${el.animationId}`} onClick={() => openAnimationInfo(el.animationId)}>{el.nameEng}</NavLink>
                               </div>}
                               {el.date && <div className={styles.date}>
                                 {el.date.map((dateEl, j) => {
@@ -71,14 +71,14 @@ export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnim
                       {
                         pageView === 'medium' && (
                           <div key={i} className={styles.itemInner}>
-                            <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)} className={styles.imgLink}>
-                              <img src={`/img/animation_cover_${el.animeId}.jpg`} alt='img' className={styles.image} />
+                            <NavLink to={`/animation/id/${el.animationId}`} onClick={() => openAnimationInfo(el.animationId)} className={styles.imgLink}>
+                              <img src={`/img/animation_cover_${el.animationId}.jpg`} alt='img' className={styles.image} />
                             </NavLink>
                             <div className={styles.infoWrapper}>
                               {el.nameRu && <div className={styles.title}>
-                                <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)}>{el.nameRu}</NavLink></div>}
+                                <NavLink to={`/animation/id/${el.animationId}`} onClick={() => openAnimationInfo(el.animationId)}>{el.nameRu}</NavLink></div>}
                               {el.nameEng && !el.nameRu && <div className={classnames(styles.nameEng, { [styles.title]: !el.nameRu })}>
-                                <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)}>{el.nameEng}</NavLink>
+                                <NavLink to={`/animation/id/${el.animationId}`} onClick={() => openAnimationInfo(el.animationId)}>{el.nameEng}</NavLink>
                               </div>}
                               {el.date && <div className={styles.date}>
                                 {el.date.map((dateEl, j) => {
@@ -112,9 +112,9 @@ export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnim
                       }
                       {
                         pageView === 'large' && (
-                          <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)}
+                          <NavLink to={`/animation/id/${el.animationId}`} onClick={() => openAnimationInfo(el.animationId)}
                             key={i} className={styles.itemInner}>
-                            <img src={`/img/animation_cover_${el.animeId}.jpg`} alt='img' className={styles.image} />
+                            <img src={`/img/animation_cover_${el.animationId}.jpg`} alt='img' className={styles.image} />
                             <div className={styles.text}>
                               <div className={styles.title}>
                                 {el.nameRu || el.nameEng}
