@@ -3,6 +3,7 @@ const router = Router();
 const sha256= require('js-sha256');
 const animationJson = require('./../data/animation.json');
 const Users = require('./../models/Users');
+const Animation = require('./../models/Animation');
 
 // получить всех пользователей
 // /users/
@@ -83,12 +84,13 @@ router.get(
     const userId = req.params.userId || 0;
     try {
       const user = await Users.findOne({ userId: userId }, 'animation')
+      const allAnimaton = await Animation.find({}, 'nameRu nameEng nameRom author type auditory base animationId date genre');
       let animation = {};
       let animationFive = {};
       let rest = {};
       Object.keys(user.animation).forEach(el => {
-        animation[el] = animationJson.filter(item => user.animation[el].includes(item.animeId))
-        rest[el] = animation[el].slice(5).length
+        animation[el] = allAnimaton.filter(item => user.animation[el].includes(item.animationId))
+        rest[el] = animation[el].slice(5).length;
         animationFive[el] = animation[el].slice(0, 5);
       })
       let countAnimation = animation.length;

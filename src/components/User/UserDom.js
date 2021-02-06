@@ -24,7 +24,7 @@ export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAn
             [styles.hide]: !buttonsMain.find(el => el.name === 'animation').active
           })}>
             {
-              usersAnimationList && Object.keys(usersAnimationList).map((listName, j) => {
+              userInfo && Object.keys(userInfo.animation).map((listName, j) => {
                 return (
                   <div key={j} className={styles.animationInnerBlock}>
                     <div className={styles.animationSubTitle} onClick={() => ButtonsAnimationHandler(listName)}>
@@ -35,24 +35,24 @@ export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAn
                     </div>
                     <div className={classnames(styles.animationWrap, {
                       [styles.hide]: !buttonsAnimation.find(el => el.name === listName).active,
-                      [styles.empty]: !usersAnimationList[listName].length
+                      [styles.empty]: !userInfo.animation[listName].length
                     })}>
                       {
-                        fetching && (
+                        fetching && Boolean(userInfo.animation[listName].length) && (
                           <div className={styles.loading}>
                             <img src={loading} alt='' />
                           </div>
                         )
                       }
                       {
-                        !fetching && Boolean(usersAnimationList[listName].length) && (
+                        !fetching && usersAnimationList && Boolean(usersAnimationList[listName].length) && (
                           <div className={styles.animationListWrap}>
                             {
                               usersAnimationList[listName].map((el, i) => {
                                 return (
-                                  <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)}
+                                  <NavLink to={`/animation/id/${el.animationId}`} onClick={() => openAnimationInfo(el.animationId)}
                                     className={styles.animationItem} key={i} >
-                                    <img src={`/img/animation_cover_${el.animeId}.jpg`} alt='img' className={styles.image} />
+                                    <img src={`/img/animation_cover_${el.animationId}.jpg`} alt='img' className={styles.image} />
                                     <div className={styles.text}>
                                       <div className={styles.title}>
                                         {el.nameRu || el.nameEng}
@@ -84,7 +84,7 @@ export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAn
                         )
                       }
                       {
-                        !fetching && !Boolean(usersAnimationList[listName].length) && (
+                        userInfo && !Boolean(userInfo.animation[listName].length) && (
                           <div className={styles.noItems}>
                             список пуст
                           </div>
