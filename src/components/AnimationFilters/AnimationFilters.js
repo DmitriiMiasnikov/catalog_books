@@ -1,67 +1,89 @@
-import React, { useRef, useEffect } from 'react';
-import styles from './AnimationFilters.module.scss';
-import classnames from 'classnames';
-import { NavLink } from 'react-router-dom';
-import close from './../../assets/Images/close.svg';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { getAnimationList, setFilterBy, setPage } from './../../store/animationReducer';
+import { selectUser } from './../../store/usersReducer';
+import { AnimationFiltersDom } from './AnimationFiltersDom';
 
-export const AnimationFilters = ({ buttonsFilter, openDropdown, dropdowns, filterHandler, selectedUser,
-  userInfo, closeUsersList }) => {
-  const refDropdown = useRef(null);
-  const handleMouseClick = (e) => {
-    if (!e.path.includes(refDropdown.current)) {
-      openDropdown(-1);
+const AnimationFilters = ({ setFilterBy, filters, filterBy, setPage, selectedUser, userInfo, selectUser }) => {
+  const [buttonsFilter, setButtonsFilter] = useState({});
+  const [dropdowns, setDropdowns] = useState([
+    {
+      id: 0,
+      text: 'Аудитория',
+      type: 'auditory',
+      closed: true,
+    },
+    {
+      id: 1,
+      text: 'Жанр',
+      type: 'genre',
+      closed: true,
     }
+  ])
+  useEffect(() => {
+    if (filters && filterBy === 'все') {
+      const filtersCopy = {};
+      dropdowns.forEach((el, i) => {
+        filtersCopy[el.type] = filters[el.type].map((item, j) => {
+          return {
+            active: !j,
+            [el.type]: item
+          }
+        })
+      })
+      setButtonsFilter(filtersCopy);
+    }
+  }, [filters, dropdowns, filterBy]);
+  const openDropdown = (dropdownId) => {
+    setDropdowns(dropdowns.map(el => {
+      if (el.id === dropdownId) {
+        el.closed ? el.closed = false : el.closed = true
+      } else {
+        el.closed = true;
+      }
+      return el;
+    }))
   }
-  useEffect(() => {
-    document.addEventListener('click', handleMouseClick, true)
-  })
-  useEffect(() => {
-    return () => document.removeEventListener('click', handleMouseClick, true)
-  })
-  return (
-    <div className={styles.wrapper}>
-      <div className={styles.title}>
-        Фильтры:
-      </div>
-      <div className={styles.currentFilters}>
-        {Boolean(selectedUser) && <div className={styles.listOwnerBlock}>
-          <NavLink className={styles.name} to={`/users/${userInfo.userId}`}>
-            {userInfo.userName}
-          </NavLink>
-          <img src={close} className={styles.cancelButton} onClick={() => closeUsersList()} alt='' />
-        </div>}
-        {<div>
-        </div>}
-      </div>
-      <div className={styles.dropdownsWrap} ref={refDropdown}>
-        {
-          dropdowns.map((dropdown, j) => {
-            const dropdownType = dropdown.type;
-            return (
-              <div key={j} className={classnames(styles.dropdown, { [styles.closed]: dropdown.closed })}>
-                <div className={styles.button} onClick={() => openDropdown(dropdown.id)}>
-                  {dropdown.text}:  {dropdown.closed ? <div>&#9660;</div> : <div>&#9650;</div>}
-                </div>
-                <div className={styles.dropdownBlock}
-                  style={{ height: dropdown.closed ? 0 : buttonsFilter[dropdownType].length * 30 + 20 }}>
-                  {
-                    Object.keys(buttonsFilter).length ? buttonsFilter[dropdownType].map((el, i) => {
-                      return (
-                        <div className={classnames(styles.dropdownButton, { [styles.active]: el.active })}
-                          key={i} onClick={() => filterHandler(dropdownType, el[dropdownType], i)} >
-                          <NavLink to={`/animation/list/1`}>
-                            {el[dropdownType]}
-                          </NavLink>
-                        </div>
-                      )
-                    }) : null
-                  }
-                </div>
-              </div>
-            )
+  const filterHandler = (dropdown, filterBy, indexButton) => {
+    setFilterBy(filterBy);
+    setPage(1);
+    setButtonsFilter((buttons) => {
+      const obj = {};
+      Object.keys(buttons).forEach((el, i) => {
+        obj[el] = buttons[el];
+        if (dropdown === el) {
+          obj[el].map((item, j) => {
+            if (j === indexButton) {
+              item.active = true
+            } else item.active = false
+            return item;
           })
-        }
-      </div>
-    </div>
+        } else obj[el].map((item, j) => {
+          item.active = false
+          return item;
+        })
+      })
+      return obj;
+    })
+  }
+  const closeUsersList = () => {
+    selectUser(0);
+  }
+
+  return (
+    <AnimationFiltersDom buttonsFilter={buttonsFilter} dropdowns={dropdowns} closeUsersList={closeUsersList}
+      openDropdown={openDropdown} filterHandler={filterHandler} userInfo={userInfo} selectedUser={selectedUser}/>
   )
 }
+
+const mapStatesToProps = (state) => {
+  return {
+    animation: state.animation.animation,
+    filters: state.animation.filters,
+    filterBy: state.animation.filterBy,
+    selectedUser: state.users.selectedUser,
+    userInfo: state.users.userInfo
+  }
+}
+
+export default connect(mapStatesToProps, { getAnimationList, setFilterBy, setPage, selectUser })(AnimationFilters);

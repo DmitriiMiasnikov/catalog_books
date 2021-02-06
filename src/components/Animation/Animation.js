@@ -1,136 +1,66 @@
-import React from 'react';
-import styles from './Animation.module.scss';
-import classnames from 'classnames';
-import { NavLink } from 'react-router-dom';
-import PagesCounter from '../PagesCounter/PagesCounter';
-import ListSorters from './../ListSorters/ListSorters';
-import PageView from './../PageView/PageView';
-import loading from './../../assets/Images/loading.svg';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
+import { getAnimationList, setFilterBy, clearStates } from '../../store/animationReducer';
+import { getAnimation } from './../../store/animationDescriptionReducer';
+import { AnimationDom } from './AnimationDom';
 
-export const Animation = ({ animationList, openAnimationInfo, buttonsSortAnimation, countAllAnimation,
-  fetching, pageView }) => {
+const Animation = ({ animation, getAnimationList, filterBy, getAnimation, clearStates,
+  currentPage, sortBy, countAllAnimation, countInPage, searchValue, match, pageView,
+  selectedUser }) => {
+  let page = Number(match.params.page) || 1;
+  const [fetching, setFetching] = useState(true);
+  const [animationList, setAnimationList] = useState(animation);
+  const buttonsSortAnimation = [
+    {
+      text: 'названию',
+      sort: 'name',
+      direction: 'direct'
+    },
+    {
+      text: 'дате',
+      sort: 'date',
+      direction: 'direct'
+    }];
+  useEffect(() => {
+    setAnimationList(animation);
+    setFetching(false);
+  }, [animation, setAnimationList])
+  useEffect(() => {
+    setFetching(true);
+    const fetchData = async () => {
+      await getAnimationList(page, countInPage, sortBy, filterBy, searchValue, selectedUser);
+    }
+    window.scroll(0, 0);
+    fetchData();
+  }, [currentPage, filterBy, sortBy, countInPage, getAnimationList, searchValue, selectedUser]);
+  useEffect(() => {
+    return () => {
+      clearStates();
+    }
+  }, [clearStates])
+  const openAnimationInfo = (info) => {
+    getAnimation(info);
+  }
   return (
-    <div className={styles.wrapper}>
-      <PageView />
-      <ListSorters buttons={buttonsSortAnimation} />
-      <PagesCounter countAll={countAllAnimation} />
-      {!fetching && !animationList.length ? (
-        <div className={styles.warning}>
-          не найдено по текущему запросу
-        </div>
-      ) : fetching ? (
-        <div className={styles.loading}>
-          <img src={loading} alt='' />
-        </div>
-      ) : (
-            <div className={classnames(styles.animationList, styles[pageView])}>
-              {
-                animationList && animationList.map((el, i) => {
-                  return (
-                    <div key={i} className={classnames(styles.item)}>
-                      {
-                        pageView === 'small' && (
-                          <div key={i} className={styles.itemInner}>
-                            <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)} className={styles.imgLink}>
-                              <img src={`/img/animation_cover_${el.animeId}.jpg`} alt='img' className={styles.image} />
-                            </NavLink>
-                            <div className={styles.infoWrapper}>
-                              {el.nameRu && <div className={styles.title}>
-                                <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)}>{el.nameRu}</NavLink></div>}
-                              {el.nameEng && !el.nameRu && <div className={classnames(styles.nameEng, { [styles.title]: !el.nameRu })}>
-                                <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)}>{el.nameEng}</NavLink>
-                              </div>}
-                              {el.date && <div className={styles.date}>
-                                {el.date.map((dateEl, j) => {
-                                  return (
-                                    <span key={j}>
-                                      {j === 3 && <span> - </span>}
-                                      <span className={styles.n}>{dateEl}</span>
-                                      {j !== el.date.length - 1 && j !== 2 && <span>.</span>}
-                                    </span>
-                                  )
-                                })}
-                              </div>}
-                              {el.genre && <div className={styles.line}>жанр:
-                                <span className={styles.lineInfo}>
-                                  {el.genre.map((genreEl, j) => {
-                                    return (
-                                      <span className={styles.info} key={j}>
-                                        <span className={styles.n}>{genreEl}</span>
-                                        {j !== el.genre.length - 1 && <span>, </span>}
-                                      </span>
-                                    )
-                                  })}
-                                </span>
-                              </div>}
-                              {el.type && <div className={styles.line}>тип: <span className={styles.lineInfo}>{el.type}</span></div>}
-                            </div>
-                          </div>
-                        )
-                      }
-                      {
-                        pageView === 'medium' && (
-                          <div key={i} className={styles.itemInner}>
-                            <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)} className={styles.imgLink}>
-                              <img src={`/img/animation_cover_${el.animeId}.jpg`} alt='img' className={styles.image} />
-                            </NavLink>
-                            <div className={styles.infoWrapper}>
-                              {el.nameRu && <div className={styles.title}>
-                                <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)}>{el.nameRu}</NavLink></div>}
-                              {el.nameEng && !el.nameRu && <div className={classnames(styles.nameEng, { [styles.title]: !el.nameRu })}>
-                                <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)}>{el.nameEng}</NavLink>
-                              </div>}
-                              {el.date && <div className={styles.date}>
-                                {el.date.map((dateEl, j) => {
-                                  return (
-                                    <span key={j}>
-                                      {j === 3 && <span> - </span>}
-                                      <span className={styles.n}>{dateEl}</span>
-                                      {j !== el.date.length - 1 && j !== 2 && <span>.</span>}
-                                    </span>
-                                  )
-                                })}
-                              </div>}
-                              {el.author && <div className={styles.line}>автор: <span className={styles.lineInfo}>{el.author}</span></div>}
-                              {el.genre && <div className={styles.line}>жанр:
-                    <span className={styles.lineInfo}>
-                                  {el.genre.map((genreEl, j) => {
-                                    return (
-                                      <span className={styles.info} key={j}>
-                                        <span className={styles.n}>{genreEl}</span>
-                                        {j !== el.genre.length - 1 && <span>, </span>}
-                                      </span>
-                                    )
-                                  })}
-                                </span>
-                              </div>}
-                              {el.type && <div className={styles.line}>тип: <span className={styles.lineInfo}>{el.type}</span></div>}
-                              {el.auditory && <div className={styles.line}>аудитория: <span className={styles.lineInfo}>{el.auditory}</span></div>}
-                            </div>
-                          </div>
-                        )
-                      }
-                      {
-                        pageView === 'large' && (
-                          <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)}
-                            key={i} className={styles.itemInner}>
-                            <img src={`/img/animation_cover_${el.animeId}.jpg`} alt='img' className={styles.image} />
-                            <div className={styles.infoWrapper}>
-                              {el.nameRu && <div className={styles.title}>{el.nameRu}</div>}
-                              {el.nameEng && !el.nameRu && <div className={classnames(styles.nameEng, { [styles.title]: !el.nameRu })}>
-                                {el.nameEng}
-                              </div>}
-                            </div>
-                          </NavLink>
-                        )
-                      }
-                    </div>
-                  )
-                })
-              }
-              <PagesCounter countAll={countAllAnimation} />
-            </div>
-          )}
-    </div>
+    <AnimationDom animationList={animationList} openAnimationInfo={openAnimationInfo} countAllAnimation={countAllAnimation}
+      buttonsSortAnimation={buttonsSortAnimation} currentPage={page} fetching={fetching} pageView={pageView} />
   )
 }
+const mapStatesToProps = (state) => {
+  return {
+    animation: state.animation.animation,
+    filterBy: state.animation.filterBy,
+    countAllAnimation: state.animation.countAllAnimation,
+    countInPage: state.animation.countInPage,
+    currentPage: state.animation.currentPage,
+    sortBy: state.animation.sortBy,
+    searchValue: state.animation.searchValue,
+    pageView: state.animation.pageView
+  }
+}
+export default compose(
+  connect(mapStatesToProps, { getAnimationList, getAnimation, setFilterBy, clearStates }),
+  withRouter
+)(Animation);

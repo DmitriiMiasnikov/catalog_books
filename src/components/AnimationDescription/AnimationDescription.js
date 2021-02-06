@@ -1,82 +1,67 @@
-import React from 'react';
-import styles from './AnimationDescription.module.scss';
-import classnames from 'classnames';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { AnimationDescriptionDom } from './AnimationDescriptionDom';
+import { getAnimation, getAnimationFunc } from './../../store/animationDescriptionReducer';
+import { getUser, setUsersAnimation } from './../../store/usersReducer';
+import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
 
-export const AnimationDescription = ({ selectedAnimation, buttonsControl, userInfoAnimation, userInfoAnimationHandler }) => {
+const AnimationDescription = ({ getAnimation, getAnimationFunc, match, selectedAnimation,
+  currentUserId, userInfo, getUser, setUsersAnimation }) => {
+  const currentAnimationId = Number(match.params.animationId);
+  const [buttonsControl] = useState([
+    {
+      id: 1,
+      text: 'хочу посмотреть',
+      type: 'queue'
+    },
+    {
+      id: 2,
+      text: 'просмотрено',
+      type: 'done'
+    }
+  ])
+  const [userInfoAnimation, setUsersInfoAnimation] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      await getAnimation(currentAnimationId);
+    }
+    fetchData();
+  }, [getAnimation, match, currentAnimationId])
+  useEffect(() => {
+    const fetchData = async () => {
+      await getUser(currentUserId);
+    }
+    fetchData();
+  }, [currentUserId, getUser])
+  useEffect(() => {
+    if (userInfo) {
+      setUsersInfoAnimation({
+        'queue': userInfo.animation.queue.includes(currentAnimationId),
+        'done': userInfo.animation.done.includes(currentAnimationId),
+        'selected': userInfo.animation.selected.includes(currentAnimationId),
+      })
+    }
+  }, [currentAnimationId, currentUserId, setUsersInfoAnimation, userInfo])
+  useEffect(() => {
+    return () => getAnimationFunc(null)
+  }, [getAnimationFunc])
+  const userInfoAnimationHandler = (type) => {
+    setUsersAnimation(currentUserId, currentAnimationId, type);
+  }
   return (
-    <div className={styles.wrapper}>
-      {selectedAnimation && <div className={styles.infoWrap}>
-        <div className={styles.info}>
-          {selectedAnimation.nameRu && <div className={styles.title}>
-            {selectedAnimation.nameRu}</div>}
-          {selectedAnimation.nameEng && <div className={classnames(styles.nameEng, {
-            [styles.title]: !selectedAnimation.nameRu,
-            [styles.line]: selectedAnimation.nameRu
-          })}>
-            {selectedAnimation.nameRu && <span>на английском: </span>}
-            <span className={styles.lineInfo}>
-              {selectedAnimation.nameEng}
-            </span>
-          </div>}
-          {selectedAnimation.date && <div className={styles.date}>
-            {selectedAnimation.date.map((dateEl, j) => {
-              return (
-                <span key={j}>
-                  {j === 3 && <span> - </span>}
-                  <span className={styles.n}>{dateEl}</span>
-                  {j !== selectedAnimation.date.length - 1 && j !== 2 && <span>.</span>}
-                </span>
-              )
-            })}
-          </div>}
-          {selectedAnimation.author && <div className={styles.line}>автор: <span className={styles.lineInfo}>{selectedAnimation.author}</span></div>}
-          {selectedAnimation.genre && <div className={styles.line}>жанр:
-                <span className={styles.lineInfo}>
-              {selectedAnimation.genre.map((genreEl, j) => {
-                return (
-                  <span className={styles.lineInfoGenre} key={j}>
-                    <span className={styles.n}>{genreEl}</span>
-                    {j !== selectedAnimation.genre.length - 1 && <span>, </span>}
-                  </span>
-                )
-              })}
-            </span>
-          </div>}
-          {selectedAnimation.type && <div className={styles.line}>тип: <span className={styles.lineInfo}>
-            {selectedAnimation.type}
-          </span></div>}
-          {selectedAnimation.auditory && <div className={styles.line}>аудитория: <span className={styles.lineInfo}>
-            {selectedAnimation.auditory}
-          </span></div>}
-        </div>
-        <div className={styles.imageWrap}>
-          <img src={`/img/animation_cover_${selectedAnimation.animeId}.jpg`} alt='img' className={styles.image} />
-          {userInfoAnimation && <div className={styles.buttons}>
-            <div className={classnames(styles.star, styles.button, { [styles.added]: userInfoAnimation['selected'] })}
-              onClick={() => userInfoAnimationHandler('selected')}>
-              {userInfoAnimation['selected'] ? <span>&#9733;</span> : <span>&#9734;</span>}
-            </div>
-            {
-              buttonsControl.map((el, i) => {
-                return (
-                  <div key={i} className={classnames(styles.button, { [styles.added]: userInfoAnimation[el.type] })}
-                    onClick={() => userInfoAnimationHandler(el.type)}>
-                    {el.text}
-                  </div>
-                )
-              })
-            }
-          </div>}
-        </div>
-        <div className={styles.descriptionWrap}>
-          <div className={styles.title}>
-            Описание:
-          </div>
-          <div className={styles.text}>
-            {selectedAnimation.description}
-          </div>
-        </div>
-      </div>}
-    </div>
+    <AnimationDescriptionDom selectedAnimation={selectedAnimation} buttonsControl={buttonsControl}
+      userInfoAnimation={userInfoAnimation} userInfoAnimationHandler={userInfoAnimationHandler}/>
   )
 }
+const mapStatesToProps = (state) => {
+  return {
+    selectedAnimation: state.animationDescription.selectedAnimation,
+    currentUserId: state.users.currentUserId,
+    userInfo: state.users.userInfo
+  }
+}
+export default compose(
+  connect(mapStatesToProps, { getAnimation, getAnimationFunc, getUser, setUsersAnimation }),
+  withRouter
+) (AnimationDescription);

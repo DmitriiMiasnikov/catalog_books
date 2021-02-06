@@ -18,12 +18,10 @@ const start = async () => {
   }
 }
 start();
-
+let allAnimation;
 const counter = 5000;
 const arr = [];
-for (let i = 1; i <= counter; i++) {
-  arr.push(i);
-}
+
 function delay() {
   return new Promise(resolve => setTimeout(resolve, 1000));
 }
@@ -41,7 +39,7 @@ async function delayedLog(item) {
       }
     }).parseFromString(res.body);
     console.log(item, doc.toString().length);
-    pathNameRu = ".//*[table/tr/td/b[contains(text(),'Название (ромадзи)')]]/table[1]//text()";
+    pathNameRu = ".//*[table/tr/td/b[contains(text(),'Тип')]]/table[1]//text()";
     pathNameEng = ".//*[td/b[contains(text(),'Название (англ.)')]]/td[3]//text()";
     pathNameRom = ".//*[td/b[contains(text(),'Название (ромадзи)')]]/td[3]//text()";
     pathAuthor = ".//*[td/b[contains(text(),'Режиссёр')]]/td[3]/a//text()";
@@ -65,19 +63,7 @@ async function delayedLog(item) {
       pathDate1 = ".//*[td/b[contains(text(),'Выпуск')]]/td[3]/a//text()";
       tmpDate = xpath.select(pathDate1, doc);
     }
-    // obj['animeId'] = item;
-    // tmpNameRu.length ? obj['nameRu'] = tmpNameRu[0].data : null;
-    // tmpNameEng.length ? obj['nameEng'] = tmpNameEng[0].data : null;
-    // tmpNameRom.length ? obj['nameRom'] = tmpNameRom[0].data : null;
-    // tmpAuthor.length ? obj['author'] = tmpAuthor[0].data : null;
-    // tmpDate.length ? obj['date'] = tmpDate.map(el => el.data) : null;
-    // tmpGenre.length ? obj['genre'] = tmpGenre.map(el => el.data) : null;
-    // tmpType.length ? obj['type'] = tmpType[0].data : null;
-    // tmpBase.length ? obj['base'] = tmpBase[0].data : null;
-    // tmpAuditory.length ? obj['auditory'] = tmpAuditory[0].data : null;
     // tmpSubscription.length ? obj['description'] = tmpSubscription[0].data.replace(/<\/?[^>]+(>|$)/g, "") : null;
-    // anime.push(obj);
-    // console.log(obj);
     let hasImage;
     try {
       if (fs.existsSync(`./../public/img/animation_cover_${item}.jpg`)) {
@@ -103,11 +89,25 @@ async function delayedLog(item) {
         auditory: tmpAuditory.length ? tmpAuditory[0].data : null,
       })
       await animation.save()
-    } else console.log('wrong');
+    } else {
+      if (!tmpNameRu.length) console.log('tmpNameRu.length')
+      if (Number(tmpDate.map(el => el.data)[2]) <= 1960) console.log('date <= 1960');
+      if (allAnimation.some(el => el.animationId === item)) console.log('allAnimation.some(el => el.animationId === item)');
+      if (!hasImage) console.log('!hasImage')
+      if (!tmpDate.length) console.log('!tmpDate.length')
+      if (tmpGenre.map(el => el.data).includes('хентай')) console.log('хентай')
+      if (tmpGenre.map(el => el.data).includes('эротика')) console.log('эротика')
+    }
   });
 }
 processArray(arr);
 async function processArray(arr) {
+  allAnimation = await Animation.find({}, 'animationId');
+  for (let i = 1; i <= counter; i++) {
+    if (!allAnimation.some(el => el.animationId === i)) {
+      arr.push(i);
+    }
+  }
   for (const item of arr) {
     await delayedLog(item);
   }

@@ -18,7 +18,7 @@ export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAn
             <span>{buttonsMain.find(el => el.name === 'animation').text}</span>
             <img src={angle} className={classnames(styles.angle, {
               [styles.reverse]: !buttonsMain.find(el => el.name === 'animation').active
-            })} alt=''/>
+            })} alt='' />
           </div>
           <div className={classnames(styles.animationBlock, {
             [styles.hide]: !buttonsMain.find(el => el.name === 'animation').active
@@ -31,7 +31,7 @@ export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAn
                       <span>{buttonsAnimation.find(el => el.name === listName).text}</span>
                       <img src={angle} className={classnames(styles.angle, {
                         [styles.reverse]: !buttonsAnimation.find(el => el.name === listName).active
-                      })} alt=''/>
+                      })} alt='' />
                     </div>
                     <div className={classnames(styles.animationWrap, {
                       [styles.hide]: !buttonsAnimation.find(el => el.name === listName).active,
@@ -52,8 +52,26 @@ export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAn
                                 return (
                                   <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)}
                                     className={styles.animationItem} key={i} >
-                                    <img src={`/img/animation_cover_${el.animeId}.jpg`} alt='img' className={styles.image}
-                                      title={el.nameRu || el.nameEng} />
+                                    <img src={`/img/animation_cover_${el.animeId}.jpg`} alt='img' className={styles.image} />
+                                    <div className={styles.text}>
+                                      <div className={styles.title}>
+                                        {el.nameRu || el.nameEng}
+                                      </div>
+                                      {el.date && <div className={styles.description}>
+                                        {el.date.map((dateEl, j) => {
+                                          return (
+                                            <span key={j}>
+                                              {j === 3 && <span> - </span>}
+                                              <span className={styles.n}>{dateEl}</span>
+                                              {j !== el.date.length - 1 && j !== 2 && <span>.</span>}
+                                            </span>
+                                          )
+                                        })}
+                                      </div>}
+                                      {el.type && <div  className={styles.description}>
+                                        {el.type}
+                                      </div>}
+                                    </div>
                                   </NavLink>
                                 )
                               })

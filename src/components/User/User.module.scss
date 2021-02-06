@@ -78,6 +78,7 @@
         flex-wrap: wrap;
         width: 100%;
         .animationItem {
+          position: relative;
           border: 1px solid transparent;
           border-radius: 4px;
           overflow: hidden;
@@ -98,6 +99,31 @@
             min-width: 100%;
             min-height: 100%;
             border-radius: 4px;
+          }
+          .text {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            width: 100%;
+            background-color: black;
+            opacity: .9;
+            color: white;
+            padding: 5px 5px 10px;
+            box-sizing: border-box;
+            font-size: 11px;
+            transform: translateY(100%);
+            transition: .2s transform;
+            .title {
+              font-size: 13px;
+            }
+            .description {
+              margin-top: 5px;
+            }
+          }
+          &:hover {
+            .text {
+              transform: translateY(0);
+            }
           }
         }
         .restAnimation {

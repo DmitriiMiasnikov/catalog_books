@@ -11,9 +11,9 @@ import Users from './components/Users/Users';
 import User from './components/User/User';
 import Books from './components/Books/BooksContainer';
 import Authors from './components/Authors/AuthorsContainer';
-import Animation from './components/Animation/AnimationContainer'
-import AnimationFilters from './components/AnimationFilters/AnimationFiltersContainer';
-import AnimationDescription from './components/AnimationDescription/AnimationDescriptionContainer';
+import Animation from './components/Animation/Animation';
+import AnimationFilters from './components/AnimationFilters/AnimationFilters';
+import AnimationDescription from './components/AnimationDescription/AnimationDescription';
 import Registration from './components/Registration/Registration';
 import UsersMenu from './components/UsersMenu/UsersMenu';
 
