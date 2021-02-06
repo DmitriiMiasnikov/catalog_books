@@ -4,6 +4,7 @@ const sha256= require('js-sha256');
 const animationJson = require('./../data/animation.json');
 const Users = require('./../models/Users');
 const Animation = require('./../models/Animation');
+const { aggregate } = require('./../models/Animation');
 
 // получить всех пользователей
 // /users/
@@ -83,16 +84,26 @@ router.get(
   async (req, res) => {
     const userId = req.params.userId || 0;
     try {
-      const user = await Users.findOne({ userId: userId }, 'animation')
-      const allAnimaton = await Animation.find({}, 'nameRu nameEng nameRom author type auditory base animationId date genre');
+      const user = await Users.findOne({ userId: userId }, 'animation');
+      // const aggr = await Users.aggregate([
+      //   {
+      //     $lookup: {
+      //       from: 'Animation',
+      //       localField: 'animation',
+      //       foreignField: 'animationId',
+      //       as: 'usersAnimation'
+      //     }
+      //   }
+      // ]);
       let animation = {};
       let animationFive = {};
       let rest = {};
-      Object.keys(user.animation).forEach(el => {
-        animation[el] = allAnimaton.filter(item => user.animation[el].includes(item.animationId))
-        rest[el] = animation[el].slice(5).length;
-        animationFive[el] = animation[el].slice(0, 5);
-      })
+      for (const i in Object.keys(user.animation)) {
+        const currentItem =  Object.keys(user.animation)[i];
+        animation[currentItem] = await Animation.find({ animationId: {$in: user.animation[currentItem]} });
+        rest[currentItem] = animation[currentItem].slice(5).length;
+        animationFive[currentItem] = animation[currentItem].slice(0, 5);
+      }
       let countAnimation = animation.length;
       res.status(200).json({ animationFive, animation, rest, countAnimation });
     } catch (e) {

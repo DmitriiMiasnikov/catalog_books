@@ -38,7 +38,7 @@ export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAn
                       [styles.empty]: !userInfo.animation[listName].length
                     })}>
                       {
-                        fetching && Boolean(userInfo.animation[listName].length) && (
+                        fetching && !usersAnimationList && (
                           <div className={styles.loading}>
                             <img src={loading} alt='' />
                           </div>
