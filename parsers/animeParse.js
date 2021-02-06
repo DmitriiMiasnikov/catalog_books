@@ -4,9 +4,9 @@ const xpath = require("xpath");
 const dom = require("xmldom").DOMParser;
 const anime = [];
 
-const counter = 10750;
+const counter = 8000;
 const arr = [];
-for (let i = 1; i <= counter; i++) {
+for (let i = 8000; i <= counter; i++) {
   arr.push(i);
 }
 function delay() {
