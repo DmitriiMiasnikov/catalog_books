@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { getAnimationList, setFilterBy, setPage } from './../../store/animationReducer';
+import { selectUser } from './../../store/usersReducer';
 import { AnimationFilters } from './AnimationFilters';
 
-const AnimationFiltersContainer = ({ setFilterBy, filters, filterBy, setPage }) => {
+const AnimationFiltersContainer = ({ setFilterBy, filters, filterBy, setPage, selectedUser, userInfo, selectUser }) => {
   const [buttonsFilter, setButtonsFilter] = useState({});
   const [dropdowns, setDropdowns] = useState([
     {
@@ -65,9 +66,13 @@ const AnimationFiltersContainer = ({ setFilterBy, filters, filterBy, setPage }) 
       return obj;
     })
   }
+  const closeUsersList = () => {
+    selectUser(0);
+  }
+
   return (
-    <AnimationFilters buttonsFilter={buttonsFilter} dropdowns={dropdowns}
-      openDropdown={openDropdown} filterHandler={filterHandler} />
+    <AnimationFilters buttonsFilter={buttonsFilter} dropdowns={dropdowns} closeUsersList={closeUsersList}
+      openDropdown={openDropdown} filterHandler={filterHandler} userInfo={userInfo} selectedUser={selectedUser}/>
   )
 }
 
@@ -76,7 +81,9 @@ const mapStatesToProps = (state) => {
     animation: state.animation.animation,
     filters: state.animation.filters,
     filterBy: state.animation.filterBy,
+    selectedUser: state.users.selectedUser,
+    userInfo: state.users.userInfo
   }
 }
 
-export default connect(mapStatesToProps, { getAnimationList, setFilterBy, setPage })(AnimationFiltersContainer);
+export default connect(mapStatesToProps, { getAnimationList, setFilterBy, setPage, selectUser })(AnimationFiltersContainer);

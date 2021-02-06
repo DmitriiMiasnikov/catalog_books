@@ -1,47 +1,5 @@
 .wrapper {
   position: relative;
-  .listOwnerBlock {
-    position: absolute;
-    left: 14px;
-    top: 52px;
-    display: flex;
-    flex-direction: row;
-    .titleListOwner {
-      display: flex;
-      align-items: center;
-      margin-right: 10px;
-      font-size: 18px;
-    }
-    .userBittonClose {
-      background-color: #464646;
-      padding: 7px 10px 7px 15px;
-      margin-right: 10px;
-      border-radius: 7px;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      .name {
-        transition: .2s color;
-        color: #dadada;
-        text-decoration: none;
-        &:hover {
-          color:#8f8f8f;
-          cursor: pointer;
-        }
-      }
-      .cancelButton {
-        width: 17px;
-        height: 17px;
-        margin-left: 10px;
-        transition: .2s fill;
-        fill: #dadada;
-        &:hover {
-          cursor: pointer;
-          fill:#8f8f8f;
-        }
-      }
-    }
-  }
   .animationList {
     display: flex;
     flex-direction: column;

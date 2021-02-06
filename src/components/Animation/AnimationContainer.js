@@ -4,12 +4,11 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { getAnimationList, setFilterBy, clearStates } from '../../store/animationReducer';
 import { getAnimation } from './../../store/animationDescriptionReducer';
-import { selectUser } from './../../store/usersReducer';
 import { Animation } from './Animation';
 
 const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimation, clearStates,
   currentPage, sortBy, countAllAnimation, countInPage, searchValue, match, pageView,
-  selectedUser, selectUser, userInfo }) => {
+  selectedUser }) => {
   let page = Number(match.params.page) || 1;
   const [fetching, setFetching] = useState(true);
   const [animationList, setAnimationList] = useState(animation);
@@ -44,13 +43,9 @@ const AnimationContainer = ({ animation, getAnimationList, filterBy, getAnimatio
   const openAnimationInfo = (info) => {
     getAnimation(info);
   }
-  const closeUsersList = () => {
-    selectUser(0);
-  }
   return (
     <Animation animationList={animationList} openAnimationInfo={openAnimationInfo} countAllAnimation={countAllAnimation}
-      buttonsSortAnimation={buttonsSortAnimation} currentPage={page} fetching={fetching} pageView={pageView} 
-      closeUsersList={closeUsersList} userInfo={userInfo} selectedUser={selectedUser}/>
+      buttonsSortAnimation={buttonsSortAnimation} currentPage={page} fetching={fetching} pageView={pageView} />
   )
 }
 const mapStatesToProps = (state) => {
@@ -62,12 +57,10 @@ const mapStatesToProps = (state) => {
     currentPage: state.animation.currentPage,
     sortBy: state.animation.sortBy,
     searchValue: state.animation.searchValue,
-    pageView: state.animation.pageView,
-    selectedUser: state.users.selectedUser,
-    userInfo: state.users.userInfo
+    pageView: state.animation.pageView
   }
 }
 export default compose(
-  connect(mapStatesToProps, { getAnimationList, getAnimation, setFilterBy, clearStates, selectUser }),
+  connect(mapStatesToProps, { getAnimationList, getAnimation, setFilterBy, clearStates }),
   withRouter
 )(AnimationContainer);

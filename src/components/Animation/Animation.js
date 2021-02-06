@@ -6,27 +6,14 @@ import PagesCounter from '../PagesCounter/PagesCounter';
 import ListSorters from './../ListSorters/ListSorters';
 import PageView from './../PageView/PageView';
 import loading from './../../assets/Images/loading.svg';
-import close from './../../assets/Images/close.svg';
 
 export const Animation = ({ animationList, openAnimationInfo, buttonsSortAnimation, countAllAnimation,
-  fetching, pageView, closeUsersList, userInfo, selectedUser }) => {
+  fetching, pageView }) => {
   return (
     <div className={styles.wrapper}>
       <PageView />
       <ListSorters buttons={buttonsSortAnimation} />
       <PagesCounter countAll={countAllAnimation} />
-      {Boolean(selectedUser) && <div className={styles.listOwnerBlock}>
-        <div className={styles.titleListOwner}>
-          просмотренные:
-        </div>
-        <div className={styles.userBittonClose}>
-          <NavLink className={styles.name} to={`/users/${userInfo.userId}`}>
-            {userInfo.userName}
-          </NavLink>
-          <img src={close} className={styles.cancelButton} onClick={() => closeUsersList()} alt=''/>
-        </div>
-      </div>
-      }
       {!fetching && !animationList.length ? (
         <div className={styles.warning}>
           не найдено по текущему запросу
