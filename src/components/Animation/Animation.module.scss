@@ -99,30 +99,45 @@
         margin-top: 25px;
         width: 22%;
         height: fit-content;
+        width: 188px;
+        height: 265px;
         .itemInner {
           flex-direction: column;
           justify-content: center;
           align-items: center;
           text-decoration: none;
           color: white;
+          position: relative;
+          overflow: hidden;
+          padding: 0px;
+          width: 100%;
+          height: 100%;
+          transition: .2s border;
+          border: 1px solid transparent;
+          &:hover {
+            border: 1px solid #a8a8a8;
+          }
           .image {
             transition: 0.1s max-width, 0.1s max-height;
-            max-width: 90%;
-            max-height: 90%;
+            min-width: 100%;
+            min-height: 100%;
           }
-          .infoWrapper {
-            padding: 0px;
-            margin-top: 10px;
-            max-width: 350px;
-            align-items: center;
+          .text {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            width: 100%;
+            background-color: black;
+            opacity: .9;
+            color: white;
+            padding: 5px 5px 10px;
+            box-sizing: border-box;
+            font-size: 11px;
             .title {
-              text-align: center;
-              font-size: 17px;
-              margin-bottom: 0px;
+              font-size: 15px;
             }
-            > div:not(:first-child) {
-              margin-left: 0px;
-              margin-top: 0px;
+            .description {
+              margin-top: 5px;
             }
           }
         }

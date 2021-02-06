@@ -115,10 +115,23 @@ export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnim
                           <NavLink to={`/animation/id/${el.animeId}`} onClick={() => openAnimationInfo(el.animeId)}
                             key={i} className={styles.itemInner}>
                             <img src={`/img/animation_cover_${el.animeId}.jpg`} alt='img' className={styles.image} />
-                            <div className={styles.infoWrapper}>
-                              {el.nameRu && <div className={styles.title}>{el.nameRu}</div>}
-                              {el.nameEng && !el.nameRu && <div className={classnames(styles.nameEng, { [styles.title]: !el.nameRu })}>
-                                {el.nameEng}
+                            <div className={styles.text}>
+                              <div className={styles.title}>
+                                {el.nameRu || el.nameEng}
+                              </div>
+                              {el.date && <div className={styles.description}>
+                                {el.date.map((dateEl, j) => {
+                                  return (
+                                    <span key={j}>
+                                      {j === 3 && <span> - </span>}
+                                      <span className={styles.n}>{dateEl}</span>
+                                      {j !== el.date.length - 1 && j !== 2 && <span>.</span>}
+                                    </span>
+                                  )
+                                })}
+                              </div>}
+                              {el.type && <div className={styles.description}>
+                                {el.type}
                               </div>}
                             </div>
                           </NavLink>

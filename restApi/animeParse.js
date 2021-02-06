@@ -19,7 +19,7 @@ const start = async () => {
 }
 start();
 let allAnimation;
-const counter = 5000;
+const counter = 10750;
 const arr = [];
 
 function delay() {
@@ -93,7 +93,6 @@ async function delayedLog(item) {
       if (!tmpNameRu.length) console.log('tmpNameRu.length')
       if (Number(tmpDate.map(el => el.data)[2]) <= 1960) console.log('date <= 1960');
       if (allAnimation.some(el => el.animationId === item)) console.log('allAnimation.some(el => el.animationId === item)');
-      if (!hasImage) console.log('!hasImage')
       if (!tmpDate.length) console.log('!tmpDate.length')
       if (tmpGenre.map(el => el.data).includes('хентай')) console.log('хентай')
       if (tmpGenre.map(el => el.data).includes('эротика')) console.log('эротика')
@@ -103,7 +102,7 @@ async function delayedLog(item) {
 processArray(arr);
 async function processArray(arr) {
   allAnimation = await Animation.find({}, 'animationId');
-  for (let i = 1; i <= counter; i++) {
+  for (let i = 5000; i <= counter; i++) {
     if (!allAnimation.some(el => el.animationId === i)) {
       arr.push(i);
     }
