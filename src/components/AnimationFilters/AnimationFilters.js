@@ -69,10 +69,10 @@ const AnimationFilters = ({ setFilterBy, filters, filterBy, setPage, selectedUse
   const closeUsersList = () => {
     selectUser(0);
   }
-
   return (
     <AnimationFiltersDom buttonsFilter={buttonsFilter} dropdowns={dropdowns} closeUsersList={closeUsersList}
-      openDropdown={openDropdown} filterHandler={filterHandler} userInfo={userInfo} selectedUser={selectedUser}/>
+      openDropdown={openDropdown} filterHandler={filterHandler} userInfo={userInfo} selectedUser={selectedUser} 
+      filterBy={filterBy}/>
   )
 }
 
@@ -82,7 +82,7 @@ const mapStatesToProps = (state) => {
     filters: state.animation.filters,
     filterBy: state.animation.filterBy,
     selectedUser: state.users.selectedUser,
-    userInfo: state.users.userInfo
+    userInfo: state.users.userInfo,
   }
 }
 

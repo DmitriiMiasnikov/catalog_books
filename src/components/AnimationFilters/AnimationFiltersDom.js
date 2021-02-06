@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import close from './../../assets/Images/close.svg';
 
 export const AnimationFiltersDom = ({ buttonsFilter, openDropdown, dropdowns, filterHandler, selectedUser,
-  userInfo, closeUsersList }) => {
+  userInfo, closeUsersList, filterBy }) => {
   const refDropdown = useRef(null);
   const handleMouseClick = (e) => {
     if (!e.path.includes(refDropdown.current)) {
@@ -24,13 +24,18 @@ export const AnimationFiltersDom = ({ buttonsFilter, openDropdown, dropdowns, fi
         Фильтры:
       </div>
       <div className={styles.currentFilters}>
-        {Boolean(selectedUser) && <div className={styles.listOwnerBlock}>
+        {Boolean(selectedUser) && <div className={classnames(styles.filter, styles.userFilter)}>
           <NavLink className={styles.name} to={`/users/${userInfo.userId}`}>
             {userInfo.userName}
           </NavLink>
           <img src={close} className={styles.cancelButton} onClick={() => closeUsersList()} alt='' />
         </div>}
-        {<div>
+        {filterBy !== 'все' && <div className={classnames(styles.filter, styles.currentFilter)}>
+          <div className={styles.text}>
+            {filterBy}
+          </div>
+          <img src={close} className={styles.cancelButton}
+            onClick={() => filterHandler(dropdowns[0].type, 'все', 0)} alt='' />
         </div>}
       </div>
       <div className={styles.dropdownsWrap} ref={refDropdown}>

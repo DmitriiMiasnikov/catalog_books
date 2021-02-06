@@ -67,7 +67,7 @@ router.get(
   async (req, res) => {
     const userId = req.params.userId;
     try {
-      const user = await Users.findOne({ userId: userId })
+      const user = await Users.findOne({ userId: userId }, 'animation userName userId')
       res.status(200).json({ user });
     } catch (e) {
       console.log(e)
@@ -82,7 +82,7 @@ router.get(
   async (req, res) => {
     const userId = req.params.userId || 0;
     try {
-      const user = await Users.findOne({ userId: userId })
+      const user = await Users.findOne({ userId: userId }, 'animation')
       let animation = {};
       let animationFive = {};
       let rest = {};
