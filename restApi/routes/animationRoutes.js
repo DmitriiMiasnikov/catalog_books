@@ -17,38 +17,8 @@ router.get(
     let animation;
     let filters;
     let countAnimation;
+    let user;
     try {
-          // если список пользователя
-    if (userId) {
-      const user = await Users.findOne({ userId: userId });
-      animation = await Animation.find({ animationId: { $in: user.animation['done'] } })
-        .skip(countInPage * page - (countInPage))
-        .limit(countInPage);
-      countAnimation = await Animation.find({ animationId: { $in: user.animation['done'] } }).countDocuments({}, {
-        skip: countInPage * page - (countInPage),
-        limit: countInPage
-      })
-      const auditory = () => {
-        const auditoryItems = animation.map(el => {
-          return el.auditory
-        });
-        const unique = (arr) => Array.from(new Set(arr));
-        return ['все'].concat(unique(auditoryItems).filter(el => el));
-      }
-      const genre = () => {
-        let genreItems = [];
-        animation.forEach(el => {
-          genreItems.push(el.genre);
-        });
-        genreItems = genreItems.flat(1)
-        const unique = (arr) => Array.from(new Set(arr));
-        return ['все'].concat(unique(genreItems).filter(el => el));
-      }
-      filters = {
-        'auditory': auditory(),
-        'genre': genre()
-      }
-    } else {
       filters = {
         'auditory': ['все', 'сёнэн', 'сэйнэн', 'сёдзё', 'дзёсэй', 'кодомо'],
         'genre': [
@@ -64,84 +34,58 @@ router.get(
           'образовательный'
         ]
       }
-    }
-      // вывод всего списка
-      if (sort === 'default' && filter === 'все' && !search && !userId) {
-        animation = await Animation.find({})
-          .skip(countInPage * page - (countInPage))
-          .limit(countInPage);
-        countAnimation = await Animation.find({}).countDocuments({}, {
-          skip: countInPage * page - (countInPage),
-          limit: countInPage
+      if (userId) {
+        user = await Users.findOne({ userId: userId });
+      }
+      // фильтр, сортировка и поиск сразу
+        let currentFilter;
+        let noFilters;
+        Object.keys(filters).map(el => {
+          if (filters[el].includes(filter)) {
+            currentFilter = el;
+            noFilters = false;
+          }
         })
-      }
-      // sorting (только сортировка)
-      if (sort !== 'default' && filter === 'все' && !search && !userId) {
-        switch (sort) {
-          case ('name_reverse'): { }
-          case ('name'): {
-            animation = await Animation.find({})
-              .sort({ nameRu: sort === 'name' ? 1 : -1 })
-              .skip(countInPage * page - (countInPage))
-              .limit(countInPage);
-            countAnimation = await Animation.find({}).countDocuments({}, {
-              skip: countInPage * page - (countInPage),
-              limit: countInPage
-            })
-            break;
-          }
-          case ('date_reverse'): { }
-          case ('date'): {
-            animation = await Animation.find({})
-              .sort({ dateStart: sort === 'date' ? -1 : 1 })
-              .skip(countInPage * page - (countInPage))
-              .limit(countInPage);
-            countAnimation = await Animation.find({}).countDocuments({}, {
-              skip: countInPage * page - (countInPage),
-              limit: countInPage
-            })
-            break;
-          }
-          default: break;
+        if (filter === 'все') {
+          currentFilter = 'genre';
+          noFilters = true;
         }
-      }
-      // filters (только фильтры)
-      if (sort === 'default' && filter !== 'все' && !search && !userId) {
-        if (filters['auditory'].includes(filter)) {
-          animation = await Animation.find({ auditory: filter })
-            .skip(countInPage * page - (countInPage))
-            .limit(countInPage);
-          countAnimation = await Animation.find({ auditory: filter }).countDocuments({}, {
-            skip: countInPage * page - (countInPage),
-            limit: countInPage
-          })
-        } else if (filters['genre'].includes(filter)) {
-          animation = await Animation.find({ genre: filter })
-            .skip(countInPage * page - (countInPage))
-            .limit(countInPage);
-          countAnimation = await Animation.find({ genre: filter }).countDocuments({}, {
-            skip: countInPage * page - (countInPage),
-            limit: countInPage
-          })
-        }
-
-      }
-      // search (только поиск)
-      if (search && sort === 'default' && filter === 'все' && !userId) {
+        let currentSort;
+        if (sort === 'name' || sort === 'name_reverse') {
+          currentSort = 'nameRu';
+        } else if (sort === 'date' || sort === 'date_reverse') {
+          currentSort = 'dateStart';
+        } else currentSort = 'animationId';
         animation = await Animation.find({
-          $or: [{ nameRu: { $regex: search, $options: 'i' } }, { nameEng: { $regex: search, $options: 'i' } },
-          { nameRom: { $regex: search, $options: 'i' } }, { author: { $regex: search, $options: 'i' } }]
+          $and: [
+            {  animationId: userId ? { $in: user.animation['done'] } : { $type: 'number'} },
+            { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
+            {
+              $or: [{ nameRu: { $regex: search, $options: 'i' } },
+              { nameEng: { $regex: search, $options: 'i' } },
+              { nameRom: { $regex: search, $options: 'i' } },
+              { author: { $regex: search, $options: 'i' } }]
+            }
+          ]
         })
+          .sort({ [currentSort]: sort.split('_').length === 2 ? -1 : 1 })
           .skip(countInPage * page - (countInPage))
           .limit(countInPage);
         countAnimation = await Animation.find({
-          $or: [{ nameRu: { $regex: search, $options: 'i' } }, { nameEng: { $regex: search, $options: 'i' } },
-          { nameRom: { $regex: search, $options: 'i' } }, { author: { $regex: search, $options: 'i' } }]
+          $and: [
+            {  animationId: userId ? { $in: user.animation['done'] } : { $type: 'number'} },
+            { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
+            {
+              $or: [{ nameRu: { $regex: search, $options: 'i' } },
+              { nameEng: { $regex: search, $options: 'i' } },
+              { nameRom: { $regex: search, $options: 'i' } },
+              { author: { $regex: search, $options: 'i' } }]
+            }
+          ]
         }).countDocuments({}, {
           skip: countInPage * page - (countInPage),
           limit: countInPage
         })
-      }
       res.status(200).json({ animation, page, countInPage, countAnimation, filters });
     } catch (e) {
       console.log(e)

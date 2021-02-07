@@ -31,13 +31,13 @@ const Animation = ({ animation, getAnimationList, filterBy, getAnimation, clearS
       id: 1,
       subButtons: [{
         id: 0,
-        sort: 'date',
+        sort: 'date_reverse',
         text: 'сначала новые',
         active: false
       }, 
       {
         id: 1,
-        sort: 'date_reverse',
+        sort: 'date',
         text: 'сначала старые',
         active: false
       }]
