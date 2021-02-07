@@ -9,12 +9,13 @@ import loading from './../../assets/Images/loading.svg';
 
 export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnimation, countAllAnimation,
   fetching, pageView }) => {
+
   return (
     <div className={styles.wrapper}>
       <PageView />
       <ListSorters buttons={buttonsSortAnimation} />
       <PagesCounter countAll={countAllAnimation} />
-      {!fetching && !animationList.length ? (
+      {!fetching && animationList && !animationList.length ? (
         <div className={styles.warning}>
           не найдено по текущему запросу
         </div>

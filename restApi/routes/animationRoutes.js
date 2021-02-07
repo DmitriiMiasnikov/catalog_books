@@ -17,6 +17,8 @@ router.get(
     let animation;
     let filters;
     let countAnimation;
+    try {
+          // если список пользователя
     if (userId) {
       const user = await Users.findOne({ userId: userId });
       animation = await Animation.find({ animationId: { $in: user.animation['done'] } })
@@ -63,7 +65,7 @@ router.get(
         ]
       }
     }
-    try {
+      // вывод всего списка
       if (sort === 'default' && filter === 'все' && !search && !userId) {
         animation = await Animation.find({})
           .skip(countInPage * page - (countInPage))
@@ -73,7 +75,7 @@ router.get(
           limit: countInPage
         })
       }
-      // sorting
+      // sorting (только сортировка)
       if (sort !== 'default' && filter === 'все' && !search && !userId) {
         switch (sort) {
           case ('name_reverse'): { }
@@ -103,7 +105,7 @@ router.get(
           default: break;
         }
       }
-      // filters
+      // filters (только фильтры)
       if (sort === 'default' && filter !== 'все' && !search && !userId) {
         if (filters['auditory'].includes(filter)) {
           animation = await Animation.find({ auditory: filter })
@@ -124,30 +126,22 @@ router.get(
         }
 
       }
-      // search
-      if (search) {
-        // animation = animation.filter((el, i) => {
-        //   if (el.nameRu) {
-        //     const name = el.nameRu.toLowerCase();
-        //     if (name.includes(search)) return true
-        //   }
-        //   if (el.nameEng) {
-        //     const name = el.nameEng.toLowerCase();
-        //     if (name.includes(search)) return true
-        //   }
-        //   if (el.nameRom) {
-        //     const name = el.nameRom.toLowerCase();
-        //     if (name.includes(search)) return true
-        //   }
-        //   if (el.author) {
-        //     const author = el.author.toLowerCase();
-        //     if (author.includes(search)) return true
-        //   }
-        //   return false
-        // });
-        animation = await Animation.aggregate([{ $match: { nameRu: search } }])
+      // search (только поиск)
+      if (search && sort === 'default' && filter === 'все' && !userId) {
+        animation = await Animation.find({
+          $or: [{ nameRu: { $regex: search, $options: 'i' } }, { nameEng: { $regex: search, $options: 'i' } },
+          { nameRom: { $regex: search, $options: 'i' } }, { author: { $regex: search, $options: 'i' } }]
+        })
+          .skip(countInPage * page - (countInPage))
+          .limit(countInPage);
+        countAnimation = await Animation.find({
+          $or: [{ nameRu: { $regex: search, $options: 'i' } }, { nameEng: { $regex: search, $options: 'i' } },
+          { nameRom: { $regex: search, $options: 'i' } }, { author: { $regex: search, $options: 'i' } }]
+        }).countDocuments({}, {
+          skip: countInPage * page - (countInPage),
+          limit: countInPage
+        })
       }
-      // let countAnimation = animation.length;
       res.status(200).json({ animation, page, countInPage, countAnimation, filters });
     } catch (e) {
       console.log(e)
