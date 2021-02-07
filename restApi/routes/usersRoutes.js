@@ -126,7 +126,7 @@ router.put(
       } else {
         animationUpdate[typeButton].push(animationId);
       }
-      await Users.updateOne({ animation: animationUpdate })
+      await Users.updateOne({ userId: userId }, { animation: animationUpdate })
       const user = await Users.findOne({ userId: userId });
       res.status(200).json({ user });
     } catch (e) {

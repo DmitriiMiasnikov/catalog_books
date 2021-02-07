@@ -21,9 +21,13 @@ const schema = new Schema({
     type: String,
     default: ''
   },
-  date: {
-    type: Schema.Types.Mixed,
-    default: []
+  dateStart: {
+    type: String,
+    default: ''
+  },
+  dateEnd: {
+    type: String,
+    default: ''
   },
   genre: {
     type: Schema.Types.Mixed,
