@@ -1,42 +1,59 @@
 .wrapper {
   display: flex;
   flex-direction: row;
-  .sortBy {
-    padding: 8px;
-  }
+  z-index: 1;
   .button {
     background-color: #464646;
     color: rgb(255, 255, 255);
     font-size: 13px;
-    transition: 0.2s background-color;
+    transition: 0.2s background-color, .2s height;
+    position: relative;
+    overflow: hidden;
+    height: 32px;
     &.sortBy {
       background-color: #464646;
     }
     &:not(:first-child) {
       margin-left: 10px;
-        &:hover {
-          background-color: #ef4d6e;
-          cursor: pointer;
-        }
-    }
-    &.active {
-      background-color: #ef4d6e;
     }
     .arrow {
       &.reverse {
         transform: rotate(180deg);
       }
     }
-  a {
-    text-decoration: none;
-    color: white;
-    display: flex;
-    flex-direction: row;
-    padding: 8px;
-    .arrow {
-      width: 16px;
-      height: 16px;
+    &:hover {
+      height: 64px;
+    }
+    a {
+      text-decoration: none;
+      color: white;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      &.reverse {
+        flex-direction: column-reverse;
+      }
+    }
+    .subButton {
+      height: 32px;
+      padding: 0 8px;
+      background-color: rgb(53, 53, 53);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.2s background-color;
+      &:hover {
+        background-color: #ef4d6e;
+        cursor: pointer;
+      }
+      &.active {
+        background-color: #ef4d6e;
+      }
     }
   }
+  .sortBy {
+    padding: 8px;
+    height: fit-content;
+    pointer-events: none;
   }
 }

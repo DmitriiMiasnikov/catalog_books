@@ -4,21 +4,19 @@ import { setSortBy, setPage } from '../../store/animationReducer';
 import { ListSortersDom } from './ListSortersDom';
 
 const ListSorters = ({ setSortBy, setPage, currentPage, buttons }) => {
-  const [buttonsSort, setButtonsSort] = useState(buttons.map((el, i) => {
-    return { ...el, id: i, active: false}
-  }))
-  const sortHandler = (buttonId, sort) => {
+  const [buttonsSort, setButtonsSort] = useState(buttons);
+  const sortHandler = (buttonId, subButtonId, sort) => {
     setButtonsSort(buttonsSort.map(el => {
       if (el.id !== buttonId) {
-        el.active = false
-        el.direction = 'direct'
-        el.sort = el.sort.split('_')[0]
+        el.subButtons.forEach(item => item.active = false);
       } else {
-        el.sort = el.sort.split('_').length === 1 && el.active ? `${el.sort}_reverse` : el.sort.split('_')[0]
-        el.direction = el.direction === 'direct' && el.active ? 'reverse' : 'direct'
-        el.active = true
+        el.subButtons.forEach(item => {
+          if (item.id !== subButtonId) {
+            item.active = false
+          } else item.active = true
+        })
       }
-      return el
+      return el;
     }))
     setSortBy(sort);
     if (currentPage !== 1) setPage(1);

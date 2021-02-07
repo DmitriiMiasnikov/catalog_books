@@ -93,7 +93,7 @@ router.get(
           case ('date_reverse'): { }
           case ('date'): {
             animation = await Animation.find({})
-              .sort({ dateStart: sort === 'date' ? 1 : -1 })
+              .sort({ dateStart: sort === 'date' ? -1 : 1 })
               .skip(countInPage * page - (countInPage))
               .limit(countInPage);
             countAnimation = await Animation.find({}).countDocuments({}, {

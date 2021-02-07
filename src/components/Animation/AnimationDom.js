@@ -13,8 +13,12 @@ export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnim
   return (
     <div className={styles.wrapper}>
       <PageView />
-      <ListSorters buttons={buttonsSortAnimation} />
-      <PagesCounter countAll={countAllAnimation} />
+      <div className={styles.listSorters}>
+        <ListSorters buttons={buttonsSortAnimation} />
+      </div>
+      <div className={styles.pagesCounter}>
+        <PagesCounter countAll={countAllAnimation} />
+      </div>
       {!fetching && animationList && !animationList.length ? (
         <div className={styles.warning}>
           не найдено по текущему запросу

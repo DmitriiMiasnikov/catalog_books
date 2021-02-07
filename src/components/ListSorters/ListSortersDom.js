@@ -13,13 +13,20 @@ export const ListSortersDom = ({ buttonsSort, sortHandler }) => {
       {
         buttonsSort.map((el, i) => {
           return (
-            <div className={classnames(styles.button, { [styles.active]: el.active })}
-              onClick={() => sortHandler(el.id, el.sort)} key={i}>
-              <NavLink to={`/animation/list/1`}>
-                <div className={styles.text}>{el.text}</div>
-                <img src={arrow} alt='arrow'
-                  className={classnames(styles.arrow, { [styles.reverse]: el.direction !== 'direct' })} />
+            <div className={styles.button} key={i}>
+              <NavLink to={`/animation/list/1`} className={classnames({ [styles.reverse]: el.subButtons[1].active })}>
+                {
+                  el.subButtons.map((item, j) => {
+                    return (
+                      <div className={classnames(styles.subButton, { [styles.active]: item.active })} key={j}
+                        onClick={() => sortHandler(el.id, item.id, item.sort)}>
+                        {item.text}
+                      </div>
+                    )
+                  })
+                }
               </NavLink>
+
             </div>
           )
         })
