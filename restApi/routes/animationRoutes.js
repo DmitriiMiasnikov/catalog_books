@@ -8,7 +8,7 @@ const Users = require('./../models/Users');
 router.get(
   '/list/:page',
   async (req, res) => {
-    let countInPage = req.query.counter;
+    let countInPage = Number(req.query.counter);
     let page = Number(req.params.page) || 1;
     let sort = req.query.sort;
     let filter = req.query.filter;
@@ -16,15 +16,20 @@ router.get(
     let userId = Number(req.query.userId) || 0;
     let animation;
     let filters;
+    let countAnimation;
     if (userId) {
       const user = await Users.findOne({ userId: userId });
       animation = await Animation.find({ animationId: { $in: user.animation['done'] } })
+        .skip(countInPage * page - (countInPage))
+        .limit(countInPage);
+      countAnimation = await Animation.find({ animationId: { $in: user.animation['done'] } }).countDocuments({}, {
+        skip: countInPage * page - (countInPage),
+        limit: countInPage
+      })
       const auditory = () => {
-        // const auditoryItems = await Animation.find({}, 'auditory')
         const auditoryItems = animation.map(el => {
           return el.auditory
         });
-        // auditoryItems = auditoryItems.map(el => el.auditory);
         const unique = (arr) => Array.from(new Set(arr));
         return ['все'].concat(unique(auditoryItems).filter(el => el));
       }
@@ -57,9 +62,21 @@ router.get(
           'образовательный'
         ]
       }
-      animation = await Animation.find({})
+      // animation = await Animation.find({})
     }
     try {
+      if (sort === 'default' && filter === 'все' && !search && !userId) {
+        // animation = await Animation.aggregate([
+        //   { $slice: [$project, countInPage * page - (countInPage - 1), countInPage * page]}
+        // ])
+        animation = await Animation.find({})
+          .skip(countInPage * page - (countInPage))
+          .limit(countInPage);
+        countAnimation = await Animation.find({}).countDocuments({}, {
+          skip: countInPage * page - (countInPage),
+          limit: countInPage
+        })
+      }
       // sorting
       if (sort !== 'default') {
         switch (sort) {
@@ -72,7 +89,7 @@ router.get(
             //     return sort === 'name' ? 1 : -1
             //   } else return sort === 'name' ? -1 : 1
             // })
-            animation = await Animation.find({}).sort({ nameRu: sort === 'name' ? 1 : -1})
+            animation = await Animation.find({}).sort({ nameRu: sort === 'name' ? 1 : -1 })
             break;
           }
           case ('date_reverse'): { }
@@ -127,10 +144,9 @@ router.get(
         //   }
         //   return false
         // });
-        animation = await Animation.aggregate([{ $match: { nameRu: search }  }])
+        animation = await Animation.aggregate([{ $match: { nameRu: search } }])
       }
-      let countAnimation = animation.length;
-      animation = animation.filter((el, i) => i + 1 >= (countInPage * page - (countInPage - 1)) && i + 1 <= (countInPage * page));
+      // let countAnimation = animation.length;
       res.status(200).json({ animation, page, countInPage, countAnimation, filters });
     } catch (e) {
       console.log(e)
