@@ -19,7 +19,8 @@ const start = async () => {
 }
 start();
 let allAnimation;
-const counter = 9120;
+// последний id 10750
+const counter = 10750;
 const arr = [];
 
 // function delay() {
@@ -47,7 +48,7 @@ async function delayedLog(item) {
 processArray(arr);
 async function processArray(arr) {
   allAnimation = await Animation.find({}, 'animationId');
-  for (let i = 464; i <= counter; i++) {
+  for (let i = 9121; i <= counter; i++) {
     if (allAnimation.some(el => el.animationId === i)) {
       arr.push(i);
     }

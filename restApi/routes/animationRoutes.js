@@ -90,22 +90,14 @@ router.get(
           }
           case ('date_reverse'): { }
           case ('date'): {
-            animation = animation.sort((a, b) => {
-              if (a.date[a.date.length - 1] === b.date[b.date.length - 1]) {
-                return 0
-              } else if (a.date[a.date.length - 1] > b.date[b.date.length - 1] || !a.date) {
-                return sort === 'date' ? 1 : -1
-              } else return sort === 'date' ? -1 : 1
+            animation = await Animation.find({})
+              .sort({ dateStart: sort === 'date' ? 1 : -1 })
+              .skip(countInPage * page - (countInPage))
+              .limit(countInPage);
+            countAnimation = await Animation.find({}).countDocuments({}, {
+              skip: countInPage * page - (countInPage),
+              limit: countInPage
             })
-            // animation = await Animation.find({})
-            //   .sort({ date: sort === 'date' ? 1 : -1 })
-            //   .skip(countInPage * page - (countInPage))
-            //   .limit(countInPage);
-            // countAnimation = await Animation.find({}).countDocuments({}, {
-            //   skip: countInPage * page - (countInPage),
-            //   limit: countInPage
-            // })
-            // animation = await Animation.find({ date:{ $sort: sort === 'name' ? 1 : -1} })
             break;
           }
           default: break;

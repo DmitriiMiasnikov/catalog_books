@@ -20,16 +20,9 @@ export const AnimationDescriptionDom = ({ selectedAnimation, buttonsControl, use
               {selectedAnimation.nameEng}
             </span>
           </div>}
-          {selectedAnimation.date && <div className={styles.date}>
-            {selectedAnimation.date.map((dateEl, j) => {
-              return (
-                <span key={j}>
-                  {j === 3 && <span> - </span>}
-                  <span className={styles.n}>{dateEl}</span>
-                  {j !== selectedAnimation.date.length - 1 && j !== 2 && <span>.</span>}
-                </span>
-              )
-            })}
+          {selectedAnimation.dateStart && <div className={styles.date}>
+            {selectedAnimation.dateStart.split('-').reverse().join('.')} {selectedAnimation.dateEnd && '- '}
+            {selectedAnimation.dateEnd && selectedAnimation.dateEnd.split('-').reverse().join('.')}
           </div>}
           {selectedAnimation.author && <div className={styles.line}>автор: <span className={styles.lineInfo}>{selectedAnimation.author}</span></div>}
           {selectedAnimation.genre && <div className={styles.line}>жанр:

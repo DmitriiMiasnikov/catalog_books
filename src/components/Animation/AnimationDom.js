@@ -40,16 +40,9 @@ export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnim
                               {el.nameEng && !el.nameRu && <div className={classnames(styles.nameEng, { [styles.title]: !el.nameRu })}>
                                 <NavLink to={`/animation/id/${el.animationId}`} onClick={() => openAnimationInfo(el.animationId)}>{el.nameEng}</NavLink>
                               </div>}
-                              {el.date && <div className={styles.date}>
-                                {el.date.map((dateEl, j) => {
-                                  return (
-                                    <span key={j}>
-                                      {j === 3 && <span> - </span>}
-                                      <span className={styles.n}>{dateEl}</span>
-                                      {j !== el.date.length - 1 && j !== 2 && <span>.</span>}
-                                    </span>
-                                  )
-                                })}
+                              {el.dateStart && <div className={styles.date}>
+                                {el.dateStart.split('-').reverse().join('.')} {el.dateEnd && '- '}
+                                {el.dateEnd && el.dateEnd.split('-').reverse().join('.')}
                               </div>}
                               {el.genre && <div className={styles.line}>жанр:
                                 <span className={styles.lineInfo}>
@@ -80,16 +73,8 @@ export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnim
                               {el.nameEng && !el.nameRu && <div className={classnames(styles.nameEng, { [styles.title]: !el.nameRu })}>
                                 <NavLink to={`/animation/id/${el.animationId}`} onClick={() => openAnimationInfo(el.animationId)}>{el.nameEng}</NavLink>
                               </div>}
-                              {el.date && <div className={styles.date}>
-                                {el.date.map((dateEl, j) => {
-                                  return (
-                                    <span key={j}>
-                                      {j === 3 && <span> - </span>}
-                                      <span className={styles.n}>{dateEl}</span>
-                                      {j !== el.date.length - 1 && j !== 2 && <span>.</span>}
-                                    </span>
-                                  )
-                                })}
+                              {el.dateStart && <div className={styles.date}>
+                                {el.dateStart.split('-').reverse().join('.')} {el.dateEnd && '-'} {el.dateEnd && el.dateEnd.split('-').reverse().join('.')}
                               </div>}
                               {el.author && <div className={styles.line}>автор: <span className={styles.lineInfo}>{el.author}</span></div>}
                               {el.genre && <div className={styles.line}>жанр:
@@ -119,16 +104,9 @@ export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnim
                               <div className={styles.title}>
                                 {el.nameRu || el.nameEng}
                               </div>
-                              {el.date && <div className={styles.description}>
-                                {el.date.map((dateEl, j) => {
-                                  return (
-                                    <span key={j}>
-                                      {j === 3 && <span> - </span>}
-                                      <span className={styles.n}>{dateEl}</span>
-                                      {j !== el.date.length - 1 && j !== 2 && <span>.</span>}
-                                    </span>
-                                  )
-                                })}
+                              {el.dateStart && <div className={styles.description}>
+                                {el.dateStart.split('-').reverse().join('.')} {el.dateEnd && '- '}
+                                {el.dateEnd && el.dateEnd.split('-').reverse().join('.')}
                               </div>}
                               {el.type && <div className={styles.description}>
                                 {el.type}
