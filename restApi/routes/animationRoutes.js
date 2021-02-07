@@ -62,13 +62,9 @@ router.get(
           'образовательный'
         ]
       }
-      // animation = await Animation.find({})
     }
     try {
       if (sort === 'default' && filter === 'все' && !search && !userId) {
-        // animation = await Animation.aggregate([
-        //   { $slice: [$project, countInPage * page - (countInPage - 1), countInPage * page]}
-        // ])
         animation = await Animation.find({})
           .skip(countInPage * page - (countInPage))
           .limit(countInPage);
@@ -78,18 +74,18 @@ router.get(
         })
       }
       // sorting
-      if (sort !== 'default') {
+      if (sort !== 'default' && filter === 'все' && !search && !userId) {
         switch (sort) {
           case ('name_reverse'): { }
           case ('name'): {
-            // animation = animation.sort((a, b) => {
-            //   if (a.nameRu === b.nameRu) {
-            //     return 0
-            //   } else if (a.nameRu > b.nameRu || !a.nameRu) {
-            //     return sort === 'name' ? 1 : -1
-            //   } else return sort === 'name' ? -1 : 1
-            // })
-            animation = await Animation.find({}).sort({ nameRu: sort === 'name' ? 1 : -1 })
+            animation = await Animation.find({})
+              .sort({ nameRu: sort === 'name' ? 1 : -1 })
+              .skip(countInPage * page - (countInPage))
+              .limit(countInPage);
+            countAnimation = await Animation.find({}).countDocuments({}, {
+              skip: countInPage * page - (countInPage),
+              limit: countInPage
+            })
             break;
           }
           case ('date_reverse'): { }
@@ -101,6 +97,14 @@ router.get(
                 return sort === 'date' ? 1 : -1
               } else return sort === 'date' ? -1 : 1
             })
+            // animation = await Animation.find({})
+            //   .sort({ date: sort === 'date' ? 1 : -1 })
+            //   .skip(countInPage * page - (countInPage))
+            //   .limit(countInPage);
+            // countAnimation = await Animation.find({}).countDocuments({}, {
+            //   skip: countInPage * page - (countInPage),
+            //   limit: countInPage
+            // })
             // animation = await Animation.find({ date:{ $sort: sort === 'name' ? 1 : -1} })
             break;
           }
@@ -108,18 +112,23 @@ router.get(
         }
       }
       // filters
-      if (Object.keys(filters).some(el => filters[el].slice(1).includes(filter))) {
-        // animation = animation.filter((el, i) => {
-        //   if (filters['auditory'].includes(filter) && el.auditory) {
-        //     return el.auditory === filter
-        //   } else if (filters['genre'].includes(filter) && el.genre) {
-        //     return el.genre.some(item => item === filter)
-        //   }
-        // });
+      if (sort === 'default' && filter !== 'все' && !search && !userId) {
         if (filters['auditory'].includes(filter)) {
           animation = await Animation.find({ auditory: filter })
+            .skip(countInPage * page - (countInPage))
+            .limit(countInPage);
+          countAnimation = await Animation.find({ auditory: filter }).countDocuments({}, {
+            skip: countInPage * page - (countInPage),
+            limit: countInPage
+          })
         } else if (filters['genre'].includes(filter)) {
           animation = await Animation.find({ genre: filter })
+            .skip(countInPage * page - (countInPage))
+            .limit(countInPage);
+          countAnimation = await Animation.find({ genre: filter }).countDocuments({}, {
+            skip: countInPage * page - (countInPage),
+            limit: countInPage
+          })
         }
 
       }

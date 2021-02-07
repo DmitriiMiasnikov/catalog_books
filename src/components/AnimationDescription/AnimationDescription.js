@@ -29,10 +29,12 @@ const AnimationDescription = ({ getAnimation, getAnimationFunc, match, selectedA
     fetchData();
   }, [getAnimation, match, currentAnimationId])
   useEffect(() => {
-    const fetchData = async () => {
-      await getUser(currentUserId);
+    if (currentUserId) {
+      const fetchData = async () => {
+        await getUser(currentUserId);
+      }
+      fetchData();
     }
-    fetchData();
   }, [currentUserId, getUser])
   useEffect(() => {
     if (userInfo) {
@@ -51,7 +53,8 @@ const AnimationDescription = ({ getAnimation, getAnimationFunc, match, selectedA
   }
   return (
     <AnimationDescriptionDom selectedAnimation={selectedAnimation} buttonsControl={buttonsControl}
-      userInfoAnimation={userInfoAnimation} userInfoAnimationHandler={userInfoAnimationHandler}/>
+      userInfoAnimation={userInfoAnimation} userInfoAnimationHandler={userInfoAnimationHandler}
+      currentUserId={currentUserId}/>
   )
 }
 const mapStatesToProps = (state) => {

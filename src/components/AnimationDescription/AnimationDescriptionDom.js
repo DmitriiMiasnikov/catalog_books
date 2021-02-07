@@ -1,8 +1,10 @@
 import React from 'react';
 import styles from './AnimationDescription.module.scss';
 import classnames from 'classnames';
+import { setCurrentUserId } from '../../store/usersReducer';
 
-export const AnimationDescriptionDom = ({ selectedAnimation, buttonsControl, userInfoAnimation, userInfoAnimationHandler }) => {
+export const AnimationDescriptionDom = ({ selectedAnimation, buttonsControl, userInfoAnimation,
+  userInfoAnimationHandler, currentUserId }) => {
   return (
     <div className={styles.wrapper}>
       {selectedAnimation && <div className={styles.infoWrap}>
@@ -51,7 +53,7 @@ export const AnimationDescriptionDom = ({ selectedAnimation, buttonsControl, use
         </div>
         <div className={styles.imageWrap}>
           <img src={`/img/animation_cover_${selectedAnimation.animationId}.jpg`} alt='img' className={styles.image} />
-          {userInfoAnimation && <div className={styles.buttons}>
+          {userInfoAnimation && currentUserId && <div className={styles.buttons}>
             <div className={classnames(styles.star, styles.button, { [styles.added]: userInfoAnimation['selected'] })}
               onClick={() => userInfoAnimationHandler('selected')}>
               {userInfoAnimation['selected'] ? <span>&#9733;</span> : <span>&#9734;</span>}
