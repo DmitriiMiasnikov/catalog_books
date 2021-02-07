@@ -16,6 +16,7 @@ const SET_IS_WRONG_AUTHORIZATION = 'SET_IS_WRONG_AUTHORIZATION';
 const CLEAR_CURRENT_USER_INFO = 'CLEAR_CURRENT_USER_INFO';
 const GET_USERS_LIST = 'GET_USERS_LIST';
 const GET_USERS_LIST_MENU = 'GET_USERS_LIST_MENU';
+const SHOW_REGISTRATION = 'SHOW_REGISTRATION';
 
 const stateDefault = {
   usersList: null,
@@ -29,6 +30,7 @@ const stateDefault = {
   usersAllAnimationList: null,
   restCountAnimation: null,
   isWrongAuthorization: false,
+  showRegistration: false
 }
 
 export const usersReducer = (state = stateDefault, action) => {
@@ -47,6 +49,9 @@ export const usersReducer = (state = stateDefault, action) => {
     }
     case (SELECT_USER): {
       return { ...state, selectedUser: action.id }
+    }
+    case (SHOW_REGISTRATION): {
+      return { ...state, showRegistration: action.show }
     }
     case (IS_AUTH): {
       return { ...state, isAuth: action.isAuth }
@@ -82,6 +87,9 @@ const getUsersListMenuFunc = (users) => {
 }
 export const selectUser = (id) => {
   return { type: SELECT_USER, id }
+}
+export const setShowRegistration = (show) => {
+  return { type: SHOW_REGISTRATION, show }
 }
 export const setIsAuth = (isAuth) => {
   return { type: IS_AUTH, isAuth }

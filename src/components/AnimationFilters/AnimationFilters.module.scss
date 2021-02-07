@@ -35,6 +35,12 @@
         }
       }
     }
+    .searchItem {
+      &.hide {
+        opacity: 0;
+        display: none;
+      }
+    }
     .userFilter {
       .name {
         transition: 0.2s color;

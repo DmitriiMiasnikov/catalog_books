@@ -5,7 +5,7 @@ import { setSearchValue } from './../../store/animationReducer';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 
-const Search = ({ setSearchValue, searchValue, history }) => {
+const Search = ({ setSearchValue, history }) => {
   const [value, setValue] = useState('');
   const maxLength = 25;
   const searchHandler = (value, event) => {
@@ -19,18 +19,14 @@ const Search = ({ setSearchValue, searchValue, history }) => {
       setValue(value);
     }
   }
-  const cancelSeach = () => {
-    setSearchValue('');
-  }
   return (
-    <SearchDom searchHandler={searchHandler} value={value} setValueFunc={setValueFunc} searchValue={searchValue} 
-    cancelSeach={cancelSeach} />
+    <SearchDom searchHandler={searchHandler} value={value} setValueFunc={setValueFunc}/>
   )
 }
 
 const mapStatesToProps = (state) => {
   return {
-    searchValue: state.animation.searchValue
+    
   }
 }
 

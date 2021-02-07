@@ -17,7 +17,7 @@ import AnimationDescription from './components/AnimationDescription/AnimationDes
 import Registration from './components/Registration/Registration';
 import UsersMenu from './components/UsersMenu/UsersMenu';
 
-function App({ theme }) {
+function App({ theme, showRegistration }) {
   return (
     <div className={classnames(styles.page, { [styles.black]: theme === 'black', [styles.white]: theme === 'white' })}>
       <div className={styles.wrapper}>
@@ -38,10 +38,11 @@ function App({ theme }) {
             <Route exact path='/animation/list/:page?' render={() => <Animation />} />
             <Route exact path={`/animation/id/:animationId?`} render={() => <AnimationDescription />} />
             <Route exact path={`/users/:userId`} render={() => <User />} />
-            <Route exact path={`/registration`} render={() => <Registration />} />
+            {/* <Route exact path={`/registration`} render={() => <Registration />} /> */}
             <Route exact path={`/users`} render={() => <Users />} />
           </Switch>
         </div>
+        {showRegistration && <Registration />}
       </div>
     </div>
   );
@@ -49,7 +50,8 @@ function App({ theme }) {
 
 const mapStatesToProps = (state) => {
   return {
-    theme: state.main.theme
+    theme: state.main.theme,
+    showRegistration: state.users.showRegistration
   }
 }
 export default compose(

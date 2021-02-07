@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './AnimationDescription.module.scss';
 import classnames from 'classnames';
-import { setCurrentUserId } from '../../store/usersReducer';
 
 export const AnimationDescriptionDom = ({ selectedAnimation, buttonsControl, userInfoAnimation,
   userInfoAnimationHandler, currentUserId }) => {

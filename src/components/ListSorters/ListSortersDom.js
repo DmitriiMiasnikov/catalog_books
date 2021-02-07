@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './ListSorters.module.scss';
 import classnames from 'classnames';
-import arrow from './../../assets/Images/arrow.svg';
 import { NavLink } from 'react-router-dom';
 
 export const ListSortersDom = ({ buttonsSort, sortHandler }) => {

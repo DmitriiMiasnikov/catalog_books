@@ -2,11 +2,18 @@ import React from 'react';
 import { Field, Form } from 'react-final-form';
 import styles from './Registration.module.scss';
 import classnames from 'classnames';
+import close from './../../assets/Images/close.svg';
 
-export const RegistrationDom = ({ registrationHandler, inputs, validate }) => {
+export const RegistrationDom = ({ registrationHandler, inputs, validate, showRegistrationHandler }) => {
   return (
-    <div className={styles.wrapper}>
+    <div className={classnames(styles.wrapper, styles.show)}>
       <div className={styles.registrationBlock}>
+      <div onClick={() => showRegistrationHandler()} className={styles.close}>
+        <img src={close} alt=''/>
+      </div>
+        <div className={styles.title}>
+        Регистрация
+        </div>
         <Form
           onSubmit={registrationHandler} validate={validate}
           render={({ handleSubmit, form, submitting }) => (
@@ -18,6 +25,7 @@ export const RegistrationDom = ({ registrationHandler, inputs, validate }) => {
                       <Field name={el.name}>
                         {({ input, meta }) => (
                           <div>
+                            <label>*</label>
                             <input {...input} type={'text'} placeholder={el.text} />
                             {meta.error && meta.touched && <div className={styles.error}>{meta.error}</div>}
                           </div>
@@ -27,9 +35,9 @@ export const RegistrationDom = ({ registrationHandler, inputs, validate }) => {
                   )
                 })
               }
-              <div className={classnames(styles.line, styles.button)}>
-                <button type='submit' disabled={submitting}>зарегистрировать</button>
-                <button onClick={form.reset}>Очистить</button>
+              <div className={classnames(styles.line, styles.buttons)}>
+                <button type='submit' disabled={submitting} className={styles.submit}>зарегистрировать</button>
+                <button onClick={() => showRegistrationHandler()} className={styles.closeButton}>Отмена</button>
               </div>
             </form>
           )}

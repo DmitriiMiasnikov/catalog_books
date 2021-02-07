@@ -7,7 +7,7 @@ import logout from './../../assets/Images/logout.svg';
 import userinfo from './../../assets/Images/userinfo.svg';
 
 export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, authorizationHandler, inputs, validate,
-  isWrongAuthorization, leftUser }) => {
+  isWrongAuthorization, leftUser, showRegistrationHandler }) => {
   return (
     <div className={styles.wrapper}>
       {
@@ -46,13 +46,11 @@ export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, authorizationHan
                         вход
                       </div>
                     </button>
-                    <NavLink to={`/registration`}>
-                      <div className={styles.button}>
+                      <div className={styles.button} onClick={() => showRegistrationHandler()}>
                         <div className={styles.text}>
                           регистрация
                         </div>
                       </div>
-                    </NavLink>
                   </div>
                 </form>
               )}

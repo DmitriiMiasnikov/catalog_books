@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { UserMenuDom } from './UserMenuDom';
-import { getMyUserInfo, userAuthorization, clearCurrentUserInfo } from '../../store/usersReducer';
+import { getMyUserInfo, userAuthorization, clearCurrentUserInfo, setShowRegistration } from '../../store/usersReducer';
 
 const UserMenu = ({ currentUserId, getMyUserInfo, myUserInfo, isAuth, userAuthorization, 
-    isWrongAuthorization, clearCurrentUserInfo }) => {
+    isWrongAuthorization, clearCurrentUserInfo, setShowRegistration }) => {
   const inputs = [
     { name: 'name', text: 'имя' },
     { name: 'password', text: 'пароль' },
@@ -32,9 +32,13 @@ const UserMenu = ({ currentUserId, getMyUserInfo, myUserInfo, isAuth, userAuthor
   const leftUser = () => {
     clearCurrentUserInfo();
   }
+  const showRegistrationHandler = () => {
+    setShowRegistration(true);
+  }
   return (
     <UserMenuDom myUserInfo={myUserInfo} openUserInfo={openUserInfo} isAuth={isAuth} inputs={inputs} validate={validate}
-      authorizationHandler={authorizationHandler} isWrongAuthorization={isWrongAuthorization} leftUser={leftUser}/>
+      authorizationHandler={authorizationHandler} isWrongAuthorization={isWrongAuthorization} leftUser={leftUser}
+      showRegistrationHandler={showRegistrationHandler}/>
   )
 }
 
@@ -47,4 +51,4 @@ const mapStatesToProps = (state) => {
   }
 }
 
-export default connect(mapStatesToProps, { getMyUserInfo, userAuthorization, clearCurrentUserInfo })(UserMenu)
+export default connect(mapStatesToProps, { getMyUserInfo, userAuthorization, clearCurrentUserInfo, setShowRegistration })(UserMenu)
