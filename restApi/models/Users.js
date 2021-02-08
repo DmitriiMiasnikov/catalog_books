@@ -25,8 +25,7 @@ const schema = new Schema({
     type: Schema.Types.Mixed,
     default: {
       done: [],
-      queue: [],
-      selected: []
+      queue: []
     }
   },
   animationRating: {

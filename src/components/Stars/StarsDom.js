@@ -15,7 +15,7 @@ export const StarsDom = ({ userInfoAnimation, buttonHandler, currentUserId, star
             [styles.added]: userInfoAnimation['selected'] })}>
               {stars.some(el => el.active) ? <div className={styles.currentRating}>
                 {stars.filter(el => el.active === true).length}
-              </div> : <img src={cross} />}
+              </div> : <img src={cross} alt=''/>}
             </div>
             <div className={classnames(styles.buttonInner, { [styles.visible]: !starsVisible,
             [styles.added]: userInfoAnimation['selected'] })}>

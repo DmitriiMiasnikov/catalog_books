@@ -17,7 +17,6 @@ const User = ({ currentUserId, match, getUser, userInfo, getUsersAnimationList, 
   const [buttonsAnimation, setButtonsAnimation] = useState([
     {name: 'done', text: 'Просмотренное', active: true},
     {name: 'queue', text: 'В очереди', active: true},
-    {name: 'selected', text: 'Избранное', active: true}
 ])
   const selectedUserMine = currentUserId === selectedUserId;
   const [fetching, setFetching] = useState(true);

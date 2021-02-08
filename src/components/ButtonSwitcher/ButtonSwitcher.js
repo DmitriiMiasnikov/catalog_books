@@ -20,7 +20,6 @@ const ButtonSwitcher = ({ currentUserId, setUsersAnimation, myUserInfo, currentI
       setUsersInfoAnimation({
         'queue': myUserInfo[list].queue.includes(currentId),
         'done': myUserInfo[list].done.includes(currentId),
-        'selected': myUserInfo[list].selected.includes(currentId),
       })
     }
   }, [currentId, currentUserId, setUsersInfoAnimation, myUserInfo, list])
