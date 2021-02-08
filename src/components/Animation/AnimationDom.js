@@ -7,7 +7,7 @@ import ListSorters from './../ListSorters/ListSorters';
 import PageView from './../PageView/PageView';
 import loading from './../../assets/Images/loading.svg';
 import ButtonSwitcher from './../ButtonSwitcher/ButtonSwitcher';
-import Stars from '../Stars.js/Stars';
+import Stars from '../Stars/Stars';
 
 export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnimation, countAllAnimation,
   fetching, pageView, myUserInfo }) => {

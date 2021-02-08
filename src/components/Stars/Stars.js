@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StarsDom } from './StarsDom';
-import { setUsersAnimation } from './../../store/usersReducer';
+import { setUsersAnimation } from '../../store/usersReducer';
 import { connect } from 'react-redux';
 
 const Stars = ({ currentUserId, setUsersAnimation, list, myUserInfo, currentId }) => {

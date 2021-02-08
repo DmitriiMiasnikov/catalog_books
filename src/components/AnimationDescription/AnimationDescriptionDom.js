@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './AnimationDescription.module.scss';
 import classnames from 'classnames';
 import ButtonSwitcher from '../ButtonSwitcher/ButtonSwitcher';
-import Stars from '../Stars.js/Stars';
+import Stars from '../Stars/Stars';
 
 export const AnimationDescriptionDom = ({ selectedAnimation }) => {
   return (
