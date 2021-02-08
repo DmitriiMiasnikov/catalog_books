@@ -124,6 +124,11 @@ router.put(
       if (animationUpdate[typeButton].includes(animationId)) {
         animationUpdate[typeButton].splice(animationUpdate[typeButton].indexOf(animationId), 1);
       } else {
+        if (typeButton === 'done' && (animationUpdate['queue'].includes(animationId))) {
+          animationUpdate['queue'].splice(animationUpdate['queue'].indexOf(animationId), 1);
+        } else if (typeButton === 'queue' && (animationUpdate['done'].includes(animationId))) {
+          animationUpdate['done'].splice(animationUpdate['done'].indexOf(animationId), 1);
+        }
         animationUpdate[typeButton].push(animationId);
       }
       await Users.updateOne({ userId: userId }, { animation: animationUpdate })

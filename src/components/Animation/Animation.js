@@ -8,7 +8,7 @@ import { AnimationDom } from './AnimationDom';
 
 const Animation = ({ animation, getAnimationList, filterBy, getAnimation, clearStates,
   currentPage, sortBy, countAllAnimation, countInPage, searchValue, match, pageView,
-  selectedUser }) => {
+  selectedUser, userFilter }) => {
   let page = Number(match.params.page) || 1;
   const [fetching, setFetching] = useState(true);
   const [animationList, setAnimationList] = useState(animation);
@@ -49,11 +49,11 @@ const Animation = ({ animation, getAnimationList, filterBy, getAnimation, clearS
   useEffect(() => {
     setFetching(true);
     const fetchData = async () => {
-      await getAnimationList(page, countInPage, sortBy, filterBy, searchValue, selectedUser);
+      await getAnimationList(page, countInPage, sortBy, filterBy, searchValue, selectedUser, userFilter);
     }
     window.scroll(0, 0);
     fetchData();
-  }, [currentPage, filterBy, sortBy, countInPage, getAnimationList, searchValue, selectedUser]);
+  }, [currentPage, filterBy, sortBy, countInPage, getAnimationList, searchValue, selectedUser, userFilter]);
   useEffect(() => {
     return () => {
       clearStates();
@@ -77,7 +77,8 @@ const mapStatesToProps = (state) => {
     sortBy: state.animation.sortBy,
     searchValue: state.animation.searchValue,
     pageView: state.animation.pageView,
-    selectedUser: state.users.selectedUser
+    selectedUser: state.users.selectedUser,
+    userFilter: state.animation.userFilter
   }
 }
 export default compose(

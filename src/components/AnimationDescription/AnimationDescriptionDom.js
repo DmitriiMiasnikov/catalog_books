@@ -1,8 +1,6 @@
 import React from 'react';
 import styles from './AnimationDescription.module.scss';
 import classnames from 'classnames';
-import plus from './../../assets/Images/plus.svg';
-import star from './../../assets/Images/star.svg';
 
 export const AnimationDescriptionDom = ({ selectedAnimation, buttonsControl, userInfoAnimation,
   userInfoAnimationHandler, currentUserId }) => {

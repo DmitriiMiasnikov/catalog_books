@@ -11,7 +11,7 @@ const CLEAR_STATES = 'CLEAR_STATES';
 const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';
 const SET_SHOULD_REDIRECT = 'SET_SHOULD_REDIRECT';
 const SET_PAGE_VIEW = 'SET_PAGE_VIEW';
-const SET_TYPE_REQUEST = 'SET_TYPE_REQUEST';
+const SET_USER_FILTER = 'SET_USER_FILTER';
 
 let stateDefault = {
   animation: [],
@@ -24,74 +24,43 @@ let stateDefault = {
   searchValue: '',
   shouldRedirect: true,
   pageView: 'small',
-  typeRequest: 'all',
+  userFilter: 'all',
 }
 
 export const animationReducer = (state = stateDefault, action) => {
   switch (action.type) {
     case (GET_ANIMATION_LIST): {
-      return {
-        ...state, animation: action.animation
-      }
+      return { ...state, animation: action.animation }
     }
     case (SET_FILTER_BY): {
-      return {
-        ...state, filterBy: action.filterBy
-      }
+      return { ...state, filterBy: action.filterBy }
     }
     case (SET_FILTERS): {
-      return {
-        ...state,
-        filters: action.filters
-      }
+      return { ...state, filters: action.filters }
     }
-    case (SET_TYPE_REQUEST): {
-      return {
-        ...state,
-        typeRequest: action.typeRequest
-      }
+    case (SET_USER_FILTER): {
+      return { ...state, userFilter: action.userFilter }
     }
     case (SET_PAGE): {
-      return {
-        ...state,
-        currentPage: action.page
-      }
+      return { ...state, currentPage: action.page }
     }
     case (SET_PAGE_VIEW): {
-      return {
-        ...state,
-        pageView: action.pageView
-      }
+      return { ...state, pageView: action.pageView }
     }
     case (SET_SHOULD_REDIRECT): {
-      return {
-        ...state,
-        shouldRedirect: !state.shouldRedirect
-      }
+      return { ...state, shouldRedirect: !state.shouldRedirect }
     }
     case (SET_SEARCH_VALUE): {
-      return {
-        ...state,
-        searchValue: action.searchValue
-      }
+      return { ...state, searchValue: action.searchValue }
     }
     case (SET_COUNT_IN_PAGE): {
-      return {
-        ...state,
-        countInPage: action.countInPage
-      }
+      return { ...state, countInPage: action.countInPage }
     }
     case (SET_SORT_BY): {
-      return {
-        ...state,
-        sortBy: action.sortBy
-      }
+      return { ...state, sortBy: action.sortBy }
     }
     case (SET_COUNT_ALL_ANIMATION): {
-      return {
-        ...state,
-        countAllAnimation: action.count
-      }
+      return { ...state, countAllAnimation: action.count }
     }
     case (CLEAR_STATES): {
       return {
@@ -113,8 +82,8 @@ export const setFilterBy = (filterBy) => {
 const setFilters = (filters) => {
   return { type: SET_FILTERS, filters }
 }
-export const setTypeRequest = (typeRequest) => {
-  return { type: SET_TYPE_REQUEST, typeRequest }
+export const setUserFilter = (userFilter) => {
+  return { type: SET_USER_FILTER, userFilter }
 }
 export const setPage = (page) => {
   return { type: SET_PAGE, page }
@@ -142,9 +111,9 @@ const getAnimationListFunc = (animation) => {
   return { type: GET_ANIMATION_LIST, animation }
 }
 
-export const getAnimationList = (page, counter, sort, filter, search, userId) => {
+export const getAnimationList = (page, counter, sort, filter, search, userId, userFilter) => {
   return async (dispatch) => {
-    const res = await getAnimationListApi(page, counter, sort, filter, search, userId);
+    const res = await getAnimationListApi(page, counter, sort, filter, search, userId, userFilter);
     dispatch(getAnimationListFunc(res.data.animation));
     dispatch(setCounterAllAnimation(Number(res.data.countAnimation)));
     dispatch(setFilters(res.data.filters));

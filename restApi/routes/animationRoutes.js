@@ -14,6 +14,7 @@ router.get(
     let filter = req.query.filter;
     let search = req.query.search;
     let userId = Number(req.query.userId) || 0;
+    let userFilter = req.query.userFilter;
     let animation;
     let filters;
     let countAnimation;
@@ -58,7 +59,7 @@ router.get(
         } else currentSort = 'animationId';
         animation = await Animation.find({
           $and: [
-            {  animationId: userId ? { $in: user.animation['done'] } : { $type: 'number'} },
+            {  animationId: userId ? { $in: user.animation[userFilter] } : { $type: 'number'} },
             { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
             {
               $or: [{ nameRu: { $regex: search, $options: 'i' } },
@@ -73,7 +74,7 @@ router.get(
           .limit(countInPage);
         countAnimation = await Animation.find({
           $and: [
-            {  animationId: userId ? { $in: user.animation['done'] } : { $type: 'number'} },
+            {  animationId: userId ? { $in: user.animation[userFilter] } : { $type: 'number'} },
             { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
             {
               $or: [{ nameRu: { $regex: search, $options: 'i' } },

@@ -10,6 +10,9 @@
   padding: 15px;
   .user {
     position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     .name, .number, .stars {
       display: inline-block;
     }
@@ -25,7 +28,13 @@
       }
     }
     .stars {
-      float: right;
+      display: flex;
+      flex-direction: row;
+      img {
+        margin-left: 5px;
+        width: 15px;
+        height: 15px;
+      }
     }
   }
   .wrongLoad {

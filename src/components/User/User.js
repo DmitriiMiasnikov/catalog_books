@@ -5,9 +5,10 @@ import { compose } from 'redux';
 import { UserDom } from './UserDom';
 import { getUser, getUsersAnimationList, selectUser } from './../../store/usersReducer';
 import { getAnimation } from './../../store/animationDescriptionReducer';
+import { setUserFilter } from './../../store/animationReducer';
 
 const User = ({ currentUserId, match, getUser, userInfo, getUsersAnimationList, usersAnimationList, getAnimation,
-  restCountAnimation, selectUser }) => {
+  restCountAnimation, selectUser, setUserFilter }) => {
   const selectedUserId = Number(match.params.userId);
   const [buttonsMain, setButtonsMain] = useState([
     {name: 'books', text: 'Книги', active: true},
@@ -32,7 +33,8 @@ const User = ({ currentUserId, match, getUser, userInfo, getUsersAnimationList, 
   const openAnimationInfo = (info) => {
     getAnimation(info);
   }
-  const openAnimationList = () => {
+  const openAnimationList = (userFilter) => {
+    setUserFilter(userFilter)
     selectUser(selectedUserId);
   }
   const ButtonsMainHandler = (target) => {
@@ -65,6 +67,6 @@ const mapStatesToProps = (state) => {
   }
 }
 export default compose(
-  connect(mapStatesToProps, { getUser, getUsersAnimationList, getAnimation, selectUser }),
+  connect(mapStatesToProps, { getUser, getUsersAnimationList, getAnimation, selectUser, setUserFilter }),
   withRouter
 )(User);

@@ -68,7 +68,7 @@ export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAn
                                           )
                                         })}
                                       </div>}
-                                      {el.type && <div  className={styles.description}>
+                                      {el.type && <div className={styles.description}>
                                         {el.type}
                                       </div>}
                                     </div>
@@ -76,7 +76,8 @@ export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAn
                                 )
                               })
                             }
-                            {Boolean(restCountAnimation[listName]) && <NavLink to={`/animation/list`} onClick={() => openAnimationList()}
+                            {Boolean(restCountAnimation[listName]) && <NavLink to={`/animation/list`}
+                              onClick={() => openAnimationList(listName)}
                               className={styles.restAnimation}>
                               еще {restCountAnimation[listName]} <span>показать все</span>
                             </NavLink>}

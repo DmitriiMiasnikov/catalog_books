@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './UsersMenu.module.scss';
+import star from './../../assets/Images/star.svg';
 
 export const UsersMenuDom = ({ usersListMenu, stars, currentUserId }) => {
   return (
@@ -9,16 +10,17 @@ export const UsersMenuDom = ({ usersListMenu, stars, currentUserId }) => {
         usersListMenu ? usersListMenu.map((el, i) => {
           return (
             <div className={styles.user} key={i}>
-              <div className={styles.number}>
-                {i + 1}.
-              </div>
               <div className={styles.name}>
+                <div className={styles.number}>
+                  {i + 1}.
+              </div>
                 <NavLink to={`/users/${el.userId}`}>
-                {el.userName} {currentUserId === el.userId && '(я)'}
+                  {el.userName} {currentUserId === el.userId && '(я)'}
                 </NavLink>
               </div>
               <div className={styles.stars}>
                 {stars[i]}
+                <img src={star} />
               </div>
             </div>
           )
