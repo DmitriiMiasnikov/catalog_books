@@ -72,6 +72,7 @@
           padding: 0px 0px 0px 30px;
           display: flex;
           flex-direction: column;
+          padding-right: 242px;
           .title {
             font-size: 24px;
             margin-bottom: 10px;
@@ -112,6 +113,9 @@
           .imgLink {
             max-width: 95px;
             max-height: 135px;
+          }
+          .infoWrapper {
+            padding-right: 242px;
           }
           .image {
             max-width: inherit;

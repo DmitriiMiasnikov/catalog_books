@@ -23,7 +23,7 @@ const ButtonSwitcher = ({ currentUserId, setUsersAnimation, myUserInfo, currentI
         'selected': myUserInfo[list].selected.includes(currentId),
       })
     }
-  }, [currentId, currentUserId, setUsersInfoAnimation, myUserInfo])
+  }, [currentId, currentUserId, setUsersInfoAnimation, myUserInfo, list])
 
   const userInfoAnimationHandler = (type) => {
     setUsersAnimation(currentUserId, currentId, type);

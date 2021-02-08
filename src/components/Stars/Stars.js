@@ -5,7 +5,12 @@ import { connect } from 'react-redux';
 
 const Stars = ({ currentUserId, setUsersAnimation, list, myUserInfo, currentId }) => {
   const [userInfoAnimation, setUsersInfoAnimation] = useState(null);
-
+  const [starsVisible, setStarsVisible] = useState(false);
+  let starsArr = [];
+  for(let i = 1; i < 11; i++) {
+    starsArr.push({number: i, active: false})
+  }
+  const [stars, setStars] = useState(starsArr);
   useEffect(() => {
     if (myUserInfo) {
       setUsersInfoAnimation({
@@ -14,14 +19,27 @@ const Stars = ({ currentUserId, setUsersAnimation, list, myUserInfo, currentId }
         'selected': myUserInfo[list].selected.includes(currentId),
       })
     }
-  }, [currentId, currentUserId, setUsersInfoAnimation, myUserInfo])
+  }, [currentId, currentUserId, setUsersInfoAnimation, myUserInfo, list])
 
-  const userInfoAnimationHandler = (type) => {
-    setUsersAnimation(currentUserId, currentId, type);
+  const showStars = () => {
+    setStarsVisible(starsVisible => !starsVisible);
   }
-
+  const hoverStarsHandler = (number) => {
+    setStars(stars.map(el => {
+      if (el.number <= number) {
+        el.active = true;
+      } else el.active = false
+      return el
+    }))
+  }
+  const starsClickHandler = (typeButton, number) => {
+    console.log(currentUserId, list, currentId, typeButton, number)
+    // setUsersStars(currentUserId, list, currentId, number);
+    // setUsersAnimation(currentUserId, currentId, typeButton);
+  }
   return (
-    <StarsDom {...{ currentUserId, userInfoAnimation, userInfoAnimationHandler }} />
+    <StarsDom {...{ currentUserId, userInfoAnimation, showStars, stars, hoverStarsHandler, starsClickHandler,
+      starsVisible }}/>
   )
 }
 
