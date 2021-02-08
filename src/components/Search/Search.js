@@ -20,17 +20,17 @@ const Search = ({ setSearchValue, history }) => {
     }
   }
   return (
-    <SearchDom searchHandler={searchHandler} value={value} setValueFunc={setValueFunc}/>
+    <SearchDom {...{ searchHandler, value, setValueFunc }} />
   )
 }
 
 const mapStatesToProps = (state) => {
   return {
-    
+
   }
 }
 
 export default compose(
   connect(mapStatesToProps, { setSearchValue }),
   withRouter
-) (Search);
+)(Search);

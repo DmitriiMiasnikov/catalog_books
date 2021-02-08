@@ -3,34 +3,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 15px;
-    .star {
-      width: 33px;
-      height: 33px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 38px;
-      background-color: transparent;
-      transition: .2s color;
-      line-height: 28px;
-      &.added {
-        color: #d6ab0e;
-      }
-      &:hover {
-        cursor: pointer;
-        background-color: transparent;
-        color: #8f8954;
-        &.added {
-          color: #927a24;
-        }
-      }
-    }
     .buttonsControl {
       display: flex;
       flex-direction: row;
       border-radius: 5px;
-      margin-left: 12px;
       .button {
         padding: 10px;
         border: 1px solid #717171;

@@ -49,6 +49,12 @@
       display: inline-block;
       margin: 0 auto 25px;
     }
+    .controlPanel {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
   }
   .descriptionWrap {
     grid-area: desc;

@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './AnimationDescription.module.scss';
 import classnames from 'classnames';
-import UserControlPanel from './../UserControlPanel/UserControlPanel';
+import ButtonSwitcher from '../ButtonSwitcher/ButtonSwitcher';
+import Stars from '../Stars.js/Stars';
 
 export const AnimationDescriptionDom = ({ selectedAnimation }) => {
   return (
@@ -45,7 +46,10 @@ export const AnimationDescriptionDom = ({ selectedAnimation }) => {
         </div>
         <div className={styles.imageWrap}>
           <img src={`/img/animation_cover_${selectedAnimation.animationId}.jpg`} alt='img' className={styles.image} />
-          <UserControlPanel currentAnimationId={selectedAnimation.animationId}/>
+          <div className={styles.controlPanel}>
+            <Stars list={'animation'} currentId={selectedAnimation.animationId} />
+            <ButtonSwitcher currentId={selectedAnimation.animationId} list={'animation'} />
+          </div>
         </div>
         <div className={styles.descriptionWrap}>
           <div className={styles.title}>

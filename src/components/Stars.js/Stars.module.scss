@@ -1,0 +1,25 @@
+.wrapper {
+  position: relative;
+  .star {
+    width: 33px;
+    height: 33px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 38px;
+    background-color: transparent;
+    transition: .2s color;
+    line-height: 28px;
+    &.added {
+      color: #d6ab0e;
+    }
+    &:hover {
+      cursor: pointer;
+      background-color: transparent;
+      color: #8f8954;
+      &.added {
+        color: #927a24;
+      }
+    }
+  }
+}

@@ -45,8 +45,13 @@
         .userControlPanel {
           position: absolute;
           right: 10px;
-          top: 10px;
+          bottom: 10px;
           font-size: 12px;
+        }
+        .stars {
+          position: absolute;
+          right: 10px;
+          top: 10px;
         }
         .imgLink {
           transition: 0.2s box-shadow;
