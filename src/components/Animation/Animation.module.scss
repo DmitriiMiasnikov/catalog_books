@@ -27,7 +27,14 @@
       &:hover {
         background-color: #2c2c2c;
       }
+      &.done {
+        background-color: #3c3434;
+        &:hover {
+          background-color: #463d3d;
+        }
+      }
       .itemInner {
+        position: relative;
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;
@@ -35,6 +42,12 @@
         padding: 15px;
         font-size: 15px;
         color: #e2e2e2;
+        .userControlPanel {
+          position: absolute;
+          right: 10px;
+          top: 10px;
+          font-size: 12px;
+        }
         .imgLink {
           transition: 0.2s box-shadow;
           border-radius: 8px;

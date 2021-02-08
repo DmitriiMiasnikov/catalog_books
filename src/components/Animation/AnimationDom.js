@@ -6,10 +6,10 @@ import PagesCounter from '../PagesCounter/PagesCounter';
 import ListSorters from './../ListSorters/ListSorters';
 import PageView from './../PageView/PageView';
 import loading from './../../assets/Images/loading.svg';
+import UserControlPanel from './../UserControlPanel/UserControlPanel';
 
 export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnimation, countAllAnimation,
-  fetching, pageView }) => {
-
+  fetching, pageView, myUserInfo }) => {
   return (
     <div className={styles.wrapper}>
       <PageView />
@@ -32,7 +32,7 @@ export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnim
               {
                 animationList && animationList.map((el, i) => {
                   return (
-                    <div key={i} className={classnames(styles.item)}>
+                    <div key={i} className={classnames(styles.item, {[styles.done]: myUserInfo && myUserInfo.animation.done.includes(el.animationId) })}>
                       {
                         pageView === 'small' && (
                           <div key={i} className={styles.itemInner}>
@@ -62,6 +62,9 @@ export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnim
                                 </span>
                               </div>}
                               {el.type && <div className={styles.line}>тип: <span className={styles.lineInfo}>{el.type}</span></div>}
+                            </div>
+                            <div className={styles.userControlPanel}>
+                            <UserControlPanel currentAnimationId={el.animationId}/>
                             </div>
                           </div>
                         )
@@ -97,6 +100,9 @@ export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnim
                               {el.type && <div className={styles.line}>тип: <span className={styles.lineInfo}>{el.type}</span></div>}
                               {el.auditory && <div className={styles.line}>аудитория: <span className={styles.lineInfo}>{el.auditory}</span></div>}
                             </div>
+                            <div className={styles.userControlPanel}>
+                            <UserControlPanel currentAnimationId={el.animationId}/>
+                            </div>
                           </div>
                         )
                       }
@@ -125,7 +131,7 @@ export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnim
                 })
               }
               <div className={styles.PagesCounterBottom}>
-              <PagesCounter countAll={countAllAnimation} />
+                <PagesCounter countAll={countAllAnimation} />
               </div>
             </div>
           )}

@@ -20,7 +20,7 @@ export const UsersMenuDom = ({ usersListMenu, stars, currentUserId }) => {
               </div>
               <div className={styles.stars}>
                 {stars[i]}
-                <img src={star} />
+                <img src={star} alt=''/>
               </div>
             </div>
           )

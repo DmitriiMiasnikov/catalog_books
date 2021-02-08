@@ -11,7 +11,7 @@ export const Header = ({ menuItems }) => {
         menuItems.map((el, i) => {
           return (
               <NavLink to={el.link} key={i} className={styles.item}>
-                {i === 0 ? <img src={home} /> : el.item}
+                {i === 0 ? <img src={home} alt=''/> : el.item}
               </NavLink>
           )
         })

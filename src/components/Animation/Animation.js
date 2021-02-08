@@ -8,7 +8,7 @@ import { AnimationDom } from './AnimationDom';
 
 const Animation = ({ animation, getAnimationList, filterBy, getAnimation, clearStates,
   currentPage, sortBy, countAllAnimation, countInPage, searchValue, match, pageView,
-  selectedUser, userFilter }) => {
+  selectedUser, userFilter, myUserInfo }) => {
   let page = Number(match.params.page) || 1;
   const [fetching, setFetching] = useState(true);
   const [animationList, setAnimationList] = useState(animation);
@@ -64,7 +64,7 @@ const Animation = ({ animation, getAnimationList, filterBy, getAnimation, clearS
   }
   return (
     <AnimationDom animationList={animationList} openAnimationInfo={openAnimationInfo} countAllAnimation={countAllAnimation}
-      buttonsSortAnimation={buttonsSortAnimation} currentPage={page} fetching={fetching} pageView={pageView} />
+      buttonsSortAnimation={buttonsSortAnimation} currentPage={page} fetching={fetching} pageView={pageView} myUserInfo={myUserInfo}/>
   )
 }
 const mapStatesToProps = (state) => {
@@ -78,7 +78,8 @@ const mapStatesToProps = (state) => {
     searchValue: state.animation.searchValue,
     pageView: state.animation.pageView,
     selectedUser: state.users.selectedUser,
-    userFilter: state.animation.userFilter
+    userFilter: state.animation.userFilter,
+    myUserInfo: state.users.myUserInfo
   }
 }
 export default compose(
