@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './AnimationDescription.module.scss';
 import classnames from 'classnames';
+import plus from './../../assets/Images/plus.svg';
+import star from './../../assets/Images/star.svg';
 
 export const AnimationDescriptionDom = ({ selectedAnimation, buttonsControl, userInfoAnimation,
   userInfoAnimationHandler, currentUserId }) => {
@@ -46,10 +48,11 @@ export const AnimationDescriptionDom = ({ selectedAnimation, buttonsControl, use
         <div className={styles.imageWrap}>
           <img src={`/img/animation_cover_${selectedAnimation.animationId}.jpg`} alt='img' className={styles.image} />
           {userInfoAnimation && currentUserId && <div className={styles.buttons}>
-            <div className={classnames(styles.star, styles.button, { [styles.added]: userInfoAnimation['selected'] })}
+            <div className={classnames(styles.star, { [styles.added]: userInfoAnimation['selected'] })}
               onClick={() => userInfoAnimationHandler('selected')}>
               {userInfoAnimation['selected'] ? <span>&#9733;</span> : <span>&#9734;</span>}
             </div>
+            <div className={styles.buttonsControl}>
             {
               buttonsControl.map((el, i) => {
                 return (
@@ -60,6 +63,7 @@ export const AnimationDescriptionDom = ({ selectedAnimation, buttonsControl, use
                 )
               })
             }
+            </div>
           </div>}
         </div>
         <div className={styles.descriptionWrap}>

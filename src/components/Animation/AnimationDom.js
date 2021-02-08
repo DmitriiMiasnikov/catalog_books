@@ -124,7 +124,9 @@ export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnim
                   )
                 })
               }
+              <div className={styles.PagesCounterBottom}>
               <PagesCounter countAll={countAllAnimation} />
+              </div>
             </div>
           )}
     </div>

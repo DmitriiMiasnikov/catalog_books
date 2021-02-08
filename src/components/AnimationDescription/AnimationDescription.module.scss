@@ -54,44 +54,58 @@
       justify-content: center;
       align-items: center;
       margin-bottom: 15px;
-      .button {
-        background-color: #3e3e3e;
-        transition: .2s background-color;
+      .star {
+        width: 33px;
+        height: 33px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 7px;
+        font-size: 38px;
+        background-color: transparent;
+        transition: .2s color;
+        line-height: 28px;
         &.added {
-          background-color: brown;
+          color: #d6ab0e;
         }
         &:hover {
           cursor: pointer;
-          background-color: #555555;
-          &.added {
-            background-color: rgb(139, 36, 36);
-          }
-        }
-        &.star {
-          width: 33px;
-          height: 33px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin-right: 7px;
-          font-size: 38px;
           background-color: transparent;
-          transition: .2s color;
+          color: #8f8954;
           &.added {
-            color: #d6ab0e;
-          }
-          &:hover {
-            background-color: transparent;
-            color: #8f8954;
-            &.added {
-              color: #927a24;
-            }
+            color: #927a24;
           }
         }
       }
-      > div:not(:first-child) {
-        padding: 8px 12px;
-        margin-left: 10px;
+      .buttonsControl {
+        display: flex;
+        flex-direction: row;
+        border-radius: 5px;
+        margin-left: 12px;
+        .button {
+          padding: 10px;
+          border: 1px solid #3e3e3e;
+          transition: .2s background-color;
+          &.added {
+            background-color: brown;
+          }
+          &:hover {
+            cursor: pointer;
+            background-color: #555555;
+            &.added {
+              background-color: rgb(139, 36, 36);
+            }
+          }
+        }
+        :nth-child(1) {
+          border-bottom-left-radius: 4px;
+          border-top-left-radius: 4px;
+        }
+        :nth-child(2) {
+          border-bottom-right-radius: 4px;
+          border-top-right-radius: 4px;
+          border-left: 0px solid #3e3e3e;
+        }
       }
     }
   }
