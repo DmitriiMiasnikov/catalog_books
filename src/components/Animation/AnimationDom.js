@@ -38,7 +38,7 @@ export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnim
                         pageView === 'small' && (
                           <div key={i} className={styles.itemInner}>
                             <NavLink to={`/animation/id/${el.animationId}`} onClick={() => openAnimationInfo(el.animationId)} className={styles.imgLink}>
-                              <img src={`/img/animation_cover_${el.animationId}.jpg`} alt='img' className={styles.image} />
+                              <img src={`https://anime.amyasnikov.pro/images/animation_cover_${el.animationId}.jpg`} alt='img' className={styles.image} />
                             </NavLink>
                             <div className={styles.infoWrapper}>
                               {el.nameRu && <div className={styles.title}>
@@ -77,7 +77,7 @@ export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnim
                         pageView === 'medium' && (
                           <div key={i} className={styles.itemInner}>
                             <NavLink to={`/animation/id/${el.animationId}`} onClick={() => openAnimationInfo(el.animationId)} className={styles.imgLink}>
-                              <img src={`/img/animation_cover_${el.animationId}.jpg`} alt='img' className={styles.image} />
+                              <img src={`https://anime.amyasnikov.pro/images/animation_cover_${el.animationId}.jpg`} alt='img' className={styles.image} />
                             </NavLink>
                             <div className={styles.infoWrapper}>
                               {el.nameRu && <div className={styles.title}>
@@ -90,7 +90,7 @@ export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnim
                               </div>}
                               {el.author && <div className={styles.line}>автор: <span className={styles.lineInfo}>{el.author}</span></div>}
                               {el.genre && <div className={styles.line}>жанр:
-                    <span className={styles.lineInfo}>
+                                <span className={styles.lineInfo}>
                                   {el.genre.map((genreEl, j) => {
                                     return (
                                       <span className={styles.info} key={j}>
@@ -117,7 +117,7 @@ export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnim
                         pageView === 'large' && (
                           <NavLink to={`/animation/id/${el.animationId}`} onClick={() => openAnimationInfo(el.animationId)}
                             key={i} className={styles.itemInner}>
-                            <img src={`/img/animation_cover_${el.animationId}.jpg`} alt='img' className={styles.image} />
+                            <img src={`https://anime.amyasnikov.pro/images/animation_cover_${el.animationId}.jpg`} alt='img' className={styles.image} />
                             <div className={styles.text}>
                               <div className={styles.title}>
                                 {el.nameRu || el.nameEng}

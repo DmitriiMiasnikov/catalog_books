@@ -8,7 +8,7 @@ const UsersMenu = ({ usersListMenu, getUsersListMenu, currentUserId }) => {
   const [stars, setStars] = useState([]);
   useEffect(() => {
     getUsersListMenu()
-  }, [getUsersListMenu, usersListMenu])
+  }, [getUsersListMenu])
   useEffect(() => {
     if (usersListMenu) {
       setStars(usersListMenu.map(el => {

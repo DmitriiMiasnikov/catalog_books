@@ -33,8 +33,8 @@ export const getUsersAnimationListApi = async (userId) => {
   return res;
 }
 
-export const setUsersAnimationApi = async (userId, animationId, type) => {
-  const res = await instance.put(`users/id/animation/${userId}?animationId=${animationId}&type=${type}`);
+export const setUsersAnimationApi = async (userId, animationId, type, rating) => {
+  const res = await instance.put(`users/id/animation/${userId}?animationId=${animationId}&type=${type}&rating=${rating}`);
   return res;
 }
 

@@ -52,7 +52,7 @@ export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAn
                                 return (
                                   <NavLink to={`/animation/id/${el.animationId}`} onClick={() => openAnimationInfo(el.animationId)}
                                     className={styles.animationItem} key={i} >
-                                    <img src={`/img/animation_cover_${el.animationId}.jpg`} alt='img' className={styles.image} />
+                                    <img src={`https://anime.amyasnikov.pro/images/animation_cover_${el.animationId}.jpg`} alt='img' className={styles.image} />
                                     <div className={styles.text}>
                                       <div className={styles.title}>
                                         {el.nameRu || el.nameEng}

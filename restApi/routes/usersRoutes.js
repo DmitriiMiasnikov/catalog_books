@@ -9,7 +9,7 @@ const Animation = require('./../models/Animation');
 router.get(
   '/',
   async (req, res) => {
-    const users = await Users.find({}, 'animation userName userId');
+    const users = await Users.find({}, 'animation animationRating userName userId');
     res.status(200).json({ users })
   }
 )
@@ -19,7 +19,7 @@ router.get(
 router.get(
   '/menu',
   async (req, res) => {
-    const usersAll = await Users.find({}, 'animation userName userId');
+    const usersAll = await Users.find({}, 'animation animationRating userName userId');
     let users = [].concat(usersAll.slice(0, 5))
     res.status(200).json({ users })
   }
@@ -67,7 +67,7 @@ router.get(
   async (req, res) => {
     const userId = req.params.userId || 0;
     try {
-      const user = await Users.findOne({ userId: userId }, 'animation userName userId')
+      const user = await Users.findOne({ userId: userId }, 'animation animationRating userName userId')
       res.status(200).json({ user });
     } catch (e) {
       console.log(e)
@@ -82,17 +82,7 @@ router.get(
   async (req, res) => {
     const userId = req.params.userId || 0;
     try {
-      const user = await Users.findOne({ userId: userId }, 'animation');
-      // const aggr = await Users.aggregate([
-      //   {
-      //     $lookup: {
-      //       from: 'Animation',
-      //       localField: 'animation',
-      //       foreignField: 'animationId',
-      //       as: 'usersAnimation'
-      //     }
-      //   }
-      // ]);
+      const user = await Users.findOne({ userId: userId }, 'animation animationRating');
       let animation = {};
       let animationFive = {};
       let rest = {};
@@ -110,29 +100,41 @@ router.get(
   }
 )
 
-// добавить/убрать аниме в избраное/просмотренное/в очереди
+// добавить/убрать аниме в просмотренное/очередь
 // users/id/animation/:id
 router.put(
   '/id/animation/:userId',
   async (req, res) => {
     const userId = req.params.userId || 1;
     const animationId = Number(req.query.animationId) || 1;
+    const rating = Number(req.query.rating) || 0;
     const typeButton = req.query.type;
     try {
-      const userToUpdate = await Users.findOne({ userId: userId });
-      let animationUpdate = userToUpdate.animation;
-      if (animationUpdate[typeButton].includes(animationId)) {
-        animationUpdate[typeButton].splice(animationUpdate[typeButton].indexOf(animationId), 1);
-      } else {
-        if (typeButton === 'done' && (animationUpdate['queue'].includes(animationId))) {
-          animationUpdate['queue'].splice(animationUpdate['queue'].indexOf(animationId), 1);
-        } else if (typeButton === 'queue' && (animationUpdate['done'].includes(animationId))) {
-          animationUpdate['done'].splice(animationUpdate['done'].indexOf(animationId), 1);
+      if (typeButton === 'selected') {
+        const userToUpdate = await Users.findOne({ userId: userId }, 'animationRating');
+        const animationRatingUpdate = userToUpdate.animationRating;
+        if (rating) {
+          animationRatingUpdate[animationId] = rating;
+        } else {
+          delete animationRatingUpdate[animationId];
         }
-        animationUpdate[typeButton].push(animationId);
+        await Users.updateOne({ userId: userId }, { animationRating: animationRatingUpdate })
+      } else {
+        const userToUpdate = await Users.findOne({ userId: userId }, 'animation');
+        let animationUpdate = userToUpdate.animation;
+        if (animationUpdate[typeButton].includes(animationId)) {
+          animationUpdate[typeButton].splice(animationUpdate[typeButton].indexOf(animationId), 1);
+        } else {
+          if (typeButton === 'done' && (animationUpdate['queue'].includes(animationId))) {
+            animationUpdate['queue'].splice(animationUpdate['queue'].indexOf(animationId), 1);
+          } else if (typeButton === 'queue' && (animationUpdate['done'].includes(animationId))) {
+            animationUpdate['done'].splice(animationUpdate['done'].indexOf(animationId), 1);
+          }
+          animationUpdate[typeButton].push(animationId);
+        }
+        await Users.updateOne({ userId: userId }, { animation: animationUpdate })
       }
-      await Users.updateOne({ userId: userId }, { animation: animationUpdate })
-      const user = await Users.findOne({ userId: userId });
+      const user = await Users.findOne({ userId: userId }, 'animation animationRating userName userId');
       res.status(200).json({ user });
     } catch (e) {
       console.log(e)

@@ -3,21 +3,26 @@ import styles from './Stars.module.scss';
 import classnames from 'classnames';
 import cross from './../../assets/Images/plus.svg';
 
-export const StarsDom = ({ userInfoAnimation, showStars, currentUserId, stars,
+export const StarsDom = ({ userInfoAnimation, buttonHandler, currentUserId, stars,
   hoverStarsHandler, starsClickHandler, starsVisible }) => {
   return (
     <>
       {userInfoAnimation && currentUserId && (
-        <div className={classnames(styles.wrapper, { [styles.added]: userInfoAnimation['selected'] })}
-          onClick={() => showStars()}>
+        <div className={classnames(styles.wrapper)}
+          onClick={() => buttonHandler(userInfoAnimation['selected'])}>
           <div className={styles.button}>
-            <div className={classnames(styles.buttonInner, styles.buttonOpenStars, { [styles.visible]: starsVisible })}>
-              {stars.some(el => el.active) ? <span>{stars.filter(el => el.active === true).length}</span> : <img src={cross} />}
+            <div className={classnames(styles.buttonInner, styles.buttonOpenStars, { [styles.visible]: starsVisible,
+            [styles.added]: userInfoAnimation['selected'] })}>
+              {stars.some(el => el.active) ? <div className={styles.currentRating}>
+                {stars.filter(el => el.active === true).length}
+              </div> : <img src={cross} />}
             </div>
-            <div className={classnames(styles.buttonInner, { [styles.visible]: !starsVisible })}>
-              {userInfoAnimation['selected'] ? <span>&#9733;</span> : <span>&#9734;</span>}
+            <div className={classnames(styles.buttonInner, { [styles.visible]: !starsVisible,
+            [styles.added]: userInfoAnimation['selected'] })}>
+              {userInfoAnimation['selected'] ? <div className={styles.currentRating}>
+                {userInfoAnimation['selected']}
+              </div> : <span className={styles.starInButton}>&#9733;</span>}
             </div>
-
           </div>
           <div className={classnames(styles.starsWrap, { [styles.visible]: starsVisible })}>
             {
@@ -26,7 +31,7 @@ export const StarsDom = ({ userInfoAnimation, showStars, currentUserId, stars,
                   <div className={classnames(styles.star, { [styles.selected]: el.active })} key={i}
                     onMouseOver={() => hoverStarsHandler(el.number)} onMouseLeave={() => hoverStarsHandler(-1)}
                     onClick={() => starsClickHandler('selected', el.number)}>
-                    {userInfoAnimation['selected'] ? <span>&#9733;</span> : <span>&#9734;</span>}
+                    { i < stars.filter(el => el.active === true).length ? <span>&#9733;</span> : <span>&#9734;</span>}
                   </div>
                 )
               })

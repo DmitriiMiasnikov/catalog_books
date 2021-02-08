@@ -28,6 +28,12 @@ const schema = new Schema({
       queue: [],
       selected: []
     }
+  },
+  animationRating: {
+    type: Schema.Types.Mixed,
+    default: {
+      0: 0
+    }
   }
 })
 

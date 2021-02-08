@@ -45,10 +45,12 @@ export const AnimationDescriptionDom = ({ selectedAnimation }) => {
           </span></div>}
         </div>
         <div className={styles.imageWrap}>
-          <img src={`/img/animation_cover_${selectedAnimation.animationId}.jpg`} alt='img' className={styles.image} />
+          <img src={`https://anime.amyasnikov.pro/images/animation_cover_${selectedAnimation.animationId}.jpg`} alt='img' className={styles.image} />
           <div className={styles.controlPanel}>
             <Stars list={'animation'} currentId={selectedAnimation.animationId} />
+            <div className={styles.buttonSwither}>
             <ButtonSwitcher currentId={selectedAnimation.animationId} list={'animation'} />
+            </div>
           </div>
         </div>
         <div className={styles.descriptionWrap}>

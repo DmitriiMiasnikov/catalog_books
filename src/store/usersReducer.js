@@ -155,9 +155,9 @@ export const getUser = (id) => {
   }
 }
 
-export const setUsersAnimation = (userId, animationId, type) => {
+export const setUsersAnimation = (userId, animationId, type, rating) => {
   return async dispatch => {
-    const res = await setUsersAnimationApi(userId, animationId, type);
+    const res = await setUsersAnimationApi(userId, animationId, type, rating);
     dispatch(setMyUserInfoFunc(res.data.user));
     dispatch(setUserInfoFunc(res.data.user));
   }

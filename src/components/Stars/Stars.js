@@ -16,13 +16,15 @@ const Stars = ({ currentUserId, setUsersAnimation, list, myUserInfo, currentId }
       setUsersInfoAnimation({
         'queue': myUserInfo[list].queue.includes(currentId),
         'done': myUserInfo[list].done.includes(currentId),
-        'selected': myUserInfo[list].selected.includes(currentId),
+        'selected':  myUserInfo[`${list}Rating`] ? myUserInfo[`${list}Rating`][currentId] : null,
       })
     }
   }, [currentId, currentUserId, setUsersInfoAnimation, myUserInfo, list])
 
-  const showStars = () => {
-    setStarsVisible(starsVisible => !starsVisible);
+  const buttonHandler = (rating) => {
+    if (rating) {
+      setUsersAnimation(currentUserId, currentId, 'selected', 0);
+    } else setStarsVisible(starsVisible => !starsVisible);
   }
   const hoverStarsHandler = (number) => {
     setStars(stars.map(el => {
@@ -32,13 +34,11 @@ const Stars = ({ currentUserId, setUsersAnimation, list, myUserInfo, currentId }
       return el
     }))
   }
-  const starsClickHandler = (typeButton, number) => {
-    console.log(currentUserId, list, currentId, typeButton, number)
-    // setUsersStars(currentUserId, list, currentId, number);
-    // setUsersAnimation(currentUserId, currentId, typeButton);
+  const starsClickHandler = (typeButton, rating) => {
+    setUsersAnimation(currentUserId, currentId, typeButton, rating);
   }
   return (
-    <StarsDom {...{ currentUserId, userInfoAnimation, showStars, stars, hoverStarsHandler, starsClickHandler,
+    <StarsDom {...{ currentUserId, userInfoAnimation, buttonHandler, stars, hoverStarsHandler, starsClickHandler,
       starsVisible }}/>
   )
 }
