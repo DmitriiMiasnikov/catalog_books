@@ -33,6 +33,12 @@ const schema = new Schema({
     default: {
       0: 0
     }
+  },
+  lastViewed: {
+    type: Schema.Types.Mixed,
+    default: {
+      animation: []
+    }
   }
 })
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import styles from './App.module.scss';
 import Header from './components/Header/Header';
-import { Main } from './components/Main/Main';
+import Main from './components/Main/Main';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { compose } from 'redux';

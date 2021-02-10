@@ -30,9 +30,9 @@ export const getRandomAnimationFunc = (randomAnimation) => {
 }
 
 
-export const getAnimation = (id) => {
+export const getAnimation = (id, userId = 0) => {
   return async (dispatch) => {
-    const res = await getAnimationApi(id)
+    const res = await getAnimationApi(id, userId)
     dispatch(getAnimationFunc(res))
   }
 }

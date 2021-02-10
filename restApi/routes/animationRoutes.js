@@ -93,12 +93,30 @@ router.get(
     }
   }
 )
+
+// получение информации об одном аниме
 // /animation/id/:id
 router.get(
   '/id/:animationId',
   async (req, res) => {
     try {
-      const selectedAnimation = await Animation.findOne({ animationId: req.params.animationId });
+      let userId = Number(req.query.userId) || 0;
+      let animationId = Number(req.params.animationId);
+      // добавляет последние 10 аниме в массив lastViewed.animation
+      const userToUpdate = await Users.findOne({ userId: userId }, 'lastViewed');
+      let newLastViewed;
+      if (userToUpdate) {
+        newLastViewed = userToUpdate.lastViewed;
+        if (!newLastViewed.animation.includes(animationId)) {
+          newLastViewed.animation.push(animationId);
+          if (newLastViewed.animation.length > 10) {
+            newLastViewed.animation.shift()
+          }
+        }
+        await Users.updateOne({ userId: userId }, { lastViewed: newLastViewed })
+      }
+      const selectedAnimation = await Animation.findOne({ animationId: animationId });
+
       res.status(200).json({ selectedAnimation });
     } catch (e) {
       console.log(e)

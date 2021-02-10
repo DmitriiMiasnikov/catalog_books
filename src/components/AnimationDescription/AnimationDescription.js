@@ -11,10 +11,10 @@ const AnimationDescription = ({ getAnimation, getAnimationFunc, match, selectedA
   const currentAnimationId = Number(match.params.animationId);
   useEffect(() => {
     const fetchData = async () => {
-      await getAnimation(currentAnimationId);
+      await getAnimation(currentAnimationId, currentUserId);
     }
     fetchData();
-  }, [getAnimation, match, currentAnimationId])
+  }, [getAnimation, match, currentAnimationId, currentUserId])
   useEffect(() => {
     if (currentUserId) {
       const fetchData = async () => {

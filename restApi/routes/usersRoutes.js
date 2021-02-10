@@ -142,4 +142,21 @@ router.put(
   }
 )
 
+// получить последние 5 просмотренных аниме
+// users/id/lastViewed/:id
+router.get(
+  '/id/lastViewed/:userId',
+  async (req, res) => {
+    const userId = req.params.userId || 0;
+    try {
+      const user = await Users.findOne({ userId: userId }, 'lastViewed');
+      let animation;
+        animation = await Animation.find({ animationId: {$in: user.lastViewed} });
+      res.status(200).json({ animation});
+    } catch (e) {
+      console.log(e)
+    }
+  }
+)
+
 module.exports = router;

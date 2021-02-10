@@ -1,10 +1,18 @@
 import React from 'react';
-import styles from './Main.module.scss';
+import { connect } from 'react-redux';
+import { MainDom } from './MainDom';
 
-export const Main = () => {
+const Main = () => {
+
   return (
-    <div className={styles.wrapper}>
-      main
-    </div>
+    <MainDom />
   )
 }
+
+const mapStatesToProps = (state) => {
+  return {
+
+  }
+}
+
+export default connect(mapStatesToProps, {})(Main);
