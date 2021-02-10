@@ -22,7 +22,7 @@ const AnimationFilters = ({ setFilterBy, filters, filterBy, setPage, selectedUse
     }
   ])
   useEffect(() => {
-    if (filters && filterBy === 'все') {
+    if (filters && !Object.keys(buttonsFilter).length) {
       const filtersCopy = {};
       dropdowns.forEach((el, i) => {
         filtersCopy[el.type] = filters[el.type].map((item, j) => {
@@ -34,7 +34,7 @@ const AnimationFilters = ({ setFilterBy, filters, filterBy, setPage, selectedUse
       })
       setButtonsFilter(filtersCopy);
     }
-  }, [filters, dropdowns, filterBy]);
+  }, [filters, dropdowns]);
   const openDropdown = (dropdownId) => {
     setDropdowns(dropdowns.map(el => {
       if (el.id === dropdownId) {

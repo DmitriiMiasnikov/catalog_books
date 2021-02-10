@@ -52,7 +52,8 @@ export const AnimationFiltersDom = ({ buttonsFilter, openDropdown, dropdowns, fi
                   {dropdown.text}:  {dropdown.closed ? <div>&#9660;</div> : <div>&#9650;</div>}
                 </div>
                 <div className={styles.dropdownBlock}
-                  style={{ height: dropdown.closed ? 0 : buttonsFilter[dropdownType].length * 30 + 20 }}>
+                  style={{ height: dropdown.closed || !Object.keys(buttonsFilter).length ? 0 : 
+                    buttonsFilter[dropdownType].length * 30 + 20 }}>
                   {
                     Object.keys(buttonsFilter).length ? buttonsFilter[dropdownType].map((el, i) => {
                       return (

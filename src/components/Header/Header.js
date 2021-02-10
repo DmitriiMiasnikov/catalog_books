@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { HeaderDom } from './HeaderDom'
+import { HeaderDom } from './HeaderDom';
+import { setFilterBy, setPage } from './../../store/animationReducer';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
 
-const Header = ({ menuItems, animationItems }) => {
+const Header = ({ menuItems, animationItems, setFilterBy, setPage, history }) => {
   const [showAnimation, setShowAnimation] = useState(false);
   const showAnimationHandler = async (i, show) => {
     i === 2 && setShowAnimation(show)
   }
+  const openListAnimationFiltered = (filter) => {
+    setFilterBy(filter);
+    history.push(`/animation/list/1`);
+  }
 
   return (
-    <HeaderDom {...{ menuItems, animationItems, showAnimation, showAnimationHandler }} />
+    <HeaderDom {...{ menuItems, animationItems, showAnimation, showAnimationHandler, openListAnimationFiltered }} />
   )
 }
 
@@ -19,4 +26,7 @@ const mapStatesToProps = (state) => {
     animationItems: state.header.animationItems
   }
 }
-export default connect(mapStatesToProps, {})(Header);
+export default compose(
+  connect(mapStatesToProps, { setFilterBy, setPage }),
+  withRouter
+) (Header);
