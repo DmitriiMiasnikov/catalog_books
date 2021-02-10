@@ -45,7 +45,6 @@
       flex-direction: row;
       opacity: 0;
       visibility: hidden;
-      transition: 0.1s visibility, 0.1s opacity;
       &.visible {
         opacity: 1;
         visibility: visible;

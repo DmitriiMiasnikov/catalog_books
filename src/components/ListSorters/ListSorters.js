@@ -5,6 +5,7 @@ import { ListSortersDom } from './ListSortersDom';
 
 const ListSorters = ({ setSortBy, setPage, currentPage, buttons }) => {
   const [buttonsSort, setButtonsSort] = useState(buttons);
+  const [showDropdowns, setShowDropdowns] = useState([false, false]);
   const sortHandler = (buttonId, subButtonId, sort) => {
     setButtonsSort(buttonsSort.map(el => {
       if (el.id !== buttonId) {
@@ -19,11 +20,20 @@ const ListSorters = ({ setSortBy, setPage, currentPage, buttons }) => {
       return el;
     }))
     setSortBy(sort);
+    setShowDropdowns(showDropdowns.map(el => el = false));
     if (currentPage !== 1) setPage(1);
   }
-
+  const showDropdownFunc = (index, show) => {
+    setShowDropdowns(showDropdowns.map((el, i) => {
+      if (i === index) {
+        el = show;
+      }
+      return el;
+    }))
+  }
   return (
-    <ListSortersDom sortHandler={sortHandler} buttonsSort={buttonsSort}/>
+    <ListSortersDom sortHandler={sortHandler} buttonsSort={buttonsSort} showDropdownFunc={showDropdownFunc} 
+      showDropdowns={showDropdowns}/>
   )
 }
 const mapStatesToProps = (state) => {

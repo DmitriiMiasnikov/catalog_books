@@ -6,7 +6,6 @@
     background-color: #464646;
     color: rgb(255, 255, 255);
     font-size: 13px;
-    transition: 0.2s background-color, .2s height;
     position: relative;
     overflow: hidden;
     height: 32px;
@@ -21,7 +20,7 @@
         transform: rotate(180deg);
       }
     }
-    &:hover {
+    &.hover {
       height: 64px;
     }
     a {
