@@ -39,54 +39,54 @@ router.get(
         user = await Users.findOne({ userId: userId });
       }
       // фильтр, сортировка и поиск сразу
-        let currentFilter;
-        let noFilters;
-        Object.keys(filters).map(el => {
-          if (filters[el].includes(filter)) {
-            currentFilter = el;
-            noFilters = false;
-          }
-        })
-        if (filter === 'все') {
-          currentFilter = 'genre';
-          noFilters = true;
+      let currentFilter;
+      let noFilters;
+      Object.keys(filters).map(el => {
+        if (filters[el].includes(filter)) {
+          currentFilter = el;
+          noFilters = false;
         }
-        let currentSort;
-        if (sort === 'name' || sort === 'name_reverse') {
-          currentSort = 'nameRu';
-        } else if (sort === 'date' || sort === 'date_reverse') {
-          currentSort = 'dateStart';
-        } else currentSort = 'animationId';
-        animation = await Animation.find({
-          $and: [
-            {  animationId: userId ? { $in: user.animation[userFilter] } : { $type: 'number'} },
-            { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
-            {
-              $or: [{ nameRu: { $regex: search, $options: 'i' } },
-              { nameEng: { $regex: search, $options: 'i' } },
-              { nameRom: { $regex: search, $options: 'i' } },
-              { author: { $regex: search, $options: 'i' } }]
-            }
-          ]
-        })
-          .sort({ [currentSort]: sort.split('_').length === 2 ? -1 : 1 })
-          .skip(countInPage * page - (countInPage))
-          .limit(countInPage);
-        countAnimation = await Animation.find({
-          $and: [
-            {  animationId: userId ? { $in: user.animation[userFilter] } : { $type: 'number'} },
-            { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
-            {
-              $or: [{ nameRu: { $regex: search, $options: 'i' } },
-              { nameEng: { $regex: search, $options: 'i' } },
-              { nameRom: { $regex: search, $options: 'i' } },
-              { author: { $regex: search, $options: 'i' } }]
-            }
-          ]
-        }).countDocuments({}, {
-          skip: countInPage * page - (countInPage),
-          limit: countInPage
-        })
+      })
+      if (filter === 'все') {
+        currentFilter = 'genre';
+        noFilters = true;
+      }
+      let currentSort;
+      if (sort === 'name' || sort === 'name_reverse') {
+        currentSort = 'nameRu';
+      } else if (sort === 'date' || sort === 'date_reverse') {
+        currentSort = 'dateStart';
+      } else currentSort = 'animationId';
+      animation = await Animation.find({
+        $and: [
+          { animationId: userId ? { $in: user.animation[userFilter] } : { $type: 'number' } },
+          { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
+          {
+            $or: [{ nameRu: { $regex: search, $options: 'i' } },
+            { nameEng: { $regex: search, $options: 'i' } },
+            { nameRom: { $regex: search, $options: 'i' } },
+            { author: { $regex: search, $options: 'i' } }]
+          }
+        ]
+      })
+        .sort({ [currentSort]: sort.split('_').length === 2 ? -1 : 1 })
+        .skip(countInPage * page - (countInPage))
+        .limit(countInPage);
+      countAnimation = await Animation.find({
+        $and: [
+          { animationId: userId ? { $in: user.animation[userFilter] } : { $type: 'number' } },
+          { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
+          {
+            $or: [{ nameRu: { $regex: search, $options: 'i' } },
+            { nameEng: { $regex: search, $options: 'i' } },
+            { nameRom: { $regex: search, $options: 'i' } },
+            { author: { $regex: search, $options: 'i' } }]
+          }
+        ]
+      }).countDocuments({}, {
+        skip: countInPage * page - (countInPage),
+        limit: countInPage
+      })
       res.status(200).json({ animation, page, countInPage, countAnimation, filters });
     } catch (e) {
       console.log(e)
@@ -105,4 +105,20 @@ router.get(
     }
   }
 )
+
+// /animation/randomId
+router.get(
+  '/randomId',
+  async (req, res) => {
+    try {
+      const lastAnimation = await Animation.find({}, 'animationId').sort({ animationId: -1 }).limit(1);
+      const randomId = Math.floor(Math.random() * (lastAnimation[0].animationId - 1)) + 1;
+      const randomAnimation = await Animation.findOne({ animationId: randomId });
+      res.status(200).json({ randomAnimation });
+    } catch (e) {
+      console.log(e)
+    }
+  }
+)
+
 module.exports = router;

@@ -57,16 +57,9 @@ export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAn
                                       <div className={styles.title}>
                                         {el.nameRu || el.nameEng}
                                       </div>
-                                      {el.date && <div className={styles.description}>
-                                        {el.date.map((dateEl, j) => {
-                                          return (
-                                            <span key={j}>
-                                              {j === 3 && <span> - </span>}
-                                              <span className={styles.n}>{dateEl}</span>
-                                              {j !== el.date.length - 1 && j !== 2 && <span>.</span>}
-                                            </span>
-                                          )
-                                        })}
+                                      {el.dateStart && <div className={styles.description}>
+                                        {el.dateStart.split('-').reverse().join('.')} {el.dateEnd && '- '}
+                                        {el.dateEnd && el.dateEnd.split('-').reverse().join('.')}
                                       </div>}
                                       {el.type && <div className={styles.description}>
                                         {el.type}

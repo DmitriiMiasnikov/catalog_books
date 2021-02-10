@@ -1,4 +1,5 @@
 .wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -7,5 +8,41 @@
   color: #e2e2e2;
   background-color: #2b2b2b;
   margin-top: 15px;
-  padding: 15px;
+  padding: 12px;
+  a {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    .image {
+      max-width: 100%;
+      min-height: 100%;
+      border-radius: 4px;
+    }
+    .text {
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      width: 100%;
+      background-color: black;
+      opacity: .9;
+      color: white;
+      padding: 5px 5px 10px;
+      box-sizing: border-box;
+      font-size: 11px;
+      transform: translateY(100%);
+      transition: .3s transform;
+      .title {
+        font-size: 13px;
+      }
+      .description {
+        margin-top: 5px;
+      }
+    }
+    &:hover {
+      .text {
+        transform: translateY(0);
+      }
+    }
+  }
 }

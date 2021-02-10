@@ -14,6 +14,11 @@ export const getAnimationApi = async (animationId) => {
   return res.data.selectedAnimation;
 }
 
+export const getRandomAnimationApi = async () => {
+  const res = await instance.get(`animation/randomId`);
+  return res.data.randomAnimation;
+}
+
 export const getUsersListApi = async () => {
   const res = await instance.get(`users/`);
   return res;
