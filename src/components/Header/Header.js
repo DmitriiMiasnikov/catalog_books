@@ -8,10 +8,14 @@ import { compose } from 'redux';
 const Header = ({ menuItems, animationItems, setFilterBy, setPage, history }) => {
   const [showAnimation, setShowAnimation] = useState(false);
   const showAnimationHandler = async (i, show) => {
-    i === 2 && setShowAnimation(show)
+    if (i === 2) {
+      await new Promise(res => setTimeout(res, 200))
+      setShowAnimation(show)
+    }
   }
   const openListAnimationFiltered = (filter) => {
     setFilterBy(filter);
+    setPage(1);
     history.push(`/animation/list/1`);
   }
 

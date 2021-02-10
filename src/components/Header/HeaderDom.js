@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import Search from '../Search/Search';
 import styles from './Header.module.scss';
 import home from './../../assets/Images/home.svg';
+import menu from './../../assets/Images/menu.svg';
 import classnames from 'classnames';
 
 export const HeaderDom = ({ menuItems, animationItems, showAnimation, showAnimationHandler,
@@ -15,7 +16,8 @@ export const HeaderDom = ({ menuItems, animationItems, showAnimation, showAnimat
             <div className={styles.item} key={i} onMouseOver={() => showAnimationHandler(i, true)}
               onMouseLeave={() => showAnimationHandler(i, false)} onClick={() => showAnimationHandler(i, false)}>
               <NavLink to={el.link} className={styles.link}>
-                {i === 0 ? <img src={home} alt='' /> : el.item}
+                {i === 0 ? <img src={home} alt='' className={styles.homeImg}/> : el.item}
+                {i === 2 && <img src={menu} alt='' className={styles.menuImg}/>}
               </NavLink>
               {i === 2 && (
                 <div className={classnames(styles.dropdownWrap, { [styles.visible]: showAnimation })}>

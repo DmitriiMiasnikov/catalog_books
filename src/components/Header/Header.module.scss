@@ -13,58 +13,62 @@
     line-height: 58px;
     height: 58px;
     align-items: center;
-
-      transition: .2s color;
-      text-shadow: 2px 2px 2px rgb(128, 128, 128);
-      .link {
-        padding: 0 20px;
-        color: white;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        &:hover {
-          color: rgb(170, 170, 170);
-        }
+    transition: 0.2s background-color;
+    text-shadow: 2px 2px 2px rgb(128, 128, 128);
+    &:hover {
+      background-color: #00000014;
+    }
+    .link {
+      padding: 0 20px;
+      color: white;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+    .homeImg {
+      width: 30px;
+      height: 30px;
+    }
+    .menuImg {
+      width: 14px;
+      height: 14px;
+      margin-left: 5px;
+    }
+    .dropdownWrap {
+      position: absolute;
+      top: 100%;
+      left: 0px;
+      z-index: 9;
+      display: flex;
+      flex-wrap: wrap;
+      width: 355px;
+      flex-direction: row;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.1s visibility, 0.1s opacity;
+      &.visible {
+        opacity: 1;
+        visibility: visible;
       }
-      img {
-        width: 30px;
-        height: 30px;
-      }
-      .dropdownWrap {
-        position: absolute;
-        top: 100%;
-        left: 0px;
-        z-index: 9;
+      .dropdown {
+        background-color: #4e4d4d;
+        border-top: 1px solid #3e3e3e;
+        width: 175px;
+        height: 45px;
         display: flex;
-        flex-wrap: wrap;
-        width: 355px;
-        flex-direction: row;
-        opacity: 0;
-        visibility: hidden;
-        transition: .1s visibility, .1s opacity;
-        &.visible {
-          opacity: 1;
-          visibility: visible;
+        align-items: center;
+        padding-left: 15px;
+        box-sizing: border-box;
+        transition: 0.1s background-color;
+        &:nth-child(even) {
+          border-left: 1px solid #3e3e3e;
         }
-        .dropdown {
-          background-color: #616161;
-          border-top: 1px solid #3e3e3e;
-          width: 175px;
-          height: 45px;
-          display: flex;
-          align-items: center;
-          padding-left: 15px;
-          box-sizing: border-box;
-          transition: .2s background-color;
-          &:nth-child(even) {
-            border-left: 1px solid #3e3e3e;
-          }
-          &:hover {
-            cursor: pointer;
-            background-color: rgb(170, 170, 170);
-          }
+        &:hover {
+          cursor: pointer;
+          background-color: rgb(143, 143, 143);
         }
       }
+    }
   }
   .item:not(:first-child) {
     border-left: 1px solid #313131;
