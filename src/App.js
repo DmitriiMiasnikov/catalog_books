@@ -16,6 +16,7 @@ import AnimationFilters from './components/AnimationFilters/AnimationFilters';
 import AnimationDescription from './components/AnimationDescription/AnimationDescription';
 import Registration from './components/Registration/Registration';
 import UsersMenu from './components/UsersMenu/UsersMenu';
+import RandomAnimationMenu from './components/RandomAnimationMenu/RandomAnimationMenu';
 
 function App({ theme, showRegistration }) {
   return (
@@ -28,6 +29,7 @@ function App({ theme, showRegistration }) {
           <UserMenu />
           <Route path='/animation/list' render={() => <AnimationFilters />} />
           <UsersMenu />
+          <RandomAnimationMenu />
         </div>
         <div className={styles.content}>
           <Switch>
