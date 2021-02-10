@@ -1,22 +1,22 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import Search from '../Search/Search';
-import styles from './Header.module.scss';
-import home from './../../assets/Images/home.svg';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { HeaderDom } from './HeaderDom'
 
-export const Header = ({ menuItems }) => {
+const Header = ({ menuItems, animationItems }) => {
+  const [showAnimation, setShowAnimation] = useState(false);
+  const showAnimationHandler = async (i, show) => {
+    i === 2 && setShowAnimation(show)
+  }
+
   return (
-    <div className={styles.wrapper}>
-      {
-        menuItems.map((el, i) => {
-          return (
-              <NavLink to={el.link} key={i} className={styles.item}>
-                {i === 0 ? <img src={home} alt=''/> : el.item}
-              </NavLink>
-          )
-        })
-      }
-      <Search />
-    </div>
+    <HeaderDom {...{ menuItems, animationItems, showAnimation, showAnimationHandler }} />
   )
 }
+
+const mapStatesToProps = (state) => {
+  return {
+    menuItems: state.header.menuItems,
+    animationItems: state.header.animationItems
+  }
+}
+export default connect(mapStatesToProps, {})(Header);

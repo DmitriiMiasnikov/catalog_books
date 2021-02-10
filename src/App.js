@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import styles from './App.module.scss';
-import Header from './components/Header/HeaderContainer';
+import Header from './components/Header/Header';
 import { Main } from './components/Main/Main';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
@@ -40,7 +40,6 @@ function App({ theme, showRegistration }) {
             <Route exact path='/animation/list/:page?' render={() => <Animation />} />
             <Route exact path={`/animation/id/:animationId?`} render={() => <AnimationDescription />} />
             <Route exact path={`/users/:userId`} render={() => <User />} />
-            {/* <Route exact path={`/registration`} render={() => <Registration />} /> */}
             <Route exact path={`/users`} render={() => <Users />} />
           </Switch>
         </div>
