@@ -152,7 +152,10 @@ router.get(
     try {
       const user = await Users.findOne({ userId: userId }, 'lastViewed');
       if (user) {
-        lastViewed = await Animation.find({ animationId: { $in: user.lastViewed.animation } });
+        lastViewedArr = await Animation.find({ animationId: { $in: user.lastViewed.animation } });
+        lastViewed = user.lastViewed.animation.map(el => {
+          return lastViewedArr.find(item => item.animationId === el);
+        }).reverse()
       }
       res.status(200).json({ lastViewed });
     } catch (e) {
