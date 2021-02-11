@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const router = Router();
-const sha256= require('js-sha256');
+const sha256 = require('js-sha256');
 const Users = require('./../models/Users');
 const Animation = require('./../models/Animation');
 
@@ -87,8 +87,8 @@ router.get(
       let animationFive = {};
       let rest = {};
       for (const i in Object.keys(user.animation)) {
-        const currentItem =  Object.keys(user.animation)[i];
-        animation[currentItem] = await Animation.find({ animationId: {$in: user.animation[currentItem]} });
+        const currentItem = Object.keys(user.animation)[i];
+        animation[currentItem] = await Animation.find({ animationId: { $in: user.animation[currentItem] } });
         rest[currentItem] = animation[currentItem].slice(5).length;
         animationFive[currentItem] = animation[currentItem].slice(0, 5);
       }
@@ -147,12 +147,14 @@ router.put(
 router.get(
   '/id/lastViewed/:userId',
   async (req, res) => {
-    const userId = req.params.userId || 0;
+    const userId = Number(req.params.userId) || 0;
+    let lastViewed;
     try {
       const user = await Users.findOne({ userId: userId }, 'lastViewed');
-      let animation;
-        animation = await Animation.find({ animationId: {$in: user.lastViewed} });
-      res.status(200).json({ animation});
+      if (user) {
+        lastViewed = await Animation.find({ animationId: { $in: user.lastViewed.animation } });
+      }
+      res.status(200).json({ lastViewed });
     } catch (e) {
       console.log(e)
     }

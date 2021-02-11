@@ -1,0 +1,101 @@
+.wrapper {
+  position: relative;
+  .title {
+    margin-bottom: 10px;
+    font-size: 20px;
+    
+  }
+  .lastViewedWrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    height: 235px;
+    .buttonLeft, .buttonRight {
+      height: 100%;
+      width: 40px;
+      background-color: #565656;
+      margin: 0 10px;
+    }
+    .scrollBlock {
+      position: relative;
+      overflow: hidden;
+      width: 920px;
+      height: 237px;
+      .animationListWrap {
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        top: 0px;
+        .animationItem {
+          position: relative;
+          border: 1px solid transparent;
+          border-radius: 4px;
+          overflow: hidden;
+          width: 170px;
+          height: 235px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: 0.2s border, 0.3s height;
+          &:hover {
+            border: 1px solid #888888;
+          }
+          &:not(:first-child) {
+            margin-left: 15px;
+          }
+          .image {
+            min-width: 100%;
+            min-height: 100%;
+            border-radius: 4px;
+          }
+          .text {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            width: 100%;
+            background-color: black;
+            opacity: .9;
+            color: white;
+            padding: 5px 5px 10px;
+            box-sizing: border-box;
+            font-size: 11px;
+            transform: translateY(100%);
+            transition: .2s transform;
+            .title {
+              font-size: 13px;
+            }
+            .description {
+              margin-top: 5px;
+            }
+          }
+          &:hover {
+            .text {
+              transform: translateY(0);
+            }
+          }
+        }
+      }
+      .loading {
+        height: 100px;
+        width: 100%;
+        font-size: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+          width: 40px;
+          height: 40px;
+          animation-name: rotation;
+          animation-duration: 1.5s;
+          animation-iteration-count: infinite;
+          animation-timing-function: ease-in-out;
+        }
+      }
+      &.empty {
+        height: 80px;
+      }
+    }
+  }
+
+}
