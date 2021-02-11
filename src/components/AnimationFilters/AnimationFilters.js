@@ -19,6 +19,12 @@ const AnimationFilters = ({ setFilterBy, filters, filterBy, setPage, selectedUse
       text: 'Жанр',
       type: 'genre',
       closed: true,
+    },
+    {
+      id: 2,
+      text: 'Тип',
+      type: 'type',
+      closed: true,
     }
   ])
   useEffect(() => {

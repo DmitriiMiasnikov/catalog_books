@@ -142,7 +142,7 @@ router.put(
   }
 )
 
-// получить последние 5 просмотренных аниме
+// получить последние 10 просмотренных аниме
 // users/id/lastViewed/:id
 router.get(
   '/id/lastViewed/:userId',
@@ -153,7 +153,6 @@ router.get(
       const user = await Users.findOne({ userId: userId }, 'lastViewed');
       if (user) {
         lastViewed = await Animation.find({ animationId: { $in: user.lastViewed.animation } });
-        lastViewed = lastViewed.reverse();
       }
       res.status(200).json({ lastViewed });
     } catch (e) {

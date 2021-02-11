@@ -33,6 +33,9 @@ router.get(
           'махо-сёдзё', 'боевые искусства',
           'музыкальный', 'ужасы',
           'образовательный'
+        ],
+        'type': [
+          'все', 'полнометражный', 'короткометражный', 'ТВ', 'OVA'
         ]
       }
       if (userId) {
@@ -60,7 +63,12 @@ router.get(
       animation = await Animation.find({
         $and: [
           { animationId: userId ? { $in: user.animation[userFilter] } : { $type: 'number' } },
-          { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
+          {
+            $or: [
+              { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
+              { [currentFilter]: { $regex: filter, $options: 'i' } }
+            ] 
+          },
           {
             $or: [{ nameRu: { $regex: search, $options: 'i' } },
             { nameEng: { $regex: search, $options: 'i' } },
@@ -75,7 +83,12 @@ router.get(
       countAnimation = await Animation.find({
         $and: [
           { animationId: userId ? { $in: user.animation[userFilter] } : { $type: 'number' } },
-          { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
+          {
+            $or: [
+              { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
+              { [currentFilter]: { $regex: filter, $options: 'i' } }
+            ] 
+          },
           {
             $or: [{ nameRu: { $regex: search, $options: 'i' } },
             { nameEng: { $regex: search, $options: 'i' } },
@@ -124,6 +137,7 @@ router.get(
   }
 )
 
+// получить случайное аниме
 // /animation/randomId
 router.get(
   '/randomId',
