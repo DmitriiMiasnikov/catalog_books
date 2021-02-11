@@ -12,36 +12,6 @@ const Animation = ({ animation, getAnimationList, filterBy, getAnimation, clearS
   let page = Number(match.params.page) || 1;
   const [fetching, setFetching] = useState(true);
   const [animationList, setAnimationList] = useState(animation);
-  const buttonsSortAnimation = [{
-      id: 0,
-      subButtons: [{
-        id: 0,
-        sort: 'name',
-        text: 'алфавитный порядок',
-        active: false
-      }, 
-      {
-        id: 1,
-        sort: 'name_reverse',
-        text: 'с конца алфавита',
-        active: false
-      }]
-    },
-    {
-      id: 1,
-      subButtons: [{
-        id: 0,
-        sort: 'date_reverse',
-        text: 'сначала новые',
-        active: false
-      }, 
-      {
-        id: 1,
-        sort: 'date',
-        text: 'сначала старые',
-        active: false
-      }]
-    }];
   useEffect(() => {
     setAnimationList(animation);
     setFetching(false);
@@ -64,7 +34,7 @@ const Animation = ({ animation, getAnimationList, filterBy, getAnimation, clearS
   }
   return (
     <AnimationDom animationList={animationList} openAnimationInfo={openAnimationInfo} countAllAnimation={countAllAnimation}
-      buttonsSortAnimation={buttonsSortAnimation} currentPage={page} fetching={fetching} pageView={pageView} myUserInfo={myUserInfo}/>
+     currentPage={page} fetching={fetching} pageView={pageView} myUserInfo={myUserInfo}/>
   )
 }
 const mapStatesToProps = (state) => {

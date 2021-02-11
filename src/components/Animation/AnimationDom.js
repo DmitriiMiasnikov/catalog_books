@@ -9,13 +9,13 @@ import loading from './../../assets/Images/loading.svg';
 import ButtonSwitcher from './../ButtonSwitcher/ButtonSwitcher';
 import Stars from '../Stars/Stars';
 
-export const AnimationDom = ({ animationList, openAnimationInfo, buttonsSortAnimation, countAllAnimation,
+export const AnimationDom = ({ animationList, openAnimationInfo, countAllAnimation,
   fetching, pageView, myUserInfo }) => {
   return (
     <div className={styles.wrapper}>
       <PageView />
       <div className={styles.listSorters}>
-        <ListSorters buttons={buttonsSortAnimation} />
+        <ListSorters />
       </div>
       <div className={styles.pagesCounter}>
         <PagesCounter countAll={countAllAnimation} />

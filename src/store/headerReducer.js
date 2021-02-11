@@ -3,6 +3,8 @@ const stateDefault = {
     {item: 'Главная', link: '/main'},
     {item: 'Книги', link: '/books'},
     {item: 'Аниме', link: '/animation/list'},
+    {item: 'Манга', link: '/manga/list'},
+    {item: 'Ранобе', link: '/ranobe/list'},
   ],
   animationItems: [
     'комедия',
