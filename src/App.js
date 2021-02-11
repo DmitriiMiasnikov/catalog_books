@@ -17,8 +17,9 @@ import AnimationDescription from './components/AnimationDescription/AnimationDes
 import Registration from './components/Registration/Registration';
 import UsersMenu from './components/UsersMenu/UsersMenu';
 import RandomAnimationMenu from './components/RandomAnimationMenu/RandomAnimationMenu';
+import List from './components/List/List';
 
-function App({ theme, showRegistration }) {
+function App({ theme, showRegistration, list, animation }) {
   return (
     <div className={classnames(styles.page, { [styles.black]: theme === 'black', [styles.white]: theme === 'white' })}>
       <div className={styles.wrapper}>
@@ -28,6 +29,7 @@ function App({ theme, showRegistration }) {
         <div className={styles.menu}>
           <UserMenu />
           <Route path='/animation/list' render={() => <AnimationFilters />} />
+          {/* {(list.length || animation.length) && <AnimationFilters />} */}
           <UsersMenu />
           <RandomAnimationMenu />
         </div>
@@ -37,7 +39,9 @@ function App({ theme, showRegistration }) {
             <Route exact path='/main' render={() => <Main />} />
             <Route exact path='/books' render={() => <Books />} />
             <Route exact path='/authors' render={() => <Authors />} />
-            <Route exact path='/animation/list/:page?' render={() => <Animation />} />
+            <Route exact path='/animation/list/:page?' render={() => <List listName={'animation'}/>} />
+            <Route exact path='/manga/list/:page?' render={() => <List listName={'manga'}/>} />
+            <Route exact path='/ranobe/list/:page?' render={() => <List listName={'ranobe'}/>} />
             <Route exact path={`/animation/id/:animationId?`} render={() => <AnimationDescription />} />
             <Route exact path={`/users/:userId`} render={() => <User />} />
             <Route exact path={`/users`} render={() => <Users />} />
@@ -52,7 +56,10 @@ function App({ theme, showRegistration }) {
 const mapStatesToProps = (state) => {
   return {
     theme: state.main.theme,
-    showRegistration: state.users.showRegistration
+    showRegistration: state.users.showRegistration,
+
+    animation: state.animation.animation,
+    list: state.animation.list
   }
 }
 export default compose(

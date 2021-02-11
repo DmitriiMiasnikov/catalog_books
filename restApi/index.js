@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const config = require('config');
 const animationRoutes = require('./routes/animationRoutes');
 const usersRoutes = require('./routes/usersRoutes');
+const listRoutes = require('./routes/listRoutes');
 const cors = require('cors');
 // const session = require('express-session');
 // const cookieParser = require('cookie-parser')
@@ -15,6 +16,7 @@ app.use(cors());
 app.options('*', cors());
 app.use('/animation', animationRoutes);
 app.use('/users', usersRoutes);
+app.use('/list', listRoutes);
 // app.use(cookieParser());
 
 // app.use(session({

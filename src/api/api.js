@@ -9,6 +9,19 @@ export const getAnimationListApi = async (page, counter, sort, filter, search, u
   return res;
 }
 
+export const getListApi = async (listName, page, counter, sort, filter, search, userId, userFilter) => {
+  const res = await instance.get(`list/${page}?listName=${listName}&counter=${counter}&sort=${sort}&filter=${filter}&search=${search}&userId=${userId}&userFilter=${userFilter}`);
+  return res;
+}
+export const getDescriptionApi = async (listName, id, userId) => {
+  const res = await instance.get(`list/id/${id}?listName=${listName}&userId=${userId}`);
+  return res.data.selectedDescription;
+}
+export const getRandomOneApi = async () => {
+  const res = await instance.get(`list/randomId`);
+  return res.data.randomItems;
+}
+
 export const getAnimationApi = async (animationId, userId) => {
   const res = await instance.get(`animation/id/${animationId}?userId=${userId}`);
   return res.data.selectedAnimation;
