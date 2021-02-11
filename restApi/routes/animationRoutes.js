@@ -20,6 +20,11 @@ router.get(
     let countAnimation;
     let user;
     try {
+      let dateToday = new Date();
+      let date = [`${dateToday.getFullYear() - 3} - ${dateToday.getFullYear()}`];
+      for (let i = dateToday.getFullYear() - 4; i > 1970; i = i - 4) {
+        date.push(`${i - 3} - ${i}`);
+      }
       filters = {
         'auditory': ['все', 'сёнэн', 'сэйнэн', 'сёдзё', 'дзёсэй', 'кодомо'],
         'genre': [
@@ -36,7 +41,8 @@ router.get(
         ],
         'type': [
           'все', 'полнометражный', 'короткометражный', 'ТВ', 'OVA'
-        ]
+        ],
+        'dateStart': date
       }
       if (userId) {
         user = await Users.findOne({ userId: userId });
@@ -66,8 +72,9 @@ router.get(
           {
             $or: [
               { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
-              { [currentFilter]: { $regex: filter, $options: 'i' } }
-            ] 
+              { [currentFilter]: { $regex: filter, $options: 'i' } },
+              { [currentFilter]: { $lte: filter.split(' - ')[1], $gte: filter.split(' - ')[0] } }
+            ]
           },
           {
             $or: [{ nameRu: { $regex: search, $options: 'i' } },
@@ -86,8 +93,9 @@ router.get(
           {
             $or: [
               { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
-              { [currentFilter]: { $regex: filter, $options: 'i' } }
-            ] 
+              { [currentFilter]: { $regex: filter, $options: 'i' } },
+              { [currentFilter]: { $lte: filter.split(' - ')[1], $gte: filter.split(' - ')[0] } }
+            ]
           },
           {
             $or: [{ nameRu: { $regex: search, $options: 'i' } },

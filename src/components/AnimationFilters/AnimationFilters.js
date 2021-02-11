@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
 import { getAnimationList, setFilterBy, setPage, setSearchValue } from './../../store/animationReducer';
 import { selectUser } from './../../store/usersReducer';
 import { AnimationFiltersDom } from './AnimationFiltersDom';
 
 const AnimationFilters = ({ setFilterBy, filters, filterBy, setPage, selectedUser, userInfo, selectUser,
-  searchValue, setSearchValue }) => {
+  searchValue, setSearchValue, history }) => {
   const [buttonsFilter, setButtonsFilter] = useState({});
   const [dropdowns, setDropdowns] = useState([
     {
@@ -24,6 +26,12 @@ const AnimationFilters = ({ setFilterBy, filters, filterBy, setPage, selectedUse
       id: 2,
       text: 'Тип',
       type: 'type',
+      closed: true,
+    },
+    {
+      id: 3,
+      text: 'Дата выхода',
+      type: 'dateStart',
       closed: true,
     }
   ])
@@ -53,7 +61,7 @@ const AnimationFilters = ({ setFilterBy, filters, filterBy, setPage, selectedUse
   }
   const filterHandler = (dropdown, filterBy, indexButton) => {
     setFilterBy(filterBy);
-    setPage(1);
+    history.push(`/animation/list/1`);
     setButtonsFilter((buttons) => {
       const obj = {};
       Object.keys(buttons).forEach((el, i) => {
@@ -97,4 +105,7 @@ const mapStatesToProps = (state) => {
   }
 }
 
-export default connect(mapStatesToProps, { getAnimationList, setFilterBy, setPage, selectUser, setSearchValue })(AnimationFilters);
+export default compose(
+  connect(mapStatesToProps, { getAnimationList, setFilterBy, setPage, selectUser, setSearchValue }),
+  withRouter
+) (AnimationFilters);
