@@ -11,7 +11,7 @@ import Users from './components/Users/Users';
 import User from './components/User/User';
 import Books from './components/Books/BooksContainer';
 import Authors from './components/Authors/AuthorsContainer';
-import AnimationFilters from './components/AnimationFilters/AnimationFilters';
+import Filters from './components/Filters/Filters';
 import AnimationDescription from './components/AnimationDescription/AnimationDescription';
 import Registration from './components/Registration/Registration';
 import UsersMenu from './components/UsersMenu/UsersMenu';
@@ -27,7 +27,7 @@ function App({ theme, showRegistration }) {
         </div>
         <div className={styles.menu}>
           <UserMenu />
-          <Route path='/list' render={() => <AnimationFilters />} />
+          <Route path='/list' render={() => <Filters />} />
           <UsersMenu />
           <RandomAnimationMenu />
         </div>

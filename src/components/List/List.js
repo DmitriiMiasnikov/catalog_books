@@ -2,25 +2,29 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-import { getList, setFilterBy, clearStates, getDescription } from '../../store/animationReducer';
-import { setListName } from './../../store/listReducer';
+import { clearStates, getDescription } from '../../store/animationReducer';
+import { setListName, getList, clearList } from './../../store/listReducer';
+import { setFilterBy, clearFilter } from './../../store/filterReducer';
 import { ListDom } from './ListDom';
 
 const List = ({ list, listName, getList, filterBy, getDescription, clearStates,
   currentPage, sortBy, countAll, countInPage, searchValue, match, pageView,
-  selectedUser, userFilter, myUserInfo, setListName }) => {
+  selectedUser, userFilter, myUserInfo, setListName, clearList, clearFilter }) => {
   let page = Number(match.params.page) || 1;
   const [fetching, setFetching] = useState(true);
-  const [currentList, setCurrentList] = useState(list);
   const id = listName === 'animation' ? 'animationId' : 'mangaId';
   useEffect(() => {
-    setCurrentList(list);
-    setFetching(false);
-  }, [list, setCurrentList])
+    clearStates();
+    clearList();
+    clearFilter();
+    setFetching(true);
+    setListName(listName);
+  }, [setListName, listName])
   useEffect(() => {
     setFetching(true);
     const fetchData = async () => {
       await getList(listName, page, countInPage, sortBy, filterBy, searchValue, selectedUser, userFilter);
+      setFetching(false);
     }
     window.scroll(0, 0);
     fetchData();
@@ -28,34 +32,36 @@ const List = ({ list, listName, getList, filterBy, getDescription, clearStates,
   useEffect(() => {
     return () => {
       clearStates();
+      clearList();
+      clearFilter();
     }
   }, [clearStates])
-  useEffect(() => {
-    setListName(listName);
-  }, [])
   const openInfo = (id) => {
     getDescription(listName, id);
   }
   return (
-    <ListDom  {...{currentList, openInfo, countAll, fetching, pageView, myUserInfo, listName, id}} />
+    <ListDom  {...{openInfo, countAll, fetching, pageView, myUserInfo, listName, id, list}} />
   )
 }
 const mapStatesToProps = (state) => {
   return {
-    filterBy: state.animation.filterBy,
-    countAll: state.animation.countAll,
+    filterBy: state.filter.filterBy,
+    userFilter: state.filter.userFilter,
+
     countInPage: state.animation.countInPage,
     currentPage: state.animation.currentPage,
     sortBy: state.animation.sortBy,
     searchValue: state.animation.searchValue,
     pageView: state.animation.pageView,
+
     selectedUser: state.users.selectedUser,
-    userFilter: state.animation.userFilter,
     myUserInfo: state.users.myUserInfo,
-    list: state.animation.list
+
+    list: state.list.list,
+    countAll: state.list.countAll,
   }
 }
 export default compose(
-  connect(mapStatesToProps, { getList, getDescription, setFilterBy, clearStates, setListName }),
+  connect(mapStatesToProps, { getList, getDescription, setFilterBy, clearStates, clearList, setListName, clearFilter }),
   withRouter
 )(List);

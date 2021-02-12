@@ -9,7 +9,7 @@ import loading from './../../assets/Images/loading.svg';
 import ButtonSwitcher from './../ButtonSwitcher/ButtonSwitcher';
 import Stars from '../Stars/Stars';
 
-export const ListDom = ({ currentList, openInfo, countAll,
+export const ListDom = ({ list, openInfo, countAll,
   fetching, pageView, myUserInfo, listName, id }) => {
   return (
     <div className={styles.wrapper}>
@@ -20,7 +20,7 @@ export const ListDom = ({ currentList, openInfo, countAll,
       <div className={styles.pagesCounter}>
         <PagesCounter countAll={countAll} listName={listName} />
       </div>
-      {!fetching && currentList && !currentList.length ? (
+      {!fetching && list && !list.length ? (
         <div className={styles.warning}>
           не найдено по текущему запросу
         </div>
@@ -31,7 +31,7 @@ export const ListDom = ({ currentList, openInfo, countAll,
       ) : (
             <div className={classnames(styles.currentList, styles[pageView])}>
               {
-                currentList && currentList.map((el, i) => {
+                list && list.map((el, i) => {
                   return (
                     <div key={i} className={classnames(styles.item, { [styles.done]: myUserInfo && myUserInfo[listName].done.includes(el[id]) })}>
                       {

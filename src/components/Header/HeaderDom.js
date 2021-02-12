@@ -7,7 +7,7 @@ import menu from './../../assets/Images/menu.svg';
 import classnames from 'classnames';
 
 export const HeaderDom = ({ menuItems, animationItems, showAnimation, showAnimationHandler,
-  openListAnimationFiltered }) => {
+  openListAnimationFiltered, clearListHandler }) => {
   return (
     <div className={styles.wrapper}>
       {
@@ -15,7 +15,7 @@ export const HeaderDom = ({ menuItems, animationItems, showAnimation, showAnimat
           return (
             <div className={styles.item} key={i} onMouseOver={() => showAnimationHandler(i, true)}
               onMouseLeave={() => showAnimationHandler(i, false)} onClick={() => showAnimationHandler(i, false)}>
-              <NavLink to={el.link} className={styles.link}>
+              <NavLink to={el.link} className={styles.link} onClick={() => clearListHandler(el.list)}>
                 {i === 0 ? <img src={home} alt='' className={styles.homeImg}/> : el.item}
                 {i === 2 && <img src={menu} alt='' className={styles.menuImg}/>}
               </NavLink>

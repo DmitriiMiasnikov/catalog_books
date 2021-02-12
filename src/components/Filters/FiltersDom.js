@@ -1,10 +1,10 @@
 import React, { useRef, useEffect } from 'react';
-import styles from './AnimationFilters.module.scss';
+import styles from './Filters.module.scss';
 import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import close from './../../assets/Images/close.svg';
 
-export const AnimationFiltersDom = ({ buttonsFilter, openDropdown, dropdowns, filterHandler, selectedUser,
+export const FiltersDom = ({ buttonsFilter, openDropdown, dropdowns, filterHandler, selectedUser,
   userInfo, closeUsersList, filterBy, searchValue, cancelSeach, listName }) => {
   const refDropdown = useRef(null);
   const handleMouseClick = (e) => {

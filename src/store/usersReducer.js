@@ -2,7 +2,7 @@ import {
   getUserApi, getUsersAnimationListApi, setUsersAnimationApi,
   userRegistrationApi, userAuthorizationApi, getUsersListApi, getUsersListMenuApi
 } from './../api/api';
-import { setCounterAllAnimation } from './animationReducer';
+import { setCounterAll } from './listReducer';
 
 const SELECT_USER = 'SELECT_USER';
 const GET_MY_USER_INFO = 'GET_MY_USER_INFO';
@@ -139,7 +139,7 @@ export const getUsersAnimationList = (id) => {
     dispatch(getUsersAllAnimationListFunc(res.data.animation));
     dispatch(getUsersAnimationListFunc(res.data.animationFive));
     dispatch(getRestCountAnimation(res.data.rest));
-    dispatch(setCounterAllAnimation(Number(res.data.countAnimation)));
+    dispatch(setCounterAll(Number(res.data.countAnimation)));
   }
 }
 export const getMyUserInfo = (id) => {

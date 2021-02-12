@@ -5,7 +5,7 @@ import { compose } from 'redux';
 import { UserDom } from './UserDom';
 import { getUser, getUsersAnimationList, selectUser } from './../../store/usersReducer';
 import { getAnimation } from './../../store/animationDescriptionReducer';
-import { setUserFilter } from './../../store/animationReducer';
+import { setUserFilter } from './../../store/filterReducer';
 
 const User = ({ currentUserId, match, getUser, userInfo, getUsersAnimationList, usersAnimationList, getAnimation,
   restCountAnimation, selectUser, setUserFilter }) => {

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-import { getAnimationList, setFilterBy, setSearchValue } from './../../store/animationReducer';
+import { setFilterBy } from './../../store/filterReducer';
 import { selectUser } from './../../store/usersReducer';
-import { AnimationFiltersDom } from './AnimationFiltersDom';
+import { FiltersDom } from './FiltersDom';
 
-const AnimationFilters = ({ setFilterBy, filters, filterBy, selectedUser, userInfo, selectUser,
+const Filters = ({ setFilterBy, filters, filterBy, selectedUser, userInfo, selectUser,
   searchValue, setSearchValue, history, listName }) => {
   const [buttonsFilter, setButtonsFilter] = useState({});
   const [dropdowns, setDropdowns] = useState([
@@ -88,7 +88,7 @@ const AnimationFilters = ({ setFilterBy, filters, filterBy, selectedUser, userIn
     setSearchValue('');
   }
   return (
-    <AnimationFiltersDom {...{buttonsFilter, dropdowns, closeUsersList, openDropdown, filterHandler, userInfo,
+    <FiltersDom {...{buttonsFilter, dropdowns, closeUsersList, openDropdown, filterHandler, userInfo,
       selectedUser, filterBy, cancelSeach, searchValue, listName}} />
   )
 }
@@ -96,8 +96,8 @@ const AnimationFilters = ({ setFilterBy, filters, filterBy, selectedUser, userIn
 const mapStatesToProps = (state) => {
   return {
     animation: state.animation.animation,
-    filters: state.animation.filters,
-    filterBy: state.animation.filterBy,
+    filters: state.filter.filters,
+    filterBy: state.filter.filterBy,
     selectedUser: state.users.selectedUser,
     userInfo: state.users.userInfo,
     searchValue: state.animation.searchValue,
@@ -106,6 +106,6 @@ const mapStatesToProps = (state) => {
 }
 
 export default compose(
-  connect(mapStatesToProps, { getAnimationList, setFilterBy, selectUser, setSearchValue }),
+  connect(mapStatesToProps, { setFilterBy, selectUser }),
   withRouter
-) (AnimationFilters);
+) (Filters);

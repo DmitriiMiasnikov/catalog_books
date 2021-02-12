@@ -2,9 +2,9 @@ const stateDefault = {
   menuItems: [
     {item: 'Главная', link: '/main'},
     {item: 'Книги', link: '/books'},
-    {item: 'Аниме', link: '/list/animation'},
-    {item: 'Манга', link: '/list/manga'},
-    {item: 'Ранобе', link: '/list/ranobe'},
+    {item: 'Аниме', link: '/list/animation', list: 'animation'},
+    {item: 'Манга', link: '/list/manga', list: 'manga'},
+    {item: 'Ранобе', link: '/list/ranobe', list: 'ranobe'},
   ],
   animationItems: [
     'комедия',

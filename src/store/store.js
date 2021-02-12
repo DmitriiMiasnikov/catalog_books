@@ -8,6 +8,7 @@ import { mainReducer } from './mainReducer';
 import { usersReducer } from "./usersReducer";
 import { animationDescriptionReducer } from './animationDescriptionReducer';
 import { listReducer } from './listReducer';
+import { filterReducer } from './filterReducer';
 
 
 const reducers = combineReducers({
@@ -18,6 +19,7 @@ const reducers = combineReducers({
   authors: authorsReducer,
   animation: animationReducer,
   animationDescription: animationDescriptionReducer,
-  list: listReducer
+  list: listReducer,
+  filter: filterReducer,
 })
 export const store = createStore(reducers, applyMiddleware(thunkMiddleware))
