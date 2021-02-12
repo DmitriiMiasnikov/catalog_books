@@ -40,7 +40,9 @@ function App({ theme, showRegistration }) {
             <Route exact path='/list/animation/:page?' render={() => <List listName={'animation'}/>} />
             <Route exact path='/list/manga/:page?' render={() => <List listName={'manga'}/>} />
             <Route exact path='/list/ranobe/:page?' render={() => <List listName={'ranobe'}/>} />
-            <Route exact path={`/animation/id/:animationId?`} render={() => <Description />} />
+            <Route exact path={`/description/animation/:id?`} render={() => <Description listName={'animation'}/>} />
+            <Route exact path={`/description/manga/:id?`} render={() => <Description listName={'manga'}/>} />
+            <Route exact path={`/description/ranobe/:id?`} render={() => <Description listName={'ranobe'}/>} />
             <Route exact path={`/users/:userId`} render={() => <User />} />
             <Route exact path={`/users`} render={() => <Users />} />
           </Switch>

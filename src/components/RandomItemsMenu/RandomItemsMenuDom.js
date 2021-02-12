@@ -7,12 +7,13 @@ export const RandomItemsMenuDom = ({ randomItems, openAnimationInfo }) => {
     <>
       {
         randomItems && Object.keys(randomItems).map((item, i) => {
+          const listName = item === 'animation' ? 'animation' : 'manga';
           return (
             <div className={styles.wrapper} key={i}>
-              <NavLink to={`/${item}/id/${randomItems[item][item === 'animation' ? 'animationId' : 'mangaId']}`}
-                onClick={() => openAnimationInfo(randomItems[item].animationId)}
+              <NavLink to={`/description/${item}/${randomItems[item][`${listName}Id`]}`}
+                onClick={() => openAnimationInfo(listName, randomItems[item][`${listName}Id`])}
                 className={styles.animationItem} >
-                <img src={`https://anime.amyasnikov.pro/images/${item}_cover_${randomItems[item].animationId}.jpg`}
+                <img src={`https://anime.amyasnikov.pro/${listName}_small/${listName}_cover_${randomItems[item][`${listName}Id`]}_small.jpg`}
                   alt='img' className={styles.image} />
                 <div className={styles.text}>
                   <div className={styles.title}>

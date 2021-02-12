@@ -28,7 +28,33 @@ const schema = new Schema({
       queue: []
     }
   },
+  ranobe: {
+    type: Schema.Types.Mixed,
+    default: {
+      done: [],
+      queue: []
+    }
+  },
+  manga: {
+    type: Schema.Types.Mixed,
+    default: {
+      done: [],
+      queue: []
+    }
+  },
   animationRating: {
+    type: Schema.Types.Mixed,
+    default: {
+      0: 0
+    }
+  },
+  mangaRating: {
+    type: Schema.Types.Mixed,
+    default: {
+      0: 0
+    }
+  },
+  ranobeRating: {
     type: Schema.Types.Mixed,
     default: {
       0: 0
@@ -37,7 +63,9 @@ const schema = new Schema({
   lastViewed: {
     type: Schema.Types.Mixed,
     default: {
-      animation: []
+      animation: [],
+      ranobe: [],
+      manga: []
     }
   }
 })

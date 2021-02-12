@@ -10,7 +10,8 @@ import ButtonSwitcher from './../ButtonSwitcher/ButtonSwitcher';
 import Stars from '../Stars/Stars';
 
 export const ListDom = ({ list, openInfo, countAll,
-  fetching, pageView, myUserInfo, listName, id }) => {
+  fetching, pageView, myUserInfo, listName, calatogName }) => {
+  const id = `${calatogName}Id`
   return (
     <div className={styles.wrapper}>
       <PageView />
@@ -37,14 +38,15 @@ export const ListDom = ({ list, openInfo, countAll,
                       {
                         pageView === 'small' && (
                           <div key={i} className={styles.itemInner}>
-                            <NavLink to={`/${listName}/id/${el[id]}`} onClick={() => openInfo(el[id])} className={styles.imgLink}>
-                              <img src={`https://anime.amyasnikov.pro/images/animation_cover_${el[id]}.jpg`} alt='' className={styles.image} />
+                            <NavLink to={`/description/${listName}/${el[id]}`} onClick={() => openInfo(el[id])} className={styles.imgLink}>
+                              <img src={`https://anime.amyasnikov.pro/${calatogName}_small/${calatogName}_cover_${el[id]}_small.jpg`} 
+                                alt='' className={styles.image} />
                             </NavLink>
                             <div className={styles.infoWrapper}>
                               {el.nameRu && <div className={styles.title}>
-                                <NavLink to={`/${listName}/id/${el[id]}`} onClick={() => openInfo(el[id])}>{el.nameRu}</NavLink></div>}
+                                <NavLink to={`/description/${listName}/${el[id]}`} onClick={() => openInfo(el[id])}>{el.nameRu}</NavLink></div>}
                               {el.nameEng && !el.nameRu && <div className={classnames(styles.nameEng, { [styles.title]: !el.nameRu })}>
-                                <NavLink to={`/${listName}/id/${el[id]}`} onClick={() => openInfo(el[id])}>{el.nameEng}</NavLink>
+                                <NavLink to={`/description/${listName}/${el[id]}`} onClick={() => openInfo(el[id])}>{el.nameEng}</NavLink>
                               </div>}
                               {listName === 'animation' && el.dateStart && <div className={styles.date}>
                                 {el.dateStart.split('-').reverse().join('.')} {el.dateEnd && '- '}
@@ -85,14 +87,14 @@ export const ListDom = ({ list, openInfo, countAll,
                       {
                         pageView === 'medium' && (
                           <div key={i} className={styles.itemInner}>
-                            <NavLink to={`/${listName}/id/${el[id]}`} onClick={() => openInfo(el[id])} className={styles.imgLink}>
-                              <img src={`https://anime.amyasnikov.pro/images/animation_cover_${el[id]}.jpg`} alt='' className={styles.image} />
+                            <NavLink to={`/description/${listName}/${el[id]}`} onClick={() => openInfo(el[id])} className={styles.imgLink}>
+                              <img src={`https://anime.amyasnikov.pro/${calatogName}_small/${calatogName}_cover_${el[id]}_small.jpg`} alt='' className={styles.image} />
                             </NavLink>
                             <div className={styles.infoWrapper}>
                               {el.nameRu && <div className={styles.title}>
-                                <NavLink to={`/${listName}/id/${el[id]}`} onClick={() => openInfo(el[id])}>{el.nameRu}</NavLink></div>}
+                                <NavLink to={`/description/${listName}/${el[id]}`} onClick={() => openInfo(el[id])}>{el.nameRu}</NavLink></div>}
                               {el.nameEng && !el.nameRu && <div className={classnames(styles.nameEng, { [styles.title]: !el.nameRu })}>
-                                <NavLink to={`/${listName}/id/${el[id]}`} onClick={() => openInfo(el[id])}>{el.nameEng}</NavLink>
+                                <NavLink to={`/description/${listName}/${el[id]}`} onClick={() => openInfo(el[id])}>{el.nameEng}</NavLink>
                               </div>}
                               {listName === 'animation' && el.dateStart && <div className={styles.date}>
                                 {el.dateStart.split('-').reverse().join('.')}
@@ -139,9 +141,10 @@ export const ListDom = ({ list, openInfo, countAll,
                       }
                       {
                         pageView === 'large' && (
-                          <NavLink to={`/${listName}/id/${el[id]}`} onClick={() => openInfo(el[id])}
+                          <NavLink to={`/description/${listName}/${el[id]}`} onClick={() => openInfo(el[id])}
                             key={i} className={styles.itemInner}>
-                            <img src={`https://anime.amyasnikov.pro/images/animation_cover_${el[id]}.jpg`} alt='' className={styles.image} />
+                            <img src={`https://anime.amyasnikov.pro/${calatogName}_small/${calatogName}_cover_${el[id]}_small.jpg`}
+                              alt='' className={styles.image} />
                             <div className={styles.text}>
                               <div className={styles.title}>
                                 {el.nameRu || el.nameEng}

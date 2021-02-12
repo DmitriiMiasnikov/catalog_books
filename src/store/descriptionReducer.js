@@ -1,4 +1,5 @@
 import { getDescriptionApi, getRandomOneApi } from './../api/api';
+import { setListName } from './listReducer';
 
 const GET_RANDOM_ONE = 'GET_RANDOM_ONE';
 const GET_DESCRIPTION = 'GET_DESCRIPTION';
@@ -32,6 +33,7 @@ export const getDescriptionFunc = (selectedDescription) => {
 export const getDescription = (listName, id, userId = 0) => {
   return async (dispatch) => {
     const res = await getDescriptionApi(listName, id, userId)
+    dispatch(setListName(listName));
     dispatch(getDescriptionFunc(res))
   }
 }

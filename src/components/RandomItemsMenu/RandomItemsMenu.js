@@ -14,8 +14,8 @@ const RandomItemsMenu = ({ getRandomOne, randomItems, getDescription }) => {
     return () => clearInterval(interval);
   }, [getRandomOne, randomItems])
 
-  const openAnimationInfo = (info) => {
-    getDescription(info);
+  const openAnimationInfo = (listName, id) => {
+    getDescription(listName, id);
   }
 
   return (

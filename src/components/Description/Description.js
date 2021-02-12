@@ -8,10 +8,12 @@ import { withRouter } from 'react-router-dom';
 
 const Description = ({ getDescription, getDescriptionFunc, match, selectedDescription,
   currentUserId, getUser, listName }) => {
-  const currentAnimationId = Number(match.params.animationId);
+  const currentAnimationId = Number(match.params.id);
+  const listNameUrl = !listName ? match.url.split('/')[2] : listName;
+  const calatogName = listNameUrl === 'animation' ? 'animation' : 'manga';
   useEffect(() => {
     const fetchData = async () => {
-      await getDescription(listName, currentAnimationId, currentUserId);
+      await getDescription(listNameUrl, currentAnimationId, currentUserId);
     }
     fetchData();
   }, [getDescription, match, currentAnimationId, currentUserId])
@@ -27,7 +29,7 @@ const Description = ({ getDescription, getDescriptionFunc, match, selectedDescri
     return () => getDescriptionFunc(null)
   }, [getDescriptionFunc])
   return (
-    <DescriptionDom selectedDescription={selectedDescription} />
+    <DescriptionDom selectedDescription={selectedDescription} calatogName={calatogName}/>
   )
 }
 const mapStatesToProps = (state) => {
