@@ -206,18 +206,21 @@ router.get(
   async (req, res) => {
     try {
       let randomItems = {}
-      const lastAnimation = await Animation.find({}, 'animationId').sort({ animationId: -1 }).limit(1);
-      const randomAnimationId = Math.floor(Math.random() * (lastAnimation[0].animationId - 1)) + 1;
-      randomItems.animation = await Animation.findOne({ animationId: randomAnimationId });
-
-      const lastManga = await Manga.find({ type: 'манга'}, 'mangaId').sort({ mangaId: -1 }).limit(1);
-      const randomMangaId = Math.floor(Math.random() * (lastManga[0].mangaId - 1)) + 1;
-      randomItems.manga = await Manga.findOne({ mangaId: randomMangaId });
-
-      const lastRanobe = await Manga.find({ type: 'ранобэ'}, 'mangaId').sort({ mangaId: -1 }).limit(1);
-      const randomRanobeId = Math.floor(Math.random() * (lastRanobe[0].mangaId - 1)) + 1;
-      randomItems.ranobe = await Manga.findOne({ mangaId: randomRanobeId });
-
+      while (!randomItems.animation) {
+        const lastAnimation = await Animation.find({}, 'animationId').sort({ animationId: -1 }).limit(1);
+        const randomAnimationId = Math.floor(Math.random() * (lastAnimation[0].animationId - 1)) + 1;
+        randomItems.animation = await Animation.findOne({ animationId: randomAnimationId });
+      }
+      while (!randomItems.manga) {
+        const lastManga = await Manga.find({ type: 'манга' }, 'mangaId').sort({ mangaId: -1 }).limit(1);
+        const randomMangaId = Math.floor(Math.random() * (lastManga[0].mangaId - 1)) + 1;
+        randomItems.manga = await Manga.findOne({ mangaId: randomMangaId });
+      }
+      while (!randomItems.ranobe) {
+        const lastRanobe = await Manga.find({ type: 'ранобэ' }, 'mangaId').sort({ mangaId: -1 }).limit(1);
+        const randomRanobeId = Math.floor(Math.random() * (lastRanobe[0].mangaId - 1)) + 1;
+        randomItems.ranobe = await Manga.findOne({ mangaId: randomRanobeId });
+      }
       res.status(200).json({ randomItems });
     } catch (e) {
       console.log(e)

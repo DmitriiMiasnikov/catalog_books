@@ -7,9 +7,9 @@ import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 
 const Description = ({ getDescription, getDescriptionFunc, match, selectedDescription,
-  currentUserId, getUser, listName }) => {
+  currentUserId, getUser }) => {
   const currentAnimationId = Number(match.params.id);
-  const listNameUrl = !listName ? match.url.split('/')[2] : listName;
+  const listNameUrl = match.url.split('/')[2];
   const catalogName = listNameUrl === 'animation' ? 'animation' : 'manga';
   useEffect(() => {
     const fetchData = async () => {
@@ -36,7 +36,6 @@ const mapStatesToProps = (state) => {
   return {
     selectedDescription: state.description.selectedDescription,
     currentUserId: state.users.currentUserId,
-    listName: state.list.listName
   }
 }
 export default compose(
