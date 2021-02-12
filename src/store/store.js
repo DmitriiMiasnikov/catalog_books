@@ -6,7 +6,7 @@ import { booksReducer } from "./booksReducer";
 import { headerReducer } from './headerReducer';
 import { mainReducer } from './mainReducer';
 import { usersReducer } from "./usersReducer";
-import { animationDescriptionReducer } from './animationDescriptionReducer';
+import { descriptionReducer } from './descriptionReducer';
 import { listReducer } from './listReducer';
 import { filterReducer } from './filterReducer';
 
@@ -18,7 +18,7 @@ const reducers = combineReducers({
   books: booksReducer,
   authors: authorsReducer,
   animation: animationReducer,
-  animationDescription: animationDescriptionReducer,
+  description: descriptionReducer,
   list: listReducer,
   filter: filterReducer,
 })

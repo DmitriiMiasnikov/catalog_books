@@ -4,10 +4,10 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { UserDom } from './UserDom';
 import { getUser, getUsersAnimationList, selectUser } from './../../store/usersReducer';
-import { getAnimation } from './../../store/animationDescriptionReducer';
+import { getDescription } from './../../store/descriptionReducer';
 import { setUserFilter } from './../../store/filterReducer';
 
-const User = ({ currentUserId, match, getUser, userInfo, getUsersAnimationList, usersAnimationList, getAnimation,
+const User = ({ currentUserId, match, getUser, userInfo, getUsersAnimationList, usersAnimationList, getDescription,
   restCountAnimation, selectUser, setUserFilter }) => {
   const selectedUserId = Number(match.params.userId);
   const [buttonsMain, setButtonsMain] = useState([
@@ -29,8 +29,8 @@ const User = ({ currentUserId, match, getUser, userInfo, getUsersAnimationList, 
     }
     fetchData()
   }, [selectedUserId, getUser, getUsersAnimationList])
-  const openAnimationInfo = (info) => {
-    getAnimation(info);
+  const openDescription = (listName, info) => {
+    getDescription(listName, info);
   }
   const openAnimationList = (userFilter) => {
     setUserFilter(userFilter)
@@ -50,7 +50,7 @@ const User = ({ currentUserId, match, getUser, userInfo, getUsersAnimationList, 
   }
   return (
     <UserDom userInfo={userInfo} selectedUserMine={selectedUserMine} usersAnimationList={usersAnimationList}
-    openAnimationInfo={openAnimationInfo} restCountAnimation={restCountAnimation} openAnimationList={openAnimationList}
+    openDescription={openDescription} restCountAnimation={restCountAnimation} openAnimationList={openAnimationList}
     fetching={fetching} buttonsAnimation={buttonsAnimation} buttonsMain={buttonsMain} ButtonsMainHandler={ButtonsMainHandler}
     ButtonsAnimationHandler={ButtonsAnimationHandler}/>
   )
@@ -66,6 +66,6 @@ const mapStatesToProps = (state) => {
   }
 }
 export default compose(
-  connect(mapStatesToProps, { getUser, getUsersAnimationList, getAnimation, selectUser, setUserFilter }),
+  connect(mapStatesToProps, { getUser, getUsersAnimationList, getDescription, selectUser, setUserFilter }),
   withRouter
 )(User);

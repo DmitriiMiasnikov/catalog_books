@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { MainDom } from './MainDom';
-import { getAnimation } from './../../store/animationDescriptionReducer';
+import { getDescription } from './../../store/descriptionReducer';
 import { getLastViewedList } from './../../store/mainReducer';
 
-const Main = ({ currentUserId, getAnimation, getLastViewedList, lastViewed }) => {
+const Main = ({ currentUserId, getDescription, getLastViewedList, lastViewed }) => {
   const [fetching, setFetching] = useState(true);
   const [scrollViewed, setSCrollViewed] = useState(null);
   useEffect(() => {
@@ -22,8 +22,8 @@ const Main = ({ currentUserId, getAnimation, getLastViewedList, lastViewed }) =>
       scroll: 0
     })
   }, [lastViewed])
-  const openAnimationInfo = (info) => {
-    getAnimation(info);
+  const openAnimationInfo = (listName, id) => {
+    getDescription(listName, id);
   }
   const buttonScrollHandler = (side) => {
     setSCrollViewed({
@@ -44,4 +44,4 @@ const mapStatesToProps = (state) => {
   }
 }
 
-export default connect(mapStatesToProps, { getAnimation, getLastViewedList })(Main);
+export default connect(mapStatesToProps, { getDescription, getLastViewedList })(Main);

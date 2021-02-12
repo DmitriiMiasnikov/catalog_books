@@ -1,13 +1,9 @@
-import { getDescriptionApi } from './../api/api';
-
 const SET_PAGE = 'SET_PAGE';
 const SET_COUNT_IN_PAGE = 'SET_COUNT_IN_PAGE';
 const SET_SORT_BY = 'SET_SORT_BY';
 const CLEAR_STATES = 'CLEAR_STATES';
 const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';
 const SET_PAGE_VIEW = 'SET_PAGE_VIEW';
-
-const GET_DESCRIPTION = 'GET_DESCRIPTION';
 
 let stateDefault = {
   sortBy: 'default',
@@ -44,10 +40,6 @@ export const animationReducer = (state = stateDefault, action) => {
         searchValue: '',
       }
     }
-
-    case (GET_DESCRIPTION): {
-      return { ...state, selectedDescription: action.selectedDescription }
-    }
     default: break
   }
   return state;
@@ -70,15 +62,4 @@ export const setSortBy = (sortBy) => {
 
 export const clearStates = () => {
   return { type: CLEAR_STATES }
-}
-
-export const getDescriptionFunc = (selectedDescription) => {
-  return { type: GET_DESCRIPTION, selectedDescription }
-}
-
-export const getDescription = (listName, id, userId = 0) => {
-  return async (dispatch) => {
-    const res = await getDescriptionApi(listName, id, userId)
-    dispatch(getDescriptionFunc(res))
-  }
 }

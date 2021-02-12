@@ -12,10 +12,10 @@ import User from './components/User/User';
 import Books from './components/Books/BooksContainer';
 import Authors from './components/Authors/AuthorsContainer';
 import Filters from './components/Filters/Filters';
-import AnimationDescription from './components/AnimationDescription/AnimationDescription';
+import Description from './components/Description/Description';
 import Registration from './components/Registration/Registration';
 import UsersMenu from './components/UsersMenu/UsersMenu';
-import RandomAnimationMenu from './components/RandomAnimationMenu/RandomAnimationMenu';
+import RandomItemsMenu from './components/RandomItemsMenu/RandomItemsMenu';
 import List from './components/List/List';
 
 function App({ theme, showRegistration }) {
@@ -29,7 +29,7 @@ function App({ theme, showRegistration }) {
           <UserMenu />
           <Route path='/list' render={() => <Filters />} />
           <UsersMenu />
-          <RandomAnimationMenu />
+          <RandomItemsMenu />
         </div>
         <div className={styles.content}>
           <Switch>
@@ -40,7 +40,7 @@ function App({ theme, showRegistration }) {
             <Route exact path='/list/animation/:page?' render={() => <List listName={'animation'}/>} />
             <Route exact path='/list/manga/:page?' render={() => <List listName={'manga'}/>} />
             <Route exact path='/list/ranobe/:page?' render={() => <List listName={'ranobe'}/>} />
-            <Route exact path={`/animation/id/:animationId?`} render={() => <AnimationDescription />} />
+            <Route exact path={`/animation/id/:animationId?`} render={() => <Description />} />
             <Route exact path={`/users/:userId`} render={() => <User />} />
             <Route exact path={`/users`} render={() => <Users />} />
           </Switch>

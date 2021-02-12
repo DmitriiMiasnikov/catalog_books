@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json({ extended: true }))
 app.use(cors());
 app.options('*', cors());
-app.use('/animation', animationRoutes);
+// app.use('/animation', animationRoutes);
 app.use('/users', usersRoutes);
 app.use('/list', listRoutes);
 // app.use(cookieParser());

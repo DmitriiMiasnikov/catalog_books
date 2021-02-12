@@ -5,7 +5,7 @@ import loading from './../../assets/Images/loading.svg';
 import classnames from 'classnames';
 import angle from './../../assets/Images/angle.svg';
 
-export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAnimationInfo,
+export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openDescription,
   restCountAnimation, openAnimationList, fetching, buttonsAnimation, buttonsMain, ButtonsMainHandler,
   ButtonsAnimationHandler }) => {
   return (
@@ -50,7 +50,7 @@ export const UserDom = ({ userInfo, selectedUserMine, usersAnimationList, openAn
                             {
                               usersAnimationList[listName].map((el, i) => {
                                 return (
-                                  <NavLink to={`/animation/id/${el.animationId}`} onClick={() => openAnimationInfo(el.animationId)}
+                                  <NavLink to={`/animation/id/${el.animationId}`} onClick={() => openDescription('animation', el.animationId)}
                                     className={styles.animationItem} key={i} >
                                     <img src={`https://anime.amyasnikov.pro/images/animation_cover_${el.animationId}.jpg`} alt='img' className={styles.image} />
                                     <div className={styles.text}>

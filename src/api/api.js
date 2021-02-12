@@ -4,11 +4,6 @@ const instance = axios.create({
   baseURL: 'http://localhost:5000/'
 })
 
-export const getAnimationListApi = async (page, counter, sort, filter, search, userId, userFilter) => {
-  const res = await instance.get(`animation/list/${page}?counter=${counter}&sort=${sort}&filter=${filter}&search=${search}&userId=${userId}&userFilter=${userFilter}`);
-  return res;
-}
-
 export const getListApi = async (listName, page, counter, sort, filter, search, userId, userFilter) => {
   const res = await instance.get(`list/${page}?listName=${listName}&counter=${counter}&sort=${sort}&filter=${filter}&search=${search}&userId=${userId}&userFilter=${userFilter}`);
   return res;
@@ -18,18 +13,8 @@ export const getDescriptionApi = async (listName, id, userId) => {
   return res.data.selectedDescription;
 }
 export const getRandomOneApi = async () => {
-  const res = await instance.get(`list/randomId`);
+  const res = await instance.get(`list/randomItems/id`);
   return res.data.randomItems;
-}
-
-export const getAnimationApi = async (animationId, userId) => {
-  const res = await instance.get(`animation/id/${animationId}?userId=${userId}`);
-  return res.data.selectedAnimation;
-}
-
-export const getRandomAnimationApi = async () => {
-  const res = await instance.get(`animation/randomId`);
-  return res.data.randomAnimation;
 }
 
 export const getUsersListApi = async () => {

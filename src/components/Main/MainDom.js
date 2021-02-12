@@ -24,7 +24,7 @@ export const MainDom = ({ fetching, openAnimationInfo, lastViewed, buttonScrollH
                   {
                     lastViewed.map((el, i) => {
                       return (
-                        <NavLink to={`/animation/id/${el.animationId}`} onClick={() => openAnimationInfo(el.animationId)}
+                        <NavLink to={`/animation/id/${el.animationId}`} onClick={() => openAnimationInfo('animation', el.animationId)}
                           className={styles.animationItem} key={i} >
                           <img src={`https://anime.amyasnikov.pro/images/animation_cover_${el.animationId}.jpg`} alt='img'
                             className={styles.image} />
