@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import ButtonSwitcher from '../ButtonSwitcher/ButtonSwitcher';
 import Stars from '../Stars/Stars';
 
-export const DescriptionDom = ({ selectedDescription, calatogName }) => {
+export const DescriptionDom = ({ selectedDescription, catalogName }) => {
   return (
     <div className={styles.wrapper}>
       {selectedDescription && <div className={styles.infoWrap}>
@@ -45,7 +45,7 @@ export const DescriptionDom = ({ selectedDescription, calatogName }) => {
           </span></div>}
         </div>
         <div className={styles.imageWrap}>
-          <img src={`https://anime.amyasnikov.pro/${calatogName}/${calatogName}_cover_${selectedDescription[`${calatogName}Id`]}.jpg`} 
+          <img src={`https://anime.amyasnikov.pro/${catalogName}/${catalogName}_cover_${selectedDescription[`${catalogName}Id`]}.jpg`} 
             alt='img' className={styles.image} />
           <div className={styles.controlPanel}>
             <Stars list={'animation'} currentId={selectedDescription.animationId} />

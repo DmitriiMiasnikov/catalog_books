@@ -10,7 +10,7 @@ const Description = ({ getDescription, getDescriptionFunc, match, selectedDescri
   currentUserId, getUser, listName }) => {
   const currentAnimationId = Number(match.params.id);
   const listNameUrl = !listName ? match.url.split('/')[2] : listName;
-  const calatogName = listNameUrl === 'animation' ? 'animation' : 'manga';
+  const catalogName = listNameUrl === 'animation' ? 'animation' : 'manga';
   useEffect(() => {
     const fetchData = async () => {
       await getDescription(listNameUrl, currentAnimationId, currentUserId);
@@ -29,7 +29,7 @@ const Description = ({ getDescription, getDescriptionFunc, match, selectedDescri
     return () => getDescriptionFunc(null)
   }, [getDescriptionFunc])
   return (
-    <DescriptionDom selectedDescription={selectedDescription} calatogName={calatogName}/>
+    <DescriptionDom selectedDescription={selectedDescription} catalogName={catalogName}/>
   )
 }
 const mapStatesToProps = (state) => {
