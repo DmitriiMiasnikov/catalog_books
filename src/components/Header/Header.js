@@ -15,7 +15,7 @@ const Header = ({ menuItems, animationItems, setFilterBy, setPage, history }) =>
   const openListAnimationFiltered = (filter) => {
     setFilterBy(filter);
     setPage(1);
-    history.push(`/animation/list/1`);
+    history.push(`/list/animation/1`);
   }
 
   return (

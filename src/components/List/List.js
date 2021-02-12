@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { getList, setFilterBy, clearStates, getDescription } from '../../store/animationReducer';
+import { setListName } from './../../store/listReducer';
 import { ListDom } from './ListDom';
 
 const List = ({ list, listName, getList, filterBy, getDescription, clearStates,
   currentPage, sortBy, countAll, countInPage, searchValue, match, pageView,
-  selectedUser, userFilter, myUserInfo }) => {
+  selectedUser, userFilter, myUserInfo, setListName }) => {
   let page = Number(match.params.page) || 1;
   const [fetching, setFetching] = useState(true);
   const [currentList, setCurrentList] = useState(list);
@@ -29,6 +30,9 @@ const List = ({ list, listName, getList, filterBy, getDescription, clearStates,
       clearStates();
     }
   }, [clearStates])
+  useEffect(() => {
+    setListName(listName);
+  }, [])
   const openInfo = (id) => {
     getDescription(listName, id);
   }
@@ -52,6 +56,6 @@ const mapStatesToProps = (state) => {
   }
 }
 export default compose(
-  connect(mapStatesToProps, { getList, getDescription, setFilterBy, clearStates }),
+  connect(mapStatesToProps, { getList, getDescription, setFilterBy, clearStates, setListName }),
   withRouter
 )(List);

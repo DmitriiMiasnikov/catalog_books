@@ -7,6 +7,7 @@ import { headerReducer } from './headerReducer';
 import { mainReducer } from './mainReducer';
 import { usersReducer } from "./usersReducer";
 import { animationDescriptionReducer } from './animationDescriptionReducer';
+import { listReducer } from './listReducer';
 
 
 const reducers = combineReducers({
@@ -16,6 +17,7 @@ const reducers = combineReducers({
   books: booksReducer,
   authors: authorsReducer,
   animation: animationReducer,
-  animationDescription: animationDescriptionReducer
+  animationDescription: animationDescriptionReducer,
+  list: listReducer
 })
 export const store = createStore(reducers, applyMiddleware(thunkMiddleware))

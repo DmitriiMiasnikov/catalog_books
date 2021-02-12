@@ -15,10 +15,10 @@ export const ListDom = ({ currentList, openInfo, countAll,
     <div className={styles.wrapper}>
       <PageView />
       <div className={styles.listSorters}>
-        <ListSorters listName={listName}/>
+        <ListSorters listName={listName} />
       </div>
       <div className={styles.pagesCounter}>
-        <PagesCounter countAll={countAll} listName={listName}/>
+        <PagesCounter countAll={countAll} listName={listName} />
       </div>
       {!fetching && currentList && !currentList.length ? (
         <div className={styles.warning}>
@@ -46,10 +46,18 @@ export const ListDom = ({ currentList, openInfo, countAll,
                               {el.nameEng && !el.nameRu && <div className={classnames(styles.nameEng, { [styles.title]: !el.nameRu })}>
                                 <NavLink to={`/${listName}/id/${el[id]}`} onClick={() => openInfo(el[id])}>{el.nameEng}</NavLink>
                               </div>}
-                              {el.dateStart && <div className={styles.date}>
+                              {listName === 'animation' && el.dateStart && <div className={styles.date}>
                                 {el.dateStart.split('-').reverse().join('.')} {el.dateEnd && '- '}
                                 {el.dateEnd && el.dateEnd.split('-').reverse().join('.')}
                               </div>}
+                              {
+                                listName !== 'animation' && <div className={styles.line}>
+                                  автор:{el.author.map((el, j) => <span key={j} className={styles.lineInfo}>{el}</span>)}</div>
+                              }
+                              {
+                                listName !== 'animation' && <div className={styles.line}>
+                                  год выхода:<span className={styles.lineInfo}>{el.date}</span></div>
+                              }
                               {el.genre && <div className={styles.line}>жанр:
                                 <span className={styles.lineInfo}>
                                   {el.genre.map((genreEl, j) => {
@@ -62,7 +70,8 @@ export const ListDom = ({ currentList, openInfo, countAll,
                                   })}
                                 </span>
                               </div>}
-                              {el.type && <div className={styles.line}>тип: <span className={styles.lineInfo}>{el.type}</span></div>}
+                              {listName === 'animation' && el.type && <div className={styles.line}>
+                                тип: <span className={styles.lineInfo}>{el.type}</span></div>}
                             </div>
                             <div className={styles.userControlPanel}>
                               <ButtonSwitcher currentId={el[id]} list={listName} />
@@ -85,10 +94,21 @@ export const ListDom = ({ currentList, openInfo, countAll,
                               {el.nameEng && !el.nameRu && <div className={classnames(styles.nameEng, { [styles.title]: !el.nameRu })}>
                                 <NavLink to={`/${listName}/id/${el[id]}`} onClick={() => openInfo(el[id])}>{el.nameEng}</NavLink>
                               </div>}
-                              {el.dateStart && <div className={styles.date}>
-                                {el.dateStart.split('-').reverse().join('.')} {el.dateEnd && '-'} {el.dateEnd && el.dateEnd.split('-').reverse().join('.')}
+                              {listName === 'animation' && el.dateStart && <div className={styles.date}>
+                                {el.dateStart.split('-').reverse().join('.')}
+                                {el.dateEnd && '-'}
+                                {el.dateEnd && el.dateEnd.split('-').reverse().join('.')}
                               </div>}
-                              {el.author && <div className={styles.line}>автор: <span className={styles.lineInfo}>{el.author}</span></div>}
+                              {
+                                listName !== 'animation' && <div className={styles.line}>
+                                  автор:{el.author.map((el, j) => <span key={j} className={styles.lineInfo}>{el}</span>)}</div>
+                              }
+                              {
+                                listName !== 'animation' && <div className={styles.line}>
+                                  год выхода:<span className={styles.lineInfo}>{el.date}</span></div>
+                              }
+                              {listName === 'animation' && el.author && <div className={styles.line}>
+                                автор: <span className={styles.lineInfo}>{el.author}</span></div>}
                               {el.genre && <div className={styles.line}>жанр:
                                 <span className={styles.lineInfo}>
                                   {el.genre.map((genreEl, j) => {
@@ -101,8 +121,12 @@ export const ListDom = ({ currentList, openInfo, countAll,
                                   })}
                                 </span>
                               </div>}
-                              {el.type && <div className={styles.line}>тип: <span className={styles.lineInfo}>{el.type}</span></div>}
-                              {el.auditory && <div className={styles.line}>аудитория: <span className={styles.lineInfo}>{el.auditory}</span></div>}
+                              {listName !== 'animation' && el.company && <div className={styles.line}>
+                                компания: <span className={styles.lineInfo}>{el.company}</span></div>}
+                              {listName === 'animation' && el.type && <div className={styles.line}>
+                                тип: <span className={styles.lineInfo}>{el.type}</span></div>}
+                              {listName === 'animation' && el.auditory && <div className={styles.line}>
+                                аудитория: <span className={styles.lineInfo}>{el.auditory}</span></div>}
                             </div>
                             <div className={styles.userControlPanel}>
                               <ButtonSwitcher currentId={el[id]} list={listName} />
@@ -122,11 +146,13 @@ export const ListDom = ({ currentList, openInfo, countAll,
                               <div className={styles.title}>
                                 {el.nameRu || el.nameEng}
                               </div>
-                              {el.dateStart && <div className={styles.description}>
+                              {listName === 'animation' && el.dateStart && <div className={styles.description}>
                                 {el.dateStart.split('-').reverse().join('.')} {el.dateEnd && '- '}
                                 {el.dateEnd && el.dateEnd.split('-').reverse().join('.')}
                               </div>}
-                              {el.type && <div className={styles.description}>
+                              {listName !== 'animation' && el.date && <div className={styles.description}>{el.date}</div>}
+                              {listName !== 'animation' && el.author && <div className={styles.description}>{el.author}</div>}
+                              {listName === 'animation' && el.type && <div className={styles.description}>
                                 {el.type}
                               </div>}
                             </div>

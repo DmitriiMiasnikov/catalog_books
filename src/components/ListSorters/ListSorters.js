@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { setSortBy, setPage } from '../../store/animationReducer';
 import { ListSortersDom } from './ListSortersDom';
 
-const ListSorters = ({ setSortBy, setPage, currentPage }) => {
+const ListSorters = ({ setSortBy, setPage, currentPage, listName }) => {
   const [buttonsSort, setButtonsSort] = useState([{
     id: 0,
     subButtons: [{
@@ -62,7 +62,7 @@ const ListSorters = ({ setSortBy, setPage, currentPage }) => {
   }
   return (
     <ListSortersDom sortHandler={sortHandler} buttonsSort={buttonsSort} showDropdownFunc={showDropdownFunc} 
-      showDropdowns={showDropdowns}/>
+      showDropdowns={showDropdowns} listName={listName}/>
   )
 }
 const mapStatesToProps = (state) => {

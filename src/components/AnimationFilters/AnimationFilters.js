@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-import { getAnimationList, setFilterBy, setPage, setSearchValue } from './../../store/animationReducer';
+import { getAnimationList, setFilterBy, setSearchValue } from './../../store/animationReducer';
 import { selectUser } from './../../store/usersReducer';
 import { AnimationFiltersDom } from './AnimationFiltersDom';
 
-const AnimationFilters = ({ setFilterBy, filters, filterBy, setPage, selectedUser, userInfo, selectUser,
-  searchValue, setSearchValue, history }) => {
+const AnimationFilters = ({ setFilterBy, filters, filterBy, selectedUser, userInfo, selectUser,
+  searchValue, setSearchValue, history, listName }) => {
   const [buttonsFilter, setButtonsFilter] = useState({});
   const [dropdowns, setDropdowns] = useState([
     {
@@ -61,7 +61,7 @@ const AnimationFilters = ({ setFilterBy, filters, filterBy, setPage, selectedUse
   }
   const filterHandler = (dropdown, filterBy, indexButton) => {
     setFilterBy(filterBy);
-    history.push(`/animation/list/1`);
+    history.push(`/list/${listName}/1`);
     setButtonsFilter((buttons) => {
       const obj = {};
       Object.keys(buttons).forEach((el, i) => {
@@ -88,9 +88,8 @@ const AnimationFilters = ({ setFilterBy, filters, filterBy, setPage, selectedUse
     setSearchValue('');
   }
   return (
-    <AnimationFiltersDom buttonsFilter={buttonsFilter} dropdowns={dropdowns} closeUsersList={closeUsersList}
-      openDropdown={openDropdown} filterHandler={filterHandler} userInfo={userInfo} selectedUser={selectedUser} 
-      filterBy={filterBy} cancelSeach={cancelSeach} searchValue={searchValue}/>
+    <AnimationFiltersDom {...{buttonsFilter, dropdowns, closeUsersList, openDropdown, filterHandler, userInfo,
+      selectedUser, filterBy, cancelSeach, searchValue, listName}} />
   )
 }
 
@@ -101,11 +100,12 @@ const mapStatesToProps = (state) => {
     filterBy: state.animation.filterBy,
     selectedUser: state.users.selectedUser,
     userInfo: state.users.userInfo,
-    searchValue: state.animation.searchValue
+    searchValue: state.animation.searchValue,
+    listName: state.list.listName
   }
 }
 
 export default compose(
-  connect(mapStatesToProps, { getAnimationList, setFilterBy, setPage, selectUser, setSearchValue }),
+  connect(mapStatesToProps, { getAnimationList, setFilterBy, selectUser, setSearchValue }),
   withRouter
 ) (AnimationFilters);

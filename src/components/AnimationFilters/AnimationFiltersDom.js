@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import close from './../../assets/Images/close.svg';
 
 export const AnimationFiltersDom = ({ buttonsFilter, openDropdown, dropdowns, filterHandler, selectedUser,
-  userInfo, closeUsersList, filterBy, searchValue, cancelSeach }) => {
+  userInfo, closeUsersList, filterBy, searchValue, cancelSeach, listName }) => {
   const refDropdown = useRef(null);
   const handleMouseClick = (e) => {
     if (!e.path.includes(refDropdown.current)) {
@@ -59,7 +59,7 @@ export const AnimationFiltersDom = ({ buttonsFilter, openDropdown, dropdowns, fi
                       return (
                         <div className={classnames(styles.dropdownButton, { [styles.active]: el.active })}
                           key={i} onClick={() => filterHandler(dropdownType, el[dropdownType], i)} >
-                          <NavLink to={`/animation/list/1`}>
+                          <NavLink to={`/list/${listName}/1`}>
                             {el[dropdownType]}
                           </NavLink>
                         </div>
