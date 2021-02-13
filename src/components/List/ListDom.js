@@ -53,11 +53,11 @@ export const ListDom = ({ list, openInfo, countAll,
                                 {el.dateEnd && el.dateEnd.split('-').reverse().join('.')}
                               </div>}
                               {
-                                listName !== 'animation' && <div className={styles.line}>
+                                listName === 'manga' && <div className={styles.line}>
                                   автор:{el.author.map((el, j) => <span key={j} className={styles.lineInfo}>{el}</span>)}</div>
                               }
                               {
-                                listName !== 'animation' && <div className={styles.line}>
+                                listName === 'manga' && <div className={styles.line}>
                                   год выхода:<span className={styles.lineInfo}>{el.date}</span></div>
                               }
                               {el.genre && <div className={styles.line}>жанр:
@@ -102,11 +102,11 @@ export const ListDom = ({ list, openInfo, countAll,
                                 {el.dateEnd && el.dateEnd.split('-').reverse().join('.')}
                               </div>}
                               {
-                                listName !== 'animation' && <div className={styles.line}>
+                                listName === 'manga' && <div className={styles.line}>
                                   автор:{el.author.map((el, j) => <span key={j} className={styles.lineInfo}>{el}</span>)}</div>
                               }
                               {
-                                listName !== 'animation' && <div className={styles.line}>
+                                listName === 'manga' && <div className={styles.line}>
                                   год выхода:<span className={styles.lineInfo}>{el.date}</span></div>
                               }
                               {listName === 'animation' && el.author && <div className={styles.line}>
@@ -123,7 +123,7 @@ export const ListDom = ({ list, openInfo, countAll,
                                   })}
                                 </span>
                               </div>}
-                              {listName !== 'animation' && el.company && <div className={styles.line}>
+                              {listName === 'manga' && el.company && <div className={styles.line}>
                                 компания: <span className={styles.lineInfo}>{el.company}</span></div>}
                               {listName === 'animation' && el.type && <div className={styles.line}>
                                 тип: <span className={styles.lineInfo}>{el.type}</span></div>}
@@ -153,8 +153,10 @@ export const ListDom = ({ list, openInfo, countAll,
                                 {el.dateStart.split('-').reverse().join('.')} {el.dateEnd && '- '}
                                 {el.dateEnd && el.dateEnd.split('-').reverse().join('.')}
                               </div>}
-                              {listName !== 'animation' && el.date && <div className={styles.description}>{el.date}</div>}
-                              {listName !== 'animation' && el.author && <div className={styles.description}>{el.author}</div>}
+                              {listName === 'manga' && el.date && <div className={styles.description}>{el.date}</div>}
+                              {listName === 'manga' && el.author && <div className={styles.description}>{el.author.join(', ')}</div>}
+                              {listName === 'ranobe' && el.author && <div className={styles.description}>{el.author}</div>}
+                              {listName === 'ranobe' && el.language && <div className={styles.description}>{el.language}</div>}
                               {listName === 'animation' && el.type && <div className={styles.description}>
                                 {el.type}
                               </div>}

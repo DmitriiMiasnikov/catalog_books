@@ -4,6 +4,7 @@ const router = Router();
 const Animation = require('./../models/Animation');
 const Users = require('./../models/Users');
 const Manga = require('./../models/Manga');
+const Ranobe = require('./../models/Ranobe');
 
 // /list/:page
 router.get(
@@ -62,12 +63,29 @@ router.get(
         currentFilter = 'genre';
         noFilters = true;
       }
+
       let currentSort;
-      if (sort === 'name' || sort === 'name_reverse') {
-        currentSort = 'nameRu';
-      } else if (sort === 'date' || sort === 'date_reverse') {
-        currentSort = 'dateStart';
-      } else listName === 'animation' ? currentSort = 'animationId' : currentSort = 'mangaId';
+      switch(sort) {
+        case ('name'): {}
+        case ('name_reverse'): {
+          currentSort = 'nameRu';
+          break;
+        }
+        case ('date'): {}
+        case ('date_reverse'): {
+          currentSort = 'dateStart';
+          break;
+        }
+        default: break;
+      }
+      if (!currentSort) {
+        switch (listName) {
+          case ('animation'): currentSort = 'animationId'; break;
+          case ('manga'): currentSort = 'mangaId'; break;
+          case ('ranobe'): currentSort = 'ranobeId'; break;
+          default: break;
+        }
+      }
       if (listName === 'animation') {
         list = await Animation.find({
           $and: [
@@ -111,11 +129,11 @@ router.get(
           skip: countInPage * page - (countInPage),
           limit: countInPage
         })
-      } else if (listName === 'manga' || listName === 'ranobe') {
+      } else if (listName === 'manga') {
         list = await Manga.find({
           $and: [
             { mangaId: userId ? { $in: user[listName][userFilter] } : { $type: 'number' } },
-            { type: listName === 'manga' ? 'манга' : 'ранобэ' },
+            { type: 'манга' },
             {
               $or: [
                 { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
@@ -137,7 +155,50 @@ router.get(
         counterAll = await Manga.find({
           $and: [
             { mangaId: userId ? { $in: user[listName][userFilter] } : { $type: 'number' } },
-            { type: listName === 'manga' ? 'манга' : 'ранобэ' },
+            { type: 'манга' },
+            {
+              $or: [
+                { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
+                { [currentFilter]: { $regex: filter, $options: 'i' } },
+                { [currentFilter]: { $lte: filter.split(' - ')[1], $gte: filter.split(' - ')[0] } }
+              ]
+            },
+            {
+              $or: [{ nameRu: { $regex: search, $options: 'i' } },
+              { nameEng: { $regex: search, $options: 'i' } },
+              { nameRom: { $regex: search, $options: 'i' } },
+              { author: { $regex: search, $options: 'i' } }]
+            }
+          ]
+        }).countDocuments({}, {
+          skip: countInPage * page - (countInPage),
+          limit: countInPage
+        })
+      } else if (listName === 'ranobe') {
+        list = await Ranobe.find({
+          $and: [
+            { ranobeId: userId ? { $in: user[listName][userFilter] } : { $type: 'number' } },
+            {
+              $or: [
+                { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
+                { [currentFilter]: { $regex: filter, $options: 'i' } },
+                { [currentFilter]: { $lte: filter, $gte: filter } }
+              ]
+            },
+            {
+              $or: [{ nameRu: { $regex: search, $options: 'i' } },
+              { nameEng: { $regex: search, $options: 'i' } },
+              { nameRom: { $regex: search, $options: 'i' } },
+              { author: { $regex: search, $options: 'i' } }]
+            }
+          ]
+        })
+          .sort({ [currentSort]: sort.split('_').length === 2 ? -1 : 1 })
+          .skip(countInPage * page - (countInPage))
+          .limit(countInPage);
+        counterAll = await Ranobe.find({
+          $and: [
+            { ranobeId: userId ? { $in: user[listName][userFilter] } : { $type: 'number' } },
             {
               $or: [
                 { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
@@ -214,9 +275,9 @@ router.get(
       const randomMangaId = Math.floor(Math.random() * lastManga) + 1;
       randomItems.manga = await Manga.findOne({ type: 'манга' }).skip(randomMangaId).limit(1);
 
-      const lastRanobe = await Manga.find({ type: 'ранобэ' }, 'mangaId').countDocuments({});
+      const lastRanobe = await Ranobe.find({}, 'ranobeId').countDocuments({});
       const randomRanobeId = Math.floor(Math.random() * lastRanobe) + 1;
-      randomItems.ranobe = await Manga.findOne({ type: 'ранобэ' }).skip(randomRanobeId).limit(1);
+      randomItems.ranobe = await Ranobe.findOne({}).skip(randomRanobeId).limit(1);
       res.status(200).json({ randomItems });
     } catch (e) {
       console.log(e)
