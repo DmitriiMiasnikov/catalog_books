@@ -9,6 +9,7 @@ import { usersReducer } from "./usersReducer";
 import { descriptionReducer } from './descriptionReducer';
 import { listReducer } from './listReducer';
 import { filterReducer } from './filterReducer';
+import { userListItemsReducer } from './userListItemsReducer';
 
 
 const reducers = combineReducers({
@@ -21,5 +22,6 @@ const reducers = combineReducers({
   description: descriptionReducer,
   list: listReducer,
   filter: filterReducer,
+  userListItems: userListItemsReducer, 
 })
 export const store = createStore(reducers, applyMiddleware(thunkMiddleware))

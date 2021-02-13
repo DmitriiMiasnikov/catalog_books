@@ -3,6 +3,7 @@ const router = Router();
 const sha256 = require('js-sha256');
 const Users = require('./../models/Users');
 const Animation = require('./../models/Animation');
+const Manga = require('./../models/Manga');
 
 // получить всех пользователей
 // /users/
@@ -67,7 +68,7 @@ router.get(
   async (req, res) => {
     const userId = req.params.userId || 0;
     try {
-      const user = await Users.findOne({ userId: userId }, 'animation animationRating userName userId')
+      const user = await Users.findOne({ userId: userId }, 'animation ranobe manga animationRating userName userId')
       res.status(200).json({ user });
     } catch (e) {
       console.log(e)
@@ -75,25 +76,37 @@ router.get(
   }
 )
 
-// получить списки аниме по выбранному пользователю
-// users/id/animation/:id
+// получить списки по выбранному пользователю
+// users/id/listItems/:id
 router.get(
-  '/id/animation/:userId',
+  '/id/listItems/:userId',
   async (req, res) => {
     const userId = req.params.userId || 0;
     try {
-      const user = await Users.findOne({ userId: userId }, 'animation animationRating');
-      let animation = {};
-      let animationFive = {};
-      let rest = {};
-      for (const i in Object.keys(user.animation)) {
-        const currentItem = Object.keys(user.animation)[i];
-        animation[currentItem] = await Animation.find({ animationId: { $in: user.animation[currentItem] } });
-        rest[currentItem] = animation[currentItem].slice(5).length;
-        animationFive[currentItem] = animation[currentItem].slice(0, 5);
+      const user = await Users.findOne({ userId: userId }, 'animation ranobe manga animationRating');
+      let userListItems = {};
+      let userListItemsFive = {};
+      const listNames = ['animation', 'manga', 'ranobe'];
+      let userListItemsRest = {};
+      let countUserList = {};
+      for (const j in listNames) {
+        userListItems[listNames[j]] = {};
+        userListItemsRest[listNames[j]] = {};
+        userListItemsFive[listNames[j]] = {};
+        countUserList[listNames[j]] = {};
+        for (const i in Object.keys(user[listNames[j]])) {
+          const currentItem = Object.keys(user[listNames[j]])[i];
+          if (listNames[j] === 'animation') {
+            userListItems[listNames[j]][currentItem] = await Animation.find({ animationId: { $in: user[listNames[j]][currentItem] } });
+          } else {
+            userListItems[listNames[j]][currentItem] = await Manga.find({ mangaId: { $in: user[listNames[j]][currentItem] } });
+          }
+          countUserList[listNames[j]][currentItem] = userListItems[listNames[j]][currentItem].length;
+          userListItemsRest[listNames[j]][currentItem] = userListItems[listNames[j]][currentItem].slice(5).length;
+          userListItemsFive[listNames[j]][currentItem] = userListItems[listNames[j]][currentItem].slice(0, 5);
+        }
       }
-      let countAnimation = animation.length;
-      res.status(200).json({ animationFive, animation, rest, countAnimation });
+      res.status(200).json({ userListItemsFive, userListItems, userListItemsRest, countUserList });
     } catch (e) {
       console.log(e)
     }

@@ -1,15 +1,10 @@
 import {
-  getUserApi, getUsersAnimationListApi, setUsersAnimationApi,
-  userRegistrationApi, userAuthorizationApi, getUsersListApi, getUsersListMenuApi
+  getUserApi, setUsersAnimationApi, userRegistrationApi, userAuthorizationApi, getUsersListApi, getUsersListMenuApi
 } from './../api/api';
-import { setCounterAll } from './listReducer';
 
 const SELECT_USER = 'SELECT_USER';
 const GET_MY_USER_INFO = 'GET_MY_USER_INFO';
 const GET_USER_INFO = 'GET_USER_INFO';
-const GET_USERS_ANIMATION_LIST = 'GET_USERS_ANIMATION_LIST';
-const GET_REST_COUNT_ANIMATION = 'GET_REST_COUNT_ANIMATION';
-const GET_USERS_ALL_ANIMATION_LIST = 'GET_USERS_ALL_ANIMATION_LIST';
 const IS_AUTH = 'IS_AUTH';
 const SET_CURRENT_USER_ID = 'SET_CURRENT_USER_ID';
 const SET_IS_WRONG_AUTHORIZATION = 'SET_IS_WRONG_AUTHORIZATION';
@@ -26,11 +21,8 @@ const stateDefault = {
   currentUserId: null,
   selectedUser: 0,
   isAuth: false,
-  usersAnimationList: null,
-  usersAllAnimationList: null,
-  restCountAnimation: null,
   isWrongAuthorization: false,
-  showRegistration: false
+  showRegistration: false,
 }
 
 export const usersReducer = (state = stateDefault, action) => {
@@ -64,15 +56,6 @@ export const usersReducer = (state = stateDefault, action) => {
     }
     case (SET_CURRENT_USER_ID): {
       return { ...state, currentUserId: action.id }
-    }
-    case (GET_REST_COUNT_ANIMATION): {
-      return { ...state, restCountAnimation: action.rest }
-    }
-    case (GET_USERS_ANIMATION_LIST): {
-      return { ...state, usersAnimationList: action.animation }
-    }
-    case (GET_USERS_ALL_ANIMATION_LIST): {
-      return { ...state, usersAllAnimationList: action.animation }
     }
     default: break
   }
@@ -109,15 +92,6 @@ const setMyUserInfoFunc = (myUserInfo) => {
 const setUserInfoFunc = (userInfo) => {
   return { type: GET_USER_INFO, userInfo }
 }
-const getRestCountAnimation = (rest) => {
-  return { type: GET_REST_COUNT_ANIMATION, rest }
-}
-const getUsersAnimationListFunc = (animation) => {
-  return { type: GET_USERS_ANIMATION_LIST, animation }
-}
-const getUsersAllAnimationListFunc = (animation) => {
-  return { type: GET_USERS_ALL_ANIMATION_LIST, animation }
-}
 
 export const getUsersList = () => {
   return async (dispatch) => {
@@ -133,15 +107,6 @@ export const getUsersListMenu = () => {
   }
 }
 
-export const getUsersAnimationList = (id) => {
-  return async (dispatch) => {
-    const res = await getUsersAnimationListApi(id);
-    dispatch(getUsersAllAnimationListFunc(res.data.animation));
-    dispatch(getUsersAnimationListFunc(res.data.animationFive));
-    dispatch(getRestCountAnimation(res.data.rest));
-    dispatch(setCounterAll(Number(res.data.countAnimation)));
-  }
-}
 export const getMyUserInfo = (id) => {
   return async (dispatch) => {
     const res = await getUserApi(id);

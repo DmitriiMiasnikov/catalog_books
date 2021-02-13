@@ -31,10 +31,11 @@ export const getUserApi = async (userId) => {
   return res;
 }
 
-export const getUsersAnimationListApi = async (userId) => {
-  const res = await instance.get(`users/id/animation/${userId}`);
+export const getUserListItemsApi = async (userId) => {
+  const res = await instance.get(`users/id/listItems/${userId}`);
   return res;
 }
+
 export const getLastViewedListApi = async (userId) => {
   const res = await instance.get(`users/id/lastViewed/${userId}`);
   return res;

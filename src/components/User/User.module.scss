@@ -4,9 +4,9 @@
     font-size: 22px;
     margin-bottom: 15px;
   }
-  .animationTitle,
-  .animationSubTitle,
-  .animationWrap {
+  .sectionTitle,
+  .subTitle,
+  .sectionWrap {
     display: flex;
     align-items: center;
     height: 42px;
@@ -16,7 +16,7 @@
     border-bottom: 1px solid #2f2f2f;
     box-sizing: border-box;
   }
-  .animationTitle {
+  .sectionTitle {
     margin-top: 20px;
     margin-bottom: 5px;
     height: 52px;
@@ -27,7 +27,7 @@
       width: 30px;
     }
   }
-  .animationSubTitle {
+  .subTitle {
     font-size: 15px;
     padding-left: 30px;
     span {
@@ -37,8 +37,8 @@
       width: 20px;
     }
   }
-  .animationSubTitle,
-  .animationTitle {
+  .subTitle,
+  .sectionTitle {
     transition: 0.2s background-color, 0.3s height;
     opacity: 1;
     visibility: visible;
@@ -55,29 +55,29 @@
       }
     }
   }
-  .animationBlock {
+  .block {
     transition: 0.2s visibility, 0.2s opacity, 0.3s height;
     opacity: 1;
     visibility: visible;
-    .animationInnerBlock {
+    .blockInner {
       display: flex;
       flex-direction: column;
       margin-bottom: 5px;
       transition: 0.3s height;
     }
-    .animationWrap {
+    .sectionWrap {
       transition: 0.2s visibility, 0.2s opacity, 0.3s height;
       opacity: 1;
       visibility: visible;
       display: flex;
       align-items: center;
       height: 220px;
-      .animationListWrap {
+      .listWrap {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         width: 100%;
-        .animationItem {
+        .item {
           position: relative;
           border: 1px solid transparent;
           border-radius: 4px;
@@ -126,7 +126,7 @@
             }
           }
         }
-        .restAnimation {
+        .restItems {
           background-color: #313131;
           display: flex;
           justify-content: center;
@@ -173,8 +173,8 @@
         opacity: 0;
         visibility: hidden;
         height: 0px;
-        .animationListWrap {
-          .animationItem {
+        .listWrap {
+          .item {
             height: 0px;
             img {
               height: 0px;
@@ -189,18 +189,18 @@
     &.hide {
       opacity: 0;
       visibility: hidden;
-      .animationInnerBlock {
+      .blockInner {
         height: 0px;
-        .animationSubTitle {
+        .subTitle {
           opacity: 0;
           visibility: hidden;
         }
-        .animationWrap {
+        .sectionWrap {
           opacity: 0;
           visibility: hidden;
           height: 0px;
-          .animationListWrap {
-            .animationItem {
+          .listWrap {
+            .item {
               height: 0px;
               img {
                 height: 0px;
