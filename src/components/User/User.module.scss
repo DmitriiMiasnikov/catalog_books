@@ -66,16 +66,16 @@
       transition: 0.3s height;
     }
     .sectionWrap {
-      transition: 0.2s visibility, 0.2s opacity, 0.3s height;
       opacity: 1;
       visibility: visible;
       display: flex;
       align-items: center;
-      height: 220px;
+      height: 100%;
+      padding: 1%;
       .listWrap {
         display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         width: 100%;
         .item {
           position: relative;
@@ -83,7 +83,7 @@
           border-radius: 4px;
           overflow: hidden;
           width: 14.5%;
-          height: 200px;
+          height: 100%;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -99,6 +99,7 @@
             min-width: 100%;
             min-height: 100%;
             border-radius: 4px;
+            transition: 0.1s min-height;
           }
           .text {
             position: absolute;
@@ -137,7 +138,7 @@
           margin-left: 15px;
           color: #969696;
           text-decoration: none;
-          transition: 0.2s background-color, 0.1s width, 0.1s height;
+          transition: 0.1s height;
           &:hover {
             background-color: #3f3f3f;
           }
@@ -173,11 +174,12 @@
         opacity: 0;
         visibility: hidden;
         height: 0px;
+        padding: 0px;
         .listWrap {
           .item {
-            height: 0px;
+            height: 0%;
             img {
-              height: 0px;
+              min-height: 0%;
             }
           }
         }
@@ -199,6 +201,7 @@
           opacity: 0;
           visibility: hidden;
           height: 0px;
+          padding: 0;
           .listWrap {
             .item {
               height: 0px;
@@ -223,5 +226,10 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+@media (max-width: 1000px) {
+  .restItems {
+    font-size: 12px;
   }
 }
