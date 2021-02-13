@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { MainDom } from './MainDom';
-import { getDescription } from './../../store/descriptionReducer';
 import { getLastViewedList } from './../../store/mainReducer';
 
-const Main = ({ currentUserId, getDescription, getLastViewedList, lastViewed }) => {
+const Main = ({ currentUserId, getLastViewedList, lastViewed }) => {
   const [fetching, setFetching] = useState(true);
-  const [scrollViewed, setSCrollViewed] = useState(null);
   const listNames = [
     { name: 'animation', text: 'аниме' },
     { name: 'manga', text: 'манга' },
@@ -22,40 +20,9 @@ const Main = ({ currentUserId, getDescription, getLastViewedList, lastViewed }) 
       fetchData()
     }
   }, [getLastViewedList, currentUserId])
-  useEffect(() => {
-    if (lastViewed) {
-      let obj = {};
-      listNames.forEach(el => {
-        obj[el.name] = {
-          left: 0,
-          right: lastViewed[el.name].length - 5,
-          scroll: 0
-        }
-      })
-      setSCrollViewed(obj);
-    }
-  }, [lastViewed])
-  const openInfo = (listName, id) => {
-    getDescription(listName, id);
-  }
-  const buttonScrollHandler = (listName, side) => {
-    setSCrollViewed(scrollViewed => {
-      let obj = {};
-      Object.keys(scrollViewed).forEach(el => {
-        if (listName === el) {
-          obj[el] = {
-            left: side === 'left' ? scrollViewed[el].left - 1 : scrollViewed[el].left + 1,
-            right: side === 'left' ? scrollViewed[el].right + 1 : scrollViewed[el].right - 1,
-            scroll: side === 'left' ? scrollViewed[el].scroll - 185 : scrollViewed[el].scroll + 185
-          }
-        } else obj[el] = scrollViewed[el];
-      })
-      return obj;
-    });
-  }
 
   return (
-    <MainDom {...{ fetching, openInfo, lastViewed, buttonScrollHandler, scrollViewed, listNames }} />
+    <MainDom {...{ fetching, lastViewed, listNames, currentUserId }} />
   )
 }
 
@@ -66,4 +33,4 @@ const mapStatesToProps = (state) => {
   }
 }
 
-export default connect(mapStatesToProps, { getDescription, getLastViewedList })(Main);
+export default connect(mapStatesToProps, { getLastViewedList })(Main);

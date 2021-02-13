@@ -6,7 +6,6 @@ const CLEAR_FILTER = 'CLEAR_FILTER';
 
 
 const stateDefault = {
-  filters: null,
   filterBy: 'все',
   userFilter: 'all',
   dropdownsAll: [

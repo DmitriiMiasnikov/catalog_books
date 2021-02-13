@@ -1,0 +1,103 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  height: 235px;
+  .buttonLeft,
+  .buttonRight {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 40px;
+    margin: 0 10px;
+    img {
+      width: 50px;
+      height: 50px;
+      opacity: 1;
+      transition: 0.2s opacity;
+      &.disabled {
+        opacity: 0.2;
+        pointer-events: none;
+      }
+      &:hover {
+        opacity: 0.6;
+        cursor: pointer;
+      }
+    }
+  }
+  .buttonLeft {
+    justify-content: flex-end;
+  }
+  .buttonRight {
+    justify-content: flex-start;
+  }
+  .scrollBlock {
+    position: relative;
+    overflow: hidden;
+    width: 910px;
+    height: 237px;
+    .listWrap {
+      position: absolute;
+      display: flex;
+      flex-direction: row;
+      top: 0px;
+      transition: 0.3s transform;
+      .item {
+        position: relative;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        overflow: hidden;
+        width: 170px;
+        height: 235px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        transition: 0.2s border;
+        &:hover {
+          border: 1px solid #888888;
+        }
+        &:not(:first-child) {
+          margin-left: 15px;
+        }
+        .image {
+          min-width: 100%;
+          min-height: 100%;
+          border-radius: 4px;
+        }
+        .text {
+          position: absolute;
+          bottom: 0px;
+          left: 0px;
+          width: 100%;
+          background-color: black;
+          opacity: 0.9;
+          color: white;
+          padding: 5px 5px 10px;
+          box-sizing: border-box;
+          font-size: 11px;
+          transform: translateY(100%);
+          transition: 0.2s transform;
+          .title {
+            font-size: 13px;
+          }
+          .description {
+            margin-top: 5px;
+          }
+        }
+        &:hover {
+          .text {
+            transform: translateY(0);
+          }
+        }
+      }
+    }
+  }
+  .noItems {
+    margin-left: 30px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+  }
+}
