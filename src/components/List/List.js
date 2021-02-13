@@ -20,7 +20,7 @@ const List = ({ list, listName, getList, filterBy, getDescription, clearStates,
     clearFilter();
     setFetching(true);
     setListName(listName);
-  }, [setListName, listName])
+  }, [setListName, listName, clearStates, clearList, clearFilter])
   useEffect(() => {
     setFetching(true);
     const fetchData = async () => {
@@ -36,7 +36,7 @@ const List = ({ list, listName, getList, filterBy, getDescription, clearStates,
       clearList();
       clearFilter();
     }
-  }, [clearStates])
+  }, [clearStates, clearList, clearFilter])
   const openInfo = (id) => {
     getDescription(listName, id);
   }

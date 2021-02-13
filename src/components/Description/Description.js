@@ -16,7 +16,7 @@ const Description = ({ getDescription, getDescriptionFunc, match, selectedDescri
       await getDescription(listNameUrl, currentAnimationId, currentUserId);
     }
     fetchData();
-  }, [getDescription, match, currentAnimationId, currentUserId])
+  }, [getDescription, match, currentAnimationId, currentUserId, listNameUrl])
   useEffect(() => {
     if (currentUserId) {
       const fetchData = async () => {

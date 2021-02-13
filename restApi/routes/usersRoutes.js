@@ -161,14 +161,23 @@ router.get(
   '/id/lastViewed/:userId',
   async (req, res) => {
     const userId = Number(req.params.userId) || 0;
-    let lastViewed;
+    const listNames = ['animation', 'manga', 'ranobe'];
+    let lastViewed = {};
     try {
       const user = await Users.findOne({ userId: userId }, 'lastViewed');
       if (user) {
-        lastViewedArr = await Animation.find({ animationId: { $in: user.lastViewed.animation } });
-        lastViewed = user.lastViewed.animation.map(el => {
-          return lastViewedArr.find(item => item.animationId === el);
-        }).reverse()
+        for (const i in listNames) {
+          let lastViewedArr;
+          if (listNames[i] === 'animation') {
+            lastViewedArr = await Animation.find({ animationId: { $in: user.lastViewed[listNames[i]] } });
+          } else {
+            lastViewedArr = await Manga.find({ mangaId: { $in: user.lastViewed[listNames[i]] } });
+          }
+          lastViewed[listNames[i]] = user.lastViewed[listNames[i]].map(el => {
+            const id = listNames[i] === 'animation' ? 'animationId' : 'mangaId';
+            return lastViewedArr.find(item => item[id] === el);
+          }).reverse()
+        }
       }
       res.status(200).json({ lastViewed });
     } catch (e) {

@@ -3,7 +3,7 @@
 
   .infoWrap {
     display: grid;
-    grid-template-columns: auto 400px;
+    grid-template-columns: 60% 40%;
     grid-template-rows: auto;
     grid-template-areas: 
       'info image'
@@ -23,9 +23,11 @@
       .title {
         font-size: 24px;
         margin-bottom: 10px;
+        width: fit-content;
       }
       .line {
         color: #a0a0a0;
+        width: fit-content;
         .lineInfo {
           color: rgb(255, 255, 255);
           font-weight: bold;
@@ -45,7 +47,7 @@
     font-size: 14px;
     border-left: 1px solid #616161;
     .image {
-      width: 320px;
+      width: 80%;
       display: inline-block;
       margin: 0 auto 25px;
     }

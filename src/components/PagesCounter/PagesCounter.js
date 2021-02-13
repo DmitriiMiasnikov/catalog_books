@@ -5,7 +5,7 @@ import { setPage, setCountInPage } from '../../store/animationReducer';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 
-const PagesCounter = ({ countInPage, countAll, setPage, setCountInPage, match, currentPage, listName }) => {
+const PagesCounter = ({ countInPage, countAll, setPage, setCountInPage, match, listName }) => {
   const [pagesButtons, setPagesButtons] = useState([]);
   const pageRoute = Number(match.params.page) || 1;
   const [buttonsSwitchCounter, setButtonsSwitchCounter] = useState([10, 25, 100].map((el, i) => {
@@ -15,34 +15,34 @@ const PagesCounter = ({ countInPage, countAll, setPage, setCountInPage, match, c
       counter: el
     }
   }))
-  const setPagesCounterFunc = (currentPage) => {
+  const setPagesCounterFunc = (index) => {
     const pages = [];
     let pagesCount = Math.ceil(countAll / countInPage);
-    const startWith = (currentPage) => {
+    const startWith = (index) => {
       let page;
-      switch (currentPage) {
+      switch (index) {
         case (1): page = 1; break
         case (2): page = 1; break
-        case (pagesCount): pagesCount < 5 ? page = 1 : page = currentPage - 4; break
-        case (pagesCount - 1): pagesCount < 5 ? page = 1 : page = currentPage - 3; break
-        default: page = currentPage - 2; break
+        case (pagesCount): pagesCount < 5 ? page = 1 : page = index - 4; break
+        case (pagesCount - 1): pagesCount < 5 ? page = 1 : page = index - 3; break
+        default: page = index - 2; break
       }
       return page;
     }
-    const endWith = (currentPage) => {
+    const endWith = (index) => {
       let page;
-      switch (currentPage) {
-        case (1): pagesCount < 5 ? page = pagesCount : page = (currentPage + 4); break
-        case (2): pagesCount < 5 ? page = pagesCount : page = (currentPage + 3); break
+      switch (index) {
+        case (1): pagesCount < 5 ? page = pagesCount : page = (index + 4); break
+        case (2): pagesCount < 5 ? page = pagesCount : page = (index + 3); break
         case (pagesCount): pagesCount < 5 ? page = pagesCount : page = pagesCount; break
         case (pagesCount - 1): page = pagesCount; break
-        default: page = (currentPage + 2); break
+        default: page = (index + 2); break
       }
       return page;
     }
-    for (let i = startWith(currentPage); i <= endWith(currentPage);
+    for (let i = startWith(index); i <= endWith(index);
       i++) {
-      pages.push({ page: i, active: i === currentPage })
+      pages.push({ page: i, active: i === index })
     }
     setPagesButtons(pages);
   }
@@ -92,7 +92,6 @@ const PagesCounter = ({ countInPage, countAll, setPage, setCountInPage, match, c
 const mapStatesToProps = (state) => {
   return {
     countInPage: state.animation.countInPage,
-    currentPage: state.animation.currentPage
   }
 }
 export default compose(
