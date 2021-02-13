@@ -6,49 +6,40 @@ import { setFilterBy } from './../../store/filterReducer';
 import { selectUser } from './../../store/usersReducer';
 import { FiltersDom } from './FiltersDom';
 
-const Filters = ({ setFilterBy, filters, filterBy, selectedUser, userInfo, selectUser,
-  searchValue, setSearchValue, history, listName }) => {
+const Filters = ({ setFilterBy, filtersAll, filterBy, selectedUser, userInfo, selectUser,
+  searchValue, setSearchValue, history, listName, dropdownsAll }) => {
   const [buttonsFilter, setButtonsFilter] = useState({});
-  const [dropdowns, setDropdowns] = useState([
-    {
-      id: 0,
-      text: 'Аудитория',
-      type: 'auditory',
-      closed: true,
-    },
-    {
-      id: 1,
-      text: 'Жанр',
-      type: 'genre',
-      closed: true,
-    },
-    {
-      id: 2,
-      text: 'Тип',
-      type: 'type',
-      closed: true,
-    },
-    {
-      id: 3,
-      text: 'Дата выхода',
-      type: 'dateStart',
-      closed: true,
-    }
-  ])
+  const [dropdowns, setDropdowns] = useState(dropdownsAll);
   useEffect(() => {
-    if (filters && !Object.keys(buttonsFilter).length) {
+    if (filtersAll) {
+      const dropdownsUpdate = [];
+      dropdownsAll.forEach(el => {
+        if (Object.keys(filtersAll).includes(el.type)) dropdownsUpdate.push(el);
+      })
+      dropdownsUpdate.filter(el => el).map((el, i) => {
+        el.id = i
+        el.closed = true;
+        return el
+      })
+      setDropdowns(dropdownsUpdate)
+    }
+  }, [filtersAll, dropdownsAll])
+  useEffect(() => {
+    if (filtersAll) {
       const filtersCopy = {};
       dropdowns.forEach((el, i) => {
-        filtersCopy[el.type] = filters[el.type].map((item, j) => {
-          return {
-            active: !j,
-            [el.type]: item
-          }
-        })
+        if (filtersAll[el.type]) {
+          filtersCopy[el.type] = filtersAll[el.type].map((item, j) => {
+            return {
+              active: !j,
+              [el.type]: item
+            }
+          })
+        }
       })
       setButtonsFilter(filtersCopy);
     }
-  }, [filters, dropdowns, buttonsFilter]);
+  }, [filtersAll, dropdowns]);
   const openDropdown = (dropdownId) => {
     setDropdowns(dropdowns.map(el => {
       if (el.id === dropdownId) {
@@ -88,24 +79,27 @@ const Filters = ({ setFilterBy, filters, filterBy, selectedUser, userInfo, selec
     setSearchValue('');
   }
   return (
-    <FiltersDom {...{buttonsFilter, dropdowns, closeUsersList, openDropdown, filterHandler, userInfo,
-      selectedUser, filterBy, cancelSeach, searchValue, listName}} />
+    <FiltersDom {...{
+      buttonsFilter, dropdowns, closeUsersList, openDropdown, filterHandler, userInfo,
+      selectedUser, filterBy, cancelSeach, searchValue, listName
+    }} />
   )
 }
 
 const mapStatesToProps = (state) => {
   return {
     animation: state.animation.animation,
-    filters: state.filter.filters,
+    filtersAll: state.filter.filtersAll,
     filterBy: state.filter.filterBy,
     selectedUser: state.users.selectedUser,
     userInfo: state.users.userInfo,
     searchValue: state.animation.searchValue,
-    listName: state.list.listName
+    listName: state.list.listName,
+    dropdownsAll: state.filter.dropdownsAll
   }
 }
 
 export default compose(
   connect(mapStatesToProps, { setFilterBy, selectUser }),
   withRouter
-) (Filters);
+)(Filters);

@@ -9,6 +9,33 @@ const stateDefault = {
   filters: null,
   filterBy: 'все',
   userFilter: 'all',
+  dropdownsAll: [
+    {
+      text: 'Аудитория',
+      type: 'auditory',
+    },
+    {
+      text: 'Жанр',
+      type: 'genre',
+    },
+    {
+      text: 'Тип',
+      type: 'type',
+    },
+    {
+      text: 'Дата выхода',
+      type: 'dateStart',
+    },
+    {
+      text: 'Дата выхода',
+      type: 'date',
+    },
+    {
+      text: 'Язык оригинала',
+      type: 'language',
+    }
+  ],
+  filtersAll: null
 }
 
 export const filterReducer = (state = stateDefault, action) => {
@@ -17,7 +44,7 @@ export const filterReducer = (state = stateDefault, action) => {
       return { ...state, filterBy: action.filterBy }
     }
     case (SET_FILTERS): {
-      return { ...state, filters: action.filters }
+      return { ...state, filtersAll: action.filtersAll }
     }
     case (SET_USER_FILTER): {
       return { ...state, userFilter: action.userFilter }
@@ -33,8 +60,8 @@ export const filterReducer = (state = stateDefault, action) => {
 export const setFilterBy = (filterBy) => {
   return { type: SET_FILTER_BY, filterBy }
 }
-export const setFilters = (filters) => {
-  return { type: SET_FILTERS, filters }
+export const setFilters = (filtersAll) => {
+  return { type: SET_FILTERS, filtersAll }
 }
 export const setUserFilter = (userFilter) => {
   return { type: SET_USER_FILTER, userFilter }

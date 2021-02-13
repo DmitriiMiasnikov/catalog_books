@@ -19,42 +19,94 @@ router.get(
     let userFilter = req.query.userFilter;
     let listName = req.query.listName;
     let list;
-    let filters;
+    let filtersAll;
     let counterAll;
     let user;
     try {
-      let dateToday = new Date();
-      let date = [`${dateToday.getFullYear() - 3} - ${dateToday.getFullYear()}`];
-      for (let i = dateToday.getFullYear() - 4; i > 1970; i = i - 4) {
-        date.push(`${i - 3} - ${i}`);
+      if (listName === 'animation') {
+        filtersAll = {
+          'auditory': ['все', 'сёнэн', 'сэйнэн', 'сёдзё', 'дзёсэй', 'кодомо'],
+          'genre': [
+            'все', 'комедия',
+            'повседневность', 'приключения',
+            'фантастика', 'мистика',
+            'фэнтези', 'драма',
+            'спорт', 'романтика',
+            'триллер', 'меха',
+            'этти', 'детектив',
+            'махо-сёдзё', 'боевые искусства',
+            'музыкальный', 'ужасы',
+            'образовательный'
+          ],
+          'type': [
+            'все', 'полнометражный', 'короткометражный', 'ТВ', 'OVA'
+          ],
+          'dateStart': null
+        }
+        let dateToday = new Date();
+        let date = [`${dateToday.getFullYear() - 3} - ${dateToday.getFullYear()}`];
+        for (let i = dateToday.getFullYear() - 4; i > 1970; i = i - 4) {
+          date.push(`${i - 3} - ${i}`);
+        }
+        filtersAll['dateStart'] = date;
+      } else if (listName === 'manga') {
+        filtersAll = {
+          'genre': [
+            'все', 'комедия',
+            'повседневность', 'приключения',
+            'фантастика', 'мистика',
+            'фэнтези', 'драма',
+            'спорт', 'романтика',
+            'триллер', 'меха',
+            'этти', 'детектив',
+            'махо-сёдзё', 'боевые искусства',
+            'музыкальный', 'ужасы',
+            'образовательный'
+          ],
+          'date': null
+        }
+        let dateToday = new Date();
+        let date = [`${dateToday.getFullYear() - 3} - ${dateToday.getFullYear()}`];
+        for (let i = dateToday.getFullYear() - 4; i > 1970; i = i - 4) {
+          date.push(`${i - 3} - ${i}`);
+        }
+        filtersAll['date'] = date;
+      } else if (listName === 'ranobe') {
+        filtersAll = {
+          'language': [
+            'все',
+            'Китайский',
+            'Японский',
+            'Корейский',
+            'Английский',
+          ],
+          'genre': ['все', 'Xuanhuan', 'Боевые Искусства',
+            'Приключения', 'Фэнтези', 'Экшн',
+            'Драма', 'Романтика', 'Josei',
+            'Xianxia', 'История', 'Комедия',
+            'Sci-fi', 'Научная Фантастика',
+            'Триллер', 'Трагедия', 'Shoujo',
+            'Истории из жизни', 'Школьная жизнь', 'Спорт',
+            'Mature', 'Wuxia', 'Исторический',
+            'Психология', 'Сёнэн', 'Yaoi',
+            'Меха', 'Гарем',
+            'Мистика', 'Сверхъеетественное', 'Сэйнэн',
+            'Хоррор', 'Повседневность', 'Ecchi',
+            'Детектив', 'Этти', 'Игра', 'Сюаньхуа', 'Шоунен', 'Adult',
+            'Постапокалипсис',
+            'Не указано', 'Lolicon',
+            'Виртуальный Мир']
+        }
       }
-      filters = {
-        'auditory': ['все', 'сёнэн', 'сэйнэн', 'сёдзё', 'дзёсэй', 'кодомо'],
-        'genre': [
-          'все', 'комедия',
-          'повседневность', 'приключения',
-          'фантастика', 'мистика',
-          'фэнтези', 'драма',
-          'спорт', 'романтика',
-          'триллер', 'меха',
-          'этти', 'детектив',
-          'махо-сёдзё', 'боевые искусства',
-          'музыкальный', 'ужасы',
-          'образовательный'
-        ],
-        'type': [
-          'все', 'полнометражный', 'короткометражный', 'ТВ', 'OVA'
-        ],
-        'dateStart': date
-      }
+
       if (userId) {
         user = await Users.findOne({ userId: userId });
       }
       // фильтр, сортировка и поиск сразу
       let currentFilter;
       let noFilters;
-      Object.keys(filters).map(el => {
-        if (filters[el].includes(filter)) {
+      Object.keys(filtersAll).forEach(el => {
+        if (filtersAll[el].includes(filter)) {
           currentFilter = el;
           noFilters = false;
         }
@@ -92,7 +144,7 @@ router.get(
             { animationId: userId ? { $in: user.animation[userFilter] } : { $type: 'number' } },
             {
               $or: [
-                { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
+                { [currentFilter]: noFilters ? { $in: filtersAll[currentFilter] } : filter },
                 { [currentFilter]: { $regex: filter, $options: 'i' } },
                 { [currentFilter]: { $lte: filter.split(' - ')[1], $gte: filter.split(' - ')[0] } }
               ]
@@ -113,7 +165,7 @@ router.get(
             { animationId: userId ? { $in: user.animation[userFilter] } : { $type: 'number' } },
             {
               $or: [
-                { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
+                { [currentFilter]: noFilters ? { $in: filtersAll[currentFilter] } : filter },
                 { [currentFilter]: { $regex: filter, $options: 'i' } },
                 { [currentFilter]: { $lte: filter.split(' - ')[1], $gte: filter.split(' - ')[0] } }
               ]
@@ -136,7 +188,7 @@ router.get(
             { type: 'манга' },
             {
               $or: [
-                { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
+                { [currentFilter]: noFilters ? { $in: filtersAll[currentFilter] } : filter },
                 { [currentFilter]: { $regex: filter, $options: 'i' } },
                 { [currentFilter]: { $lte: filter, $gte: filter } }
               ]
@@ -158,7 +210,7 @@ router.get(
             { type: 'манга' },
             {
               $or: [
-                { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
+                { [currentFilter]: noFilters ? { $in: filtersAll[currentFilter] } : filter },
                 { [currentFilter]: { $regex: filter, $options: 'i' } },
                 { [currentFilter]: { $lte: filter.split(' - ')[1], $gte: filter.split(' - ')[0] } }
               ]
@@ -175,13 +227,12 @@ router.get(
           limit: countInPage
         })
       } else if (listName === 'ranobe') {
-        console.log(userId, search);
         list = await Ranobe.find({
           $and: [
             { ranobeId: userId ? { $in: user[listName][userFilter] } : { $type: 'number' } },
             {
               $or: [
-                { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
+                { [currentFilter]: noFilters ? { $in: filtersAll[currentFilter] } : filter },
                 { [currentFilter]: { $regex: filter, $options: 'i' } },
                 { [currentFilter]: { $lte: filter, $gte: filter } }
               ]
@@ -202,7 +253,7 @@ router.get(
             { ranobeId: userId ? { $in: user[listName][userFilter] } : { $type: 'number' } },
             {
               $or: [
-                { [currentFilter]: noFilters ? { $in: filters[currentFilter] } : filter },
+                { [currentFilter]: noFilters ? { $in: filtersAll[currentFilter] } : filter },
                 { [currentFilter]: { $regex: filter, $options: 'i' } },
                 { [currentFilter]: { $lte: filter.split(' - ')[1], $gte: filter.split(' - ')[0] } }
               ]
@@ -218,9 +269,8 @@ router.get(
           skip: countInPage * page - (countInPage),
           limit: countInPage
         })
-        console.log(counterAll);
       }
-      res.status(200).json({ list, page, countInPage, counterAll, filters });
+      res.status(200).json({ list, page, countInPage, counterAll, filtersAll });
     } catch (e) {
       console.log(e)
     }

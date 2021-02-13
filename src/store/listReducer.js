@@ -51,6 +51,6 @@ export const getList = (listName, page, counter, sort, filter, search, userId, u
     const res = await getListApi(listName, page, counter, sort, filter, search, userId, userFilter);
     dispatch(getListFunc(res.data.list));
     dispatch(setCounterAll(Number(res.data.counterAll)));
-    dispatch(setFilters(res.data.filters));
+    dispatch(setFilters(res.data.filtersAll));
   }
 }

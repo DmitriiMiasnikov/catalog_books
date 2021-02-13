@@ -46,6 +46,7 @@ export const FiltersDom = ({ buttonsFilter, openDropdown, dropdowns, filterHandl
         {
           dropdowns.map((dropdown, j) => {
             const dropdownType = dropdown.type;
+            if (!buttonsFilter[dropdownType]) return <div key={j}></div>
             return (
               <div key={j} className={classnames(styles.dropdown, { [styles.closed]: dropdown.closed })}>
                 <div className={styles.button} onClick={() => openDropdown(dropdown.id)}>
