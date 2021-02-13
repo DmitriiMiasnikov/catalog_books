@@ -29,7 +29,7 @@ const Description = ({ getDescription, getDescriptionFunc, match, selectedDescri
     return () => getDescriptionFunc(null)
   }, [getDescriptionFunc])
   return (
-    <DescriptionDom selectedDescription={selectedDescription} catalogName={catalogName}/>
+    <DescriptionDom selectedDescription={selectedDescription} catalogName={catalogName} listNameUrl={listNameUrl}/>
   )
 }
 const mapStatesToProps = (state) => {

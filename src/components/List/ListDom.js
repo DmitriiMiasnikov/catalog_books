@@ -10,8 +10,8 @@ import ButtonSwitcher from './../ButtonSwitcher/ButtonSwitcher';
 import Stars from '../Stars/Stars';
 
 export const ListDom = ({ list, openInfo, countAll,
-  fetching, pageView, myUserInfo, listName, catalogName }) => {
-  const id = `${catalogName}Id`
+  fetching, pageView, myUserInfo, listName }) => {
+  const id = `${listName}Id`;
   return (
     <div className={styles.wrapper}>
       <PageView />
@@ -34,12 +34,12 @@ export const ListDom = ({ list, openInfo, countAll,
               {
                 list && list.map((el, i) => {
                   return (
-                    <div key={i} className={classnames(styles.item, { [styles.done]: myUserInfo && myUserInfo[listName].done.includes(el[id]) })}>
+                    <div key={i} className={classnames(styles.item, { [styles.done]: myUserInfo && myUserInfo[listName].done.includes(el[listName]) })}>
                       {
                         pageView === 'small' && (
                           <div key={i} className={styles.itemInner}>
                             <NavLink to={`/description/${listName}/${el[id]}`} onClick={() => openInfo(el[id])} className={styles.imgLink}>
-                              <img src={`https://anime.amyasnikov.pro/${catalogName}_small/${catalogName}_cover_${el[id]}_small.jpg`} 
+                              <img src={`https://anime.amyasnikov.pro/${listName}_small/${listName}_cover_${el[id]}_small.jpg`} 
                                 alt='' className={styles.image} />
                             </NavLink>
                             <div className={styles.infoWrapper}>
@@ -87,8 +87,8 @@ export const ListDom = ({ list, openInfo, countAll,
                       {
                         pageView === 'medium' && (
                           <div key={i} className={styles.itemInner}>
-                            <NavLink to={`/description/${listName}/${el[id]}`} onClick={() => openInfo(el[id])} className={styles.imgLink}>
-                              <img src={`https://anime.amyasnikov.pro/${catalogName}_small/${catalogName}_cover_${el[id]}_small.jpg`} alt='' className={styles.image} />
+                            <NavLink to={`/description/${listName}/${el[listName]}`} onClick={() => openInfo(el[id])} className={styles.imgLink}>
+                              <img src={`https://anime.amyasnikov.pro/${listName}_small/${listName}_cover_${el[id]}_small.jpg`} alt='' className={styles.image} />
                             </NavLink>
                             <div className={styles.infoWrapper}>
                               {el.nameRu && <div className={styles.title}>
@@ -141,9 +141,9 @@ export const ListDom = ({ list, openInfo, countAll,
                       }
                       {
                         pageView === 'large' && (
-                          <NavLink to={`/description/${listName}/${el[id]}`} onClick={() => openInfo(el[id])}
+                          <NavLink to={`/description/${listName}/${el[id]}`} onClick={() => openInfo(el[listName])}
                             key={i} className={styles.itemInner}>
-                            <img src={`https://anime.amyasnikov.pro/${catalogName}_small/${catalogName}_cover_${el[id]}_small.jpg`}
+                            <img src={`https://anime.amyasnikov.pro/${listName}_small/${listName}_cover_${el[id]}_small.jpg`}
                               alt='' className={styles.image} />
                             <div className={styles.text}>
                               <div className={styles.title}>

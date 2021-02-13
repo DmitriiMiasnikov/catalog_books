@@ -4,6 +4,7 @@ const sha256 = require('js-sha256');
 const Users = require('./../models/Users');
 const Animation = require('./../models/Animation');
 const Manga = require('./../models/Manga');
+const Ranobe = require('./../models/Ranobe');
 
 // получить всех пользователей
 // /users/
@@ -98,8 +99,10 @@ router.get(
           const currentItem = Object.keys(user[listNames[j]])[i];
           if (listNames[j] === 'animation') {
             userListItems[listNames[j]][currentItem] = await Animation.find({ animationId: { $in: user[listNames[j]][currentItem] } });
-          } else {
+          } else if (listNames[j] === 'manga') {
             userListItems[listNames[j]][currentItem] = await Manga.find({ mangaId: { $in: user[listNames[j]][currentItem] } });
+          } else if (listNames[j] === 'ranobe') {
+            userListItems[listNames[j]][currentItem] = await Ranobe.find({ ranobeId: { $in: user[listNames[j]][currentItem] } });
           }
           countUserList[listNames[j]][currentItem] = userListItems[listNames[j]][currentItem].length;
           userListItemsRest[listNames[j]][currentItem] = userListItems[listNames[j]][currentItem].slice(5).length;
@@ -170,11 +173,13 @@ router.get(
           let lastViewedArr;
           if (listNames[i] === 'animation') {
             lastViewedArr = await Animation.find({ animationId: { $in: user.lastViewed[listNames[i]] } });
-          } else {
+          } else if (listNames[i] === 'manga') {
             lastViewedArr = await Manga.find({ mangaId: { $in: user.lastViewed[listNames[i]] } });
+          } else if (listNames[i] === 'ranobe') {
+            lastViewedArr = await Ranobe.find({ ranobeId: { $in: user.lastViewed[listNames[i]] } });
           }
           lastViewed[listNames[i]] = user.lastViewed[listNames[i]].map(el => {
-            const id = listNames[i] === 'animation' ? 'animationId' : 'mangaId';
+            const id = `${listNames[i]}Id`;
             return lastViewedArr.find(item => item[id] === el);
           }).reverse()
         }

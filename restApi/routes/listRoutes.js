@@ -65,13 +65,13 @@ router.get(
       }
 
       let currentSort;
-      switch(sort) {
-        case ('name'): {}
+      switch (sort) {
+        case ('name'): { }
         case ('name_reverse'): {
           currentSort = 'nameRu';
           break;
         }
-        case ('date'): {}
+        case ('date'): { }
         case ('date_reverse'): {
           currentSort = 'dateStart';
           break;
@@ -175,6 +175,7 @@ router.get(
           limit: countInPage
         })
       } else if (listName === 'ranobe') {
+        console.log(userId, search);
         list = await Ranobe.find({
           $and: [
             { ranobeId: userId ? { $in: user[listName][userFilter] } : { $type: 'number' } },
@@ -217,6 +218,7 @@ router.get(
           skip: countInPage * page - (countInPage),
           limit: countInPage
         })
+        console.log(counterAll);
       }
       res.status(200).json({ list, page, countInPage, counterAll, filters });
     } catch (e) {
@@ -250,8 +252,10 @@ router.get(
       let selectedDescription;
       if (listName === 'animation') {
         selectedDescription = await Animation.findOne({ animationId: id });
-      } else {
+      } else if (listName === 'manga') {
         selectedDescription = await Manga.findOne({ mangaId: id });
+      } else if (listName === 'ranobe') {
+        selectedDescription = await Ranobe.findOne({ ranobeId: id });
       }
       res.status(200).json({ selectedDescription });
     } catch (e) {

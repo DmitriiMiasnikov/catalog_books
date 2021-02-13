@@ -27,12 +27,12 @@ export const MainDom = ({ fetching, openInfo, lastViewed, buttonScrollHandler, s
                         <div className={styles.listWrap} style={{ left: 0, transform: `translateX(-${scrollViewed[listName.name].scroll}px)` }}>
                           {
                             lastViewed[listName.name].map((el, i) => {
-                              const catalogName = listName.name === 'animation' ? 'animation' : 'manga';
-                              const id = `${catalogName}Id`;
+                              console.log(lastViewed);
+                              const id = `${listName.name}Id`;
                               return (
                                 <NavLink to={`description/${listName.name}/${el[id]}`} onClick={() => openInfo(listName.name, el[id])}
                                   className={styles.item} key={i} >
-                                  <img src={`https://anime.amyasnikov.pro/${catalogName}_small/${catalogName}_cover_${el[id]}_small.jpg`} 
+                                  <img src={`https://anime.amyasnikov.pro/${listName.name}_small/${listName.name}_cover_${el[id]}_small.jpg`} 
                                     alt='img' className={styles.image} />
                                   <div className={styles.text}>
                                     <div className={styles.title}>

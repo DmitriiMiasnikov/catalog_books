@@ -14,12 +14,12 @@ const RandomItemsMenu = ({ getRandomOne, randomItems, getDescription }) => {
     return () => clearInterval(interval);
   }, [getRandomOne, randomItems])
 
-  const openAnimationInfo = (listName, id) => {
+  const openInfo = (listName, id) => {
     getDescription(listName, id);
   }
 
   return (
-    <RandomItemsMenuDom {...{ randomItems, openAnimationInfo }} />
+    <RandomItemsMenuDom {...{ randomItems, openInfo }} />
   )
 }
 

@@ -50,13 +50,12 @@ export const UserDom = ({ userInfo, selectedUserMine, openDescription, fetching,
                                 <div className={styles.listWrap}>
                                   {
                                     userListItemsFive[section.name][listName].map((el, i) => {
-                                      const catalogName = section.name === 'animation' ? 'animation' : 'manga';
-                                      const id = `${catalogName}Id`;
+                                      const id = `${section.name}Id`;
                                       return (
                                         <NavLink to={`/description/${section.name}/${el[id]}`}
                                           onClick={() => openDescription(section.name, el[id])}
                                           className={styles.item} key={i} >
-                                          <img src={`https://anime.amyasnikov.pro/${catalogName}_small/${catalogName}_cover_${el[id]}_small.jpg`}
+                                          <img src={`https://anime.amyasnikov.pro/${section.name}_small/${section.name}_cover_${el[id]}_small.jpg`}
                                             alt='img' className={styles.image} />
                                           <div className={styles.text}>
                                             <div className={styles.title}>

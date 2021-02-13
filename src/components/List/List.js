@@ -13,7 +13,6 @@ const List = ({ list, listName, getList, filterBy, getDescription, clearStates,
   selectedUser, userFilter, myUserInfo, setListName, clearList, clearFilter }) => {
   let page = Number(match.params.page) || 1;
   const [fetching, setFetching] = useState(true);
-  const catalogName = listName === 'animation' ? 'animation' : 'manga';
   useEffect(() => {
     clearStates();
     clearList();
@@ -41,7 +40,7 @@ const List = ({ list, listName, getList, filterBy, getDescription, clearStates,
     getDescription(listName, id);
   }
   return (
-    <ListDom  {...{openInfo, countAll, fetching, pageView, myUserInfo, listName, catalogName, list}} />
+    <ListDom  {...{openInfo, countAll, fetching, pageView, myUserInfo, listName, list}} />
   )
 }
 const mapStatesToProps = (state) => {
