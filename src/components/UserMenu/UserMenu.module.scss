@@ -128,18 +128,47 @@
 }
 
 @media (max-width: 950px) {
-  .wrapper {
+  .wrapper.loginBlockWrap {
     width: 20%;
+  }
+  .wrapper {
+    .wrapperInfoUser {
+      display: flex;
+      flex-direction: row;
+      height: 100%;
+      .nameBlock {
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+        margin-right: 10px;
+        padding: 0;
+        a {
+          margin-left: 0;
+        }
+      }
+      .buttons {
+        margin-top: 0;
+        border-left: 1px solid #444343;
+        a {
+          border-radius: 0px;
+        }
+        .button {
+          width: 48px;
+          height: 100%;
+          border-radius: 0px;
+        }
+      }
+    }
   }
 }
 
 @media (max-width: 800px) {
-  .wrapper {
+  .wrapper.loginBlockWrap {
     width: 155px;
   }
 }
 @media (max-width: 700px) {
-  .wrapper {
+  .wrapper.loginBlockWrap {
     width: 12%;
     min-width: 70px;
   }

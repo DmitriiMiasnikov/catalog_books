@@ -95,15 +95,22 @@
 @media (max-width: 950px) {
   .wrapper {
     z-index: 11;
-    background-color: #2b2b2b;
-  }
-}
-
-@media (max-width: 700px) {
-  .wrapper {
+    background-color: #353535;
     width: 210px;
     position: absolute;
     left: 0px;
     top: 49px;
+    form {
+      .input {
+        input {
+          background-color: #5a5a5a;
+        }
+      }
+      .buttons {
+        .button {
+          background-color: #353535;
+        }
+      }
+    }
   }
 }

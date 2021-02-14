@@ -14,7 +14,7 @@ const Registration = ({ userRegistration, isAuth, setShowRegistration }) => {
   const validate = (data) => {
     const err = {};
     // if (!data.name) err.name = 'Введите имя';
-    if (data.name && data.name.length < 6) err.name = 'Мин. длина имени 6 знаков';
+    if (data.name && data.name.length < 4) err.name = 'Мин. длина имени 4 знака';
 
     // if (!data.email) err.email = 'Введите почту';
     if (data.email && !data.email.includes('@')) err.email = 'Введите корректную почту';
@@ -32,7 +32,7 @@ const Registration = ({ userRegistration, isAuth, setShowRegistration }) => {
   const registrationHandler = (data) => {
     userRegistration(data.name, data.password, data.email); 
   }
-  const showRegistrationHandler = () => {
+  const closeRegistration = () => {
     setShowRegistration(false);
   }
   if (isAuth) {
@@ -42,7 +42,7 @@ const Registration = ({ userRegistration, isAuth, setShowRegistration }) => {
   }
   return (
     <RegistrationDom registrationHandler={registrationHandler} inputs={inputs} validate={validate}
-    showRegistrationHandler={showRegistrationHandler}/>
+    closeRegistration={closeRegistration}/>
   )
 }
 

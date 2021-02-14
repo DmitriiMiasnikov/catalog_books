@@ -19,7 +19,7 @@ import RandomItemsMenu from './components/RandomItemsMenu/RandomItemsMenu';
 import List from './components/List/List';
 import { setIsMobile } from './store/mainReducer'
 
-function App({ theme, showRegistration, setIsMobile }) {
+function App({ theme, showRegistration, setIsMobile, isMobile }) {
   const widthHandler = () => {
     setIsMobile(window.innerWidth)
   }
@@ -39,8 +39,8 @@ function App({ theme, showRegistration, setIsMobile }) {
         <div className={styles.menu}>
           <UserMenu />
           <Route path='/list' render={() => <Filters />} />
-          <UsersMenu />
-          <RandomItemsMenu />
+          {!isMobile && <UsersMenu />}
+          {!isMobile && <RandomItemsMenu />}
         </div>
         <div className={styles.content}>
           <Switch>
@@ -68,6 +68,7 @@ const mapStatesToProps = (state) => {
   return {
     theme: state.main.theme,
     showRegistration: state.users.showRegistration,
+    isMobile: state.main.isMobile
   }
 }
 export default compose(

@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Field, Form } from 'react-final-form';
 import styles from './Registration.module.scss';
 import classnames from 'classnames';
 import close from './../../assets/Images/close.svg';
 
-export const RegistrationDom = ({ registrationHandler, inputs, validate, showRegistrationHandler }) => {
+export const RegistrationDom = ({ registrationHandler, inputs, validate, closeRegistration }) => {
+  const refRegistration = useRef(null);
+  const handleMouseClickLoginMenu = (e) => {
+    if (!e.path.includes(refRegistration.current)) {
+      closeRegistration();
+    }
+  }
+  useEffect(() => {
+    document.addEventListener('click', handleMouseClickLoginMenu, true)
+    return () => document.removeEventListener('click', handleMouseClickLoginMenu, true)
+  })
   return (
     <div className={classnames(styles.wrapper, styles.show)}>
-      <div className={styles.registrationBlock}>
-      <div onClick={() => showRegistrationHandler()} className={styles.close}>
+      <div className={styles.registrationBlock} ref={refRegistration}>
+      <div onClick={() => closeRegistration()} className={styles.close}>
         <img src={close} alt=''/>
       </div>
         <div className={styles.title}>
@@ -37,7 +47,7 @@ export const RegistrationDom = ({ registrationHandler, inputs, validate, showReg
               }
               <div className={classnames(styles.line, styles.buttons)}>
                 <button type='submit' disabled={submitting} className={styles.submit}>зарегистрировать</button>
-                <button onClick={() => showRegistrationHandler()} className={styles.closeButton}>Отмена</button>
+                <button onClick={() => closeRegistration()} className={styles.closeButton}>Отмена</button>
               </div>
             </form>
           )}
