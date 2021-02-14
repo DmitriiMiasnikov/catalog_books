@@ -63,6 +63,9 @@
         'header'
         'menu'
         'content';
+        .content {
+          padding: 15px 10px 25px 10px;
+        }
         .menu {
           padding: 1px 0px 0px;
           display: flex;

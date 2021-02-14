@@ -16,7 +16,7 @@ export const mainReducer = (state = stateDefault, action) => {
       return { ...state, lastViewed: action.lastViewed }
     }
     case (SET_IS_MOBILE): {
-      return { ...state, isMobile: action.windowWidth < 950, isMobileLess: action.windowWidth < 700 }
+      return { ...state, isMobile: action.windowWidth <= 950, isMobileLess: action.windowWidth <= 700 }
     }
     default: break
   }

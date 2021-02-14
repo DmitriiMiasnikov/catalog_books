@@ -9,28 +9,37 @@
     display: flex;
     align-items: center;
     height: 100%;
-    width: 40px;
-    margin: 0 10px;
-    img {
-      width: 50px;
-      height: 50px;
+    border-radius: 4px;
+    background-color: #2f2f2f;
+    opacity: .7;
+    transition: 0.2s opacity;
+    &.disabled {
+      opacity: 0.2;
+      pointer-events: none;
+    }
+    &:hover {
       opacity: 1;
-      transition: 0.2s opacity;
-      &.disabled {
-        opacity: 0.2;
-        pointer-events: none;
-      }
-      &:hover {
-        opacity: 0.6;
-        cursor: pointer;
-      }
+      cursor: pointer;
+    }
+    img {
+      width: 35px;
+      height: 35px;
+      opacity: 1;
     }
   }
   .buttonLeft {
     justify-content: flex-end;
+    margin-right: 10px;
+    img {
+      transform: rotate(90deg);
+    }
   }
   .buttonRight {
     justify-content: flex-start;
+    margin-left: 10px;
+    img {
+      transform: rotate(-90deg);
+    }
   }
   .scrollBlock {
     position: relative;
@@ -64,5 +73,90 @@
     height: 50px;
     display: flex;
     align-items: center;
+  }
+}
+
+@media(min-width: 1453px) {
+  .wrapper {
+    height: 265px;
+    .scrollBlock {
+      width: 1019px;
+      height: 267px;
+      .listWrap {
+        .item {
+          width: 192px;
+          height: 266px;
+        }
+      }
+    }
+  }
+}
+
+@media(max-width: 1452px) {
+  .wrapper {
+    height: 235px;
+    .scrollBlock {
+      width: 910px;
+      height: 237px;
+      .listWrap {
+        .item {
+          width: 170px;
+          height: 235px;
+        }
+      }
+    }
+  }
+}
+@media(max-width: 1300px) {
+  .wrapper {
+    height: 251px;
+    .scrollBlock {
+      width: 749px;
+      height: 251px;
+      .listWrap {
+        .item {
+          width: 180px;
+          height: 252px;
+          &:not(:first-child) {
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media(max-width: 1135px) {
+  .wrapper {
+    height: 268px;
+    .scrollBlock {
+      width: 595px;
+      height: 268px;
+      .listWrap {
+        .item {
+          width: 192px;
+          height: 266px;
+          &:not(:first-child) {
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media(max-width: 750px) {
+  .wrapper {
+    height: 268px;
+    .scrollBlock {
+      width: 393px;
+      height: 268px;
+      .listWrap {
+        .item {
+          width: 192px;
+          height: 266px;
+        }
+      }
+    }
   }
 }
