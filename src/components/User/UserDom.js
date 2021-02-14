@@ -6,8 +6,8 @@ import classnames from 'classnames';
 import angle from './../../assets/Images/angle.svg';
 import ListItem from './../ListItem/ListItem';
 
-export const UserDom = ({ userInfo, selectedUserMine, openDescription, fetching, buttonsSection,
-  buttonsMain, buttonsMainHandler, buttonsHandler, userListItemsFive, userListItemsRest, openList }) => {
+export const UserDom = ({ userInfo, selectedUserMine, fetching, buttonsSection,
+  buttonsMain, buttonsMainHandler, buttonsHandler, userListItemsFive, userListItemsRest, openList, countUserList }) => {
   return (
     <div>
       {userInfo &&
@@ -31,6 +31,8 @@ export const UserDom = ({ userInfo, selectedUserMine, openDescription, fetching,
                         <div key={j} className={styles.blockInner}>
                           <div className={styles.subTitle} onClick={() => buttonsHandler(section.name, listName)}>
                             <span>{buttonsSection[section.name].find(el => el.name === listName).text}</span>
+                            {countUserList && Boolean(countUserList[section.name][listName]) && <span className={styles.count}>
+                              ({countUserList[section.name][listName]})</span>}
                             <img src={angle} className={classnames(styles.angle, {
                               [styles.reverse]: !buttonsSection[section.name].find(el => el.name === listName).active
                             })} alt='' />

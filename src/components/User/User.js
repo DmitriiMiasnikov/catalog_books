@@ -9,7 +9,7 @@ import { setUserFilter } from './../../store/filterReducer';
 import { getUserListItems } from './../../store/userListItemsReducer';
 
 const User = ({ currentUserId, match, getUser, userInfo, getDescription, selectUser, setUserFilter, 
-  userListItemsFive, userListItemsRest, getUserListItems }) => {
+  userListItemsFive, userListItemsRest, getUserListItems, countUserList }) => {
   const selectedUserId = Number(match.params.userId);
   const [buttonsMain, setButtonsMain] = useState([
     {name: 'animation', text: 'Аниме', active: true},
@@ -66,7 +66,7 @@ const User = ({ currentUserId, match, getUser, userInfo, getDescription, selectU
   }
   return (
     <UserDom  {...{userInfo, selectedUserMine, openDescription, openList, fetching, buttonsSection, 
-      buttonsMain, buttonsMainHandler, buttonsHandler, userListItemsFive, userListItemsRest}}/>
+      buttonsMain, buttonsMainHandler, buttonsHandler, userListItemsFive, userListItemsRest, countUserList}}/>
   )
 }
 
@@ -76,7 +76,8 @@ const mapStatesToProps = (state) => {
     userInfo: state.users.userInfo,
     userListItems: state.userListItems.userListItems,
     userListItemsFive: state.userListItems.userListItemsFive,
-    userListItemsRest: state.userListItems.userListItemsRest
+    userListItemsRest: state.userListItems.userListItemsRest,
+    countUserList: state.userListItems.countUserList
   }
 }
 export default compose(
