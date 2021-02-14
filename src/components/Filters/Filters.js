@@ -7,7 +7,7 @@ import { selectUser } from './../../store/usersReducer';
 import { FiltersDom } from './FiltersDom';
 
 const Filters = ({ setFilterBy, filtersAll, filterBy, selectedUser, userInfo, selectUser,
-  searchValue, setSearchValue, history, listName, dropdownsAll }) => {
+  searchValue, setSearchValue, history, listName, dropdownsAll, isMobile }) => {
   const [buttonsFilter, setButtonsFilter] = useState({});
   const [dropdowns, setDropdowns] = useState(dropdownsAll);
   useEffect(() => {
@@ -81,8 +81,7 @@ const Filters = ({ setFilterBy, filtersAll, filterBy, selectedUser, userInfo, se
   return (
     <FiltersDom {...{
       buttonsFilter, dropdowns, closeUsersList, openDropdown, filterHandler, userInfo,
-      selectedUser, filterBy, cancelSeach, searchValue, listName
-    }} />
+      selectedUser, filterBy, cancelSeach, searchValue, listName, isMobile }} />
   )
 }
 
@@ -94,7 +93,8 @@ const mapStatesToProps = (state) => {
     userInfo: state.users.userInfo,
     searchValue: state.listSettings.searchValue,
     listName: state.list.listName,
-    dropdownsAll: state.filter.dropdownsAll
+    dropdownsAll: state.filter.dropdownsAll,
+    isMobile: state.main.isMobile
   }
 }
 
