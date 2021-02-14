@@ -3,11 +3,11 @@ import { getLastViewedListApi } from './../api/api';
 const GET_LAST_VIEWED = 'GET_LAST_VIEWED';
 const SET_IS_MOBILE = 'SET_IS_MOBILE';
 
-
 const stateDefault = {
   theme: 'black',
   lastViewed: null,
   isMobile: false,
+  isMobileLess: false,
 }
 
 export const mainReducer = (state = stateDefault, action) => {
@@ -16,7 +16,7 @@ export const mainReducer = (state = stateDefault, action) => {
       return { ...state, lastViewed: action.lastViewed }
     }
     case (SET_IS_MOBILE): {
-      return { ...state, isMobile: action.windowWidth < 950 }
+      return { ...state, isMobile: action.windowWidth < 950, isMobileLess: action.windowWidth < 700 }
     }
     default: break
   }

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { setSortBy, setPage } from '../../store/listSettingsReducer';
 import { ListSortersDom } from './ListSortersDom';
 
-const ListSorters = ({ setSortBy, setPage, currentPage, listName }) => {
+const ListSorters = ({ setSortBy, setPage, currentPage, listName, isMobileLess }) => {
+  const [showButtonsSort, setShowButtonsSort] = useState(false);
   const [buttonsSort, setButtonsSort] = useState([{
     id: 0,
     subButtons: [{
@@ -60,14 +61,19 @@ const ListSorters = ({ setSortBy, setPage, currentPage, listName }) => {
       return el;
     }))
   }
+  const showButtonsSortHandler = (close) => {
+    setShowButtonsSort(showButtonsSort => close !== undefined ? close : !showButtonsSort)
+  }
   return (
     <ListSortersDom sortHandler={sortHandler} buttonsSort={buttonsSort} showDropdownFunc={showDropdownFunc} 
-      showDropdowns={showDropdowns} listName={listName}/>
+      showDropdowns={showDropdowns} listName={listName} isMobileLess={isMobileLess} showButtonsSort={showButtonsSort}
+      showButtonsSortHandler={showButtonsSortHandler} />
   )
 }
 const mapStatesToProps = (state) => {
   return {
     currentPage: state.listSettings.currentPage,
+    isMobileLess: state.main.isMobileLess
   }
 }
 

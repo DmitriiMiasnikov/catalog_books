@@ -94,7 +94,16 @@
 
 @media (max-width: 950px) {
   .wrapper {
-    z-index: 9;
+    z-index: 11;
     background-color: #2b2b2b;
+  }
+}
+
+@media (max-width: 700px) {
+  .wrapper {
+    width: 210px;
+    position: absolute;
+    left: 0px;
+    top: 49px;
   }
 }

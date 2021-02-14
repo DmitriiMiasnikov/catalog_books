@@ -14,6 +14,7 @@
       justify-content: center;
       align-items: center;
       width: -webkit-fill-available;
+      width: -moz-available;
       background-color: rgb(43, 42, 42);
       height: 48px;
       transition: 0.1s background-color;
@@ -39,6 +40,9 @@
         &.reverse {
           transform: rotate(-180deg);
         }
+      }
+      .registration {
+        width: 33px;
       }
     }
   }
@@ -132,5 +136,11 @@
 @media (max-width: 800px) {
   .wrapper {
     width: 155px;
+  }
+}
+@media (max-width: 700px) {
+  .wrapper {
+    width: 12%;
+    min-width: 70px;
   }
 }

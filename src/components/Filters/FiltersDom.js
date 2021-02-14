@@ -7,7 +7,6 @@ import angle from './../../assets/Images/angle.svg';
 
 export const FiltersDom = ({ buttonsFilter, openDropdown, dropdowns, filterHandler, selectedUser,
   userInfo, closeUsersList, filterBy, searchValue, cancelSeach, listName, isMobile }) => {
-    console.log(isMobile);
   const refDropdown = useRef(null);
   const handleMouseClick = (e) => {
     if (!e.path.includes(refDropdown.current)) {
@@ -16,8 +15,6 @@ export const FiltersDom = ({ buttonsFilter, openDropdown, dropdowns, filterHandl
   }
   useEffect(() => {
     document.addEventListener('click', handleMouseClick, true)
-  })
-  useEffect(() => {
     return () => document.removeEventListener('click', handleMouseClick, true)
   })
   return (

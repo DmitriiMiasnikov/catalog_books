@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './UserMenu.module.scss';
 import logout from './../../assets/Images/logout.svg';
@@ -6,20 +6,33 @@ import userinfo from './../../assets/Images/userinfo.svg';
 import LoginBlock from '../LoginBlock/LoginBlock';
 import classnames from 'classnames';
 import angle from './../../assets/Images/angle.svg';
+import registration from './../../assets/Images/registration.svg';
 
-export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, leftUser, isMobile, 
-  showLoginBlockHandler, showLoginBlockMobile }) => {
+export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, leftUser, isMobile,
+  showLoginBlockHandler, showLoginBlockMobile, isMobileLess }) => {
+    const refLoginMenu = useRef(null);
+  const handleMouseClickLoginMenu = (e) => {
+    if (!e.path.includes(refLoginMenu.current)) {
+      showLoginBlockHandler(false);
+    }
+  }
+  useEffect(() => {
+    document.addEventListener('click', handleMouseClickLoginMenu, true)
+    return () => document.removeEventListener('click', handleMouseClickLoginMenu, true)
+  })
   return (
     <div className={styles.wrapper}>
       {
         !isAuth ? (<>
           {
-            isMobile && <div className={styles.loginBlockMobile}>
-              <div className={classnames(styles.buttonShowInputs, {[styles.active]: showLoginBlockMobile})} onClick={() => showLoginBlockHandler()}>
-                <span>авторизация/регистрация</span><img src={angle} className={classnames(styles.angle, {
-                    [styles.reverse]: showLoginBlockMobile
-                  })} alt='' />
-            </div>
+            isMobile && <div className={styles.loginBlockMobile} ref={refLoginMenu}>
+              <div className={classnames(styles.buttonShowInputs, { [styles.active]: showLoginBlockMobile })}
+                onClick={() => showLoginBlockHandler()}>
+                {isMobileLess ? <img src={registration} className={classnames(styles.registration, {
+                  [styles.reverse]: showLoginBlockMobile
+                })} alt='' /> : <span>авторизация/регистрация</span>}
+                <img src={angle} className={classnames(styles.angle, { [styles.reverse]: showLoginBlockMobile })} alt='' />
+              </div>
               {showLoginBlockMobile && <LoginBlock />}
             </div>
           }

@@ -36,7 +36,7 @@ export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo }) 
             {listName === 'animation' && item.type && <div>
               Автор:{<span className={styles.data}>{item.type}</span>}</div>}
             {listName === 'manga' && item.date && <div>
-              Год выхода:{<span className={styles.data}>{item.type}</span>}</div>}
+              Год выхода:{<span className={styles.data}>{item.date}</span>}</div>}
             {listName === 'ranobe' && item.language && <div>
               Язык оригинала:{<span className={styles.data}>{item.language}</span>}</div>}
           </div>
