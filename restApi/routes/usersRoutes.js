@@ -105,8 +105,8 @@ router.get(
             userListItems[listNames[j]][currentItem] = await Ranobe.find({ ranobeId: { $in: user[listNames[j]][currentItem] } });
           }
           countUserList[listNames[j]][currentItem] = userListItems[listNames[j]][currentItem].length;
-          userListItemsRest[listNames[j]][currentItem] = userListItems[listNames[j]][currentItem].slice(5).length;
-          userListItemsFive[listNames[j]][currentItem] = userListItems[listNames[j]][currentItem].slice(0, 5);
+          userListItemsRest[listNames[j]][currentItem] = userListItems[listNames[j]][currentItem].slice(11).length;
+          userListItemsFive[listNames[j]][currentItem] = userListItems[listNames[j]][currentItem].slice(0, 11);
         }
       }
       res.status(200).json({ userListItemsFive, userListItems, userListItemsRest, countUserList });

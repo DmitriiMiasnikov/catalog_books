@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import loading from './../../assets/Images/loading.svg';
 import classnames from 'classnames';
 import angle from './../../assets/Images/angle.svg';
+import ListItem from './../ListItem/ListItem';
 
 export const UserDom = ({ userInfo, selectedUserMine, openDescription, fetching, buttonsSection,
   buttonsMain, buttonsMainHandler, buttonsHandler, userListItemsFive, userListItemsRest, openList }) => {
@@ -50,26 +51,10 @@ export const UserDom = ({ userInfo, selectedUserMine, openDescription, fetching,
                                 <div className={styles.listWrap}>
                                   {
                                     userListItemsFive[section.name][listName].map((el, i) => {
-                                      const id = `${section.name}Id`;
                                       return (
-                                        <NavLink to={`/description/${section.name}/${el[id]}`}
-                                          onClick={() => openDescription(section.name, el[id])}
-                                          className={styles.item} key={i} >
-                                          <img src={`https://anime.amyasnikov.pro/${section.name}_small/${section.name}_cover_${el[id]}_small.jpg`}
-                                            alt='img' className={styles.image} />
-                                          <div className={styles.text}>
-                                            <div className={styles.title}>
-                                              {el.nameRu || el.nameEng}
-                                            </div>
-                                            {el.dateStart && <div className={styles.description}>
-                                              {el.dateStart.split('-').reverse().join('.')} {el.dateEnd && '- '}
-                                              {el.dateEnd && el.dateEnd.split('-').reverse().join('.')}
-                                            </div>}
-                                            {el.type && <div className={styles.description}>
-                                              {el.type}
-                                            </div>}
-                                          </div>
-                                        </NavLink>
+                                        <div className={styles.item} key={i} >
+                                          <ListItem view={'tile'} listName={section.name} item={el} />
+                                        </div>
                                       )
                                     })
                                   }

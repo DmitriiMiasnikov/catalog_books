@@ -4,14 +4,17 @@ import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
 import ButtonSwitcher from './../ButtonSwitcher/ButtonSwitcher';
 import Stars from '../Stars/Stars';
+import image_not_found from './../../assets/Images/image-not-found.svg'
 
 export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo }) => {
+
   if (view === 'list') {
     return (
       <div className={classnames(styles.wrapper, { [styles.done]: myUserInfo && myUserInfo[listName].done.includes(item[listName]) })}>
         <NavLink to={`/description/${listName}/${item[id]}`} onClick={() => openInfo(item[id])}
           className={classnames(styles.imgLink, styles[view])}>
-          <img src={`https://anime.amyasnikov.pro/${listName}_small/${listName}_cover_${item[id]}_small.jpg`}
+          <img onError={(image) => { image.onerror = null; image.target.setAttribute('src', image_not_found) }}
+            src={`https://anime.amyasnikov.pro/${listName}_small/${listName}_cover_${item[id]}_small.jpg`}
             alt='' className={styles.image} />
         </NavLink>
         <div className={classnames(styles.info, { [styles.placeForButtons]: myUserInfo })}>
@@ -68,7 +71,8 @@ export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo }) 
       <div className={classnames(styles.wrapper, { [styles.done]: myUserInfo && myUserInfo[listName].done.includes(item[listName]) })}>
         <NavLink to={`/description/${listName}/${item[id]}`} onClick={() => openInfo(item[id])}
           className={classnames(styles.imgLink, styles[view])}>
-          <img src={`https://anime.amyasnikov.pro/${listName}_small/${listName}_cover_${item[id]}_small.jpg`}
+          <img onError={(image) => { image.onerror = null; image.target.setAttribute('src', image_not_found) }}
+            src={`https://anime.amyasnikov.pro/${listName}_small/${listName}_cover_${item[id]}_small.jpg`}
             alt='' className={styles.image} />
         </NavLink>
         <div className={styles.info}>
@@ -137,7 +141,8 @@ export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo }) 
     return (
       <NavLink to={`/description/${listName}/${item[id]}`} onClick={() => openInfo(item[listName])}
         className={classnames(styles.wrapper, styles[view])}>
-        <img src={`https://anime.amyasnikov.pro/${listName}_small/${listName}_cover_${item[id]}_small.jpg`}
+        <img onError={(image) => { image.onerror = null; image.target.setAttribute('src', image_not_found) }}
+          src={`https://anime.amyasnikov.pro/${listName}_small/${listName}_cover_${item[id]}_small.jpg`}
           alt='' className={styles.image} />
         <div className={styles.text}>
           <div className={styles.title}>
