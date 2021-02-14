@@ -1,21 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { UserMenuDom } from './UserMenuDom';
-import { getMyUserInfo, userAuthorization, clearCurrentUserInfo, setShowRegistration } from '../../store/usersReducer';
+import { getMyUserInfo, clearCurrentUserInfo } from '../../store/usersReducer';
 
-const UserMenu = ({ currentUserId, getMyUserInfo, myUserInfo, isAuth, userAuthorization, 
-    isWrongAuthorization, clearCurrentUserInfo, setShowRegistration }) => {
-  const inputs = [
-    { name: 'name', text: 'имя' },
-    { name: 'password', text: 'пароль' },
-  ]
-  const validate = (data) => {
-    const err = {};
-    // if (!data.name) err.name = 'Введите имя';
-    // if (!data.password) err.password = 'Введите пароль';
-
-    return err
-  }
+const UserMenu = ({ currentUserId, getMyUserInfo, myUserInfo, isAuth, 
+    isWrongAuthorization, clearCurrentUserInfo, isMobile }) => {
+  const [showLoginBlockMobile, setShowLoginBlockMobile] = useState(false);
   useEffect(() => {
     if (currentUserId) {
       const fetchData = async () => {
@@ -26,19 +16,15 @@ const UserMenu = ({ currentUserId, getMyUserInfo, myUserInfo, isAuth, userAuthor
   }, [currentUserId, getMyUserInfo])
   const openUserInfo = () => {
   }
-  const authorizationHandler = (data) => {
-    userAuthorization(data.name, data.password);
-  }
   const leftUser = () => {
     clearCurrentUserInfo();
   }
-  const showRegistrationHandler = () => {
-    setShowRegistration(true);
+  const showLoginBlockHandler = () => {
+    setShowLoginBlockMobile(showLoginBlockMobile => !showLoginBlockMobile)
   }
   return (
-    <UserMenuDom myUserInfo={myUserInfo} openUserInfo={openUserInfo} isAuth={isAuth} inputs={inputs} validate={validate}
-      authorizationHandler={authorizationHandler} isWrongAuthorization={isWrongAuthorization} leftUser={leftUser}
-      showRegistrationHandler={showRegistrationHandler}/>
+    <UserMenuDom {...{myUserInfo, openUserInfo, isAuth, isWrongAuthorization, 
+      leftUser, isMobile, showLoginBlockHandler, showLoginBlockMobile }} />
   )
 }
 
@@ -47,8 +33,9 @@ const mapStatesToProps = (state) => {
     currentUserId: state.users.currentUserId,
     myUserInfo: state.users.myUserInfo,
     isAuth: state.users.isAuth,
-    isWrongAuthorization: state.users.isWrongAuthorization
+    isWrongAuthorization: state.users.isWrongAuthorization,
+    isMobile: state.main.isMobile
   }
 }
 
-export default connect(mapStatesToProps, { getMyUserInfo, userAuthorization, clearCurrentUserInfo, setShowRegistration })(UserMenu)
+export default connect(mapStatesToProps, { getMyUserInfo, clearCurrentUserInfo })(UserMenu)

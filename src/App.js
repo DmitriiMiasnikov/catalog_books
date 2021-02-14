@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import styles from './App.module.scss';
 import Header from './components/Header/Header';
@@ -17,8 +17,19 @@ import Registration from './components/Registration/Registration';
 import UsersMenu from './components/UsersMenu/UsersMenu';
 import RandomItemsMenu from './components/RandomItemsMenu/RandomItemsMenu';
 import List from './components/List/List';
+import { setIsMobile } from './store/mainReducer'
 
-function App({ theme, showRegistration }) {
+function App({ theme, showRegistration, setIsMobile }) {
+  const widthHandler = () => {
+    setIsMobile(window.innerWidth)
+  }
+  const subscribeResize = () => window.addEventListener('resize', widthHandler);
+  const unsubscribeResize = () => window.removeEventListener('resize', widthHandler);
+  useEffect(() => {
+    subscribeResize()
+    setIsMobile(window.innerWidth);
+    return () => unsubscribeResize()
+  }, [setIsMobile, subscribeResize, unsubscribeResize])
   return (
     <div className={classnames(styles.page, { [styles.black]: theme === 'black', [styles.white]: theme === 'white' })}>
       <div className={styles.wrapper}>
@@ -60,6 +71,6 @@ const mapStatesToProps = (state) => {
   }
 }
 export default compose(
-  connect(mapStatesToProps, {})
+  connect(mapStatesToProps, { setIsMobile })
 )(App);
 

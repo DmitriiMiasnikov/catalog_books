@@ -7,7 +7,6 @@
   font-size: 14px;
   color: #e2e2e2;
   background-color: #2b2b2b;
-  margin-top: 15px;
   padding: 12px;
   a {
     position: relative;
@@ -44,5 +43,11 @@
         transform: translateY(0);
       }
     }
+  }
+}
+
+@media (max-width: 950px) {
+  .wrapper {
+    display: none;
   }
 }

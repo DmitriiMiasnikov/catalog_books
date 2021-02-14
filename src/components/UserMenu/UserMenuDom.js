@@ -1,61 +1,30 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './UserMenu.module.scss';
-import { Field, Form } from 'react-final-form';
-import classnames from 'classnames';
 import logout from './../../assets/Images/logout.svg';
 import userinfo from './../../assets/Images/userinfo.svg';
+import LoginBlock from '../LoginBlock/LoginBlock';
+import classnames from 'classnames';
+import angle from './../../assets/Images/angle.svg';
 
-export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, authorizationHandler, inputs, validate,
-  isWrongAuthorization, leftUser, showRegistrationHandler }) => {
+export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, leftUser, isMobile, 
+  showLoginBlockHandler, showLoginBlockMobile }) => {
   return (
     <div className={styles.wrapper}>
       {
-        !isAuth ? (
-          <div className={styles.loginBlock}>
-            <Form
-              onSubmit={authorizationHandler} validate={validate}
-              render={({ handleSubmit, form, submitting }) => (
-                <form onSubmit={handleSubmit}>
-                  {
-                    inputs.map((el, i) => {
-                      return (
-                        <div className={classnames(styles.input)} key={i}>
-                          <Field name={el.name}>
-                            {({ input, meta }) => (
-                              <div>
-                                <input {...input} type={'text'} placeholder={el.text} />
-                                {meta.error && meta.touched && <div className={styles.error}>{meta.error}</div>}
-                              </div>
-                            )}
-                          </Field>
-                        </div>
-                      )
-                    })
-                  }
-                  {
-                    isWrongAuthorization && (
-                      <div className={classnames(styles.wrongAuth)}>
-                        неверное имя или пароль
-                      </div>
-                    )
-                  }
-                  <div className={classnames(styles.buttons)}>
-                    <button type='submit' disabled={submitting} className={styles.button}>
-                      <div className={styles.text}>
-                        вход
-                      </div>
-                    </button>
-                      <div className={styles.button} onClick={() => showRegistrationHandler()}>
-                        <div className={styles.text}>
-                          регистрация
-                        </div>
-                      </div>
-                  </div>
-                </form>
-              )}
-            />
-          </div>
+        !isAuth ? (<>
+          {
+            isMobile && <div className={styles.loginBlockMobile}>
+              <div className={classnames(styles.buttonShowInputs, {[styles.active]: showLoginBlockMobile})} onClick={() => showLoginBlockHandler()}>
+                <span>авторизация/регистрация</span><img src={angle} className={classnames(styles.angle, {
+                    [styles.reverse]: showLoginBlockMobile
+                  })} alt='' />
+            </div>
+              {showLoginBlockMobile && <LoginBlock />}
+            </div>
+          }
+          { !isMobile && <LoginBlock />}
+        </>
         ) : myUserInfo &&
           <div className={styles.wrapperInfoUser}>
             <div className={styles.nameBlock}>Имя:
@@ -65,9 +34,6 @@ export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, authorizationHan
                 </span>
               </NavLink>
             </div>
-            {/* <div className={styles.title}>Книги</div>
-            <div className={styles.line}>прочитано: {myUserInfo.books.done.length} </div>
-            <div className={styles.line}>к прочтению: {myUserInfo.books.queue.length} </div> */}
             <div className={styles.title}>Аниме</div>
             <div className={styles.line}><span>просмотрено:</span> <span>{myUserInfo.animation.done.length}</span></div>
             <div className={styles.line}><span>в очереди:</span> <span>{myUserInfo.animation.queue.length}</span> </div>

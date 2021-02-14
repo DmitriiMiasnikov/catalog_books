@@ -14,7 +14,7 @@ export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo }) 
           <img src={`https://anime.amyasnikov.pro/${listName}_small/${listName}_cover_${item[id]}_small.jpg`}
             alt='' className={styles.image} />
         </NavLink>
-        <div className={styles.info}>
+        <div className={classnames(styles.info, { [styles.placeForButtons]: myUserInfo })}>
           {item.nameRu && <div className={styles.title}>
             <NavLink to={`/description/${listName}/${item[id]}`} onClick={() => openInfo(item[id])}>{item.nameRu}</NavLink></div>}
           {item.nameEng && !item.nameRu && <div className={classnames({ [styles.title]: !item.nameRu })}>
@@ -135,8 +135,8 @@ export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo }) 
   }
   if (view === 'tile') {
     return (
-      <NavLink to={`/description/${listName}/${item[id]}`} onClick={() => openInfo(item[listName])} 
-        className={ classnames(styles.wrapper, styles[view])}>
+      <NavLink to={`/description/${listName}/${item[id]}`} onClick={() => openInfo(item[listName])}
+        className={classnames(styles.wrapper, styles[view])}>
         <img src={`https://anime.amyasnikov.pro/${listName}_small/${listName}_cover_${item[id]}_small.jpg`}
           alt='' className={styles.image} />
         <div className={styles.text}>
