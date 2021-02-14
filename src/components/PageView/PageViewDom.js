@@ -10,9 +10,9 @@ export const PageViewDom = ({ pageViewButtons, pageViewHandler }) => {
           return (
             <div className={classnames(styles.pageViewButton, styles[el.type], { [styles.active]: el.active })} key={i}
               onClick={() => pageViewHandler(el.type, el.id)}>
-              {el.type === 'small' && [0, 1, 2, 3].map((item, j) => <div key={j} className={styles.pageViewItem}></div>)}
-              {el.type === 'medium' && [0, 1].map((item, j) => <div key={j} className={styles.pageViewItem}></div>)}
-              {el.type === 'large' && [0, 1, 3, 4].map((item, j) => <div key={j} className={styles.pageViewItem}></div>)}
+              {el.type === 'list' && [0, 1, 2, 3].map((item, j) => <div key={j} className={styles.pageViewItem}></div>)}
+              {el.type === 'medium_list' && [0, 1].map((item, j) => <div key={j} className={styles.pageViewItem}></div>)}
+              {el.type === 'tile' && [0, 1, 3, 4].map((item, j) => <div key={j} className={styles.pageViewItem}></div>)}
             </div>
           )
         })

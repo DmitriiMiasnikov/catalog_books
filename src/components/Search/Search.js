@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { SearchDom } from './SearchDom';
-import { setSearchValue } from './../../store/animationReducer';
+import { setSearchValue } from './../../store/listSettingsReducer';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 

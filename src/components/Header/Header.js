@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { HeaderDom } from './HeaderDom';
-import { setPage } from './../../store/animationReducer';
+import { setPage } from './../../store/listSettingsReducer';
 import { setFilterBy } from './../../store/filterReducer';
 import { clearList } from './../../store/listReducer';
 import { withRouter } from 'react-router-dom';

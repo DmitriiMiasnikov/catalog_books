@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { PagesCounterDom } from './PagesCounterDom';
-import { setPage, setCountInPage } from '../../store/animationReducer';
+import { setPage, setCountInPage } from '../../store/listSettingsReducer';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 
@@ -91,7 +91,7 @@ const PagesCounter = ({ countInPage, countAll, setPage, setCountInPage, match, l
 
 const mapStatesToProps = (state) => {
   return {
-    countInPage: state.animation.countInPage,
+    countInPage: state.listSettings.countInPage,
   }
 }
 export default compose(

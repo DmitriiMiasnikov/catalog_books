@@ -9,12 +9,11 @@ let stateDefault = {
   sortBy: 'default',
   currentPage: 1,
   countInPage: 10,
-  countAllAnimation: null,
   searchValue: '',
-  pageView: 'small',
+  pageView: 'list',
 }
 
-export const animationReducer = (state = stateDefault, action) => {
+export const listSettingsReducer = (state = stateDefault, action) => {
   switch (action.type) {
     case (SET_PAGE): {
       return { ...state, currentPage: action.page }

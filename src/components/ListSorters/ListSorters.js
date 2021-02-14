@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { setSortBy, setPage } from '../../store/animationReducer';
+import { setSortBy, setPage } from '../../store/listSettingsReducer';
 import { ListSortersDom } from './ListSortersDom';
 
 const ListSorters = ({ setSortBy, setPage, currentPage, listName }) => {
@@ -67,7 +67,7 @@ const ListSorters = ({ setSortBy, setPage, currentPage, listName }) => {
 }
 const mapStatesToProps = (state) => {
   return {
-    currentPage: state.animation.currentPage,
+    currentPage: state.listSettings.currentPage,
   }
 }
 

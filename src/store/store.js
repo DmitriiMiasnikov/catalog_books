@@ -1,6 +1,6 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import thunkMiddleware from 'redux-thunk';
-import { animationReducer } from "./animationReducer";
+import { listSettingsReducer } from "./listSettingsReducer";
 import { authorsReducer } from "./authorsReducer";
 import { booksReducer } from "./booksReducer";
 import { headerReducer } from './headerReducer';
@@ -18,7 +18,7 @@ const reducers = combineReducers({
   users: usersReducer,
   books: booksReducer,
   authors: authorsReducer,
-  animation: animationReducer,
+  listSettings: listSettingsReducer,
   description: descriptionReducer,
   list: listReducer,
   filter: filterReducer,

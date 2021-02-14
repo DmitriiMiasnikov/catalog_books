@@ -2,15 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-import { clearStates } from '../../store/animationReducer';
-import { getDescription } from './../../store/descriptionReducer';
+import { clearStates } from '../../store/listSettingsReducer';
 import { setListName, getList, clearList } from './../../store/listReducer';
-import { setFilterBy, clearFilter } from './../../store/filterReducer';
+import { clearFilter } from './../../store/filterReducer';
 import { ListDom } from './ListDom';
 
-const List = ({ list, listName, getList, filterBy, getDescription, clearStates,
+const List = ({ list, listName, getList, filterBy, clearStates,
   currentPage, sortBy, countAll, countInPage, searchValue, match, pageView,
-  selectedUser, userFilter, myUserInfo, setListName, clearList, clearFilter }) => {
+  selectedUser, userFilter, setListName, clearList, clearFilter }) => {
   let page = Number(match.params.page) || 1;
   const [fetching, setFetching] = useState(true);
   useEffect(() => {
@@ -36,11 +35,9 @@ const List = ({ list, listName, getList, filterBy, getDescription, clearStates,
       clearFilter();
     }
   }, [clearStates, clearList, clearFilter])
-  const openInfo = (id) => {
-    getDescription(listName, id);
-  }
+
   return (
-    <ListDom  {...{openInfo, countAll, fetching, pageView, myUserInfo, listName, list}} />
+    <ListDom  {...{ countAll, fetching, pageView, listName, list }} />
   )
 }
 const mapStatesToProps = (state) => {
@@ -48,20 +45,19 @@ const mapStatesToProps = (state) => {
     filterBy: state.filter.filterBy,
     userFilter: state.filter.userFilter,
 
-    countInPage: state.animation.countInPage,
-    currentPage: state.animation.currentPage,
-    sortBy: state.animation.sortBy,
-    searchValue: state.animation.searchValue,
-    pageView: state.animation.pageView,
+    countInPage: state.listSettings.countInPage,
+    currentPage: state.listSettings.currentPage,
+    sortBy: state.listSettings.sortBy,
+    searchValue: state.listSettings.searchValue,
+    pageView: state.listSettings.pageView,
 
     selectedUser: state.users.selectedUser,
-    myUserInfo: state.users.myUserInfo,
 
     list: state.list.list,
     countAll: state.list.countAll,
   }
 }
 export default compose(
-  connect(mapStatesToProps, { getList, getDescription, setFilterBy, clearStates, clearList, setListName, clearFilter }),
+  connect(mapStatesToProps, { getList, clearStates, clearList, setListName, clearFilter }),
   withRouter
 )(List);

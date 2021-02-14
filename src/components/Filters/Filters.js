@@ -88,12 +88,11 @@ const Filters = ({ setFilterBy, filtersAll, filterBy, selectedUser, userInfo, se
 
 const mapStatesToProps = (state) => {
   return {
-    animation: state.animation.animation,
     filtersAll: state.filter.filtersAll,
     filterBy: state.filter.filterBy,
     selectedUser: state.users.selectedUser,
     userInfo: state.users.userInfo,
-    searchValue: state.animation.searchValue,
+    searchValue: state.listSettings.searchValue,
     listName: state.list.listName,
     dropdownsAll: state.filter.dropdownsAll
   }
