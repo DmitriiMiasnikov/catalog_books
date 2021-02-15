@@ -8,13 +8,13 @@ export const ScrollItemsDom = ({ items, buttonScrollHandler, scrollPosition, nam
   return (
     <div className={styles.wrapper}>
       {
-        items && items.length && scrollPosition && <>
-          <div className={classnames(styles.buttonLeft, { [styles.disabled]: scrollPosition.left <= 0 })}
+        items && items.length && <>
+          <div className={classnames(styles.buttonLeft)}
             onClick={() => buttonScrollHandler('left')}>
             <img src={angle} alt='' />
           </div>
           <div className={styles.scrollBlock}>
-            <div className={styles.listWrap} style={{ left: 0, transform: `translateX(-${scrollPosition.scroll}px)` }}>
+            <div className={styles.listWrap} style={{ left: 0, transform: `translateX(-${scrollPosition}px)` }}>
               {
                 items.map((el, i) => {
                   return (<div className={styles.item} key={i}>
@@ -24,7 +24,7 @@ export const ScrollItemsDom = ({ items, buttonScrollHandler, scrollPosition, nam
               }
             </div>
           </div>
-          <div className={classnames(styles.buttonRight, { [styles.disabled]: scrollPosition.right <= 0 })}
+          <div className={classnames(styles.buttonRight)}
             onClick={() => buttonScrollHandler('right')}>
             <img src={angle} alt='' />
           </div>

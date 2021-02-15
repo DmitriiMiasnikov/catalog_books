@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ScrollItemsDom } from './ScrollItemsDom';
 
 const ScrollItems = ({ name, items }) => {
-  const [scrollPosition, setScrollPosition] = useState(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
   const [settingsScroll, setSettingsScroll] = useState({
     itemsShown: 5,
     scroll: 185
@@ -44,21 +44,26 @@ const ScrollItems = ({ name, items }) => {
     return () => unsubscribeResize()
   })
   useEffect(() => {
-    widthHandler()
-    if (items) {
-      setScrollPosition({
-        left: 0,
-        right: items.length - settingsScroll.itemsShown,
-        scroll: 0
-      });
+    widthHandler();
+    let arrPos = [];
+    for(let i = 0; i < items.length; i++) {
+      arrPos.push(i * settingsScroll.scroll);
     }
-  }, [settingsScroll, items, widthHandler])
+    arrPos = arrPos.map((el, i) => Math.abs(el - scrollPosition));
+    let newPos = arrPos.findIndex(el => el === Math.min(...arrPos));
+    if (items.length - (newPos + settingsScroll.itemsShown) < 0) newPos = newPos - 1
+    setScrollPosition(settingsScroll.scroll * newPos);
+  }, [widthHandler, items.length, scrollPosition, settingsScroll])
   const buttonScrollHandler = (side) => {
-    setScrollPosition({
-      left: side === 'left' ? scrollPosition.left - 1 : scrollPosition.left + 1,
-      right: side === 'left' ? scrollPosition.right + 1 : scrollPosition.right - 1,
-      scroll: side === 'left' ? scrollPosition.scroll - settingsScroll.scroll : scrollPosition.scroll + settingsScroll.scroll
-    });
+    let newPosition = null;
+    if (scrollPosition === 0 && side === 'left') {
+      newPosition = settingsScroll.scroll * (items.length - settingsScroll.itemsShown);
+    } else if (scrollPosition === settingsScroll.scroll * (items.length - settingsScroll.itemsShown) && side === 'right') {
+      newPosition = 0
+    } else {
+      newPosition = side === 'left' ? scrollPosition - settingsScroll.scroll : scrollPosition + settingsScroll.scroll;
+    }
+    setScrollPosition(newPosition);
   }
 
   return (
