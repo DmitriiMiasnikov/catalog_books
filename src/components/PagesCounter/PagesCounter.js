@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { PagesCounterDom } from './PagesCounterDom';
 import { setPage, setCountInPage } from '../../store/listSettingsReducer';
@@ -15,7 +15,8 @@ const PagesCounter = ({ countInPage, countAll, setPage, setCountInPage, match, l
       counter: el
     }
   }))
-  const setPagesCounterFunc = (index) => {
+
+  const pagesCounterCallback = useCallback((index) => {
     const pages = [];
     let pagesCount = Math.ceil(countAll / countInPage);
     const startWith = (index) => {
@@ -40,15 +41,15 @@ const PagesCounter = ({ countInPage, countAll, setPage, setCountInPage, match, l
       }
       return page;
     }
-    for (let i = startWith(index); i <= endWith(index);
-      i++) {
+    for (let i = startWith(index); i <= endWith(index); i++) {
       pages.push({ page: i, active: i === index })
     }
     setPagesButtons(pages);
-  }
+  }, [countAll, countInPage])
+  
   useEffect(() => {
     if (countAll) {
-      setPagesCounterFunc(pageRoute);
+      pagesCounterCallback(pageRoute)
       setButtonsSwitchCounter(buttonsSwitchCounter => buttonsSwitchCounter.map((el, i) => {
         if (el.counter === countInPage) {
           el.active = true;
@@ -58,7 +59,7 @@ const PagesCounter = ({ countInPage, countAll, setPage, setCountInPage, match, l
         return el;
       }))
     }
-  }, [countAll, countInPage, pageRoute]);
+  }, [countAll, countInPage, pagesCounterCallback, pageRoute]);
   const openPage = async (page) => {
     setPage(page);
     setPagesButtons(pagesButtons.map((el, i) => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { ScrollItemsDom } from './ScrollItemsDom';
 
@@ -8,7 +8,7 @@ const ScrollItems = ({ name, items }) => {
     itemsShown: 5,
     scroll: 185
   });
-  const widthHandler = () => {
+  const widthHandler = useCallback(() => {
     let newSettings = {}
     switch (true) {
       case (window.innerWidth > 1452): {
@@ -36,13 +36,13 @@ const ScrollItems = ({ name, items }) => {
     if (Object.keys(newSettings).some(el => newSettings[el] !== settingsScroll[el])) {
       setSettingsScroll(newSettings)
     }
-  }
+  }, [settingsScroll])
   const subscribeResize = () => window.addEventListener('resize', widthHandler);
   const unsubscribeResize = () => window.removeEventListener('resize', widthHandler);
   useEffect(() => {
     subscribeResize()
     return () => unsubscribeResize()
-  }, [subscribeResize, unsubscribeResize])
+  })
   useEffect(() => {
     widthHandler()
     if (items) {
@@ -52,7 +52,7 @@ const ScrollItems = ({ name, items }) => {
         scroll: 0
       });
     }
-  }, [settingsScroll, items])
+  }, [settingsScroll, items, widthHandler])
   const buttonScrollHandler = (side) => {
     setScrollPosition({
       left: side === 'left' ? scrollPosition.left - 1 : scrollPosition.left + 1,

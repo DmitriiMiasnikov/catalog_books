@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './RandomItemsMenu.module.scss';
-import { NavLink } from 'react-router-dom';
 import ListItem from './../ListItem/ListItem';
 
 export const RandomItemsMenuDom = ({ randomItems }) => {

@@ -23,13 +23,16 @@ function App({ theme, showRegistration, setIsMobile, isMobile }) {
   const widthHandler = () => {
     setIsMobile(window.innerWidth)
   }
-  const subscribeResize = () => window.addEventListener('resize', widthHandler);
-  const unsubscribeResize = () => window.removeEventListener('resize', widthHandler);
+  const subscribeResize = () => window.addEventListener('resize', widthHandler, true);
+  const unsubscribeResize = () => window.removeEventListener('resize', widthHandler, true);
+  useEffect(() => {
+    setIsMobile(window.innerWidth);
+  }, [setIsMobile])
   useEffect(() => {
     subscribeResize()
-    setIsMobile(window.innerWidth);
     return () => unsubscribeResize()
-  }, [setIsMobile, subscribeResize, unsubscribeResize])
+  })
+  
   return (
     <div className={classnames(styles.page, { [styles.black]: theme === 'black', [styles.white]: theme === 'white' })}>
       <div className={styles.wrapper}>
