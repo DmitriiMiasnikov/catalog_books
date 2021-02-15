@@ -1,9 +1,7 @@
 .wrapper {
-  position: absolute;
+  position: relative;
   display: flex;
   align-items: center;
-  right: 10px;
-  top: 10px;
   .inputBlock {
     display: flex;
     flex-direction: row;

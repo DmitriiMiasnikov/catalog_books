@@ -9,42 +9,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    .buttonShowInputs {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: -webkit-fill-available;
-      width: -moz-available;
-      background-color: rgb(43, 42, 42);
-      height: 48px;
-      transition: 0.1s background-color;
-      &:hover {
-        cursor: pointer;
-        background-color: #0000001c;
-      }
-      &.active {
-        background-color: rgb(43, 42, 42);
-        &:hover {
-          cursor: pointer;
-          background-color: #0000001c;
-        }
-      }
-      span {
-        width: min-content;
-      }
-      .angle {
-        margin-left: 10px;
-        width: 20px;
-        transition: 0.3s transform;
-        transform: rotate(0deg);
-        &.reverse {
-          transform: rotate(-180deg);
-        }
-      }
-      .registration {
-        width: 33px;
-      }
-    }
   }
   .wrapperInfoUser {
     .nameBlock {
@@ -129,47 +93,65 @@
 
 @media (max-width: 950px) {
   .wrapper.loginBlockWrap {
-    width: 20%;
+    width: 80px;
+    .buttonShowInputs {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: -webkit-fill-available;
+      width: -moz-available;
+      background-color: rgb(43, 42, 42);
+      height: 58px;
+      transition: 0.1s background-color;
+      &:hover {
+        cursor: pointer;
+      }
+      span {
+        width: min-content;
+      }
+      .angle {
+        margin-left: 10px;
+        width: 20px;
+        transition: 0.3s transform;
+        transform: rotate(0deg);
+        &.reverse {
+          transform: rotate(-180deg);
+        }
+      }
+      .registration {
+        width: 33px;
+      }
+    }
   }
   .wrapper {
-    .wrapperInfoUser {
+    background-color: transparent;
+    height: 100%;
+    .infoUserMobile {
       display: flex;
       flex-direction: row;
       height: 100%;
-      .nameBlock {
-        display: flex;
-        align-items: center;
-        margin-left: 10px;
-        margin-right: 10px;
-        padding: 0;
         a {
-          margin-left: 0;
-        }
-      }
-      .buttons {
-        margin-top: 0;
-        border-left: 1px solid #444343;
-        a {
-          border-radius: 0px;
+          text-decoration: none;
+          font-size: 16px;
+          font-weight: bold;
+          color: rgb(173, 112, 112);
+          padding: 0 10px;
+          display: flex;
+          align-items: center;
         }
         .button {
           width: 48px;
           height: 100%;
-          border-radius: 0px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          &:hover {
+            cursor: pointer;
+          }
+          img {
+            width: 20px;
+          }
         }
-      }
     }
-  }
-}
-
-@media (max-width: 800px) {
-  .wrapper.loginBlockWrap {
-    width: 155px;
-  }
-}
-@media (max-width: 700px) {
-  .wrapper.loginBlockWrap {
-    width: 12%;
-    min-width: 70px;
   }
 }

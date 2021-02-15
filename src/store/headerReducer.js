@@ -1,10 +1,9 @@
 const stateDefault = {
   menuItems: [
-    {item: 'Главная', link: '/main'},
-    {item: 'Книги', link: '/books'},
-    {item: 'Аниме', link: '/list/animation', list: 'animation'},
-    {item: 'Манга', link: '/list/manga', list: 'manga'},
-    {item: 'Ранобе', link: '/list/ranobe', list: 'ranobe'},
+    {item: 'Главная', link: '/main', page: 'mainPage'},
+    {item: 'Аниме', link: '/list/animation', list: 'animation', page: 'animationListPage'},
+    {item: 'Манга', link: '/list/manga', list: 'manga', page: 'mangaListPage'},
+    {item: 'Ранобе', link: '/list/ranobe', list: 'ranobe', page: 'ranobeListPage'},
   ],
   animationItems: [
     'комедия',

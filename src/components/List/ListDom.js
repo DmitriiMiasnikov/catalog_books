@@ -38,7 +38,7 @@ export const ListDom = ({ list, countAll,
                 })
               }
               <div className={styles.PagesCounterBottom}>
-                <PagesCounter countAll={countAll} />
+                <PagesCounter countAll={countAll} listName={listName} />
               </div>
             </div>
           )}

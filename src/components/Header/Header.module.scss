@@ -72,4 +72,16 @@
   .item:not(:first-child) {
     border-left: 1px solid #313131;
   }
+  .rightBlock {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .searc, .userMenu {
+      height: 100%;
+    }
+  }
 }

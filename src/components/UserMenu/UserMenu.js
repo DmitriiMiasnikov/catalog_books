@@ -4,7 +4,7 @@ import { UserMenuDom } from './UserMenuDom';
 import { getMyUserInfo, clearCurrentUserInfo } from '../../store/usersReducer';
 
 const UserMenu = ({ currentUserId, getMyUserInfo, myUserInfo, isAuth, 
-    isWrongAuthorization, clearCurrentUserInfo, isMobile, isMobileLess }) => {
+    isWrongAuthorization, clearCurrentUserInfo, isMobile }) => {
   const [showLoginBlockMobile, setShowLoginBlockMobile] = useState(false);
   useEffect(() => {
     if (currentUserId) {
@@ -24,7 +24,7 @@ const UserMenu = ({ currentUserId, getMyUserInfo, myUserInfo, isAuth,
   }
   return (
     <UserMenuDom {...{myUserInfo, openUserInfo, isAuth, isWrongAuthorization, 
-      leftUser, isMobile, showLoginBlockHandler, showLoginBlockMobile, isMobileLess }} />
+      leftUser, isMobile, showLoginBlockHandler, showLoginBlockMobile }} />
   )
 }
 
@@ -35,7 +35,6 @@ const mapStatesToProps = (state) => {
     isAuth: state.users.isAuth,
     isWrongAuthorization: state.users.isWrongAuthorization,
     isMobile: state.main.isMobile,
-    isMobileLess: state.main.isMobileLess
   }
 }
 

@@ -94,12 +94,12 @@
 
 @media (max-width: 950px) {
   .wrapper {
-    z-index: 11;
+    position: absolute;
+    z-index: 12;
     background-color: #353535;
     width: 210px;
-    position: absolute;
-    left: 0px;
-    top: 49px;
+    right: 0px;
+    top: 100%;
     form {
       .input {
         input {

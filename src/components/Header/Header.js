@@ -7,10 +7,10 @@ import { clearList } from './../../store/listReducer';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 
-const Header = ({ menuItems, animationItems, setFilterBy, setPage, history, clearList, listName }) => {
+const Header = ({ menuItems, animationItems, setFilterBy, setPage, history, clearList, listName, isMobile }) => {
   const [showAnimation, setShowAnimation] = useState(false);
-  const showAnimationHandler = async (i, show) => {
-    if (i === 2) {
+  const showAnimationHandler = async (page, show) => {
+    if (page === 'animationListPage') {
       setShowAnimation(show)
     }
   }
@@ -24,7 +24,7 @@ const Header = ({ menuItems, animationItems, setFilterBy, setPage, history, clea
   }
   return (
     <HeaderDom {...{ menuItems, animationItems, showAnimation, showAnimationHandler, openListAnimationFiltered,
-      clearListHandler }} />
+      clearListHandler, isMobile }} />
   )
 }
 
@@ -32,7 +32,8 @@ const mapStatesToProps = (state) => {
   return {
     menuItems: state.header.menuItems,
     animationItems: state.header.animationItems,
-    listName: state.list.listName
+    listName: state.list.listName,
+    isMobile: state.main.isMobile
   }
 }
 export default compose(

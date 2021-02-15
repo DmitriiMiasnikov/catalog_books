@@ -40,7 +40,7 @@ function App({ theme, showRegistration, setIsMobile, isMobile }) {
           <Header />
         </div>
         <div className={styles.menu}>
-          <UserMenu />
+          {!isMobile && <UserMenu />}
           <Route path='/list' render={() => <Filters />} />
           {!isMobile && <UsersMenu />}
           {!isMobile && <RandomItemsMenu />}

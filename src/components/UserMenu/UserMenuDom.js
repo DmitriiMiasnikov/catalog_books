@@ -9,7 +9,7 @@ import angle from './../../assets/Images/angle.svg';
 import registration from './../../assets/Images/registration.svg';
 
 export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, leftUser, isMobile,
-  showLoginBlockHandler, showLoginBlockMobile, isMobileLess }) => {
+  showLoginBlockHandler, showLoginBlockMobile }) => {
   const refLoginMenu = useRef(null);
   const handleMouseClickLoginMenu = (e) => {
     if (!e.path.includes(refLoginMenu.current)) {
@@ -26,11 +26,11 @@ export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, leftUser, isMobi
         !isAuth ? (<>
           {
             isMobile && <div className={styles.loginBlockMobile} ref={refLoginMenu}>
-              <div className={classnames(styles.buttonShowInputs, { [styles.active]: showLoginBlockMobile })}
+              <div className={classnames(styles.buttonShowInputs)}
                 onClick={() => showLoginBlockHandler()}>
-                {isMobileLess ? <img src={registration} className={classnames(styles.registration, {
+                {isMobile && <img src={registration} className={classnames(styles.registration, {
                   [styles.reverse]: showLoginBlockMobile
-                })} alt='' /> : <span>вход /регистрация</span>}
+                })} alt='' />}
                 <img src={angle} className={classnames(styles.angle, { [styles.reverse]: showLoginBlockMobile })} alt='' />
               </div>
               {showLoginBlockMobile && <LoginBlock />}
@@ -41,23 +41,14 @@ export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, leftUser, isMobi
         ) : myUserInfo && (<>
           {
             isMobile && <div className={classnames(styles.wrapperInfoUser, styles.infoUserMobile)}>
-              <div className={styles.nameBlock}>
               <NavLink to={`/users/${myUserInfo.userId}`}>
                   <span className={styles.name} onClick={() => openUserInfo(myUserInfo.userId)}>
                     {myUserInfo.userName}
                   </span>
                 </NavLink>
-              </div>
-              <div className={styles.buttons}>
-                <NavLink to={`/users/${myUserInfo.userId}`}>
-                  <div className={styles.button} onClick={() => openUserInfo(myUserInfo.userId)}>
-                    <img src={userinfo} alt='' />
-                  </div>
-                </NavLink>
                 <div className={styles.button} onClick={() => leftUser()}>
                   <img src={logout} alt='' />
                 </div>
-              </div>
             </div>
           }
           {
