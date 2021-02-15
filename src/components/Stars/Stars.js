@@ -1,29 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { StarsDom } from './StarsDom';
-import { setUsersAnimation } from '../../store/usersReducer';
+import { setUserFavorites } from '../../store/usersReducer';
 import { connect } from 'react-redux';
 
-const Stars = ({ currentUserId, setUsersAnimation, list, myUserInfo, currentId }) => {
-  const [userInfoAnimation, setUsersInfoAnimation] = useState(null);
+const Stars = ({ currentUserId, setUserFavorites, list, myUserInfo, currentId }) => {
+  const [userFavoritesState, setUserFavoritesState] = useState(null);
   const [starsVisible, setStarsVisible] = useState(false);
   let starsArr = [];
-  for(let i = 1; i < 11; i++) {
+  for(let i = 1; i <= 10; i++) {
     starsArr.push({number: i, active: false})
   }
   const [stars, setStars] = useState(starsArr);
   useEffect(() => {
     if (myUserInfo) {
-      setUsersInfoAnimation({
-        'queue': myUserInfo[list].queue.includes(currentId),
-        'done': myUserInfo[list].done.includes(currentId),
-        'selected':  myUserInfo[`${list}Rating`] ? myUserInfo[`${list}Rating`][currentId] : null,
-      })
+      setUserFavoritesState(myUserInfo[`${list}Rating`] ? myUserInfo[`${list}Rating`][currentId] : null)
     }
-  }, [currentId, currentUserId, setUsersInfoAnimation, myUserInfo, list])
+  }, [currentId, currentUserId, setUserFavoritesState, myUserInfo, list])
 
   const buttonHandler = (rating) => {
     if (rating) {
-      setUsersAnimation(currentUserId, currentId, 'selected', 0);
+      setUserFavorites(currentUserId, list, currentId, 0);
     } else setStarsVisible(starsVisible => !starsVisible);
   }
   const hoverStarsHandler = (number) => {
@@ -34,11 +30,11 @@ const Stars = ({ currentUserId, setUsersAnimation, list, myUserInfo, currentId }
       return el
     }))
   }
-  const starsClickHandler = (typeButton, rating) => {
-    setUsersAnimation(currentUserId, currentId, typeButton, rating);
+  const starsClickHandler = (rating) => {
+    setUserFavorites(currentUserId, list, currentId, rating);
   }
   return (
-    <StarsDom {...{ currentUserId, userInfoAnimation, buttonHandler, stars, hoverStarsHandler, starsClickHandler,
+    <StarsDom {...{ currentUserId, userFavoritesState, buttonHandler, stars, hoverStarsHandler, starsClickHandler,
       starsVisible }}/>
   )
 }
@@ -50,4 +46,4 @@ const mapStatesToProps = (state) => {
   }
 }
 
-export default connect(mapStatesToProps, { setUsersAnimation })(Stars)
+export default connect(mapStatesToProps, { setUserFavorites })(Stars)

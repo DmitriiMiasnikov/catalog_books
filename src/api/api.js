@@ -41,8 +41,12 @@ export const getLastViewedListApi = async (userId) => {
   return res;
 }
 
-export const setUsersAnimationApi = async (userId, animationId, type, rating) => {
-  const res = await instance.put(`users/id/animation/${userId}?animationId=${animationId}&type=${type}&rating=${rating}`);
+export const setUserInfoListsApi = async (userId, list, id, type) => {
+  const res = await instance.put(`users/userList/id/${userId}?list=${list}&id=${id}&type=${type}`);
+  return res;
+}
+export const setUserFavoritesApi = async (userId, list, id, rating) => {
+  const res = await instance.put(`users/favorites/id/${userId}?list=${list}&id=${id}&rating=${rating}`);
   return res;
 }
 

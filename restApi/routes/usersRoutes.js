@@ -69,7 +69,8 @@ router.get(
   async (req, res) => {
     const userId = req.params.userId || 0;
     try {
-      const user = await Users.findOne({ userId: userId }, 'animation ranobe manga animationRating userName userId')
+      const user = await Users.findOne({ userId: userId }, 
+        'animation ranobe manga animationRating mangaRating ranobeRating userName userId')
       res.status(200).json({ user });
     } catch (e) {
       console.log(e)
@@ -84,7 +85,7 @@ router.get(
   async (req, res) => {
     const userId = req.params.userId || 0;
     try {
-      const user = await Users.findOne({ userId: userId }, 'animation ranobe manga animationRating');
+      const user = await Users.findOne({ userId: userId }, 'animation ranobe manga');
       let userListItems = {};
       let userListItemsFive = {};
       const listNames = ['animation', 'manga', 'ranobe'];
@@ -117,40 +118,58 @@ router.get(
 )
 
 // добавить/убрать аниме в просмотренное/очередь
-// users/id/animation/:id
+// users/userList/id/:id
 router.put(
-  '/id/animation/:userId',
+  '/userList/id/:userId',
   async (req, res) => {
     const userId = req.params.userId || 1;
-    const animationId = Number(req.query.animationId) || 1;
-    const rating = Number(req.query.rating) || 0;
+    const list = req.query.list;
+    const id = Number(req.query.id) || 1;
     const typeButton = req.query.type;
     try {
-      if (typeButton === 'selected') {
-        const userToUpdate = await Users.findOne({ userId: userId }, 'animationRating');
-        const animationRatingUpdate = userToUpdate.animationRating;
-        if (rating) {
-          animationRatingUpdate[animationId] = rating;
+        const userToUpdate = await Users.findOne({ userId: userId }, `${list}`);
+        let userListUpdate = userToUpdate[list];
+        if (userListUpdate[typeButton].includes(id)) {
+          userListUpdate[typeButton].splice(userListUpdate[typeButton].indexOf(id), 1);
         } else {
-          delete animationRatingUpdate[animationId];
-        }
-        await Users.updateOne({ userId: userId }, { animationRating: animationRatingUpdate })
-      } else {
-        const userToUpdate = await Users.findOne({ userId: userId }, 'animation');
-        let animationUpdate = userToUpdate.animation;
-        if (animationUpdate[typeButton].includes(animationId)) {
-          animationUpdate[typeButton].splice(animationUpdate[typeButton].indexOf(animationId), 1);
-        } else {
-          if (typeButton === 'done' && (animationUpdate['queue'].includes(animationId))) {
-            animationUpdate['queue'].splice(animationUpdate['queue'].indexOf(animationId), 1);
-          } else if (typeButton === 'queue' && (animationUpdate['done'].includes(animationId))) {
-            animationUpdate['done'].splice(animationUpdate['done'].indexOf(animationId), 1);
+          if (typeButton === 'done' && (userListUpdate['queue'].includes(id))) {
+            userListUpdate['queue'].splice(userListUpdate['queue'].indexOf(id), 1);
+          } else if (typeButton === 'queue' && (userListUpdate['done'].includes(id))) {
+            userListUpdate['done'].splice(userListUpdate['done'].indexOf(id), 1);
           }
-          animationUpdate[typeButton].push(animationId);
+          userListUpdate[typeButton].push(id);
         }
-        await Users.updateOne({ userId: userId }, { animation: animationUpdate })
-      }
-      const user = await Users.findOne({ userId: userId }, 'animation animationRating userName userId');
+        await Users.updateOne({ userId: userId }, { [list]: userListUpdate })
+      const user = await Users.findOne({ userId: userId }, 
+        `animation ranobe manga animationRating mangaRating ranobeRating userName userId`);
+      res.status(200).json({ user });
+    } catch (e) {
+      console.log(e)
+    }
+  }
+)
+
+// добавить/убрать аниме в избранное
+// users/favorites/id/:id
+router.put(
+  '/favorites/id/:userId',
+  async (req, res) => {
+    const userId = req.params.userId || 1;
+    const list = req.query.list;
+    const id = Number(req.query.id) || 1;
+    const rating = Number(req.query.rating) || 0;
+    try {
+        const userToUpdate = await Users.findOne({ userId: userId }, `${list}Rating`);
+        const ratingUpdate = userToUpdate[`${list}Rating`];
+        if (rating) {
+          ratingUpdate[id] = rating;
+        } else {
+          delete ratingUpdate[id];
+        }
+        await Users.updateOne({ userId: userId }, { [`${list}Rating`]: ratingUpdate })
+
+      const user = await Users.findOne({ userId: userId }, 
+        'animation ranobe manga animationRating mangaRating ranobeRating userName userId');
       res.status(200).json({ user });
     } catch (e) {
       console.log(e)

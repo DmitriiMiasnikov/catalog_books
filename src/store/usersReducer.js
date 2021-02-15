@@ -1,10 +1,11 @@
 import {
-  getUserApi, setUsersAnimationApi, userRegistrationApi, userAuthorizationApi, getUsersListApi, getUsersListMenuApi
+  getUserApi, setUserInfoListsApi, userRegistrationApi, userAuthorizationApi, getUsersListApi, getUsersListMenuApi,
+  setUserFavoritesApi
 } from './../api/api';
 
 const SELECT_USER = 'SELECT_USER';
-const GET_MY_USER_INFO = 'GET_MY_USER_INFO';
-const GET_USER_INFO = 'GET_USER_INFO';
+const SET_MY_USER_INFO = 'SET_MY_USER_INFO';
+const SET_USER_INFO = 'SET_USER_INFO';
 const IS_AUTH = 'IS_AUTH';
 const SET_CURRENT_USER_ID = 'SET_CURRENT_USER_ID';
 const SET_IS_WRONG_AUTHORIZATION = 'SET_IS_WRONG_AUTHORIZATION';
@@ -33,10 +34,10 @@ export const usersReducer = (state = stateDefault, action) => {
     case (GET_USERS_LIST_MENU): {
       return { ...state, usersListMenu: action.users }
     }
-    case (GET_MY_USER_INFO): {
+    case (SET_MY_USER_INFO): {
       return { ...state, myUserInfo: action.myUserInfo }
     }
-    case (GET_USER_INFO): {
+    case (SET_USER_INFO): {
       return { ...state, userInfo: action.userInfo }
     }
     case (SELECT_USER): {
@@ -49,7 +50,7 @@ export const usersReducer = (state = stateDefault, action) => {
       return { ...state, isAuth: action.isAuth }
     }
     case (CLEAR_CURRENT_USER_INFO): {
-      return { ...state, isAuth: false, myUserInfo: null, currentUserId: null }
+      return { ...state, isAuth: false, myUserInfo: null, currentUserId: null, myFavorites: null }
     }
     case (SET_IS_WRONG_AUTHORIZATION): {
       return { ...state, isWrongAuthorization: action.isWrongAuthorization }
@@ -86,11 +87,12 @@ export const setIsWrongAuthorization = (isWrongAuthorization) => {
 export const setCurrentUserId = (id) => {
   return { type: SET_CURRENT_USER_ID, id }
 }
+
 const setMyUserInfoFunc = (myUserInfo) => {
-  return { type: GET_MY_USER_INFO, myUserInfo }
+  return { type: SET_MY_USER_INFO, myUserInfo }
 }
 const setUserInfoFunc = (userInfo) => {
-  return { type: GET_USER_INFO, userInfo }
+  return { type: SET_USER_INFO, userInfo }
 }
 
 export const getUsersList = () => {
@@ -120,9 +122,17 @@ export const getUser = (id) => {
   }
 }
 
-export const setUsersAnimation = (userId, animationId, type, rating) => {
+export const setUserInfoLists = (userId, list, id, type) => {
   return async dispatch => {
-    const res = await setUsersAnimationApi(userId, animationId, type, rating);
+    const res = await setUserInfoListsApi(userId, list, id, type);
+    dispatch(setMyUserInfoFunc(res.data.user));
+    dispatch(setUserInfoFunc(res.data.user));
+  }
+}
+
+export const setUserFavorites = (userId, list, id, rating) => {
+  return async dispatch => {
+    const res = await setUserFavoritesApi(userId, list, id, rating);
     dispatch(setMyUserInfoFunc(res.data.user));
     dispatch(setUserInfoFunc(res.data.user));
   }

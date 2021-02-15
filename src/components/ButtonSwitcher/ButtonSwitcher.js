@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { setUsersAnimation } from '../../store/usersReducer';
+import { setUserInfoLists } from '../../store/usersReducer';
 import { ButtonSwitcherDom } from './ButtonSwitcherDom';
 
-const ButtonSwitcher = ({ currentUserId, setUsersAnimation, myUserInfo, currentId, list }) => {
-  const [userInfoAnimation, setUsersInfoAnimation] = useState(null);
+const ButtonSwitcher = ({ currentUserId, setUserInfoLists, myUserInfo, currentId, list }) => {
+  const [userInfoLists, setUsersInfoLists] = useState(null);
   const buttonsControl = [{
     id: 1,
     text: 'хочу посмотреть',
@@ -17,19 +17,19 @@ const ButtonSwitcher = ({ currentUserId, setUsersAnimation, myUserInfo, currentI
   }];
   useEffect(() => {
     if (myUserInfo) {
-      setUsersInfoAnimation({
+      setUsersInfoLists({
         'queue': myUserInfo[list].queue.includes(currentId),
         'done': myUserInfo[list].done.includes(currentId),
       })
     }
-  }, [currentId, currentUserId, setUsersInfoAnimation, myUserInfo, list])
+  }, [currentId, currentUserId, setUsersInfoLists, myUserInfo, list])
 
-  const userInfoAnimationHandler = (type) => {
-    setUsersAnimation(currentUserId, currentId, type);
+  const userInfoListsHandler = (type) => {
+    setUserInfoLists(currentUserId, list, currentId, type);
   }
 
   return (
-    <ButtonSwitcherDom {...{ userInfoAnimation, currentUserId, userInfoAnimationHandler, buttonsControl }} />
+    <ButtonSwitcherDom {...{ userInfoLists, currentUserId, userInfoListsHandler, buttonsControl }} />
   )
 }
 
@@ -40,4 +40,4 @@ const mapStatesToProps = (state) => {
   }
 }
 
-export default connect(mapStatesToProps, { setUsersAnimation })(ButtonSwitcher);
+export default connect(mapStatesToProps, { setUserInfoLists })(ButtonSwitcher);
