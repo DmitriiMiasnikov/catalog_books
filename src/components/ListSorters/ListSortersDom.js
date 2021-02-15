@@ -29,10 +29,9 @@ export const ListSortersDom = ({ buttonsSort, sortHandler, showDropdownFunc, sho
           {
             showButtonsSort && buttonsSort.map((el, i) => {
               return (
-                <div className={classnames(styles.button, { [styles.hover]: showDropdowns[i] })} key={i}
-                  onMouseOver={() => showDropdownFunc(i, true)}
-                  onMouseLeave={() => showDropdownFunc(i, false)}>
-                  <NavLink to={`/list/${listName}/1`} className={classnames({ [styles.reverse]: el.subButtons[1].active })}>
+                <div className={classnames(styles.button)} key={i} onMouseOver={() => showDropdownFunc(i, true)} 
+                  style={{ height: showDropdowns[i] && 32 * el.subButtons.length }} onMouseLeave={() => showDropdownFunc(i, false)}>
+                  <NavLink to={`/list/${listName}/1`} className={classnames({ [styles.reverse]: !el.subButtons[0].active })}>
                     {
                       el.subButtons.map((item, j) => {
                         return (
@@ -59,10 +58,9 @@ export const ListSortersDom = ({ buttonsSort, sortHandler, showDropdownFunc, sho
           {
             buttonsSort.map((el, i) => {
               return (
-                <div className={classnames(styles.button, { [styles.hover]: showDropdowns[i] })} key={i}
-                  onMouseOver={() => showDropdownFunc(i, true)}
-                  onMouseLeave={() => showDropdownFunc(i, false)}>
-                  <NavLink to={`/list/${listName}/1`} className={classnames({ [styles.reverse]: el.subButtons[1].active })}>
+                <div className={classnames(styles.button)} key={i} style={{ height: showDropdowns[i] && 32 * el.subButtons.length }} 
+                  onMouseOver={() => showDropdownFunc(i, true)} onMouseLeave={() => showDropdownFunc(i, false)}>
+                  <NavLink to={`/list/${listName}/1`} className={classnames({ [styles.reverse]: !el.subButtons[0].active })}>
                     {
                       el.subButtons.map((item, j) => {
                         return (

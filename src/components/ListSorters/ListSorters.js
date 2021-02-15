@@ -1,41 +1,62 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { setSortBy, setPage } from '../../store/listSettingsReducer';
 import { ListSortersDom } from './ListSortersDom';
 
-const ListSorters = ({ setSortBy, setPage, currentPage, listName, isMobileLess }) => {
+const ListSorters = ({ setSortBy, setPage, currentPage, listName, isMobileLess, sortBy }) => {
   const [showButtonsSort, setShowButtonsSort] = useState(false);
-  const [buttonsSort, setButtonsSort] = useState([{
-    id: 0,
-    subButtons: [{
+  const [buttonsSort, setButtonsSort] = useState([
+    {
       id: 0,
-      sort: 'name',
-      text: 'алфавитный порядок',
-      active: false
-    }, 
+      subButtons: [{
+        id: 0,
+        sort: `${listName}Id`,
+        text: 'умолчанию',
+        active: true
+      }]
+    },
     {
       id: 1,
-      sort: 'name_reverse',
-      text: 'с конца алфавита',
-      active: false
-    }]
-  },
-  {
-    id: 1,
-    subButtons: [{
-      id: 0,
-      sort: 'date_reverse',
-      text: 'сначала новые',
-      active: false
-    }, 
+      subButtons: [{
+        id: 0,
+        sort: 'name',
+        text: 'алфавитный порядок',
+        active: false
+      },
+      {
+        id: 1,
+        sort: 'name_reverse',
+        text: 'с конца алфавита',
+        active: false
+      }]
+    },
     {
-      id: 1,
-      sort: 'date',
-      text: 'сначала старые',
-      active: false
-    }]
-  }]);
-  const [showDropdowns, setShowDropdowns] = useState([false, false]);
+      id: 2,
+      subButtons: [{
+        id: 0,
+        sort: 'date_reverse',
+        text: 'сначала новые',
+        active: false
+      },
+      {
+        id: 1,
+        sort: 'date',
+        text: 'сначала старые',
+        active: false
+      }]
+    }]);
+  const [showDropdowns, setShowDropdowns] = useState(buttonsSort.map(() => false));
+  
+  useEffect(() => {
+    if (sortBy === 'default') {
+      setButtonsSort(buttonsSort => buttonsSort.map(el => {
+        if (el.id !== 0) {
+          el.subButtons.forEach(item => item.active = false);
+        } else  el.subButtons.forEach(item => item.active = true);
+        return el;
+      }))
+    }
+  }, [sortBy])
   const sortHandler = (buttonId, subButtonId, sort) => {
     setButtonsSort(buttonsSort.map(el => {
       if (el.id !== buttonId) {
@@ -65,7 +86,7 @@ const ListSorters = ({ setSortBy, setPage, currentPage, listName, isMobileLess }
     setShowButtonsSort(showButtonsSort => close !== undefined ? close : !showButtonsSort)
   }
   return (
-    <ListSortersDom sortHandler={sortHandler} buttonsSort={buttonsSort} showDropdownFunc={showDropdownFunc} 
+    <ListSortersDom sortHandler={sortHandler} buttonsSort={buttonsSort} showDropdownFunc={showDropdownFunc}
       showDropdowns={showDropdowns} listName={listName} isMobileLess={isMobileLess} showButtonsSort={showButtonsSort}
       showButtonsSortHandler={showButtonsSortHandler} />
   )
@@ -73,6 +94,7 @@ const ListSorters = ({ setSortBy, setPage, currentPage, listName, isMobileLess }
 const mapStatesToProps = (state) => {
   return {
     currentPage: state.listSettings.currentPage,
+    sortBy: state.listSettings.sortBy,
     isMobileLess: state.main.isMobileLess
   }
 }

@@ -7,12 +7,12 @@ const ButtonSwitcher = ({ currentUserId, setUserInfoLists, myUserInfo, currentId
   const [userInfoLists, setUsersInfoLists] = useState(null);
   const buttonsControl = [{
     id: 1,
-    text: 'хочу посмотреть',
+    text: 'в очередь',
     type: 'queue'
   },
   {
     id: 2,
-    text: 'просмотрено',
+    text: 'завершил',
     type: 'done'
   }];
   useEffect(() => {

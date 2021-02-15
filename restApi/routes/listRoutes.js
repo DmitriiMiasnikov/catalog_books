@@ -128,16 +128,16 @@ router.get(
           currentSort = 'dateStart';
           break;
         }
-        default: break;
+        default: currentSort = sort ;break;
       }
-      if (!currentSort) {
-        switch (listName) {
-          case ('animation'): currentSort = 'animationId'; break;
-          case ('manga'): currentSort = 'mangaId'; break;
-          case ('ranobe'): currentSort = 'ranobeId'; break;
-          default: break;
-        }
-      }
+      // if (!currentSort) {
+      //   switch (listName) {
+      //     case ('animation'): currentSort = 'animationId'; break;
+      //     case ('manga'): currentSort = 'mangaId'; break;
+      //     case ('ranobe'): currentSort = 'ranobeId'; break;
+      //     default: break;
+      //   }
+      // }
       if (listName === 'animation') {
         list = await Animation.find({
           $and: [

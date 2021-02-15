@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const config = require('config');
-const animationRoutes = require('./routes/animationRoutes');
 const usersRoutes = require('./routes/usersRoutes');
 const listRoutes = require('./routes/listRoutes');
 const cors = require('cors');
@@ -14,7 +13,6 @@ const app = express();
 app.use(express.json({ extended: true }))
 app.use(cors());
 app.options('*', cors());
-// app.use('/animation', animationRoutes);
 app.use('/users', usersRoutes);
 app.use('/list', listRoutes);
 // app.use(cookieParser());
