@@ -14,50 +14,6 @@
 
   .currentFilters {
     margin-bottom: 10px;
-    .filter {
-      background-color: var(--dark-block-2);
-      border: 1px solid var(--pink-button-selected);
-      border-radius: 4px;
-      font-size: 13px;
-      padding: 7px 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      &:not(:first-child) {
-        margin-top: 10px;
-      }
-      .cancelButton {
-        width: 17px;
-        height: 17px;
-        float: right;
-        &:hover {
-          cursor: pointer;
-        }
-      }
-    }
-    .searchItem {
-      &.hide {
-        opacity: 0;
-        display: none;
-      }
-    }
-    .userFilter {
-      .name {
-        transition: 0.2s color;
-        color: var(--dark-font);
-        text-decoration: none;
-        &:hover {
-          color: var(--dark-font-hover);
-          cursor: pointer;
-        }
-      }
-    }
-    .currentFilter {
-      .text {
-        display: inline-block;
-        width: 130px;
-      }
-    }
   }
 
   .dropdownsWrap {

@@ -1,16 +1,36 @@
 import React from 'react';
 import styles from './Filters.module.scss';
-import classnames from 'classnames';
-import { NavLink } from 'react-router-dom';
-import close from './../../assets/Images/close.svg';
 import Dropdown from '../Dropdown/Dropdown';
+import FilterCurrent from '../FilterCurrent/FilterCurrent';
 
-export const FiltersDom = ({ buttonsFilter, dropdowns, filterHandler, selectedUser,
-  userInfo, closeUsersList, filterBy, searchValue, cancelSeach, isMobile }) => {
-  return (
-    <div className={styles.wrapper}>
-      {
-        isMobile && (<div className={styles.dropdownsMobile}>
+export const FiltersDom = ({ buttonsFilter, dropdowns, isMobile }) => {
+  if (!isMobile) {
+    return (
+      <div className={styles.wrapper}>
+        <div className={styles.title}>
+          Фильтры:
+        </div>
+        <div className={styles.currentFilters}>
+          <FilterCurrent />
+        </div>
+        <div className={styles.dropdownsWrap}>
+          {
+            dropdowns.map((dropdown, j) => {
+              if (!buttonsFilter[dropdown.type]) return <div key={j}></div>
+              return (
+                <div className={styles.dropdown} key={j}>
+                  <Dropdown dropdown={dropdown} items={buttonsFilter[dropdown.type]} />
+                </div>
+              )
+            })
+          }
+        </div>
+      </div>
+    )
+  } else if (isMobile) {
+    return (
+      <div className={styles.wrapper}>
+        <div className={styles.dropdownsMobile}>
           <div className={styles.dropdownsWrap}>
             {
               dropdowns.map((dropdown, j) => {
@@ -25,64 +45,10 @@ export const FiltersDom = ({ buttonsFilter, dropdowns, filterHandler, selectedUs
             }
           </div>
           {<div className={styles.currentFilters}>
-            {Boolean(selectedUser) && <div className={classnames(styles.filter, styles.userFilter)}>
-              <NavLink className={styles.name} to={`/users/${userInfo.userId}`}>
-                {userInfo.userName}
-              </NavLink>
-              <img src={close} className={styles.cancelButton} onClick={() => closeUsersList()} alt='' />
-            </div>}
-            {searchValue && <div className={classnames(styles.searchItem, styles.filter, { [styles.hide]: !searchValue })}>
-              <span>"{searchValue}"</span>
-              <img src={close} alt='close' className={styles.cancelButton} onClick={() => cancelSeach()} />
-            </div>}
-            {filterBy !== 'все' && <div className={classnames(styles.filter, styles.currentFilter)}>
-              <div className={styles.text}>
-                {filterBy}
-              </div>
-              <img src={close} className={styles.cancelButton}
-                onClick={() => filterHandler(dropdowns[0].type, 'все', 0)} alt='' />
-            </div>}
+            <FilterCurrent />
           </div>}
-        </div>)
-      }
-      {
-        !isMobile && <>
-          <div className={styles.title}>
-            Фильтры:
-          </div>
-          <div className={styles.currentFilters}>
-            {Boolean(selectedUser) && <div className={classnames(styles.filter, styles.userFilter)}>
-              <NavLink className={styles.name} to={`/users/${userInfo.userId}`}>
-                {userInfo.userName}
-              </NavLink>
-              <img src={close} className={styles.cancelButton} onClick={() => closeUsersList()} alt='' />
-            </div>}
-            {searchValue && <div className={classnames(styles.searchItem, styles.filter, { [styles.hide]: !searchValue })}>
-              <span>"{searchValue}"</span>
-              <img src={close} alt='close' className={styles.cancelButton} onClick={() => cancelSeach()} />
-            </div>}
-            {filterBy !== 'все' && <div className={classnames(styles.filter, styles.currentFilter)}>
-              <div className={styles.text}>
-                {filterBy}
-              </div>
-              <img src={close} className={styles.cancelButton}
-                onClick={() => filterHandler(dropdowns[0].type, 'все', 0)} alt='' />
-            </div>}
-          </div>
-          <div className={styles.dropdownsWrap}>
-            {
-              dropdowns.map((dropdown, j) => {
-                if (!buttonsFilter[dropdown.type]) return <div key={j}></div>
-                return (
-                  <div className={styles.dropdown} key={j}>
-                    <Dropdown dropdown={dropdown} items={buttonsFilter[dropdown.type]} />
-                  </div>
-                )
-              })
-            }
-          </div>
-        </>
-      }
-    </div>
-  )
+        </div>
+      </div>
+    )
+  }
 }
