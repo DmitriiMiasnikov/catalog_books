@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import ButtonSwitcher from '../ButtonSwitcher/ButtonSwitcher';
 import Stars from '../Stars/Stars';
 
-export const DescriptionDom = ({ selectedDescription, catalogName, listNameUrl }) => {
+export const DescriptionDom = ({ selectedDescription, catalogName, listNameUrl, buttonsControl }) => {
   return (
     <div className={styles.wrapper}>
       {selectedDescription && <div className={styles.infoWrap}>
@@ -50,7 +50,7 @@ export const DescriptionDom = ({ selectedDescription, catalogName, listNameUrl }
           <div className={styles.controlPanel}>
             <Stars list={listNameUrl} currentId={selectedDescription[`${listNameUrl}Id`]} />
             <div className={styles.buttonSwither}>
-            <ButtonSwitcher currentId={selectedDescription[`${listNameUrl}Id`]} list={listNameUrl} />
+            <ButtonSwitcher currentId={selectedDescription[`${listNameUrl}Id`]} list={listNameUrl} buttons={buttonsControl}/>
             </div>
           </div>
         </div>

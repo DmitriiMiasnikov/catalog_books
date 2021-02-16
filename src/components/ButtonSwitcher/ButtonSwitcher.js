@@ -1,37 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { setUserInfoLists } from '../../store/usersReducer';
 import { ButtonSwitcherDom } from './ButtonSwitcherDom';
 
-const ButtonSwitcher = ({ currentUserId, setUserInfoLists, myUserInfo, currentId, list }) => {
+const ButtonSwitcher = ({ currentUserId, setUserInfoLists, myUserInfo, currentId, list, buttons }) => {
   const [userInfoLists, setUsersInfoLists] = useState(null);
-  const buttonsControl = [{
-    id: 1,
-    text: 'отложить',
-    textDone: 'в очереди',
-    type: 'queue'
-  },
-  {
-    id: 2,
-    text: 'завершил',
-    textDone: 'завершил',
-    type: 'done'
-  }];
+  const setButtonsCallback = useCallback((buttons) => {
+    const newInfoButtons = {};
+    buttons.forEach(el => {
+      newInfoButtons[el.type] = myUserInfo[list][el.type].includes(currentId)
+    })
+    setUsersInfoLists(newInfoButtons)
+  }, [currentId, setUsersInfoLists, myUserInfo, list])
+
   useEffect(() => {
     if (myUserInfo) {
-      setUsersInfoLists({
-        'queue': myUserInfo[list].queue.includes(currentId),
-        'done': myUserInfo[list].done.includes(currentId),
-      })
+      setButtonsCallback(buttons);
     }
-  }, [currentId, currentUserId, setUsersInfoLists, myUserInfo, list])
+  }, [ myUserInfo, setButtonsCallback, buttons ])
 
   const userInfoListsHandler = (type) => {
     setUserInfoLists(currentUserId, list, currentId, type);
   }
 
   return (
-    <ButtonSwitcherDom {...{ userInfoLists, currentUserId, userInfoListsHandler, buttonsControl }} />
+    <ButtonSwitcherDom {...{ userInfoLists, currentUserId, userInfoListsHandler, buttons }} />
   )
 }
 

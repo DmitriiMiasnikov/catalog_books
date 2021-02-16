@@ -6,7 +6,7 @@ import ButtonSwitcher from './../ButtonSwitcher/ButtonSwitcher';
 import Stars from '../Stars/Stars';
 import image_not_found from './../../assets/Images/image-not-found.svg'
 
-export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo, descriptionOnHover }) => {
+export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo, descriptionOnHover, buttonsControl }) => {
 
   if (view === 'list') {
     return (
@@ -57,7 +57,7 @@ export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo, de
             </div>}
           </div>
           <div className={styles.buttonSwitcher}>
-            <ButtonSwitcher currentId={item[id]} list={listName} />
+            <ButtonSwitcher currentId={item[id]} list={listName} buttons={buttonsControl} />
           </div>
           <div className={styles.stars}>
             <Stars list={listName} currentId={item[id]} />
@@ -128,7 +128,7 @@ export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo, de
               Основано на:{<span className={styles.data}>{item.base}</span>}</div>}
           </div>
           <div className={styles.buttonSwitcher}>
-            <ButtonSwitcher currentId={item[id]} list={listName} />
+            <ButtonSwitcher currentId={item[id]} list={listName} buttons={buttonsControl} />
           </div>
           <div className={styles.stars}>
             <Stars list={listName} currentId={item[id]} />

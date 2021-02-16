@@ -4,15 +4,25 @@ import { ListItemDom } from './ListItemDom';
 import { getDescription } from './../../store/descriptionReducer';
 
 const ListItem = ({ view, listName, getDescription, item, myUserInfo, descriptionOnHover = true }) => {
-
   const id = `${listName}Id`;
-
+  const buttonsControl = [{
+    id: 1,
+    text: 'отложить',
+    textDone: 'в очереди',
+    type: 'queue'
+  },
+  {
+    id: 2,
+    text: 'завершил',
+    textDone: 'завершил',
+    type: 'done'
+  }];
   const openInfo = (id) => {
     getDescription(listName, id);
   }
 
   return (
-    <ListItemDom {...{ view, listName, id, openInfo, item, myUserInfo, descriptionOnHover }} />
+    <ListItemDom {...{ view, listName, id, openInfo, item, myUserInfo, descriptionOnHover, buttonsControl }} />
   )
 }
 
