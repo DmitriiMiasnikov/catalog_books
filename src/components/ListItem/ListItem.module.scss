@@ -16,12 +16,6 @@
   &:hover {
     background-color: var(--dark-block-hover);
   }
-  // &.done {
-  //   background-color: #36363c;
-  //   &:hover {
-  //     background-color: #3a3a42;
-  //   }
-  // }
   .imgLink {
     transition: 0.2s box-shadow;
     border-radius: 4px;
@@ -97,6 +91,12 @@
     border-radius: 0px;
     &:hover {
       border: 1px solid var(--dark-border-hover);
+    }
+    .stars {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      z-index: 1;
     }
     .image {
       width: 100%;

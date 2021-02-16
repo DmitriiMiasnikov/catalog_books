@@ -3,7 +3,7 @@ import { StarsDom } from './StarsDom';
 import { setUserFavorites } from '../../store/usersReducer';
 import { connect } from 'react-redux';
 
-const Stars = ({ currentUserId, setUserFavorites, list, myUserInfo, currentId }) => {
+const Stars = ({ currentUserId, setUserFavorites, list, myUserInfo, currentId, direction = 'left' }) => {
   const [userFavoritesState, setUserFavoritesState] = useState(null);
   const [starsVisible, setStarsVisible] = useState(false);
   let starsArr = [];
@@ -37,7 +37,7 @@ const Stars = ({ currentUserId, setUserFavorites, list, myUserInfo, currentId })
   }
   return (
     <StarsDom {...{ currentUserId, userFavoritesState, buttonHandler, stars, hoverStarsHandler, starsClickHandler,
-      starsVisible }}/>
+      starsVisible, direction }}/>
   )
 }
 

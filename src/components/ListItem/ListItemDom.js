@@ -138,8 +138,11 @@ export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo, de
   }
   if (view === 'tile') {
     return (
-      <NavLink to={`/description/${listName}/${item[id]}`} onClick={() => openInfo(item[listName])}
+      <NavLink to={`/description/${listName}/${item[id]}`} onClick={() => openInfo(item[id])}
         className={classnames(styles.wrapper, styles[view], { [styles.descriptionOnHover]: descriptionOnHover })}>
+        <div className={styles.stars} onClick={(e) => {e.stopPropagation(); e.preventDefault()}}>
+          <Stars list={listName} currentId={item[id]} direction={'bottom'} />
+        </div>
         <img onError={(image) => { image.onerror = null; image.target.setAttribute('src', image_not_found) }}
           src={`https://anime.amyasnikov.pro/${listName}_small/${listName}_cover_${item[id]}_small.jpg`}
           alt='' className={styles.image} />
