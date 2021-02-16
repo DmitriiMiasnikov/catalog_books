@@ -40,16 +40,6 @@ const Filters = ({ setFilterBy, filtersAll, filterBy, selectedUser, userInfo, se
       setButtonsFilter(filtersCopy);
     }
   }, [filtersAll, dropdowns]);
-  const openDropdown = (dropdownId) => {
-    setDropdowns(dropdowns.map(el => {
-      if (el.id === dropdownId) {
-        el.closed ? el.closed = false : el.closed = true
-      } else {
-        el.closed = true;
-      }
-      return el;
-    }))
-  }
   const filterHandler = (dropdown, filterBy, indexButton) => {
     setFilterBy(filterBy);
     history.push(`/list/${listName}/1`);
@@ -80,8 +70,8 @@ const Filters = ({ setFilterBy, filtersAll, filterBy, selectedUser, userInfo, se
   }
   return (
     <FiltersDom {...{
-      buttonsFilter, dropdowns, closeUsersList, openDropdown, filterHandler, userInfo,
-      selectedUser, filterBy, cancelSeach, searchValue, listName, isMobile }} />
+      buttonsFilter, dropdowns, closeUsersList, filterHandler, userInfo,
+      selectedUser, filterBy, cancelSeach, searchValue, isMobile }} />
   )
 }
 

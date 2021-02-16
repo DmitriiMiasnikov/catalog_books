@@ -5,7 +5,7 @@ import { compose } from 'redux';
 import { DropdownDom } from './DropdownDom';
 import { setFilterBy } from './../../store/filterReducer';
 
-const Dropdown = ({ dropdown, items, listName, history, setFilterBy, filterBy }) => {
+const Dropdown = ({ dropdown, items, listName, history, setFilterBy, filterBy, isMobile }) => {
   const [dropdownState, setDropdownState] = useState(dropdown);
   const [itemsState, setItemsState] = useState(items);
 
@@ -40,14 +40,15 @@ const Dropdown = ({ dropdown, items, listName, history, setFilterBy, filterBy })
   }
 
   return (
-    <DropdownDom {...{ dropdownState, openDropdown, itemsState, filterHandler, listName }} />
+    <DropdownDom {...{ dropdownState, openDropdown, itemsState, filterHandler, listName, isMobile }} />
   )
 }
 
 const mapStatesToProps = (state) => {
   return {
     listName: state.list.listName,
-    filterBy: state.filter.filterBy
+    filterBy: state.filter.filterBy,
+    isMobile: state.main.isMobile
   }
 }
 

@@ -64,60 +64,6 @@
     .dropdown:not(:first-child) {
       margin-top: 10px;
     }
-
-    .dropdown {
-      .button {
-        position: relative;
-        font-size: 15px;
-        background-color: var(--dark-button);
-        padding: 8px 0px 8px 20px;
-        transition: 0.2s background-color;
-        &:hover {
-          cursor: pointer;
-          background-color: var(--dark-button-hover);
-        }
-        div {
-          display: inline-block;
-          position: absolute;
-          right: 10px;
-          top: 7px;
-        }
-      }
-      .dropdownBlock {
-        left: 0px;
-        top: 0px;
-        position: relative;
-        transition: 0.3s height;
-        overflow: hidden;
-        .dropdownButton {
-          display: flex;
-          align-items: center;
-          height: 30px;
-          font-size: 13px;
-          background-color: var(--dark-button);
-          transition: 0.2s background-color;
-          &:not(:last-child) {
-            border-bottom: 1px solid var(--dark-border-2);
-          }
-          &:hover {
-            cursor: pointer;
-            background-color: var(--dark-button-hover);
-          }
-
-          &.active {
-            pointer-events: none;
-            background-color: var(--pink-button-selected);
-          }
-
-          a {
-            text-decoration: none;
-            color: var(--dark-font);
-            padding-left: 20px;
-            padding-right: 5px;
-          }
-        }
-      }
-    }
   }
 }
 
@@ -144,38 +90,6 @@
         width: -moz-available;
         &:not(:first-child) {
           margin-top: 0;
-          .button {
-            border-left: 1px solid var(--dark-button);
-          }
-        }
-        .button {
-          padding: 0 10px 0 20px;
-          height: 48px;
-          display: flex;
-          align-items: center;
-          background-color: var(--dark-block);
-          &:hover {
-            cursor: pointer;
-            background-color: var(--dark-block-hover);
-          }
-          span {
-            width: min-content;
-          }
-          .angle {
-            margin-left: 10px;
-            width: 20px;
-            transition: 0.3s transform;
-            transform: rotate(0deg);
-            &.reverse {
-              transform: rotate(-180deg);
-            }
-          }
-        }
-        .dropdownBlock {
-          .dropdownButton {
-            border: 1px solid var(--dark-border-2);
-            border-top: 0px;
-          }
         }
       }
     }
