@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import styles from './List.module.scss';
 import classnames from 'classnames';
 import PagesCounter from '../PagesCounter/PagesCounter';
@@ -7,7 +7,7 @@ import PageView from './../PageView/PageView';
 import loading from './../../assets/Images/loading.svg';
 import ListItem from '../ListItem/ListItem';
 
-export const ListDom = ({ list, countAll,
+export const ListDom = memo(({ list, countAll,
   fetching, pageView, listName }) => {
   return (
     <div className={styles.wrapper}>
@@ -44,4 +44,4 @@ export const ListDom = ({ list, countAll,
           )}
     </div>
   )
-}
+})

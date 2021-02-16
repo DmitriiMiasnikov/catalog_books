@@ -7,7 +7,6 @@ import Stars from '../Stars/Stars';
 import image_not_found from './../../assets/Images/image-not-found.svg'
 
 export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo, descriptionOnHover, buttonsControl }) => {
-
   if (view === 'list') {
     return (
       <div className={classnames(styles.wrapper, { [styles.done]: myUserInfo && myUserInfo[listName].done.includes(item[listName]) })}>

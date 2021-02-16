@@ -26,7 +26,6 @@ const List = ({ list, listName, getList, filterBy, clearStates, sortBy, countAll
     clearStates();
     clearList();
     clearFilter();
-    setFetching(true);
     setListName(listName);
   }, [setListName, listName, clearStates, clearList, clearFilter])
 
