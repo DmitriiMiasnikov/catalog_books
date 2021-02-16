@@ -14,18 +14,18 @@
     justify-content: space-between;
     .pageViewItem {
       transition: 0.2s background-color;
-      background-color: #464646;
+      background-color: var(--dark-button);
     }
     &:hover {
       cursor: pointer;
       .pageViewItem {
-        background-color: rgb(61, 61, 61);
+        background-color: var(--dark-button-hover);
       }
     }
     &.active {
       pointer-events: none;
       .pageViewItem {
-        background-color: #ef4d6e;
+        background-color: var(--pink-button-selected);
       }
     }
     &.list {

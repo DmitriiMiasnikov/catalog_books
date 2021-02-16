@@ -3,14 +3,14 @@
   flex-direction: row;
   z-index: 1;
   .button {
-    background-color: #464646;
-    color: rgb(255, 255, 255);
+    background-color: var(--dark-button);
+    color: var(--dark-font);
     font-size: 13px;
     position: relative;
     overflow: hidden;
     height: 32px;
     &.sortBy {
-      background-color: #464646;
+      background-color: var(--dark-button);
     }
     &:not(:first-child) {
       margin-left: 10px;
@@ -20,12 +20,9 @@
         transform: rotate(180deg);
       }
     }
-    // &.hover {
-    //   height: 64px;
-    // }
     a {
       text-decoration: none;
-      color: white;
+      color: var(--dark-font);
       position: relative;
       display: flex;
       flex-direction: column;
@@ -36,17 +33,17 @@
     .subButton {
       height: 32px;
       padding: 0 8px;
-      background-color: rgb(53, 53, 53);
+      background-color: var(--dark-button);
       display: flex;
       justify-content: center;
       align-items: center;
       transition: 0.2s background-color;
       &:hover {
-        background-color: #ef4d6e;
+        background-color: var(--pink-button-selected);
         cursor: pointer;
       }
       &.active {
-        background-color: #ef4d6e;
+        background-color: var(--pink-button-selected);
       }
     }
   }
@@ -64,7 +61,7 @@
       transition: .1s background-color;
       &:hover {
         cursor: pointer;
-        background-color: #ef4d6e;
+        background-color: var(--pink-button-selected);
       }
       .angle {
         margin-left: 5px;

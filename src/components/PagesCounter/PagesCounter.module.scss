@@ -11,23 +11,23 @@
       display: inline-block;
       margin: 0 3px;
       box-sizing: border-box;
-      background-color: rgb(99, 99, 99);
+      background-color: var(--dark-button);
       transition: 0.2s background-color;
       &:hover {
         cursor: pointer;
-        background-color: rgb(59, 59, 59);
+        background-color: var(--dark-button-hover);
       }
       text-decoration: none;
       color: white;
       &.active {
-        background-color: #ef4d6e;
+        background-color: var(--pink-button-selected);
         pointer-events: none;
       }
       a {
         width: 30px;
         height: 30px;
         text-decoration: none;
-        color: white;
+        color: var(--dark-font);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -54,15 +54,15 @@
       font-size: 12px;
     }
     .button {
-      background-color: #636363;
+      background-color: var(--dark-button);
       margin: 0 3px;
       transition: 0.2s background-color;
       &:hover {
         cursor: pointer;
-        background-color: rgb(61, 61, 61);
+        background-color: var(--dark-button-hover);
       }
       &.active {
-        background-color: #ef4d6e;
+        background-color: var(--pink-button-selected);
         pointer-events: none;
       }
       a {

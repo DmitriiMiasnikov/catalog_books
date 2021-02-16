@@ -3,26 +3,26 @@
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  background-color: #3e3d3d;
+  background-color: var(--dark-button-2);
   .button {
     padding: 7px;
     transition: 0.2s background-color;
     &:hover {
       cursor: pointer;
-      background-color: #505050;
+      background-color: var(--dark-button-2-hover);
     }
     &.added {
       border-radius: 5px;
       &.done {
-        background-color: #156f2a;
+        background-color: var(--green-button-done);
         &:hover {
-          background-color: #299442;
+          background-color: var(--green-button-done-hover);
         }
       }
       &.queue {
-        background-color: #486894;
+        background-color: var(--blue-button-queue);
         &:hover {
-          background-color: #415b80;
+          background-color: var(--blue-button-queue-hover);
         }
       }
     }
@@ -33,7 +33,7 @@
       border-top-left-radius: 4px;
     }
     :not(:first-child) {
-      border-left: 1px solid #272727;
+      border-left: 1px solid var(--dark-border);
     }
     :last-child {
       border-bottom-right-radius: 4px;

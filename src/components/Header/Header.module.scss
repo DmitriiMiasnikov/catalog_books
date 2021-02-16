@@ -1,7 +1,7 @@
 .wrapper {
   position: relative;
-  background-color: rgb(43, 42, 42);
-  border-bottom: 1px solid rgb(156, 156, 156);
+  background-color: var(--dark-header);
+  border-bottom: 1px solid var(--dark-border-3);
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   height: inherit;
@@ -14,13 +14,13 @@
     height: 58px;
     align-items: center;
     transition: 0.2s background-color;
-    text-shadow: 2px 2px 2px rgb(128, 128, 128);
+    text-shadow: 2px 2px 2px var(--dark-font-2);
     &:hover {
-      background-color: #00000014;
+      background-color: var(--dark-transparent-block-1);
     }
     .link {
       padding: 0 20px;
-      color: white;
+      color: var(--dark-font);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
@@ -50,8 +50,8 @@
         visibility: visible;
       }
       .dropdown {
-        background-color: #4e4d4d;
-        border-top: 1px solid #3e3e3e;
+        background-color: var(--dark-block-3);
+        border-top: 1px solid var(--dark-border);
         width: 175px;
         height: 45px;
         display: flex;
@@ -60,17 +60,17 @@
         box-sizing: border-box;
         transition: 0.1s background-color;
         &:nth-child(even) {
-          border-left: 1px solid #3e3e3e;
+          border-left: 1px solid var(--dark-border);
         }
         &:hover {
           cursor: pointer;
-          background-color: rgb(143, 143, 143);
+          background-color: var(--dark-block-3-hover);
         }
       }
     }
   }
   .item:not(:first-child) {
-    border-left: 1px solid #313131;
+    border-left: 1px solid var(--dark-border);
   }
   .rightBlock {
     position: absolute;

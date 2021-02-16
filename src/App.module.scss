@@ -19,9 +19,9 @@
     margin: 0 auto;
     max-width: 1600px;
     height: 100%;
-    color: white;
+    color: var(--dark-font);
     border-radius: 8px;
-    box-shadow: 3px 3px 3px 3px #2c2c2c;
+    box-shadow: 3px 3px 3px 3px var(--dark-wrapper-shadow);
     box-sizing: border-box;
     .header {
       grid-area: header;
@@ -41,15 +41,9 @@
     }
   }
   &.black {
-    background-color: $bg-scene-black;
+    background-color: var(--dark-scene);
     .wrapper {
-      background-color: $bg-wrapper-black;
-    }
-  }
-  &.white {
-    background-color: $bg-scene-white;
-    .wrapper {
-      background-color: $bg-wrapper-white;
+      background-color: var(--dark-wrapper);
     }
   }
 }
@@ -70,11 +64,11 @@
           padding: 1px 0px 0px;
           display: flex;
           flex-direction: row;
-          background-color: rgb(43, 42, 42);
-          border-bottom: 1px solid rgb(156, 156, 156);
+          background-color: var(--dark-block);
+          border-bottom: 1px solid var(--dark-border-4);
           > div:not(:first-child) {
             margin-top: 0px;
-            border-left: 1px solid #313131;
+            border-left: 1px solid var(--dark-border-2);
           }
         }
     }

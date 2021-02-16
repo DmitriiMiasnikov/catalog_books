@@ -5,17 +5,17 @@
   .inputBlock {
     display: flex;
     flex-direction: row;
-    background-color: rgb(68, 68, 68);
+    background-color: var(--dark-block-3);
     border-radius: 10px;
     box-sizing: border-box;
-    border: 1px solid rgb(68, 68, 68);
+    border: 1px solid var(--dark-block-3);
     &:focus-within {
-      border: 1px solid #af4d4d;
+      border: 1px solid var(--dark-border-input-focus);
     }
     input {
       padding: 10px 0 10px 20px;
       font-size: 13px;
-      border: 0px solid black;
+      border: 0px solid transparent;
       background-color: transparent;
       width: 450px;
       color: white;

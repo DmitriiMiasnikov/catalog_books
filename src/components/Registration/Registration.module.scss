@@ -8,7 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #000000b0;
+  background-color: var(--dark-registration-bg);
   opacity: 0;
   transition: .5s opacity;
   &.show {
@@ -21,7 +21,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    background-color: #272727;
+    background-color: var(--dark-block);
     border-radius: 4px;
     .title {
       display: inline-block;
@@ -57,29 +57,25 @@
       margin-top: 8px;
       label {
         margin-right: 10px;
-        color: #ff0909;
+        color: var(--dark-font-wrong);
       }
       input {
         width: 300px;
         box-sizing: border-box;
-        border: 0px solid black;
-        color: white;
-        background-color: #464646;
+        border: 0px solid transparent;
+        color: var(--dark-font);
+        background-color: var(--dark-input);
         padding: 8px;
         margin-right: 23px;
         transition: 0.1s background-color;
         &:focus {
           outline: none;
-          background-color: #535353;
-        }
-        &:hover {
-          background-color: #464646;
         }
         &:-internal-autofill-selected {
           appearance: menulist-button;
-          background-color: #464646 !important;
+          background-color: var(--dark-input) !important;
           background-image: none !important;
-          color: white !important;
+          color: var(--dark-font) !important;
         }
       }
       .error {
@@ -87,7 +83,7 @@
         left: 325px;
         top: 8px;
         font-size: 13px;
-        color: red;
+        color: var(--dark-font-wrong);
         width: max-content;
       }
       &.buttons {
@@ -99,19 +95,19 @@
         height: 57px;
         button {
           padding: 10px;
-          background-color: #272727;
+          background-color: var(--dark-block);
           border: 0px;
           transition: .2s background-color;
           color: white;
-          border-top: 1px solid #3e3e3e;
+          border-top: 1px solid var(--dark-border-2);
           font-size: 17px;
           &:hover {
             cursor: pointer;
-            background-color: rgb(95, 95, 95);
+            background-color: var(--dark-block-hover);
           }
           &:focus {
             outline: none;
-            background-color: #535353;
+            background-color: var(--dark-block);
           }
           &.submit {
             width: 70%;
@@ -121,7 +117,7 @@
             border-bottom-left-radius: 4px;
           }
           &.closeButton {
-            border-left: 1px solid #3e3e3e;
+            border-left: 1px solid var(--dark-border-2);
             height: 100%;
             width: 30%;
             right: 10px;

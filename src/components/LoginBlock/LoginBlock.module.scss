@@ -17,20 +17,20 @@
       input {
         width: 94%;
         box-sizing: border-box;
-        border: 0px solid black;
+        border: 0px solid transparent;
         color: white;
-        background-color: #464646;
+        background-color: var(--dark-input);
         padding: 5px;
         transition: 0.1s background-color;
         &:focus {
           outline: none;
-          background-color: #535353;
+          background-color: var(--dark-input-focus);
         }
         &:-internal-autofill-selected {
           appearance: menulist-button;
-          background-color: #464646 !important;
+          background-color: var(--dark-input) !important;
           background-image: none !important;
-          color: white !important;
+          color: var(--dark-font) !important;
         }
       }
     }
@@ -43,10 +43,10 @@
       display: flex;
       justify-content: space-between;
       margin-top: 10px;
-      border-top: 1px solid #444343;
+      border-top: 1px solid var(--dark-border-2);
       :nth-child(2) {
         border-bottom-right-radius: 4px;
-        border-left: 1px solid #444343;
+        border-left: 1px solid var(--dark-border-2);
       }
       .button {
         position: relative;
@@ -54,19 +54,19 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #2b2b2b;
+        background-color: var(--dark-block);
         transition: 0.2s background-color;
         width: 50%;
         &:hover {
           cursor: pointer;
-          background-color: rgb(58, 58, 58);
+          background-color: var(--dark-button-hover);
         }
         &:focus {
           outline: none;
         }
         .text {
           position: absolute;
-          color: white;
+          color: var(--dark-font);
           left: 0px;
           top: 0px;
           width: 100%;
@@ -85,7 +85,7 @@
     justify-content: center;
     align-items: center;
     height: 20px;
-    color: #ce3333;
+    color: var(--dark-font-wrong);
     margin-top: 10px;
     margin-bottom: 10px;
     font-size: 12px;
@@ -96,19 +96,23 @@
   .wrapper {
     position: absolute;
     z-index: 12;
-    background-color: #353535;
+    background-color: var(--dark-block-2);
+    border-radius: 0px;
+    border-bottom-left-radius: 4px;
+    border-left: 1px solid var(--dark-border-3);
+    border-bottom: 1px solid var(--dark-border-3);
     width: 210px;
     right: 0px;
     top: 100%;
     form {
       .input {
         input {
-          background-color: #5a5a5a;
+          background-color: var(--dark-input);
         }
       }
       .buttons {
         .button {
-          background-color: #353535;
+          background-color: var(--dark-block-2);
         }
       }
     }

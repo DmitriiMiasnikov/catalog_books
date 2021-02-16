@@ -2,8 +2,8 @@
   box-sizing: border-box;
   border-radius: 4px;
   font-size: 14px;
-  color: #e2e2e2;
-  background-color: #2b2b2b;
+  color: var(--dark-font);
+  background-color: var(--dark-block);
   padding: 10px;
 
   .title {
@@ -15,8 +15,8 @@
   .currentFilters {
     margin-bottom: 10px;
     .filter {
-      background-color: #464646;
-      border: 1px solid #ef4d6e;
+      background-color: var(--dark-block-2);
+      border: 1px solid var(--pink-button-selected);
       border-radius: 4px;
       font-size: 13px;
       padding: 7px 10px;
@@ -44,10 +44,10 @@
     .userFilter {
       .name {
         transition: 0.2s color;
-        color: #dadada;
+        color: var(--dark-font);
         text-decoration: none;
         &:hover {
-          color: #8f8f8f;
+          color: var(--dark-font-hover);
           cursor: pointer;
         }
       }
@@ -69,15 +69,13 @@
       .button {
         position: relative;
         font-size: 15px;
-        background-color: #333333;
+        background-color: var(--dark-button);
         padding: 8px 0px 8px 20px;
         transition: 0.2s background-color;
-
         &:hover {
           cursor: pointer;
-          background-color: #3f3f3f;
+          background-color: var(--dark-button-hover);
         }
-
         div {
           display: inline-block;
           position: absolute;
@@ -85,39 +83,35 @@
           top: 7px;
         }
       }
-
       .dropdownBlock {
         left: 0px;
         top: 0px;
         position: relative;
         transition: 0.3s height;
         overflow: hidden;
-
         .dropdownButton {
           display: flex;
           align-items: center;
           height: 30px;
           font-size: 13px;
-          background-color: #3a3a3a;
+          background-color: var(--dark-button);
           transition: 0.2s background-color;
-
           &:not(:last-child) {
-            border-bottom: 1px solid #505050;
+            border-bottom: 1px solid var(--dark-border-2);
           }
-
           &:hover {
             cursor: pointer;
-            background-color: #4b4b4b;
+            background-color: var(--dark-button-hover);
           }
 
           &.active {
             pointer-events: none;
-            background-color: #ef4d6e;
+            background-color: var(--pink-button-selected);
           }
 
           a {
             text-decoration: none;
-            color: white;
+            color: var(--dark-font);
             padding-left: 20px;
             padding-right: 5px;
           }
@@ -133,7 +127,7 @@
     flex-direction: row;
     padding: 0;
     z-index: 11;
-    background-color: #2b2b2b;
+    background-color: var(--dark-block);
     width: 80%;
     .dropdownsMobile {
       width: 100%;
@@ -151,7 +145,7 @@
         &:not(:first-child) {
           margin-top: 0;
           .button {
-            border-left: 1px solid #313131;
+            border-left: 1px solid var(--dark-button);
           }
         }
         .button {
@@ -159,10 +153,10 @@
           height: 48px;
           display: flex;
           align-items: center;
-          background-color: rgb(43, 42, 42);
+          background-color: var(--dark-block);
           &:hover {
             cursor: pointer;
-            background-color: #0000001c;
+            background-color: var(--dark-block-hover);
           }
           span {
             width: min-content;
@@ -175,6 +169,12 @@
             &.reverse {
               transform: rotate(-180deg);
             }
+          }
+        }
+        .dropdownBlock {
+          .dropdownButton {
+            border: 1px solid var(--dark-border-2);
+            border-top: 0px;
           }
         }
       }

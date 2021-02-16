@@ -1,5 +1,5 @@
 .wrapper {
-  color: rgb(219, 219, 219);
+  color: var(--dark-font);
   .name {
     font-size: 22px;
     margin-bottom: 15px;
@@ -11,9 +11,9 @@
     align-items: center;
     height: 42px;
     width: 100%;
-    background-color: #292929;
+    background-color: var(--dark-block);
     padding: 0px 10px;
-    border-bottom: 1px solid #2f2f2f;
+    border-bottom: 1px solid var(--dark-border);
     box-sizing: border-box;
   }
   .sectionTitle {
@@ -47,7 +47,7 @@
     visibility: visible;
     &:hover {
       cursor: pointer;
-      background-color: #2e2e2e;
+      background-color: var(--dark-block-hover);
     }
     .angle {
       margin-left: 10px;
@@ -88,7 +88,7 @@
           min-width: 180px;
         }
         .restItems {
-          background-color: #313131;
+          background-color: var(--dark-button);
           display: flex;
           justify-content: center;
           align-items: center;
@@ -99,11 +99,11 @@
           margin-top: 2%;
           min-width: 180px;
           min-height: 230px;
-          color: #969696;
+          color: var(--dark-font-2);
           text-decoration: none;
-          transition: 0.1s height;
+          transition: 0.1s background-color;
           &:hover {
-            background-color: #3f3f3f;
+            background-color: var(--dark-button-hover);
           }
         }
       }
