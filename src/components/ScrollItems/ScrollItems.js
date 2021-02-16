@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { ScrollItemsDom } from './ScrollItemsDom';
 
-const ScrollItems = ({ name, items }) => {
+const ScrollItems = ({ name, items, title = false }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [settingsScroll, setSettingsScroll] = useState({
     itemsShown: 5,
@@ -67,7 +67,7 @@ const ScrollItems = ({ name, items }) => {
   }
 
   return (
-    <ScrollItemsDom {...{ buttonScrollHandler, scrollPosition, name, items }} />
+    <ScrollItemsDom {...{ buttonScrollHandler, scrollPosition, name, items, title }} />
   )
 }
 const mapStatesToProps = (state) => {

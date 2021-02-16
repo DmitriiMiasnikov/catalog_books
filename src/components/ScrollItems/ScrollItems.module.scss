@@ -4,6 +4,9 @@
   justify-content: center;
   flex-direction: row;
   height: 235px;
+  &.withTitle {
+    margin-top: 30px;
+  }
   .buttonLeft,
   .buttonRight {
     display: flex;
@@ -11,27 +14,30 @@
     height: 100%;
     border-radius: 4px;
     background-color: #2f2f2f;
-    opacity: .7;
-    transition: 0.2s opacity;
-    &.disabled {
-      opacity: 0.2;
-      pointer-events: none;
-    }
+    transition: 0.2s background-color;
     &:hover {
-      opacity: 1;
+      background-color: #383838;
       cursor: pointer;
     }
     img {
       width: 35px;
       height: 35px;
-      opacity: 1;
     }
   }
   .buttonLeft {
     justify-content: flex-end;
     margin-right: 10px;
+    position: relative;
     img {
       transform: rotate(90deg);
+    }
+    .title {
+      position: absolute;
+      top: -30px;
+      left: 10px;
+      font-size: 22px;
+      pointer-events: none;
+      color: white;
     }
   }
   .buttonRight {
