@@ -1,36 +1,41 @@
 .wrapper {
-  .buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .buttonsControl {
-      display: flex;
-      flex-direction: row;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background-color: #3e3d3d;
+  .button {
+    padding: 7px;
+    transition: 0.2s background-color;
+    &:hover {
+      cursor: pointer;
+      background-color: #505050;
+    }
+    &.added {
       border-radius: 5px;
-      .button {
-        padding: 7px;
-        border: 1px solid #717171;
-        transition: .2s background-color;
-        &.added {
-          background-color: #486894;
-        }
+      &.done {
+        background-color: #156f2a;
         &:hover {
-          cursor: pointer;
-          background-color: #3e3d3d;
-          &.added {
-            background-color: #415b80;
-          }
+          background-color: #299442;
         }
       }
-      :nth-child(1) {
-        border-bottom-left-radius: 4px;
-        border-top-left-radius: 4px;
+      &.queue {
+        background-color: #486894;
+        &:hover {
+          background-color: #415b80;
+        }
       }
-      :nth-child(2) {
-        border-bottom-right-radius: 4px;
-        border-top-right-radius: 4px;
-        border-left: 0px solid #3e3e3e;
-      }
+    }
+  }
+  &.noChoose {
+    :nth-child(1) {
+      border-bottom-left-radius: 4px;
+      border-top-left-radius: 4px;
+    }
+    :nth-child(2) {
+      border-bottom-right-radius: 4px;
+      border-top-right-radius: 4px;
+      border-left: 1px solid #272727;
     }
   }
 }

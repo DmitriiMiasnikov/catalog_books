@@ -20,6 +20,8 @@ const Stars = ({ currentUserId, setUserFavorites, list, myUserInfo, currentId })
   const buttonHandler = (rating) => {
     if (rating) {
       setUserFavorites(currentUserId, list, currentId, 0);
+    } else if (rating === false) {
+      setStarsVisible(false)
     } else setStarsVisible(starsVisible => !starsVisible);
   }
   const hoverStarsHandler = (number) => {

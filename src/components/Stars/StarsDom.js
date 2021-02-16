@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import styles from './Stars.module.scss';
 import classnames from 'classnames';
 import cross from './../../assets/Images/plus.svg';
 
 export const StarsDom = ({ userFavoritesState, buttonHandler, currentUserId, stars,
   hoverStarsHandler, starsClickHandler, starsVisible }) => {
+    const refStar = useRef(null);
+    const handleMouseClick = (e) => {
+      if (!e.path.includes(refStar.current)) {
+        buttonHandler(false);
+      }
+    }
+    useEffect(() => {
+      document.addEventListener('click', handleMouseClick, true)
+      return () => document.removeEventListener('click', handleMouseClick, true)
+    })
   return (
     <>
       {currentUserId && (
-        <div className={classnames(styles.wrapper)}
+        <div className={classnames(styles.wrapper)} ref={refStar}
           onClick={() => buttonHandler(userFavoritesState)}>
           <div className={styles.button}>
             <div className={classnames(styles.buttonInner, styles.buttonOpenStars, { [styles.visible]: starsVisible,
