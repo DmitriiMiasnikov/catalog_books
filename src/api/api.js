@@ -1,7 +1,8 @@
 import * as axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:5000/'
+  // baseURL: 'http://localhost:5000/'
+  baseURL: 'https://catalog27api.herokuapp.com/'
 })
 
 export const getListApi = async (listName, page, counter, sort, filter, search, userId, userFilter) => {

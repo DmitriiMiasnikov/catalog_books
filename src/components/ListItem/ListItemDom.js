@@ -6,7 +6,8 @@ import ButtonSwitcher from './../ButtonSwitcher/ButtonSwitcher';
 import Stars from '../Stars/Stars';
 import image_not_found from './../../assets/Images/image-not-found.svg'
 
-export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo, descriptionOnHover, buttonsControl }) => {
+export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo, descriptionOnHover,
+  buttonsControl, filterHandler }) => {
   if (view === 'list') {
     return (
       <div className={classnames(styles.wrapper, { [styles.done]: myUserInfo && myUserInfo[listName].done.includes(item[listName]) })}>
@@ -36,18 +37,23 @@ export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo, de
           </div>
           <div className={styles.line}>
             {listName === 'animation' && item.type && <div>
-              Автор:{<span className={styles.data}>{item.type}</span>}</div>}
+              Тип:{<span className={styles.data} onClick={() => filterHandler(item.type.split(' ')[0])}>
+                <span className={styles.link}>{item.type.split(' ')[0] + ' '}</span>
+                <span>{item.type.split(' ').slice(1).join(' ')}</span>
+              </span>}</div>}
             {listName === 'manga' && item.date && <div>
-              Год выхода:{<span className={styles.data}>{item.date}</span>}</div>}
+              Год выхода:{<span className={classnames(styles.data, styles.link)}
+                onClick={() => filterHandler(item.date)}>{item.date}</span>}</div>}
             {listName === 'ranobe' && item.language && <div>
-              Язык оригинала:{<span className={styles.data}>{item.language}</span>}</div>}
+              Язык оригинала:{<span className={classnames(styles.data, styles.link)}
+                onClick={() => filterHandler(item.language)}>{item.language}</span>}</div>}
           </div>
           <div className={styles.line}>
             {item.genre && <div>Жанр:<span className={styles.data}>
               {item.genre.map((genreEl, j) => {
                 return (
                   <span className={styles.genreEl} key={j}>
-                    <span className={styles.n}>{genreEl}</span>
+                    <span className={classnames(styles.n, styles.link)} onClick={() => filterHandler(genreEl)}>{genreEl}</span>
                     {j !== item.genre.length - 1 && <span>{', '}</span>}
                   </span>
                 )
@@ -94,18 +100,23 @@ export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo, de
           </div>
           <div className={styles.line}>
             {listName === 'animation' && item.type && <div>
-              Режиссёр:{<span className={styles.data}>{item.type}</span>}</div>}
+              Тип:{<span className={styles.data} onClick={() => filterHandler(item.type.split(' ')[0])}>
+                <span className={styles.link}>{item.type.split(' ')[0] + ' '}</span>
+                <span>{item.type.split(' ').slice(1).join(' ')}</span>
+              </span>}</div>}
             {listName === 'manga' && item.date && <div>
-              Год выхода:{<span className={styles.data}>{item.type}</span>}</div>}
+              Год выхода:{<span className={classnames(styles.data, styles.link)}
+                onClick={() => filterHandler(item.date)}>{item.date}</span>}</div>}
             {listName === 'ranobe' && item.language && <div>
-              Язык оригинала:{<span className={styles.data}>{item.language}</span>}</div>}
+              Язык оригинала:{<span className={classnames(styles.data, styles.link)}
+                onClick={() => filterHandler(item.language)}>{item.language}</span>}</div>}
           </div>
           <div className={styles.line}>
             {item.genre && <div>Жанр:<span className={styles.data}>
               {item.genre.map((genreEl, j) => {
                 return (
                   <span className={styles.genreEl} key={j}>
-                    <span className={styles.n}>{genreEl}</span>
+                    <span className={classnames(styles.n, styles.link)} onClick={() => filterHandler(genreEl)}>{genreEl}</span>
                     {j !== item.genre.length - 1 && <span>, </span>}
                   </span>
                 )
@@ -115,7 +126,8 @@ export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo, de
           </div>
           <div className={styles.line}>
             {listName === 'animation' && item.auditory && <div>
-              Аудитория:{<span className={styles.data}>{item.auditory}</span>}</div>}
+              Аудитория:{<span className={classnames(styles.data, styles.link)}
+                onClick={() => filterHandler(item.auditory)}>{item.auditory}</span>}</div>}
             {listName === 'manga' && item.company && <div>
               Компания:{<span className={styles.data}>{item.company}</span>}</div>}
             {listName === 'ranobe' && item.description && <div>
