@@ -82,7 +82,7 @@ export const FiltersDom = ({ buttonsFilter, openDropdown, dropdowns, filterHandl
         !isMobile && <>
           <div className={styles.title}>
             Фильтры:
-      </div>
+          </div>
           <div className={styles.currentFilters}>
             {Boolean(selectedUser) && <div className={classnames(styles.filter, styles.userFilter)}>
               <NavLink className={styles.name} to={`/users/${userInfo.userId}`}>
@@ -105,12 +105,11 @@ export const FiltersDom = ({ buttonsFilter, openDropdown, dropdowns, filterHandl
           <div className={styles.dropdownsWrap} ref={refDropdown}>
             {
               dropdowns.map((dropdown, j) => {
-                const dropdownType = dropdown.type;
-                if (!buttonsFilter[dropdownType]) return <div key={j}></div>
+                if (!buttonsFilter[dropdown.type]) return <div key={j}></div>
                 return (
                   <div className={styles.dropdown} key={j}>
                     <Dropdown dropdown={dropdown} openDropdown={openDropdown}
-                      buttonsFilter={buttonsFilter} filterHandler={filterHandler} />
+                      items={buttonsFilter[dropdown.type]} filterHandler={filterHandler} />
                   </div>
                 )
               })
