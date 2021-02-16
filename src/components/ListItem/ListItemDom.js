@@ -6,7 +6,7 @@ import ButtonSwitcher from './../ButtonSwitcher/ButtonSwitcher';
 import Stars from '../Stars/Stars';
 import image_not_found from './../../assets/Images/image-not-found.svg'
 
-export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo }) => {
+export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo, descriptionOnHover }) => {
 
   if (view === 'list') {
     return (
@@ -75,7 +75,7 @@ export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo }) 
             src={`https://anime.amyasnikov.pro/${listName}_small/${listName}_cover_${item[id]}_small.jpg`}
             alt='' className={styles.image} />
         </NavLink>
-        <div className={styles.info}>
+        <div className={classnames(styles.info, { [styles.placeForButtons]: myUserInfo })}>
           {item.nameRu && <div className={styles.title}>
             <NavLink to={`/description/${listName}/${item[id]}`} onClick={() => openInfo(item[id])}>{item.nameRu}</NavLink></div>}
           {item.nameEng && !item.nameRu && <div className={classnames(styles.nameEng, { [styles.title]: !item.nameRu })}>
@@ -140,7 +140,7 @@ export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo }) 
   if (view === 'tile') {
     return (
       <NavLink to={`/description/${listName}/${item[id]}`} onClick={() => openInfo(item[listName])}
-        className={classnames(styles.wrapper, styles[view])}>
+        className={classnames(styles.wrapper, styles[view], { [styles.descriptionOnHover]: descriptionOnHover })}>
         <img onError={(image) => { image.onerror = null; image.target.setAttribute('src', image_not_found) }}
           src={`https://anime.amyasnikov.pro/${listName}_small/${listName}_cover_${item[id]}_small.jpg`}
           alt='' className={styles.image} />

@@ -32,7 +32,7 @@ export const ListDom = ({ list, countAll,
                 list && list.map((el, i) => {
                   return (
                     <div className={styles.item} key={i} >
-                      <ListItem view={pageView} listName={listName} item={el} />
+                      <ListItem view={pageView} listName={listName} item={el} descriptionOnHover={false}/>
                     </div>
                   )
                 })

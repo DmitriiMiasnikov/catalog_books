@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { ListItemDom } from './ListItemDom';
 import { getDescription } from './../../store/descriptionReducer';
 
-const ListItem = ({ view, listName, getDescription, item, myUserInfo }) => {
+const ListItem = ({ view, listName, getDescription, item, myUserInfo, descriptionOnHover = true }) => {
+
   const id = `${listName}Id`;
 
   const openInfo = (id) => {
@@ -11,7 +12,7 @@ const ListItem = ({ view, listName, getDescription, item, myUserInfo }) => {
   }
 
   return (
-    <ListItemDom {...{ view, listName, id, openInfo, item, myUserInfo }} />
+    <ListItemDom {...{ view, listName, id, openInfo, item, myUserInfo, descriptionOnHover }} />
   )
 }
 

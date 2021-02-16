@@ -119,5 +119,17 @@
         margin-top: 5px;
       }
     }
+    &.descriptionOnHover {
+      overflow: hidden;
+      .text {
+        transform: translateY(100%);
+        transition: .1s transform;
+      }
+      &:hover {
+        .text {
+          transform: translateY(0);
+        }
+      }
+    }
   }
 }
