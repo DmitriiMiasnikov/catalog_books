@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   flex-direction: row;
-  height: 235px;
+  height: 267px;
   &.withTitle {
     margin-top: 30px;
   }
@@ -51,7 +51,7 @@
     position: relative;
     overflow: hidden;
     width: 910px;
-    height: 237px;
+    height: 267px;
     .listWrap {
       position: absolute;
       display: flex;
@@ -62,8 +62,8 @@
         position: relative;
         border: 1px solid transparent;
         border-radius: 4px;
-        width: 170px;
-        height: 235px;
+        width: 188px;
+        height: 265px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -82,87 +82,38 @@
   }
 }
 
-@media(min-width: 1453px) {
+@media(min-width: 1601px) {
   .wrapper {
-    height: 265px;
     .scrollBlock {
-      width: 1019px;
-      height: 267px;
-      .listWrap {
-        .item {
-          width: 192px;
-          height: 266px;
-        }
-      }
+      width: 1203px;
     }
   }
 }
-
-@media(max-width: 1452px) {
+@media(max-width: 1600px) {
   .wrapper {
-    height: 235px;
     .scrollBlock {
-      width: 910px;
-      height: 237px;
-      .listWrap {
-        .item {
-          width: 170px;
-          height: 235px;
-        }
-      }
+      width: 1000px;
     }
   }
 }
-@media(max-width: 1300px) {
+@media(max-width: 1335px) {
   .wrapper {
-    height: 251px;
     .scrollBlock {
-      width: 749px;
-      height: 251px;
-      .listWrap {
-        .item {
-          width: 180px;
-          height: 252px;
-          &:not(:first-child) {
-            margin-left: 10px;
-          }
-        }
-      }
+      width: 797px;
     }
   }
 }
-
 @media(max-width: 1135px) {
   .wrapper {
-    height: 268px;
     .scrollBlock {
-      width: 595px;
-      height: 268px;
-      .listWrap {
-        .item {
-          width: 192px;
-          height: 266px;
-          &:not(:first-child) {
-            margin-left: 10px;
-          }
-        }
-      }
+      width: 594px;
     }
   }
 }
-
 @media(max-width: 750px) {
   .wrapper {
-    height: 268px;
     .scrollBlock {
-      width: 393px;
-      height: 268px;
-      .listWrap {
-        .item {
-          width: 192px;
-          height: 266px;
-        }
-      }
+      width: 390px;
     }
   }
 }

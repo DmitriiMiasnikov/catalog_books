@@ -6,29 +6,29 @@ const ScrollItems = ({ name, items, title = false }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [settingsScroll, setSettingsScroll] = useState({
     itemsShown: 5,
-    scroll: 185
+    scroll: 203
   });
   const widthHandler = useCallback(() => {
     let newSettings = {}
     switch (true) {
-      case (window.innerWidth > 1452): {
-        newSettings = { itemsShown: 5, scroll: 207 };
+      case (window.innerWidth >= 1601): {
+        newSettings = { itemsShown: 6, scroll: 203 };
         break;
       }
-      case (window.innerWidth <= 1452 && window.innerWidth > 1300): {
-        newSettings = { itemsShown: 5, scroll: 185 };
+      case (window.innerWidth <= 1600 && window.innerWidth > 1335): {
+        newSettings = { itemsShown: 5, scroll: 203 };
         break;
       }
-      case (window.innerWidth <= 1300 && window.innerWidth > 1135): {
-        newSettings = { itemsShown: 4, scroll: 190 };
+      case (window.innerWidth <= 1335 && window.innerWidth > 1135): {
+        newSettings = { itemsShown: 4, scroll: 203 };
         break;
       }
       case (window.innerWidth <= 1135 && window.innerWidth > 750): {
-        newSettings = { itemsShown: 3, scroll: 202 };
+        newSettings = { itemsShown: 3, scroll: 203 };
         break;
       }
       case (window.innerWidth <= 750): {
-        newSettings = { itemsShown: 2, scroll: 202 };
+        newSettings = { itemsShown: 2, scroll: 203 };
         break;
       }
       default: newSettings = settingsScroll; break;
