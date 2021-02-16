@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { MainDom } from './MainDom';
-import { getLastViewedList } from './../../store/mainReducer';
+import { getLastViewedList, getRandomItemsByGenre } from './../../store/mainReducer';
 
-const Main = ({ currentUserId, getLastViewedList, lastViewed }) => {
+const Main = ({ currentUserId, getLastViewedList, lastViewed, randomItemsByGenre, getRandomItemsByGenre }) => {
   const [fetching, setFetching] = useState(true);
   const listNames = [
     { name: 'animation', text: 'аниме' },
@@ -20,17 +20,26 @@ const Main = ({ currentUserId, getLastViewedList, lastViewed }) => {
       fetchData()
     }
   }, [getLastViewedList, currentUserId])
+  useEffect(() => {
+    setFetching(true);
+    const fetchData = async () => {
+      await getRandomItemsByGenre();
+      setFetching(false);
+    }
+    fetchData()
+  }, [getRandomItemsByGenre])
 
   return (
-    <MainDom {...{ fetching, lastViewed, listNames, currentUserId }} />
+    <MainDom {...{ fetching, lastViewed, listNames, currentUserId, randomItemsByGenre }} />
   )
 }
 
 const mapStatesToProps = (state) => {
   return {
     lastViewed: state.main.lastViewed,
-    currentUserId: state.users.currentUserId
+    currentUserId: state.users.currentUserId,
+    randomItemsByGenre: state.main.randomItemsByGenre
   }
 }
 
-export default connect(mapStatesToProps, { getLastViewedList })(Main);
+export default connect(mapStatesToProps, { getLastViewedList, getRandomItemsByGenre })(Main);

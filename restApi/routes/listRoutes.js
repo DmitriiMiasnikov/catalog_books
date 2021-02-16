@@ -130,14 +130,6 @@ router.get(
         }
         default: currentSort = sort ;break;
       }
-      // if (!currentSort) {
-      //   switch (listName) {
-      //     case ('animation'): currentSort = 'animationId'; break;
-      //     case ('manga'): currentSort = 'mangaId'; break;
-      //     case ('ranobe'): currentSort = 'ranobeId'; break;
-      //     default: break;
-      //   }
-      // }
       if (listName === 'animation') {
         list = await Animation.find({
           $and: [
@@ -338,5 +330,49 @@ router.get(
     }
   }
 )
+
+// получить случайную десятку по жанру
+// /list/randomId/
+router.get(
+  '/randomItems/byGenre',
+  async (req, res) => {
+    try {
+      const genres = [
+        'комедия',
+        'повседневность', 'приключения',
+        'фантастика', 'мистика',
+        'фэнтези', 'драма',
+        'спорт', 'романтика',
+        'триллер', 'меха',
+        'этти', 'детектив',
+        'махо-сёдзё', 'боевые искусства',
+        'музыкальный', 'ужасы',
+        'образовательный'
+      ]
+      let animation = {};
+      let manga = {};
+      let randomGenreAnimation, lastAnimation = 0;
+      while (lastAnimation < 10) {
+        randomGenreAnimation = genres[Math.floor(Math.random() * genres.length)];
+        lastAnimation = await Animation.find({ genre: randomGenreAnimation }, 'animationId').countDocuments({});
+      }
+      const randomAnimationId = Math.floor(Math.random() * (lastAnimation - 10)) + 1;
+      animation[randomGenreAnimation] = await Animation.find({ genre: randomGenreAnimation }).skip(randomAnimationId).limit(10);
+
+      let randomGenreManga, lastManga = 0;
+      while (lastManga < 10) {
+        randomGenreManga = genres[Math.floor(Math.random() * genres.length)];
+        lastManga = await Manga.find({ type: 'манга', genre: randomGenreManga }, 'mangaId').countDocuments({});
+      }
+      const randomMangaId = Math.floor(Math.random() * (lastManga - 10)) + 1;
+      manga[randomGenreManga] = await Manga.find({ type: 'манга', genre: randomGenreManga }).skip(randomMangaId).limit(10);
+
+      res.status(200).json({ animation, manga });
+    } catch (e) {
+      console.log(e)
+    }
+  }
+)
+
 
 module.exports = router;

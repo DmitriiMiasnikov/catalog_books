@@ -21,7 +21,7 @@ export const ScrollItemsDom = ({ items, buttonScrollHandler, scrollPosition, nam
               {
                 items.map((el, i) => {
                   return (<div className={styles.item} key={i}>
-                    <ListItem view={'tile'} listName={name} item={el} />
+                    <ListItem view={'tile'} listName={name} item={el} descriptionOnHover={false}/>
                   </div>)
                 })
               }

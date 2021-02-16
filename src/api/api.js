@@ -16,6 +16,10 @@ export const getRandomOneApi = async () => {
   const res = await instance.get(`list/randomItems/id`);
   return res.data.randomItems;
 }
+export const getRandomItemsByGenreApi = async () => {
+  const res = await instance.get(`list/randomItems/byGenre`);
+  return res;
+}
 
 export const getUsersListApi = async () => {
   const res = await instance.get(`users/`);

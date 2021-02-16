@@ -4,7 +4,7 @@
     font-size: 24px;
     padding-bottom: 10px;
   }
-  .lastViewed {
+  .lastViewed, .randomItemsByGenre {
     display: flex;
     flex-direction: column;
     &:not(:first-child) {
