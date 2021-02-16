@@ -1,0 +1,53 @@
+.wrapper {
+  .button {
+    position: relative;
+    font-size: 15px;
+    background-color: var(--dark-button);
+    padding: 8px 0px 8px 20px;
+    transition: 0.2s background-color;
+    &:hover {
+      cursor: pointer;
+      background-color: var(--dark-button-hover);
+    }
+    div {
+      display: inline-block;
+      position: absolute;
+      right: 10px;
+      top: 7px;
+    }
+  }
+  .dropdownBlock {
+    left: 0px;
+    top: 0px;
+    position: relative;
+    transition: 0.3s height;
+    overflow: hidden;
+    .dropdownButton {
+      display: flex;
+      align-items: center;
+      height: 30px;
+      font-size: 13px;
+      background-color: var(--dark-button);
+      transition: 0.2s background-color;
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--dark-border-2);
+      }
+      &:hover {
+        cursor: pointer;
+        background-color: var(--dark-button-hover);
+      }
+
+      &.active {
+        pointer-events: none;
+        background-color: var(--pink-button-selected);
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--dark-font);
+        padding-left: 20px;
+        padding-right: 5px;
+      }
+    }
+  }
+}
