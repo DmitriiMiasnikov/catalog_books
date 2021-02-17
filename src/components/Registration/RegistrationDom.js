@@ -7,7 +7,20 @@ import close from './../../assets/Images/close.svg';
 export const RegistrationDom = ({ registrationHandler, inputs, validate, closeRegistration }) => {
   const refRegistration = useRef(null);
   const handleMouseClickLoginMenu = (e) => {
-    if (!e.path.includes(refRegistration.current)) {
+    function composedPath(el) {
+      const path = [];
+      while (el) {
+        path.push(el);
+        if (el.tagName === 'HTML') {
+          path.push(document);
+          path.push(window);
+          return path;
+        }
+        el = el.parentElement;
+      }
+    }
+    const path = e.path || (e.composedPath && e.composedPath()) || composedPath(e.target);
+    if (!path.includes(refRegistration.current)) {
       closeRegistration();
     }
   }

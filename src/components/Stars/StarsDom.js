@@ -7,7 +7,20 @@ export const StarsDom = ({ userFavoritesState, buttonHandler, currentUserId, sta
   hoverStarsHandler, starsClickHandler, starsVisible, direction }) => {
     const refStar = useRef(null);
     const handleMouseClick = (e) => {
-      if (!e.path.includes(refStar.current)) {
+      function composedPath(el) {
+        const path = [];
+        while (el) {
+          path.push(el);
+          if (el.tagName === 'HTML') {
+            path.push(document);
+            path.push(window);
+            return path;
+          }
+          el = el.parentElement;
+        }
+      }
+      const path = e.path || (e.composedPath && e.composedPath()) || composedPath(e.target);
+      if (!path.includes(refStar.current)) {
         buttonHandler(false);
       }
     }

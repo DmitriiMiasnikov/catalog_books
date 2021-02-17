@@ -8,7 +8,20 @@ export const ListSortersDom = ({ buttonsSort, sortHandler, showDropdownFunc, sho
   showButtonsSortHandler, showButtonsSort }) => {
     const refButtonSortBy = useRef(null);
     const handleMouseClickSort = (e) => {
-      if (!e.path.includes(refButtonSortBy.current)) {
+      function composedPath(el) {
+        const path = [];
+        while (el) {
+          path.push(el);
+          if (el.tagName === 'HTML') {
+            path.push(document);
+            path.push(window);
+            return path;
+          }
+          el = el.parentElement;
+        }
+      }
+      const path = e.path || (e.composedPath && e.composedPath()) || composedPath(e.target);
+      if (!path.includes(refButtonSortBy.current)) {
         showButtonsSortHandler(false);
       }
     }

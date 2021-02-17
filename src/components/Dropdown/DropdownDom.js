@@ -7,7 +7,20 @@ import angle from './../../assets/Images/angle.svg';
 export const DropdownDom = ({ dropdownState, openDropdown, itemsState, filterHandler, listName, isMobile }) => {
   const refDropdown = useRef(null);
   const handleMouseClick = (e) => {
-    if (!e.path.includes(refDropdown.current)) {
+    function composedPath(el) {
+      const path = [];
+      while (el) {
+        path.push(el);
+        if (el.tagName === 'HTML') {
+          path.push(document);
+          path.push(window);
+          return path;
+        }
+        el = el.parentElement;
+      }
+    }
+    const path = e.path || (e.composedPath && e.composedPath()) || composedPath(e.target);
+    if (!path.includes(refDropdown.current)) {
       openDropdown(-1);
     }
   }

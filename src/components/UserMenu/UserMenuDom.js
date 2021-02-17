@@ -12,7 +12,20 @@ export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, leftUser, isMobi
   showLoginBlockHandler, showLoginBlockMobile }) => {
   const refLoginMenu = useRef(null);
   const handleMouseClickLoginMenu = (e) => {
-    if (!e.path.includes(refLoginMenu.current)) {
+    function composedPath(el) {
+      const path = [];
+      while (el) {
+        path.push(el);
+        if (el.tagName === 'HTML') {
+          path.push(document);
+          path.push(window);
+          return path;
+        }
+        el = el.parentElement;
+      }
+    }
+    const path = e.path || (e.composedPath && e.composedPath()) || composedPath(e.target);
+    if (!path.includes(refLoginMenu.current)) {
       showLoginBlockHandler(false);
     }
   }
@@ -21,7 +34,7 @@ export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, leftUser, isMobi
     return () => document.removeEventListener('click', handleMouseClickLoginMenu, true)
   })
   return (
-    <div className={classnames(styles.wrapper, {[styles.loginBlockWrap]: !isAuth })}>
+    <div className={classnames(styles.wrapper, { [styles.loginBlockWrap]: !isAuth })}>
       {
         !isAuth ? (<>
           {
@@ -42,13 +55,13 @@ export const UserMenuDom = ({ myUserInfo, openUserInfo, isAuth, leftUser, isMobi
           {
             isMobile && <div className={classnames(styles.wrapperInfoUser, styles.infoUserMobile)}>
               <NavLink to={`/users/${myUserInfo.userId}`}>
-                  <span className={styles.name} onClick={() => openUserInfo(myUserInfo.userId)}>
-                    {myUserInfo.userName}
-                  </span>
-                </NavLink>
-                <div className={styles.button} onClick={() => leftUser()}>
-                  <img src={logout} alt='' />
-                </div>
+                <span className={styles.name} onClick={() => openUserInfo(myUserInfo.userId)}>
+                  {myUserInfo.userName}
+                </span>
+              </NavLink>
+              <div className={styles.button} onClick={() => leftUser()}>
+                <img src={logout} alt='' />
+              </div>
             </div>
           }
           {
