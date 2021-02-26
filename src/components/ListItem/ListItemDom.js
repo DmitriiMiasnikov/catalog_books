@@ -14,7 +14,7 @@ export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo, de
         <NavLink to={`/description/${listName}/${item[id]}`} onClick={() => openInfo(item[id])}
           className={classnames(styles.imgLink, styles[view])}>
           <img onError={(image) => { image.onerror = null; image.target.setAttribute('src', image_not_found) }}
-            src={`https://anime.amyasnikov.pro/${listName}_small/${listName}_cover_${item[id]}_small.jpg`}
+            src={`https://dmitrii.amyasnikov.pro/anime/${listName}_small/${listName}_cover_${item[id]}_small.jpg`}
             alt='' className={styles.image} />
         </NavLink>
         <div className={classnames(styles.info, { [styles.placeForButtons]: myUserInfo })}>
@@ -77,7 +77,7 @@ export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo, de
         <NavLink to={`/description/${listName}/${item[id]}`} onClick={() => openInfo(item[id])}
           className={classnames(styles.imgLink, styles[view])}>
           <img onError={(image) => { image.onerror = null; image.target.setAttribute('src', image_not_found) }}
-            src={`https://anime.amyasnikov.pro/${listName}_small/${listName}_cover_${item[id]}_small.jpg`}
+            src={`https://dmitrii.amyasnikov.pro/anime/${listName}_small/${listName}_cover_${item[id]}_small.jpg`}
             alt='' className={styles.image} />
         </NavLink>
         <div className={classnames(styles.info, { [styles.placeForButtons]: myUserInfo })}>
@@ -158,7 +158,7 @@ export const ListItemDom = ({ view, listName, id, openInfo, item, myUserInfo, de
           </div>
         </div>
         <img onError={(image) => { image.onerror = null; image.target.setAttribute('src', image_not_found) }}
-          src={`https://anime.amyasnikov.pro/${listName}_small/${listName}_cover_${item[id]}_small.jpg`}
+          src={`https://dmitrii.amyasnikov.pro/anime/${listName}_small/${listName}_cover_${item[id]}_small.jpg`}
           alt='' className={styles.image} />
         <div className={styles.text}>
           <div className={styles.title}>

@@ -45,7 +45,7 @@ export const DescriptionDom = ({ selectedDescription, catalogName, listNameUrl, 
           </span></div>}
         </div>
         <div className={styles.imageWrap}>
-          <img src={`https://anime.amyasnikov.pro/${catalogName}/${catalogName}_cover_${selectedDescription[`${catalogName}Id`]}.jpg`} 
+          <img src={`https://dmitrii.amyasnikov.pro/anime/${catalogName}/${catalogName}_cover_${selectedDescription[`${catalogName}Id`]}.jpg`} 
             alt='img' className={styles.image} />
           <div className={styles.controlPanel}>
             <Stars list={listNameUrl} currentId={selectedDescription[`${listNameUrl}Id`]} />
